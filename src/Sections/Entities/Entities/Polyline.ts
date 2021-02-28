@@ -1,5 +1,3 @@
-import Point    from "./Point.js";
-import Vertex   from "./Vertex.js";
 import Entity   from "../Entity.js";
 import Tag      from "../../../Internals/Tag.js";
 
@@ -8,13 +6,13 @@ export default class Polyline extends Entity
     get flag(): number {
         return this._flag;
     }
-    get points(): Point[] {
+    get points(): number[][] {
         return this._points;
     }
-    private readonly _points: Point[];
+    private readonly _points: number[][];
     private readonly _flag: number;
 
-    public constructor(points: Point[], flag: number, layer: string) {
+    public constructor(points: number[][], flag: number, layer: string) {
         super('LWPOLYLINE', layer, 'AcDbPolyline');
         this._points = points;
         this._flag = flag;
@@ -25,8 +23,8 @@ export default class Polyline extends Entity
         tags.push(new Tag(90, this.points.length));
         tags.push(new Tag(70, this.flag));
         this.points.forEach((point) => {
-            tags.push(new Tag(10, point.x));
-            tags.push(new Tag(20, point.y));
+            tags.push(new Tag(10, point[0]));
+            tags.push(new Tag(20, point[1]));
         });
         return tags;
     }

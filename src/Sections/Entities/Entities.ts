@@ -67,14 +67,14 @@ export default class Entities
         );
     }
 
-    public addPolyline(points: Point[], flag: number, layer: string)
+    public addPolyline(points: number[][], flag: number, layer: string)
     {
         this._polylines.push(
             new Polyline(points, flag, layer)
         );
     }
 
-    public addPolyline3D(points: Point[], flag: number, layer: string)
+    public addPolyline3D(points: number[][], flag: number, layer: string)
     {
         this._polylines3D.push(
             new Polyline3D(points, flag, layer)
@@ -106,9 +106,9 @@ export default class Entities
     }
 
     public addSpline(
-        controlPoints: Point[], curveDegree: number,
+        controlPoints: number[][], curveDegree: number,
         flag: number, knots: number[],
-        weights: number[], fitPoints: Point[], layer: string
+        weights: number[], fitPoints: number[][], layer: string
     )
     {
         this._splines.push(

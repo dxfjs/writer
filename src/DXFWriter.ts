@@ -1,7 +1,5 @@
 import Tag          from "./Internals/Tag.js";
 import Standard     from "./Internals/Standard.js";
-import Point        from "./Sections/Entities/Entities/Point.js";
-
 import Header       from "./Sections/Header/Header.js";
 import Tables       from "./Sections/Tables/Tables.js";
 import Blocks       from "./Sections/Blocks/Blocks.js";
@@ -61,25 +59,27 @@ export default class DXFWriter extends Standard {
         return this;
     }
 
-    public addPolyline(points: Point[], flag: number)
+    public addPolyline(points: number[][], flag: number)
     {
         this._entities.addPolyline(points, flag, this.currentLayer);
         return this;
     }
 
-    public addRectangle(top_left: Point, bottom_right: Point)
-    {
+    public addRectangle (
+        top_left_x: number, top_left_y: number,
+        bottom_right_x: number, bottom_right_y: number
+    ) {
         const corners = [
-            new Point(top_left.x, top_left.y, 0, this.currentLayer),
-            new Point(bottom_right.x, top_left.y, 0, this.currentLayer),
-            new Point(bottom_right.x, bottom_right.y, 0, this.currentLayer),
-            new Point(top_left.x, bottom_right.y, 0, this.currentLayer)
+            [top_left_x, top_left_y],
+            [bottom_right_x, top_left_y],
+            [bottom_right_x, bottom_right_y],
+            [top_left_x, bottom_right_y]
         ];
         this._entities.addPolyline(corners, 1, this.currentLayer);
         return this;
     }
 
-    public addPolyline3D(points: Point[], flag: number)
+    public addPolyline3D(points: number[][], flag: number)
     {
         this._entities.addPolyline3D(points, flag, this.currentLayer);
         return this;
@@ -104,9 +104,9 @@ export default class DXFWriter extends Standard {
         return this;
     }
 
-    public addSpline(controlPoints: Point[], curveDegree: number,
+    public addSpline(controlPoints: number[][], curveDegree: number,
                      flag: number, knots: number[],
-                     weights: number[], fitPoints: Point[])
+                     weights: number[], fitPoints: number[][])
     {
         this._entities.addSpline(controlPoints, curveDegree, flag, knots, weights, fitPoints, this.currentLayer);
         return this;

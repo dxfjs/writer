@@ -1,5 +1,4 @@
 import Entity from "../Entity.js";
-import Point from "./Point.js";
 import Vertex from "./Vertex.js";
 import Tag from "../../../Internals/Tag.js";
 
@@ -8,12 +7,12 @@ export default class Polyline3D extends Entity
     get flag(): number {
         return this._flag;
     }
-    get points(): Point[] {
+    get points(): number[][] {
         return this._points;
     }
-    private readonly _points: Point[];
+    private readonly _points: number[][];
     private readonly _flag: number;
-    public constructor(points: Point[], flag: number, layer: string) {
+    public constructor(points: number[][], flag: number, layer: string) {
         super('POLYLINE', layer, 'AcDb3dPolyline');
         this._points = points;
         this._flag = flag;

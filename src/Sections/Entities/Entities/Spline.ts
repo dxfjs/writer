@@ -1,10 +1,9 @@
-import Point from "./Point.js";
 import Entity from "../Entity.js";
 import Tag from "../../../Internals/Tag.js";
 
 export default class Spline extends Entity
 {
-    get fit_points(): Point[] {
+    get fit_points(): number[][] {
         return this._fit_points;
     }
     get weights(): number[] {
@@ -19,18 +18,18 @@ export default class Spline extends Entity
     get curve_degree(): number {
         return this._curve_degree;
     }
-    get control_points(): Point[] {
+    get control_points(): number[][] {
         return this._control_points;
     }
-    private readonly _control_points: Point[];
+    private readonly _control_points: number[][];
     private readonly _curve_degree: number;
     private readonly _knots: number[];
     private readonly _weights: number[];
     private readonly _flag: number;
-    private readonly _fit_points: Point[];
+    private readonly _fit_points: number[][];
     public constructor(
-        control_points: Point[], curve_degree: number, flag: number, knots: number[],
-        weights: number[], fit_points: Point[], layer: string
+        control_points: number[][], curve_degree: number, flag: number, knots: number[],
+        weights: number[], fit_points: number[][], layer: string
     )
     {
         super('SPLINE', layer, 'AcDbSpline');
@@ -70,14 +69,14 @@ export default class Spline extends Entity
             tags.push(new Tag(40, knot));
         })
         this.control_points.forEach((point) => {
-            tags.push(new Tag(10, point.x))
-            tags.push(new Tag(20, point.y))
-            tags.push(new Tag(30, point.z))
+            tags.push(new Tag(10, point[0]))
+            tags.push(new Tag(20, point[1]))
+            tags.push(new Tag(30, point[2]))
         })
         this.fit_points.forEach((point) => {
-            tags.push(new Tag(11, point.x))
-            tags.push(new Tag(21, point.y))
-            tags.push(new Tag(31, point.z))
+            tags.push(new Tag(11, point[0]))
+            tags.push(new Tag(21, point[1]))
+            tags.push(new Tag(31, point[2]))
         })
         return tags;
     }

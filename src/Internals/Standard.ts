@@ -1,5 +1,3 @@
-import Tag from "./Tag.js";
-
 export default class Standard
 {
     static versions = {
