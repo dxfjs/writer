@@ -1,14 +1,15 @@
 {
-  "name": "js-dxf",
+  "name": "dxf",
   "version": "0.0.1",
-  "description": "JavaScript interface to DXF written in TypeScript.",
-  "main": "lib/index.js",
+  "description": "A simple JavaScript interface to DXF written in TypeScript.",
+  "main": "lib/DXFWriter.js",
   "type": "module",
-  "repository": "https://github.com/tarikjabiri/js-dxf",
+  "repository": "https://github.com/tarikjabiri/dxf",
   "author": "Tarik EL JABIRI",
   "license": "MIT",
   "scripts": {
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
