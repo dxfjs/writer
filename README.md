@@ -3,7 +3,7 @@
 
 DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
 
-> influenced by [js_dxf](https://github.com/ognjen-petrovic/js-dxf)
+> influenced by [js-dxf](https://github.com/ognjen-petrovic/js-dxf)
 
 - Now it's supporting AC1021 and above.
 - Creating minimal dxf content possible.
