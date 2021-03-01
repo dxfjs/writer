@@ -13,6 +13,10 @@ export default class DXFWriter extends Standard {
         return this._currentLayer;
     }
 
+    set currentLayer(name: string) {
+        this._currentLayer = name;
+    }
+
     private _currentLayer: string = '0'
 
     private _header:    Header;
@@ -49,7 +53,8 @@ export default class DXFWriter extends Standard {
 
     public setCurrentLayer(name: string)
     {
-        this._currentLayer = name;
+        this.currentLayer = name;
+        return this;
     }
 
     public addLine(x_start: number, y_start: number,
