@@ -35,7 +35,7 @@ dxf.addPolyline3D([
 
 dxf.addArc(0, 0, 120, 0, 120);
 dxf.addPoint(65, -30, 0);
-dxf.addEllipse(200, 100, 100, 200, 1, 0, 3.14 * 2);
+dxf.addEllipse(200, 100, 100, 50, 0.45, 0, 3.14 * 2);
 
 dxf.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
 
