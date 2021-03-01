@@ -14,7 +14,7 @@ export default class Standard
     protected _version: string;
     static handleSeed: number = 0;
 
-    protected constructor(version: string = Standard.versions.R12)
+    protected constructor(version: string = Standard.versions.R2007)
     {
         this._version = version;
     }

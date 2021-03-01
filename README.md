@@ -7,26 +7,26 @@ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files
 
 - Now it's supporting AC1021 and above.
 - Creating minimal dxf content possible.
-- Tested on AutoCAD and LibreCAD
+- Tested on AutoCAD,LibreCAD and DWG FastView on mobile.
 
 ## To test the DXF Library
 ### Clone the repository
-```sh
+```bash
 git clone https://github.com/tarikjabiri/dxf.git
 ```
 ### Install dependencies
-```sh
+```bash
 cd dxf
 yarn install
 ```
 ### Build the code
-```sh
+```bash
 yarn run build
 ```
 
 ### Run the example code
-```sh
-node examples\example.js 
+```bash
+node examples/example.js 
 ```
 ## Node.js code example
 ```javascript
@@ -41,38 +41,38 @@ let points = [
     [15, 15, 0],
     [30, 10, 0],
     [30, 0, 0]
-]
+];
+dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.35])
+    .addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525])
+    .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175]);
 
-dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.35]);
-dxf.addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525]);
-dxf.addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175]);
+dxf.addLayer('l_red', 1, 'DOT2', 0)
+    .addLayer('l_green', 3, 'CONTINUOUS', 0)
+    .addLayer('l_cyan', 4, 'CONTINUOUS', 0);
 
-dxf.addLayer('l_red', 1, 'DOT2', 0);
-dxf.addLayer('l_green', 3, 'CONTINUOUS', 0);
-dxf.addLayer('l_cyan', 4, 'CONTINUOUS', 0);
-
-dxf.setCurrentLayer('l_green');
-dxf.addSpline(points, 3, 0, [0, 0, 0, 0, 0.5, 2, 2, 2, 2], [], []);
-dxf.setCurrentLayer('l_red');
-dxf.addCircle(60, 150, 50);
-dxf.addRectangle(20, 20,100, 100);
-dxf.setCurrentLayer('l_cyan');
-dxf.addText(30, 30, 5, "Hello World");
-
-dxf.addPolyline3D([
-    [70, 70, 50],
-    [150, 70, 0],
-    [170, 170, 150]
-], 0);
-
-dxf.addArc(0, 0, 120, 0, 120);
-dxf.addPoint(65, -30, 0);
-dxf.addEllipse(200, 100, 100, 50, 1, 0, 3.14 * 2);
-
-dxf.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
+dxf.setCurrentLayer('l_green')
+    .addSpline(points, 3, 0, [0, 0, 0, 0, 0.5, 2, 2, 2, 2], [], [])
+    .setCurrentLayer('l_red')
+    .addCircle(60, 150, 50)
+    .addRectangle(20, 20,100, 100)
+    .setCurrentLayer('l_cyan')
+    .addText(30, 30, 5, "Hello World")
+    .addPolyline3D([
+        [70, 70, 50],
+        [150, 70, 0],
+        [170, 170, 150]
+    ], 0)
+    .addArc(0, 0, 120, 0, 120)
+    .addPoint(65, -30, 0)
+    .addEllipse(200, 100, 100, 50,
+        0.45, 0, 3.14 * 2)
+    .add3DFace(
+        0, 0, 10,
+        20, 0, 10,
+        20, -20, 20,
+        0, -20, 20);
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
-
 ```
 
 ## Entities supported
@@ -92,6 +92,7 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 - [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
 - [ezdxf](https://ezdxf.readthedocs.io/en/stable/)
 - [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
+- [js-dxf](https://github.com/ognjen-petrovic/js-dxf)
 ## License
 
 MIT
