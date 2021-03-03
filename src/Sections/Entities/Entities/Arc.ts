@@ -4,9 +4,6 @@ import Tag from "../../../Internals/Tag.js";
 
 export default class Arc extends Entity
 {
-    get layer(): string {
-        return this._layer;
-    }
     get endAngle(): number {
         return this._endAngle;
     }

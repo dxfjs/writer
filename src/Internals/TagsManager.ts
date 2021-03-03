@@ -1,7 +1,7 @@
 import Tag from "./Tag.js";
 import Standard from "./Standard.js";
 
-export default class TagsManager extends Standard{
+export default class TagsManager extends Standard {
     public tags(): Tag[] {
         return this._tags;
     }

@@ -1,32 +1,18 @@
 * {
     box-sizing: border-box;
+    margin: 0;
 }
 .container {
     display: flex;
     flex-wrap: wrap;
+    width: 608px;
+    border: 4px solid #4a148c;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 0 10px #8e24aa;
 }
 .color {
-    flex: 1 0 9%;
-    height: 100px;
+    height: 30px;
+    width: 30px;
     color: #fff;
-    margin: 5px;
-    border: 1px solid rgba(0,0,0,0.5);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.txt {
-    background-color: white;
-    margin: auto;
-    color: black;
-    padding: 2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }

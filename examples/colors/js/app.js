@@ -259,15 +259,10 @@ const colors = [
 const container = document.getElementsByClassName('container')[0];
 colors.forEach((color) => {
     let el = document.createElement('div');
-    let p = document.createElement('p');
     el.classList.add('color');
-    p.classList.add('txt');
-    p.innerText = color[1];
-    el.appendChild(p);
     const red = color[0][0] === '0' ? '00': color[0][0];
     const green = color[0][1] === '0' ? '00': color[0][1];
     const blue = color[0][2] === '0' ? '00': color[0][2];
     el.style.backgroundColor = `#${red}${green}${blue}`;
-    console.log(`#${red}${green}${blue}`)
     container.appendChild(el);
 });

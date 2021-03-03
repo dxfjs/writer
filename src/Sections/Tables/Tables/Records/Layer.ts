@@ -52,8 +52,8 @@ export default class Layer extends TagsManager {
     }
 
     public stringify(): string {
-            return this.tags().reduce((str, tag) => {
-                return `${str}${tag.stringify()}`;
-            }, '');
-        }
+        return this.tags().reduce((str, tag) => {
+            return `${str}${tag.stringify()}`;
+        }, '');
     }
+}

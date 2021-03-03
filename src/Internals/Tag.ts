@@ -1,21 +1,47 @@
+import DXFManager from "./DXFManager";
 export default class Tag {
+    set groupCode(value: number) {
+        this._groupCode = value;
+    }
+    get nullable(): boolean {
+        return this._nullable;
+    }
+    set nullable(value: boolean) {
+        this._nullable = value;
+    }
+    get version(): string {
+        return this._version;
+    }
+    set version(value: string) {
+        this._version = value;
+    }
     set value(value: number | string) {
         this._value = value;
     }
-    get group_code(): number {
-        return this._group_code;
+    get groupCode(): number {
+        return this._groupCode;
     }
     get value(): number | string {
         return this._value;
     }
-    private readonly _group_code: number;
+    private _groupCode: number;
+    private _nullable: boolean = true;
     private _value: number | string;
-    public constructor(group_code: number, value: number | string) {
-        this._group_code = group_code;
+    private _version: string;
+    public constructor (
+        groupCode: number, value: number | string = '',
+        version: string = DXFManager.versions.R12,
+        nullable: boolean = true
+    ) {
+        this._nullable = nullable;
+        this._version = version;
+        this._groupCode = groupCode;
         this._value = value;
     }
-
     public stringify():string {
-        return `  ${this.group_code}\n${this.value}\n`;
+        if (this.nullable || this.value !== '') {
+            return `  ${this.groupCode}\n${this.value}\n`;
+        }
+        return '';
     }
 };

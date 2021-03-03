@@ -1,7 +1,7 @@
 import DXFWriter from "../lib/DXFWriter.js";
 import * as fs from 'fs';
 
-const dxf = new DXFWriter('AC1021');
+const dxf = new DXFWriter();
 dxf.addLine(0, 0, 100, 100);
 let points = [
     [0, 0, 0],

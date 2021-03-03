@@ -26,7 +26,7 @@ export default class DXFWriter extends Standard {
     private _entities:  Entities;
     private _objects:   Objects;
 
-    public constructor(version: string) {
+    public constructor(version: string = Standard.versions.R2007) {
         super();
         this._header    = new Header(version);
         this._classes   = new Classes();
