@@ -36,7 +36,7 @@ export default class PointComponent implements DXFInterface{
     private readonly _y: Tag;
     private readonly _z: Tag;
     private _digit: number = 0;
-    private _is3D: boolean;
+    private readonly _is3D: boolean;
     public constructor(
         x: number, y: number, z: number,
         is3D: boolean = false, digit: number = 0

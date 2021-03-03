@@ -1,5 +1,5 @@
-import Tag from "../Tag";
-import DXFInterface from "../Interfaces/DXFInterface";
+import Tag from "../Tag.js";
+import DXFInterface from "../Interfaces/DXFInterface.js";
 
 export default class StandardComponent implements DXFInterface {
     private _tags: Tag[] = [];

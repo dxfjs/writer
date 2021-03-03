@@ -1,8 +1,9 @@
-import Tag from "../../Internals/Tag.js";
-import Standard from "../../Internals/Standard.js";
-import EntityTypeComponent from "../../Internals/Components/EntityTypeComponent";
-import LayerComponent from "../../Internals/Components/LayerComponent";
-import SubclassMarkerComponent from "../../Internals/Components/SubclassMarkerComponent";
+import Tag                      from "../../Internals/Tag.js";
+import Standard                 from "../../Internals/Standard.js";
+import LayerComponent           from "../../Internals/Components/LayerComponent.js";
+import HandleComponent          from "../../Internals/Components/HandleComponent.js";
+import EntityTypeComponent      from "../../Internals/Components/EntityTypeComponent.js";
+import SubclassMarkerComponent  from "../../Internals/Components/SubclassMarkerComponent.js";
 
 export default class Entity extends Standard
 {
@@ -26,12 +27,12 @@ export default class Entity extends Standard
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, this.type));
-        tags.push(new Tag(5, this.handle()));
-        tags.push(new Tag(100, 'AcDbEntity'));
-        tags.push(new Tag(8, this.layer));
-        tags.push(new Tag(100, this.subclass));
-        return tags;
+        return [
+            ...this._type.tags(),
+            ...new HandleComponent(this.handle()).tags(),
+            ...new SubclassMarkerComponent('AcDbEntity').tags(),
+            ...this._layer.tags(),
+            ...this._subclass.tags()
+        ];
     }
 }

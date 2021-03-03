@@ -1,5 +1,3 @@
-import Tag from "./Tag";
-
 export default class DXFManager {
     get handle(): string {
         return this._handle;

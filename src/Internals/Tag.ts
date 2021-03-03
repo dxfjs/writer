@@ -1,4 +1,4 @@
-import DXFManager from "./DXFManager";
+import DXFManager from "./DXFManager.js";
 export default class Tag {
     set groupCode(value: number) {
         this._groupCode = value;

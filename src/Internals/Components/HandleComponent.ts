@@ -1,7 +1,7 @@
-import Tag from "../Tag";
-import DXFInterface from "../Interfaces/DXFInterface";
+import Tag from "../Tag.js";
+import DXFInterface from "../Interfaces/DXFInterface.js";
 
-export default class ThicknessComponent implements DXFInterface {
+export default class HandleComponent implements DXFInterface {
     get handle(): string {
         return this._handle.value.toString();
     }
@@ -10,7 +10,7 @@ export default class ThicknessComponent implements DXFInterface {
     }
     private readonly _handle: Tag;
     public constructor(handle : string) {
-        this._handle = new Tag(100, handle );
+        this._handle = new Tag(5, handle );
     }
     stringify(): string {
         return this._handle.stringify();
