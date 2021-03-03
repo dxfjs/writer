@@ -36,6 +36,7 @@ export default class PointComponent implements DXFInterface{
     private readonly _y: Tag;
     private readonly _z: Tag;
     private _digit: number = 0;
+    private _is3D: boolean;
     public constructor(
         x: number, y: number, z: number,
         is3D: boolean = false, digit: number = 0
@@ -43,6 +44,7 @@ export default class PointComponent implements DXFInterface{
         this._x = new Tag(parseInt(`1${digit}`), x);
         this._y = new Tag(parseInt(`2${digit}`), y);
         this._z = new Tag(parseInt(`3${digit}`), z);
+        this._is3D = is3D;
         this._digit = digit;
     }
 
@@ -50,10 +52,11 @@ export default class PointComponent implements DXFInterface{
         let str = '';
         str += this._x.stringify();
         str += this._y.stringify();
-        str += this._z.stringify();
+        if (this._is3D) str += this._z.stringify();
         return str;
     }
     tags(): Tag[] {
-        return [this._x, this._y, this._z];
+        if (this._is3D) return [this._x, this._y, this._z];
+        return [this._x, this._y];
     }
 }
