@@ -44,9 +44,10 @@ let points = [
 ];
 dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.35])
     .addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525])
-    .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175]);
+    .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175])
+    .addLineType('DASHED', 'Dashed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [12.7,-6.35]);
 
-dxf.addLayer('l_red', DXFWriter.colors.Red, 'DOT2', 0)
+dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED', 0)
     .addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS', 0)
     .addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS', 0);
 
@@ -75,7 +76,7 @@ dxf.setCurrentLayer('l_green')
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 ```
 ## Example preview in AutoCAD 2018
-![ac_2018](https://user-images.githubusercontent.com/6343314/109976246-d9f0bb00-7cfb-11eb-91d0-14e5831b6f6e.PNG)
+![AutoCAD 2018](https://user-images.githubusercontent.com/6343314/109976246-d9f0bb00-7cfb-11eb-91d0-14e5831b6f6e.PNG)
 ## Entities supported
 
 - ARC
@@ -96,6 +97,8 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 - Blue
 - Magenta
 - White
+- Black
+- Yellow
 
 
 ## References used in development

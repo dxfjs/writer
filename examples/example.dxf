@@ -9,7 +9,7 @@ AC1021
   9
 $HANDSEED
   5
-48
+49
   0
 ENDSEC
   0
@@ -37,7 +37,7 @@ AcDbSymbolTable
   0
 VPORT
   5
-32
+33
   330
 2
   100
@@ -329,6 +329,36 @@ Dot (.5x) .....................................
   74
 0
   0
+LTYPE
+  5
+1E
+  330
+3
+  100
+AcDbSymbolTableRecord
+  100
+AcDbLinetypeTableRecord
+  2
+DASHED
+  70
+0
+  3
+Dashed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  72
+65
+  73
+2
+  40
+19.049999999999997
+  49
+12.7
+  74
+0
+  49
+-6.35
+  74
+0
+  0
 ENDTAB
   0
 TABLE
@@ -367,7 +397,7 @@ CONTINUOUS
   0
 LAYER
   5
-1E
+1F
   330
 4
   100
@@ -381,7 +411,7 @@ l_red
   62
 1
   6
-DOT2
+DASHED
   370
 0
   390
@@ -389,7 +419,7 @@ DOT2
   0
 LAYER
   5
-1F
+20
   330
 4
   100
@@ -411,7 +441,7 @@ CONTINUOUS
   0
 LAYER
   5
-20
+21
   330
 4
   100
@@ -741,7 +771,7 @@ BLOCKS
   0
 BLOCK
   5
-33
+34
   330
 B
   100
@@ -767,7 +797,7 @@ AcDbBlockBegin
   0
 ENDBLK
   5
-34
+35
   330
 B
   100
@@ -779,7 +809,7 @@ AcDbBlockEnd
   0
 BLOCK
   5
-35
+36
   330
 C
   100
@@ -805,7 +835,7 @@ AcDbBlockBegin
   0
 ENDBLK
   5
-36
+37
   330
 C
   100
@@ -823,7 +853,7 @@ ENTITIES
   0
 POINT
   5
-37
+38
   100
 AcDbEntity
   8
@@ -839,7 +869,7 @@ AcDbPoint
   0
 LINE
   5
-38
+39
   100
 AcDbEntity
   8
@@ -861,7 +891,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-39
+3A
   100
 AcDbEntity
   8
@@ -891,7 +921,7 @@ AcDbPolyline
   0
 POLYLINE
   5
-3A
+3B
   100
 AcDbEntity
   8
@@ -911,7 +941,7 @@ AcDb3dPolyline
   0
 VERTEX
   5
-3C
+3D
   100
 AcDbEntity
   8
@@ -931,7 +961,7 @@ AcDb3dPolylineVertex
   0
 VERTEX
   5
-3E
+3F
   100
 AcDbEntity
   8
@@ -951,7 +981,7 @@ AcDb3dPolylineVertex
   0
 VERTEX
   5
-40
+41
   100
 AcDbEntity
   8
@@ -971,7 +1001,7 @@ AcDb3dPolylineVertex
   0
 SEQEND
   5
-41
+42
   100
 AcDbEntity
   8
@@ -979,7 +1009,7 @@ l_cyan
   0
 CIRCLE
   5
-42
+43
   100
 AcDbEntity
   8
@@ -997,7 +1027,7 @@ AcDbCircle
   0
 ARC
   5
-43
+44
   100
 AcDbEntity
   8
@@ -1021,7 +1051,7 @@ AcDbArc
   0
 SPLINE
   5
-44
+45
   100
 AcDbEntity
   8
@@ -1095,7 +1125,7 @@ AcDbSpline
   0
 ELLIPSE
   5
-45
+46
   100
 AcDbEntity
   8
@@ -1123,7 +1153,7 @@ AcDbEllipse
   0
 3DFACE
   5
-46
+47
   100
 AcDbEntity
   8
@@ -1157,7 +1187,7 @@ AcDbFace
   0
 TEXT
   5
-47
+48
   100
 AcDbEntity
   8

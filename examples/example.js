@@ -12,9 +12,10 @@ let points = [
 ];
 dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.35])
     .addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525])
-    .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175]);
+    .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175])
+    .addLineType('DASHED', 'Dashed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [12.7,-6.35]);
 
-dxf.addLayer('l_red', DXFWriter.colors.Red, 'DOT2', 0)
+dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED', 0)
     .addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS', 0)
     .addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS', 0);
 

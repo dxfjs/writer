@@ -25,7 +25,8 @@ export default class DXFManager {
     };
     static colors = {
         Red:        1, Green:      3, Cyan:       4,
-        Blue:       5, Magenta:    6, White:      7
+        Blue:       5, Magenta:    6, White:      7,
+        Black:      0, Yellow:     2,
     }
     static version: string;
     static handleSeed: number = 0;
