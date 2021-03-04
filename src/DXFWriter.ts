@@ -35,7 +35,7 @@ export default class DXFWriter extends DXFManager {
         return this;
     }
 
-    public addLayer(name: string, color: number, ltype: string, flag: number): DXFWriter {
+    public addLayer(name: string, color: number, ltype: string, flag: number = 0): DXFWriter {
         this._tables.addLayer(name, color, ltype, flag);
         return this;
     }

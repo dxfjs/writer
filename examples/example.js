@@ -11,13 +11,14 @@ let points = [
     [30, 0, 0]
 ];
 dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.35])
-    .addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525])
+    .addLineType('ACAD_ISO11W100', '__ __ . __ __ . __ __ . _', [12.0, -3.0, 12.0, -3.0, 0.0, -3.0])
     .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175])
     .addLineType('DASHED', 'Dashed _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [12.7,-6.35]);
 
-dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED', 0)
-    .addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS', 0)
-    .addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS', 0);
+dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED')
+    .addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS')
+    .addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS')
+    .addLayer('l_yellow', DXFWriter.colors.Yellow, 'ACAD_ISO11W100');
 
 dxf.setCurrentLayer('l_green')
     .addSpline(points, 3, 0, [0, 0, 0, 0, 0.5, 2, 2, 2, 2], [], [])
@@ -33,6 +34,7 @@ dxf.setCurrentLayer('l_green')
     ], 0)
     .addArc(0, 0, 120, 0, 120)
     .addPoint(65, -30, 0)
+    .setCurrentLayer('l_yellow')
     .addEllipse(200, 100, 100, 50,
         0.4243, 0, 2 * Math.PI)
     .add3DFace(
