@@ -15,8 +15,9 @@ export default class DXFWriter extends DXFManager {
     private _objects:   Objects;
 
     public constructor(version: string = DXFManager.versions.R2007) {
-        super(version);
-        this._header    = new Header(version);
+        super();
+        this.setVersion(version);
+        this._header    = new Header();
         this._classes   = new Classes();
         this._tables    = new Tables();
         this._blocks    = new Blocks();
@@ -49,6 +50,11 @@ export default class DXFWriter extends DXFManager {
 
     public setUnit(unit: number): DXFWriter {
         this._header.unit = unit;
+        return this;
+    }
+
+    public setVersion(version: string): DXFWriter {
+        DXFManager.version = version;
         return this;
     }
 

@@ -4,7 +4,7 @@ import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
 
 export default class View extends DXFManager implements DXFInterface {
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public stringify(): string {

@@ -20,7 +20,7 @@ export default class APPID extends DXFManager implements DXFInterface {
     private readonly _flag: number;
     private _handleToOwner: string;
     public constructor(name: string, flag: number) {
-        super(DXFManager.version);
+        super();
         this._appIDName = name;
         this._flag = flag;
         this._handleToOwner = '0';

@@ -28,7 +28,7 @@ export default class Layer extends DXFManager implements DXFInterface {
     private readonly _flag: number;
     private _handleToOwner: string;
     public constructor(name: string, color: number, ltype: string, flag: number) {
-        super(DXFManager.version);
+        super();
         this._layerName = name;
         this._colorIndex = color;
         this._ltype = ltype;

@@ -8,7 +8,7 @@ export default class LayerTable extends DXFManager {
     }
     private _layers: Layer[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addLayer(name: string, color: number, lineType: string, flag: number) {

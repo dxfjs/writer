@@ -8,7 +8,7 @@ export default class LineTypeTable extends DXFManager {
     }
     private _lineTypes: LineType[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addLineType(name: string, descriptive: string, elements: number []) {

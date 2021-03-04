@@ -8,7 +8,7 @@ export default class APPIDTable extends DXFManager {
     }
     private _appIDs: APPID[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addAPPID(name: string, flag: number) {

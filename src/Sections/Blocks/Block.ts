@@ -15,7 +15,7 @@ export default class Block extends DXFManager {
     private readonly _blockName: string;
     private _handleToOwner: string;
     public constructor(name: string) {
-        super(DXFManager.version);
+        super();
         this._blockName = name;
         this._handleToOwner = '0';
     }

@@ -8,7 +8,7 @@ export default class UCSTable extends DXFManager {
     }
     private _ucss: UCS[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addUCS() {

@@ -24,7 +24,7 @@ export default class BlockRecordTable extends DXFManager {
     private _modelHandle: string = '';
     private _paperHandle: string = '';
     public constructor() {
-        super(DXFManager.version);
+        super();
         this._blockRecords.push(new BlockRecord('*Model_Space'));
         this._blockRecords.push(new BlockRecord('*Paper_Space'));
     }

@@ -8,7 +8,7 @@ export default class DIMStyleTable extends DXFManager {
     }
     private _dimStyles: DIMStyle[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addDIMStyle(name: string, flag: number) {

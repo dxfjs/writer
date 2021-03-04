@@ -24,7 +24,7 @@ export default class LineType extends DXFManager implements DXFInterface {
     private readonly _elements: number [];
     private _handleToOwner: string;
     public constructor(name: string, descriptive: string, elements: number []) {
-        super(DXFManager.version);
+        super();
         this._lineTypeName = name;
         this._descriptive = descriptive;
         this._elements = elements;

@@ -16,7 +16,7 @@ export default class BlockRecord extends DXFManager implements DXFInterface {
     private readonly _blockRecordName: string;
     private _handleToOwner: string;
     public constructor(name: string) {
-        super(DXFManager.version);
+        super();
         this._blockRecordName = name;
         this._handleToOwner = '0';
     }

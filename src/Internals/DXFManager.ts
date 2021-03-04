@@ -55,14 +55,12 @@ export default class DXFManager {
         USSurveyYard: 23,
         USSurveyMile: 24,
     }
-    static version: string;
-    static handleSeed: number = 0;
-    private _handle: string;
-    static currentLayer: string;
-    protected constructor(version: string) {
-        DXFManager.version = version;
+    static version:         string;
+    static handleSeed:      number = 0;
+    private _handle:        string;
+    static currentLayer:    string = '0';
+    protected constructor() {
         this._handle = this.handleSeed();
-        DXFManager.currentLayer = '0'
     }
     protected isInteger(value: number): boolean {
         return Number(value) === value && value % 1 === 0;

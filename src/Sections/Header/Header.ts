@@ -13,24 +13,16 @@ export default class Header {
     get variables(): Variable[] {
         return this._variables;
     }
-    get version(): string {
-        return this._version;
-    }
-    set version(value: string) {
-        this._version = value;
-    }
     get handSeed(): string {
         return this._handSeed;
     }
     set handSeed(value: string) {
         this._handSeed = value;
     }
-    private _version: string;
     private _handSeed: string;
     private _unit: number;
     private _variables: Variable[] = [];
-    public constructor(version: string, unit: number = DXFManager.units.Unitless) {
-        this._version = version;
+    public constructor(unit: number = DXFManager.units.Unitless) {
         this._handSeed = '999999';
         this._unit = unit;
     }
@@ -41,7 +33,7 @@ export default class Header {
 
     public tags(): Tag[] {
         const tags = [
-            ...new Variable('ACADVER', 1, this.version).tags(),
+            ...new Variable('ACADVER', 1, DXFManager.version).tags(),
             ...new Variable('HANDSEED', 5, this.handSeed).tags(),
             ...new Variable('INSUNITS', 70, this.unit).tags()
         ];

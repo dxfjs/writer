@@ -12,7 +12,7 @@ export default class ViewPort extends DXFManager implements DXFInterface {
     }
     private _handleToOwner: string;
     public constructor() {
-        super(DXFManager.version);
+        super();
         this._handleToOwner = '0';
     }
     public tags(): Tag[] {

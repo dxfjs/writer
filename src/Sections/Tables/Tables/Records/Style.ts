@@ -16,7 +16,7 @@ export default class Style extends DXFManager implements DXFInterface {
     private readonly _styleName: string;
     private _handleToOwner: string;
     public constructor(name: string) {
-        super(DXFManager.version);
+        super();
         this._styleName = name;
         this._handleToOwner = '0';
     }

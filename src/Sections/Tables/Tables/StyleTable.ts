@@ -8,7 +8,7 @@ export default class StyleTable extends DXFManager {
     }
     private _styles: Style[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
     public addStyle(name: string) {
         this._styles.push(new Style(name));

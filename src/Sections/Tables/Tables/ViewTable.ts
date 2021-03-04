@@ -8,7 +8,7 @@ export default class ViewTable extends DXFManager {
     }
     private _views: View[] = [];
     public constructor() {
-        super(DXFManager.version);
+        super();
     }
 
     public addView() {

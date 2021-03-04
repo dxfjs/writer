@@ -14,7 +14,7 @@ export default class Dictionary extends DXFManager implements DXFInterface{
     private readonly _dictionaryName: string = '';
     private _secondHandle: string;
     public constructor(name: string = '') {
-        super(DXFManager.version);
+        super();
         this._dictionaryName = name;
         this._secondHandle = this.handleSeed();
     }
