@@ -7,7 +7,7 @@ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files
 
 - Now it's supporting AC1021 and above.
 - Creating minimal dxf content possible.
-- Tested on AutoCAD,LibreCAD and DWG FastView on mobile.
+- Tested on AutoCAD, LibreCAD and DWG FastView on mobile.
 
 ## To test the DXF Library
 ### Clone the repository
