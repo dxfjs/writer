@@ -47,8 +47,7 @@ export default class Ellipse extends Entity
             ...super.tags(),
             ...this.point(this.center.x, this.center.y, this.center.z, true).tags(),
             ...this.point(this.x_major_axis, this.y_major_axis, 0, true, 1).tags(),
-            ...this.standard([[40, this.ratio_minor_axis]]).tags(),
-            ...this.standard([[41, this.start_parameter], [42, this.end_parameter]]).tags()
+            ...this.standard([[40, this.ratio_minor_axis], [41, this.start_parameter], [42, this.end_parameter]]).tags()
         ];
     }
 }

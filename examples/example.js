@@ -34,7 +34,7 @@ dxf.setCurrentLayer('l_green')
     .addArc(0, 0, 120, 0, 120)
     .addPoint(65, -30, 0)
     .addEllipse(200, 100, 100, 50,
-        0.45, 0, 3.14 * 2)
+        0.4243, 0, 2 * Math.PI)
     .add3DFace(
         0, 0, 10,
         20, 0, 10,
