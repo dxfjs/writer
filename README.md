@@ -90,9 +90,9 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 
 ## References used in development
 - [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
-- [ezdxf](https://ezdxf.readthedocs.io/en/stable/)
+- [ezdxf](https://ezdxf.readthedocs.io/en/stable/) (a Python library written by [Manfred Moitzi](https://github.com/mozman))
 - [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
-- [js-dxf](https://github.com/ognjen-petrovic/js-dxf)
+- [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by [Ognjen Petrovic](https://github.com/ognjen-petrovic))
 ## License
 
 MIT
