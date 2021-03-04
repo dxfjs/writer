@@ -4,4 +4,3 @@
 ![LibreCAD](https://user-images.githubusercontent.com/6343314/109980631-643b1e00-7d00-11eb-8c1e-27d070558abc.PNG)
 ## Example preview in DWG FastView
 ![DWG FastView](https://user-images.githubusercontent.com/6343314/109982635-5f776980-7d02-11eb-9eba-77a63aabd96c.jpg)
-## Entities supported
