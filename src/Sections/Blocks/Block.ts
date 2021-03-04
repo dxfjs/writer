@@ -14,15 +14,17 @@ export default class Block extends DXFManager {
     }
     private readonly _blockName: string;
     private _handleToOwner: string;
+    private readonly _endBlockHandle: string;
     public constructor(name: string) {
         super();
         this._blockName = name;
         this._handleToOwner = '0';
+        this._endBlockHandle = this.handleSeed();
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'BLOCK'));
-        tags.push(new Tag(5, this.handleSeed()));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbEntity'));
         tags.push(new Tag(8, '0'));
@@ -35,7 +37,7 @@ export default class Block extends DXFManager {
         tags.push(new Tag(3, this.blockName));
         tags.push(new Tag(1, ''));
         tags.push(new Tag(0, 'ENDBLK'));
-        tags.push(new Tag(5, this.handleSeed()));
+        tags.push(new Tag(5, this._endBlockHandle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbEntity'));
         tags.push(new Tag(8, '0'));

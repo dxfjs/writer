@@ -2,28 +2,20 @@ import Variable     from "./Variable.js";
 import Tag          from "../../Internals/Tag.js";
 import DXFManager   from "../../Internals/DXFManager.js";
 
-export default class Header {
+export default class Header extends DXFManager {
     get unit(): number {
         return this._unit;
     }
-
     set unit(value: number) {
         this._unit = value;
     }
     get variables(): Variable[] {
         return this._variables;
     }
-    get handSeed(): string {
-        return this._handSeed;
-    }
-    set handSeed(value: string) {
-        this._handSeed = value;
-    }
-    private _handSeed: string;
     private _unit: number;
     private _variables: Variable[] = [];
     public constructor(unit: number = DXFManager.units.Unitless) {
-        this._handSeed = '999999';
+        super();
         this._unit = unit;
     }
 
@@ -34,7 +26,7 @@ export default class Header {
     public tags(): Tag[] {
         const tags = [
             ...new Variable('ACADVER', 1, DXFManager.version).tags(),
-            ...new Variable('HANDSEED', 5, this.handSeed).tags(),
+            ...new Variable('HANDSEED', 5, this.handleSeed()).tags(),
             ...new Variable('INSUNITS', 70, this.unit).tags()
         ];
         this.variables.forEach((variable) => {
@@ -45,12 +37,12 @@ export default class Header {
 
     public stringify(): string {
         let str = '';
-        str += new Tag(0, 'SECTION').stringify();
-        str += new Tag(2, 'HEADER').stringify();
+        str += this.entityType('SECTION').stringify();
+        str += this.name('HEADER').stringify();
         str += this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
+            return `${str}${tag.stringify()}`;
         }, '');
-        str += new Tag(0, 'ENDSEC').stringify();
+        str += this.entityType('ENDSEC').stringify();
         return str;
     }
 }

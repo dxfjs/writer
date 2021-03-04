@@ -38,7 +38,7 @@ export default class Entity extends DXFManager implements DXFInterface {
     public tags(): Tag[] {
         return [
             ...this._type.tags(),
-            ...this.hand(this.handleSeed()).tags(),
+            ...this.hand(this.handle).tags(),
             ...this.subclassMarker('AcDbEntity').tags(),
             ...this._layerName.tags(),
             ...this._subclass.tags()

@@ -11,9 +11,11 @@ export default class ViewPort extends DXFManager implements DXFInterface {
         this._handleToOwner = value;
     }
     private _handleToOwner: string;
+    private _vportHandle: string;
     public constructor() {
         super();
         this._handleToOwner = '0';
+        this._vportHandle = this.handleSeed();
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
@@ -24,7 +26,7 @@ export default class ViewPort extends DXFManager implements DXFInterface {
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 1));
         tags.push(new Tag(0, 'VPORT'));
-        tags.push(new Tag(5, this.handleSeed()));
+        tags.push(new Tag(5, this._vportHandle));
         tags.push(new Tag(330, this.handle));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbViewportTableRecord'));

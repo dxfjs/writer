@@ -154,6 +154,7 @@ export default class DXFWriter extends DXFManager {
 
     public stringify(): string {
         let str: string = '';
+        str += this._header.stringify();
         str += this._classes.stringify();
         str += this._tables.stringify();
         this._blocks.modelHandle = this._tables.blockRecords.modelHandle;
@@ -161,10 +162,6 @@ export default class DXFWriter extends DXFManager {
         str += this._blocks.stringify();
         str += this._entities.stringify();
         str += this._objects.stringify();
-        str += this.entityType('EOF').stringify();
-
-        this._header.handSeed = this.handleSeed();
-        str = `${this._header.stringify()}${str}`;
         return str;
     }
 }

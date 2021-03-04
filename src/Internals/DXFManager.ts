@@ -94,7 +94,7 @@ export default class DXFManager {
     public lineType(lineType: string): LineTypeComponent {
         return new LineTypeComponent(lineType);
     }
-    public name(name: string, groupCode: number): NameComponent {
+    public name(name: string, groupCode: number = 2): NameComponent {
         return new NameComponent(name, groupCode);
     }
     public point(
