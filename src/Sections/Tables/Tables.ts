@@ -6,16 +6,20 @@ import StyleTable           from "./Tables/StyleTable.js";
 import ViewTable            from "./Tables/ViewTable.js";
 import UCSTable             from "./Tables/UCSTable.js";
 import APPIDTable           from "./Tables/APPIDTable.js";
+import Layer                from "./Tables/Records/Layer.js";
 import DIMStyleTable        from "./Tables/DIMStyleTable.js";
 import BlockRecordTable     from "./Tables/BlockRecordTable.js";
 
 export default class Tables {
+    get layers(): Layer[] {
+        return this._layers.layers;
+    }
     get blockRecords(): BlockRecordTable {
         return this._blockRecords;
     }
     private _vports:        ViewPort;
     private _ltypes:        LineTypeTable;
-    private _layers:        LayerTable;
+    private readonly _layers:        LayerTable;
     private _styles:        StyleTable;
     private _views:         ViewTable;
     private _ucss:          UCSTable;

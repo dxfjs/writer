@@ -12,8 +12,8 @@ export default class Polyline extends Entity
     private readonly _points: number[][];
     private readonly _flag: number;
 
-    public constructor(points: number[][], flag: number, layer: string) {
-        super('LWPOLYLINE', layer, 'AcDbPolyline');
+    public constructor(points: number[][], flag: number) {
+        super('LWPOLYLINE', 'AcDbPolyline');
         this._points = points;
         this._flag = flag;
     }

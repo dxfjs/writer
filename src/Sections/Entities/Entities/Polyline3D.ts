@@ -12,8 +12,8 @@ export default class Polyline3D extends Entity
     }
     private readonly _points: number[][];
     private readonly _flag: number;
-    public constructor(points: number[][], flag: number, layer: string) {
-        super('POLYLINE', layer, 'AcDb3dPolyline');
+    public constructor(points: number[][], flag: number) {
+        super('POLYLINE', 'AcDb3dPolyline');
         this._points = points;
         this._flag = flag;
     }
@@ -26,7 +26,7 @@ export default class Polyline3D extends Entity
         tags.push(new Tag(30, 0));
         tags.push(new Tag(70, this.flag));
         this.points.forEach((point) => {
-            const vertex = new Vertex(point, 32, this.layerName);
+            const vertex = new Vertex(point, 32);
             tags = tags.concat(vertex.tags());
         });
         tags.push(new Tag(0, 'SEQEND'));

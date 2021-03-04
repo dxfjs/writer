@@ -16,11 +16,8 @@ export default class Text extends Entity
     private readonly _position: Point;
     private readonly _height: number;
     private readonly _value: string;
-    public constructor(
-        position: Point, height: number, value: string,layer: string
-    )
-    {
-        super('TEXT', layer, 'AcDbText')
+    public constructor(position: Point, height: number, value: string) {
+        super('TEXT', 'AcDbText')
         this._position = position;
         this._height = height;
         this._value = value;

@@ -12,8 +12,8 @@ export default class Circle extends Entity
     }
     private readonly _center: Point;
     private readonly _radius: number;
-    public constructor(center: Point, radius: number, layer: string) {
-        super('CIRCLE', layer, 'AcDbCircle');
+    public constructor(center: Point, radius: number) {
+        super('CIRCLE', 'AcDbCircle');
         this._center = center;
         this._radius = radius;
     }

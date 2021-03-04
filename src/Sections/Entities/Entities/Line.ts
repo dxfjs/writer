@@ -12,9 +12,9 @@ export default class Line extends Entity
     }
     private readonly _start: Point;
     private readonly _end: Point;
-    public constructor(start: Point, end: Point, layer: string)
+    public constructor(start: Point, end: Point)
     {
-        super('LINE', layer, 'AcDbLine')
+        super('LINE', 'AcDbLine')
         this._start = start;
         this._end = end;
     }

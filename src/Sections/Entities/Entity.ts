@@ -22,10 +22,10 @@ export default class Entity extends DXFManager implements DXFInterface {
     protected readonly _layerName: LayerComponent;
     protected readonly _subclass: SubclassMarkerComponent;
 
-    public constructor(type: string, layer: string, subclass: string) {
+    public constructor(type: string, subclass: string) {
         super(DXFManager.version);
         this._type = this.entityType(type);
-        this._layerName = this.layer(layer);
+        this._layerName = this.layer(DXFManager.currentLayer);
         this._subclass = this.subclassMarker(subclass);
     }
 

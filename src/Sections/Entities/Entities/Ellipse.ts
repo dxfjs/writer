@@ -30,9 +30,9 @@ export default class Ellipse extends Entity
     private readonly _end_parameter: number;
     public constructor(
         center: Point, x_major_axis: number, y_major_axis: number,
-        ratio_minor_axis: number, start_parameter: number, end_parameter: number, layer: string)
-    {
-        super('ELLIPSE', layer, 'AcDbEllipse');
+        ratio_minor_axis: number, start_parameter: number, end_parameter: number
+    ) {
+        super('ELLIPSE', 'AcDbEllipse');
         this._center = center;
         this._x_major_axis = x_major_axis;
         this._y_major_axis = y_major_axis;

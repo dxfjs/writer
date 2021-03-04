@@ -10,6 +10,10 @@ AC1021
 $HANDSEED
   5
 49
+  9
+$INSUNITS
+  70
+0
   0
 ENDSEC
   0
@@ -857,7 +861,7 @@ POINT
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbPoint
   10
@@ -895,7 +899,7 @@ LWPOLYLINE
   100
 AcDbEntity
   8
-l_red
+0
   100
 AcDbPolyline
   90
@@ -925,7 +929,7 @@ POLYLINE
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDb3dPolyline
   66
@@ -945,7 +949,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbVertex
   100
@@ -965,7 +969,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbVertex
   100
@@ -985,7 +989,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbVertex
   100
@@ -1005,7 +1009,7 @@ SEQEND
   100
 AcDbEntity
   8
-l_cyan
+0
   0
 CIRCLE
   5
@@ -1013,7 +1017,7 @@ CIRCLE
   100
 AcDbEntity
   8
-l_red
+0
   100
 AcDbCircle
   10
@@ -1031,7 +1035,7 @@ ARC
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbCircle
   10
@@ -1055,7 +1059,7 @@ SPLINE
   100
 AcDbEntity
   8
-l_green
+0
   100
 AcDbSpline
   70
@@ -1129,7 +1133,7 @@ ELLIPSE
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbEllipse
   10
@@ -1157,7 +1161,7 @@ AcDbEllipse
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbFace
   10
@@ -1191,7 +1195,7 @@ TEXT
   100
 AcDbEntity
   8
-l_cyan
+0
   100
 AcDbText
   10

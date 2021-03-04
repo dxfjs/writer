@@ -17,8 +17,8 @@ export default class Point extends Entity
     private readonly _y: number;
     private readonly _z: number;
 
-    public constructor(x: number, y: number, z: number, layer: string) {
-        super('POINT', layer, 'AcDbPoint');
+    public constructor(x: number, y: number, z: number) {
+        super('POINT', 'AcDbPoint');
         this._x = x;
         this._y = y;
         this._z = z;

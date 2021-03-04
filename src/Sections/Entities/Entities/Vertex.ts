@@ -12,9 +12,8 @@ export default class Vertex extends Entity
     private readonly _vertexPoint: number[];
     private readonly _vertex_flag: number;
 
-    public constructor(point: number[], vertex_flag: number, layer: string )
-    {
-        super('VERTEX', layer, 'AcDbVertex');
+    public constructor(point: number[], vertex_flag: number) {
+        super('VERTEX', 'AcDbVertex');
         this._vertexPoint = point;
         this._vertex_flag = vertex_flag;
     }

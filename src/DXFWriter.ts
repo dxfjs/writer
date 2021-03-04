@@ -7,17 +7,6 @@ import Objects      from "./Sections/Objects/Objects.js";
 import Entities     from "./Sections/Entities/Entities.js";
 
 export default class DXFWriter extends DXFManager {
-
-    get currentLayer(): string {
-        return this._currentLayer;
-    }
-
-    set currentLayer(name: string) {
-        this._currentLayer = name;
-    }
-
-    private _currentLayer: string = '0'
-
     private _header:    Header;
     private _classes:   Classes;
     private _tables:    Tables;
@@ -50,78 +39,85 @@ export default class DXFWriter extends DXFManager {
         return this;
     }
 
-    public setCurrentLayer(name: string)
+    public setCurrentLayer(layerName: string): DXFWriter
     {
-        this.currentLayer = name;
+        if (this._tables.layers.find((layer) => layer.layerName === layerName)) {
+            DXFManager.currentLayer = layerName;
+        }
         return this;
     }
 
-    public addLine(x_start: number, y_start: number,
-                   x_end: number, y_end: number)
-    {
-        this._entities.addLine(x_start, y_start, x_end, y_end, this.currentLayer);
+    public setUnit(unit: number): DXFWriter {
+        this._header.unit = unit;
         return this;
     }
 
-    public addPolyline(points: number[][], flag: number)
-    {
-        this._entities.addPolyline(points, flag, this.currentLayer);
+    public addLine(
+        x_start: number, y_start: number,
+        x_end: number, y_end: number
+    ): DXFWriter {
+        this._entities.addLine(x_start, y_start, x_end, y_end);
+        return this;
+    }
+
+    public addPolyline(points: number[][], flag: number): DXFWriter {
+        this._entities.addPolyline(points, flag);
         return this;
     }
 
     public addRectangle (
         top_left_x: number, top_left_y: number,
         bottom_right_x: number, bottom_right_y: number
-    ) {
+    ): DXFWriter {
         const corners = [
             [top_left_x, top_left_y],
             [bottom_right_x, top_left_y],
             [bottom_right_x, bottom_right_y],
             [top_left_x, bottom_right_y]
         ];
-        this._entities.addPolyline(corners, 1, this.currentLayer);
+        this._entities.addPolyline(corners, 1);
         return this;
     }
 
-    public addPolyline3D(points: number[][], flag: number)
-    {
-        this._entities.addPolyline3D(points, flag, this.currentLayer);
+    public addPolyline3D(points: number[][], flag: number): DXFWriter {
+        this._entities.addPolyline3D(points, flag);
         return this;
     }
 
-    public addPoint(x: number, y: number, z: number)
-    {
-        this._entities.addPoint(x, y, z, this.currentLayer);
+    public addPoint(x: number, y: number, z: number): DXFWriter {
+        this._entities.addPoint(x, y, z);
         return this;
     }
 
-    public addCircle(x_center: number, y_center: number, radius: number)
-    {
-        this._entities.addCircle(x_center, y_center, radius, this.currentLayer);
+    public addCircle(x_center: number, y_center: number, radius: number): DXFWriter {
+        this._entities.addCircle(x_center, y_center, radius);
         return this;
     }
 
-    public addArc(x: number, y: number, radius: number,
-                  startAngle: number, endAngle: number)
-    {
-        this._entities.addArc(x, y, radius, startAngle, endAngle, this.currentLayer);
+    public addArc(
+        x: number, y: number, radius: number,
+        startAngle: number, endAngle: number
+    ): DXFWriter {
+        this._entities.addArc(x, y, radius, startAngle, endAngle);
         return this;
     }
 
-    public addSpline(controlPoints: number[][], curveDegree: number,
-                     flag: number, knots: number[],
-                     weights: number[], fitPoints: number[][])
-    {
-        this._entities.addSpline(controlPoints, curveDegree, flag, knots, weights, fitPoints, this.currentLayer);
+    public addSpline(
+        controlPoints: number[][], curveDegree: number,
+        flag: number, knots: number[],
+        weights: number[], fitPoints: number[][]
+    ): DXFWriter {
+        this._entities.addSpline(controlPoints, curveDegree, flag, knots, weights, fitPoints);
         return this;
     }
 
-    public addEllipse(x_center: number, y_center: number, x_major_axis: number, y_major_axis: number,
-                      ratio_minor_axis: number, start_parameter: number, end_parameter: number)
-    {
+    public addEllipse(
+        x_center: number, y_center: number, x_major_axis: number, y_major_axis: number,
+        ratio_minor_axis: number, start_parameter: number, end_parameter: number
+    ): DXFWriter {
         this._entities.addEllipse(
             x_center, y_center, x_major_axis, y_major_axis, ratio_minor_axis,
-            start_parameter, end_parameter, this.currentLayer
+            start_parameter, end_parameter
         );
         return this;
     }
@@ -131,13 +127,11 @@ export default class DXFWriter extends DXFManager {
         x_second: number, y_second: number, z_second: number,
         x_third: number, y_third: number, z_third: number,
         x_fourth: number, y_fourth: number, z_fourth: number
-    )
-    {
+    ): DXFWriter {
         this._entities.add3DFace(x_first, y_first, z_first,
             x_second, y_second, z_second,
             x_third, y_third, z_third,
-            x_fourth, y_fourth, z_fourth,
-            this.currentLayer
+            x_fourth, y_fourth, z_fourth
         );
         return this;
     }
@@ -145,10 +139,9 @@ export default class DXFWriter extends DXFManager {
     public addText(
         x: number, y: number,
         height: number, value: string,
-    )
-    {
+    ): DXFWriter {
         this._entities.addText(
-            x, y, height, value, this.currentLayer
+            x, y, height, value
         );
         return this;
     }

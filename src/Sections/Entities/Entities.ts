@@ -57,74 +57,73 @@ export default class Entities
     }
     public addLine(
         x_start: number, y_start: number,
-        x_end: number, y_end: number, layer: string
+        x_end: number, y_end: number
     )
     {
         this._lines.push(new Line(
-            new Point(x_start, y_start, 0, layer),
-            new Point(x_end, y_end, 0, layer),
-            layer)
+            new Point(x_start, y_start, 0),
+            new Point(x_end, y_end, 0))
         );
     }
 
-    public addPolyline(points: number[][], flag: number, layer: string)
+    public addPolyline(points: number[][], flag: number)
     {
         this._polylines.push(
-            new Polyline(points, flag, layer)
+            new Polyline(points, flag)
         );
     }
 
-    public addPolyline3D(points: number[][], flag: number, layer: string)
+    public addPolyline3D(points: number[][], flag: number)
     {
         this._polylines3D.push(
-            new Polyline3D(points, flag, layer)
+            new Polyline3D(points, flag)
         );
     }
 
-    public addPoint(x: number, y: number, z: number, layer: string)
+    public addPoint(x: number, y: number, z: number)
     {
         this._points.push(
-            new Point(x, y, z, layer)
+            new Point(x, y, z)
         );
     }
 
-    public addCircle(x_center: number, y_center: number, radius: number, layer: string)
+    public addCircle(x_center: number, y_center: number, radius: number)
     {
         this._circles.push(
-            new Circle(new Point(x_center, y_center, 0, layer), radius, layer)
+            new Circle(new Point(x_center, y_center, 0), radius)
         );
     }
 
     public addArc(
         x: number, y: number, radius: number,
-        startAngle: number, endAngle: number, layer: string
+        startAngle: number, endAngle: number
     )
     {
         this._arcs.push(
-            new Arc(new Point(x, y, 0, layer), radius, startAngle, endAngle, layer)
+            new Arc(new Point(x, y, 0), radius, startAngle, endAngle)
         );
     }
 
     public addSpline(
         controlPoints: number[][], curveDegree: number,
         flag: number, knots: number[],
-        weights: number[], fitPoints: number[][], layer: string
+        weights: number[], fitPoints: number[][]
     )
     {
         this._splines.push(
-            new Spline(controlPoints, curveDegree, flag, knots, weights, fitPoints, layer)
+            new Spline(controlPoints, curveDegree, flag, knots, weights, fitPoints)
         );
     }
 
     public addEllipse(
         x_center: number, y_center: number, x_major_axis: number, y_major_axis: number,
-        ratio_minor_axis: number, start_parameter: number, end_parameter: number, layer: string
+        ratio_minor_axis: number, start_parameter: number, end_parameter: number
     )
     {
         this._ellipses.push(
             new Ellipse(
-                new Point( x_center, y_center, 0, layer), x_major_axis,
-                y_major_axis, ratio_minor_axis, start_parameter, end_parameter, layer
+                new Point( x_center, y_center, 0), x_major_axis,
+                y_major_axis, ratio_minor_axis, start_parameter, end_parameter
             )
         );
     }
@@ -133,28 +132,27 @@ export default class Entities
         x_first: number, y_first: number, z_first: number,
         x_second: number, y_second: number, z_second: number,
         x_third: number, y_third: number, z_third: number,
-        x_fourth: number, y_fourth: number, z_fourth: number, layer: string
+        x_fourth: number, y_fourth: number, z_fourth: number
     )
     {
         this._faces.push(
             new Face(
-                new Point(x_first, y_first, z_first, layer),
-                new Point(x_second, y_second, z_second, layer),
-                new Point(x_third, y_third, z_third, layer),
-                new Point(x_fourth, y_fourth, z_fourth, layer),
-                layer
+                new Point(x_first, y_first, z_first),
+                new Point(x_second, y_second, z_second),
+                new Point(x_third, y_third, z_third),
+                new Point(x_fourth, y_fourth, z_fourth)
             )
         );
     }
 
     public addText(
         x: number, y: number,
-        height: number, value: string, layer: string
+        height: number, value: string
     )
     {
         this._texts.push(
             new Text(
-                new Point(x, y, 0, layer), height, value, layer
+                new Point(x, y, 0), height, value
             )
         );
     }

@@ -20,8 +20,8 @@ export default class Arc extends Entity
     private readonly _radius: number;
     private readonly _startAngle: number;
     private readonly _endAngle: number;
-    public constructor(center: Point, radius: number, startAngle: number, endAngle: number, layer: string) {
-        super('ARC', layer, 'AcDbCircle')
+    public constructor(center: Point, radius: number, startAngle: number, endAngle: number) {
+        super('ARC', 'AcDbCircle')
         this._center = center;
         this._radius = radius;
         this._startAngle = startAngle;

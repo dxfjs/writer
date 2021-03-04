@@ -28,11 +28,10 @@ export default class Spline extends Entity
     private readonly _flag: number;
     private readonly _fit_points: number[][];
     public constructor(
-        control_points: number[][], curve_degree: number, flag: number, knots: number[],
-        weights: number[], fit_points: number[][], layer: string
-    )
-    {
-        super('SPLINE', layer, 'AcDbSpline');
+        control_points: number[][], curve_degree: number, flag: number,
+        knots: number[], weights: number[], fit_points: number[][]
+    ) {
+        super('SPLINE', 'AcDbSpline');
         this._control_points = control_points;
         this._curve_degree = curve_degree;
         this._flag = flag;

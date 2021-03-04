@@ -21,13 +21,10 @@ export default class Face extends Entity
     private readonly _third: Point;
     private readonly _fourth: Point;
     public constructor(
-        first: Point,
-        second: Point,
-        third: Point,
-        fourth: Point, layer: string
-    )
-    {
-        super('3DFACE', layer, 'AcDbFace');
+        first: Point, second: Point,
+        third: Point, fourth: Point
+    ) {
+        super('3DFACE', 'AcDbFace');
         this._first = first;
         this._second = second;
         this._third = third;
