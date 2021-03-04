@@ -1,7 +1,8 @@
-import TagsManager from "../../../../Internals/TagsManager.js";
-import Tag from "../../../../Internals/Tag.js";
+import Tag          from "../../../../Internals/Tag.js";
+import DXFManager   from "../../../../Internals/DXFManager.js";
+import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
 
-export default class APPID extends TagsManager {
+export default class APPID extends DXFManager implements DXFInterface {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -12,15 +13,15 @@ export default class APPID extends TagsManager {
     get flag(): number {
         return this._flag;
     }
-    get name(): string {
-        return this._name;
+    get appIDName(): string {
+        return this._appIDName;
     }
-    private readonly _name: string;
+    private readonly _appIDName: string;
     private readonly _flag: number;
     private _handleToOwner: string;
     public constructor(name: string, flag: number) {
-        super();
-        this._name = name;
+        super(DXFManager.version);
+        this._appIDName = name;
         this._flag = flag;
         this._handleToOwner = '0';
     }
@@ -28,11 +29,11 @@ export default class APPID extends TagsManager {
     tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'APPID'));
-        tags.push(new Tag(5, this.handle()));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbRegAppTableRecord'));
-        tags.push(new Tag(2, this.name));
+        tags.push(new Tag(2, this.appIDName));
         tags.push(new Tag(70, this.flag));
         return tags;
     }

@@ -1,5 +1,4 @@
-import Tag          from "./Internals/Tag.js";
-import Standard     from "./Internals/Standard.js";
+import DXFManager   from "./Internals/DXFManager.js";
 import Header       from "./Sections/Header/Header.js";
 import Tables       from "./Sections/Tables/Tables.js";
 import Blocks       from "./Sections/Blocks/Blocks.js";
@@ -7,7 +6,7 @@ import Classes      from "./Sections/Classes/Classes.js";
 import Objects      from "./Sections/Objects/Objects.js";
 import Entities     from "./Sections/Entities/Entities.js";
 
-export default class DXFWriter extends Standard {
+export default class DXFWriter extends DXFManager {
 
     get currentLayer(): string {
         return this._currentLayer;
@@ -26,8 +25,8 @@ export default class DXFWriter extends Standard {
     private _entities:  Entities;
     private _objects:   Objects;
 
-    public constructor(version: string = Standard.versions.R2007) {
-        super();
+    public constructor(version: string = DXFManager.versions.R2007) {
+        super(version);
         this._header    = new Header(version);
         this._classes   = new Classes();
         this._tables    = new Tables();
@@ -163,9 +162,9 @@ export default class DXFWriter extends Standard {
         str += this._blocks.stringify();
         str += this._entities.stringify();
         str += this._objects.stringify();
-        str += new Tag(0, 'EOF').stringify();
+        str += this.entityType('EOF').stringify();
 
-        this._header.handSeed = this.handle();
+        this._header.handSeed = this.handleSeed();
         str = `${this._header.stringify()}${str}`;
         return str;
     }

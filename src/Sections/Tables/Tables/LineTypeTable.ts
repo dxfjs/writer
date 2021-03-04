@@ -1,14 +1,14 @@
-import Tag from "../../../Internals/Tag.js";
-import LineType from "./Records/LineType.js";
-import Standard from "../../../Internals/Standard.js";
+import LineType     from "./Records/LineType.js";
+import Tag          from "../../../Internals/Tag.js";
+import DXFManager   from "../../../Internals/DXFManager.js";
 
-export default class LineTypeTable extends Standard {
+export default class LineTypeTable extends DXFManager {
     get lineTypes(): LineType[] {
         return this._lineTypes;
     }
     private _lineTypes: LineType[] = [];
     public constructor() {
-        super();
+        super(DXFManager.version);
     }
 
     public addLineType(name: string, descriptive: string, elements: number []) {
@@ -19,13 +19,12 @@ export default class LineTypeTable extends Standard {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'TABLE'));
         tags.push(new Tag(2, 'LTYPE'));
-        const handle: string = this.handle();
-        tags.push(new Tag(5, handle));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, 0));
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 4));
         this.lineTypes.forEach((lineType) => {
-            lineType.handleToOwner = handle;
+            lineType.handleToOwner = this.handle;
             tags = tags.concat(lineType.tags());
         });
         tags.push(new Tag(0, 'ENDTAB'));

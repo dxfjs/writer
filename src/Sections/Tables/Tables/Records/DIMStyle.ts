@@ -1,7 +1,9 @@
-import Tag from "../../../../Internals/Tag.js";
-import TagsManager from "../../../../Internals/TagsManager.js";
+import Tag          from "../../../../Internals/Tag.js";
+import DXFManager   from "../../../../Internals/DXFManager.js";
+import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+
 // TODO refactor this class to be more dynamic
-export default class DIMStyle extends TagsManager {
+export default class DIMStyle extends DXFManager implements DXFInterface {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -12,15 +14,15 @@ export default class DIMStyle extends TagsManager {
     get flag(): number {
         return this._flag;
     }
-    get name(): string {
-        return this._name;
+    get dimStyleName(): string {
+        return this._dimStyleName;
     }
-    private readonly _name: string;
+    private readonly _dimStyleName: string;
     private readonly _flag: number;
     private _handleToOwner: string;
     public constructor(name: string, flag: number) {
-        super();
-        this._name = name;
+        super(DXFManager.version);
+        this._dimStyleName = name;
         this._flag = flag;
         this._handleToOwner = '0';
     }
@@ -28,11 +30,11 @@ export default class DIMStyle extends TagsManager {
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'DIMSTYLE'));
-        tags.push(new Tag(105, this.handle()));
+        tags.push(new Tag(105, this.handle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbDimStyleTableRecord'));
-        tags.push(new Tag(2, this.name));
+        tags.push(new Tag(2, this.dimStyleName));
         tags.push(new Tag(70, this.flag));
 
         tags.push(new Tag(40, 1));
@@ -102,5 +104,11 @@ export default class DIMStyle extends TagsManager {
         tags.push(new Tag(371, '-2'));
         tags.push(new Tag(372, '-2'));
         return tags;
+    }
+
+    stringify(): string {
+        return this.tags().reduce((str, tag) => {
+            return `${str}${tag.stringify()}`;
+        }, '');
     }
 };

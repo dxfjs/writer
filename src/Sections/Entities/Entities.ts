@@ -42,16 +42,16 @@ export default class Entities
     get lines(): Line[] {
         return this._lines;
     }
-    private _points:        Point[] = [];
-    private _lines:         Line[] = [];
-    private _polylines:     Polyline[] = [];
-    private _polylines3D:   Polyline3D[] = [];
-    private _circles:       Circle[] = [];
-    private _arcs:          Arc[] = [];
-    private _splines:       Spline[] = [];
-    private _ellipses:      Ellipse[] = [];
-    private _faces:         Face[] = [];
-    private _texts:         Text[] = [];
+    private _points:        Point[]         = [];
+    private _lines:         Line[]          = [];
+    private _polylines:     Polyline[]      = [];
+    private _polylines3D:   Polyline3D[]    = [];
+    private _circles:       Circle[]        = [];
+    private _arcs:          Arc[]           = [];
+    private _splines:       Spline[]        = [];
+    private _ellipses:      Ellipse[]       = [];
+    private _faces:         Face[]          = [];
+    private _texts:         Text[]          = [];
 
     public constructor() {
     }

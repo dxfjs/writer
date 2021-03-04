@@ -2,20 +2,20 @@ import Tag from "../Tag.js";
 import DXFInterface from "../Interfaces/DXFInterface.js";
 
 export default class TextStyleComponent implements DXFInterface {
-    get name(): string {
-        return this._name.value.toString();
+    get textStyleName(): string {
+        return this._textStyleName.value.toString();
     }
-    set name(value: string) {
-        this._name.value = value;
+    set textStyleName(value: string) {
+        this._textStyleName.value = value;
     }
-    private readonly _name: Tag;
-    public constructor(name: string) {
-        this._name = new Tag(7, name);
+    private readonly _textStyleName: Tag;
+    public constructor(textStyleName: string) {
+        this._textStyleName = new Tag(7, textStyleName);
     }
     stringify(): string {
-        return this._name.stringify();
+        return this._textStyleName.stringify();
     }
     tags(): Tag[] {
-        return [this._name];
+        return [this._textStyleName];
     }
 };

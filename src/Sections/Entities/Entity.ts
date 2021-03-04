@@ -1,38 +1,47 @@
 import Tag                      from "../../Internals/Tag.js";
-import Standard                 from "../../Internals/Standard.js";
+import DXFManager               from "../../Internals/DXFManager.js";
+import DXFInterface             from "../../Internals/Interfaces/DXFInterface.js";
 import LayerComponent           from "../../Internals/Components/LayerComponent.js";
-import HandleComponent          from "../../Internals/Components/HandleComponent.js";
 import EntityTypeComponent      from "../../Internals/Components/EntityTypeComponent.js";
 import SubclassMarkerComponent  from "../../Internals/Components/SubclassMarkerComponent.js";
 
-export default class Entity extends Standard
-{
+export default class Entity extends DXFManager implements DXFInterface {
     get subclass(): string {
         return this._subclass.subclass;
     }
-    get layer(): string {
-        return this._layer.layer;
+
+    get layerName(): string {
+        return this._layerName.layer;
     }
+
     get type(): string {
         return this._type.name;
     }
+
     protected readonly _type: EntityTypeComponent;
-    protected readonly _layer: LayerComponent;
+    protected readonly _layerName: LayerComponent;
     protected readonly _subclass: SubclassMarkerComponent;
+
     public constructor(type: string, layer: string, subclass: string) {
-        super();
-        this._type = new EntityTypeComponent(type);
-        this._layer = new LayerComponent(layer);
-        this._subclass = new SubclassMarkerComponent(subclass);
+        super(DXFManager.version);
+        this._type = this.entityType(type);
+        this._layerName = this.layer(layer);
+        this._subclass = this.subclassMarker(subclass);
+    }
+
+    stringify(): string {
+        return this.tags().reduce((str, tag) => {
+            return str += tag.stringify();
+        }, '');
     }
 
     public tags(): Tag[] {
         return [
             ...this._type.tags(),
-            ...new HandleComponent(this.handle()).tags(),
-            ...new SubclassMarkerComponent('AcDbEntity').tags(),
-            ...this._layer.tags(),
+            ...this.hand(this.handleSeed()).tags(),
+            ...this.subclassMarker('AcDbEntity').tags(),
+            ...this._layerName.tags(),
             ...this._subclass.tags()
         ];
     }
-}
+};

@@ -1,7 +1,8 @@
-import Tag from "../../../../Internals/Tag.js";
-import TagsManager from "../../../../Internals/TagsManager.js";
+import Tag          from "../../../../Internals/Tag.js";
+import DXFManager   from "../../../../Internals/DXFManager.js";
+import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
 
-export default class ViewPort extends TagsManager {
+export default class ViewPort extends DXFManager implements DXFInterface {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -11,21 +12,20 @@ export default class ViewPort extends TagsManager {
     }
     private _handleToOwner: string;
     public constructor() {
-        super();
+        super(DXFManager.version);
         this._handleToOwner = '0';
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'TABLE'));
         tags.push(new Tag(2, 'VPORT'));
-        const handle: string = this.handle();
-        tags.push(new Tag(5, handle));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, 0));
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 1));
         tags.push(new Tag(0, 'VPORT'));
-        tags.push(new Tag(5, this.handle()));
-        tags.push(new Tag(330, handle));
+        tags.push(new Tag(5, this.handleSeed()));
+        tags.push(new Tag(330, this.handle));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbViewportTableRecord'));
         tags.push(new Tag(2, '*ACTIVE'));

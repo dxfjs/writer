@@ -1,14 +1,14 @@
-import Tag from "../../../Internals/Tag.js";
-import Style from "./Records/Style.js";
-import Standard from "../../../Internals/Standard.js";
+import Style        from "./Records/Style.js";
+import Tag          from "../../../Internals/Tag.js";
+import DXFManager   from "../../../Internals/DXFManager.js";
 
-export default class StyleTable extends Standard {
+export default class StyleTable extends DXFManager {
     get styles(): Style[] {
         return this._styles;
     }
     private _styles: Style[] = [];
     public constructor() {
-        super();
+        super(DXFManager.version);
     }
     public addStyle(name: string) {
         this._styles.push(new Style(name));
@@ -17,13 +17,12 @@ export default class StyleTable extends Standard {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'TABLE'));
         tags.push(new Tag(2, 'STYLE'));
-        const handle: string = this.handle();
-        tags.push(new Tag(5, handle));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, 0));
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 3));
         this.styles.forEach((style) => {
-            style.handleToOwner = handle;
+            style.handleToOwner = this.handle;
             tags = tags.concat(style.tags());
         });
         tags.push(new Tag(0, 'ENDTAB'));

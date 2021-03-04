@@ -43,16 +43,12 @@ export default class Ellipse extends Entity
 
     public tags(): Tag[]
     {
-        let tags: Tag[] =  super.tags();
-        tags.push(new Tag(10, this.center.x));
-        tags.push(new Tag(20, this.center.y));
-        tags.push(new Tag(30, this.center.z));
-        tags.push(new Tag(11, this.x_major_axis));
-        tags.push(new Tag(21, this.y_major_axis));
-        tags.push(new Tag(31, 0));
-        tags.push(new Tag(40, this.ratio_minor_axis));
-        tags.push(new Tag(41, this.start_parameter));
-        tags.push(new Tag(42, this.end_parameter));
-        return tags;
+        return [
+            ...super.tags(),
+            ...this.point(this.center.x, this.center.y, this.center.z, true).tags(),
+            ...this.point(this.x_major_axis, this.y_major_axis, 0, true, 1).tags(),
+            ...this.standard([[40, this.ratio_minor_axis]]).tags(),
+            ...this.standard([[41, this.start_parameter], [42, this.end_parameter]]).tags()
+        ];
     }
 }

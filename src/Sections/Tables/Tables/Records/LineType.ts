@@ -1,7 +1,8 @@
-import Tag from "../../../../Internals/Tag.js";
-import TagsManager from "../../../../Internals/TagsManager.js";
+import Tag          from "../../../../Internals/Tag.js";
+import DXFManager   from "../../../../Internals/DXFManager.js";
+import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
 
-export default class LineType extends TagsManager {
+export default class LineType extends DXFManager implements DXFInterface {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -9,8 +10,8 @@ export default class LineType extends TagsManager {
     set handleToOwner(value: string) {
         this._handleToOwner = value;
     }
-    get name(): string {
-        return this._name;
+    get lineTypeName(): string {
+        return this._lineTypeName;
     }
     get descriptive(): string {
         return this._descriptive;
@@ -18,13 +19,13 @@ export default class LineType extends TagsManager {
     get elements(): number[] {
         return this._elements;
     }
-    private readonly _name: string;
+    private readonly _lineTypeName: string;
     private readonly _descriptive: string;
     private readonly _elements: number [];
     private _handleToOwner: string;
     public constructor(name: string, descriptive: string, elements: number []) {
-        super();
-        this._name = name;
+        super(DXFManager.version);
+        this._lineTypeName = name;
         this._descriptive = descriptive;
         this._elements = elements;
         this._handleToOwner = '0';
@@ -33,11 +34,11 @@ export default class LineType extends TagsManager {
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'LTYPE'));
-        tags.push(new Tag(5, this.handle()));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbLinetypeTableRecord'));
-        tags.push(new Tag(2, this.name));
+        tags.push(new Tag(2, this.lineTypeName));
         tags.push(new Tag(70, 0));
         tags.push(new Tag(3, this.descriptive));
         tags.push(new Tag(72, 65));

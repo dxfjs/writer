@@ -20,10 +20,8 @@ export default class Circle extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(new Tag(10, this.center.x))
-        tags.push(new Tag(20, this.center.y))
-        tags.push(new Tag(30, this.center.z))
-        tags.push(new Tag(40, this.radius))
+        tags.push(...this.point(this.center.x, this.center.y, this.center.z, true).tags());
+        tags.push(...this.standard([[40, this.radius]]).tags());
         return tags;
     }
 }

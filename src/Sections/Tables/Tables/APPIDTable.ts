@@ -1,14 +1,14 @@
-import Tag from "../../../Internals/Tag.js";
-import APPID from "./Records/APPID.js";
-import Standard from "../../../Internals/Standard.js";
+import APPID        from "./Records/APPID.js";
+import Tag          from "../../../Internals/Tag.js";
+import DXFManager   from "../../../Internals/DXFManager.js";
 
-export default class APPIDTable extends Standard {
+export default class APPIDTable extends DXFManager {
     get appIDs(): APPID[] {
         return this._appIDs;
     }
     private _appIDs: APPID[] = [];
     public constructor() {
-        super();
+        super(DXFManager.version);
     }
 
     public addAPPID(name: string, flag: number) {
@@ -18,13 +18,12 @@ export default class APPIDTable extends Standard {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'TABLE'));
         tags.push(new Tag(2, 'APPID'));
-        const handle: string = this.handle();
-        tags.push(new Tag(5, handle));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, 0));
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 1));
         this.appIDs.forEach((appID) => {
-            appID.handleToOwner = handle;
+            appID.handleToOwner = this.handle;
             tags = tags.concat(appID.tags());
         });
         tags.push(new Tag(0, 'ENDTAB'));

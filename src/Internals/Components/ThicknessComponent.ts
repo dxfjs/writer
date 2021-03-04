@@ -10,7 +10,7 @@ export default class ThicknessComponent implements DXFInterface {
     }
     private readonly _thickness: Tag;
     public constructor(thickness : number) {
-        this._thickness = new Tag(100, thickness );
+        this._thickness = new Tag(39, thickness);
     }
     stringify(): string {
         return this._thickness.stringify();

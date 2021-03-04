@@ -26,13 +26,13 @@ export default class Polyline3D extends Entity
         tags.push(new Tag(30, 0));
         tags.push(new Tag(70, this.flag));
         this.points.forEach((point) => {
-            const vertex = new Vertex(point, 32, this.layer);
+            const vertex = new Vertex(point, 32, this.layerName);
             tags = tags.concat(vertex.tags());
         });
         tags.push(new Tag(0, 'SEQEND'));
-        tags.push(new Tag(5, this.handle()));
+        tags.push(new Tag(5, this.handleSeed()));
         tags.push(new Tag(100, 'AcDbEntity'));
-        tags.push(new Tag(8, this.layer));
+        tags.push(new Tag(8, this.layerName));
 
         return tags;
     }

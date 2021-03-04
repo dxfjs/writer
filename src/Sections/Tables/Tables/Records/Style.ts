@@ -1,7 +1,8 @@
-import Tag from "../../../../Internals/Tag.js";
-import TagsManager from "../../../../Internals/TagsManager.js";
+import Tag          from "../../../../Internals/Tag.js";
+import DXFManager   from "../../../../Internals/DXFManager.js";
+import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
 
-export default class Style extends TagsManager {
+export default class Style extends DXFManager implements DXFInterface {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -9,25 +10,25 @@ export default class Style extends TagsManager {
     set handleToOwner(value: string) {
         this._handleToOwner = value;
     }
-    get name(): string {
-        return this._name;
+    get styleName(): string {
+        return this._styleName;
     }
-    private readonly _name: string;
+    private readonly _styleName: string;
     private _handleToOwner: string;
     public constructor(name: string) {
-        super();
-        this._name = name;
+        super(DXFManager.version);
+        this._styleName = name;
         this._handleToOwner = '0';
     }
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'STYLE'));
-        tags.push(new Tag(5, this.handle()));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, this.handleToOwner));
         tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
         tags.push(new Tag(100, 'AcDbTextStyleTableRecord'));
-        tags.push(new Tag(2, this.name));
+        tags.push(new Tag(2, this.styleName));
         tags.push(new Tag(70, 0));
         tags.push(new Tag(40, 0));
         tags.push(new Tag(41, 1));

@@ -1,14 +1,14 @@
-import Tag from "../../../Internals/Tag.js";
-import Layer from "./Records/Layer.js";
-import Standard from "../../../Internals/Standard.js";
+import Layer        from "./Records/Layer.js";
+import Tag          from "../../../Internals/Tag.js";
+import DXFManager   from "../../../Internals/DXFManager.js";
 
-export default class LayerTable extends Standard {
+export default class LayerTable extends DXFManager {
     get layers(): Layer[] {
         return this._layers;
     }
     private _layers: Layer[] = [];
     public constructor() {
-        super();
+        super(DXFManager.version);
     }
 
     public addLayer(name: string, color: number, lineType: string, flag: number) {
@@ -18,13 +18,12 @@ export default class LayerTable extends Standard {
         let tags: Tag[] = [];
         tags.push(new Tag(0, 'TABLE'));
         tags.push(new Tag(2, 'LAYER'));
-        const handle: string = this.handle();
-        tags.push(new Tag(5, handle));
+        tags.push(new Tag(5, this.handle));
         tags.push(new Tag(330, 0));
         tags.push(new Tag(100, 'AcDbSymbolTable'));
         tags.push(new Tag(70, 1));
         this.layers.forEach((layer) => {
-            layer.handleToOwner = handle;
+            layer.handleToOwner = this.handle;
             tags = tags.concat(layer.tags());
         });
         tags.push(new Tag(0, 'ENDTAB'));

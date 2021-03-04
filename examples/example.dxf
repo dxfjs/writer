@@ -9,7 +9,7 @@ AC1021
   9
 $HANDSEED
   5
-2E
+48
   0
 ENDSEC
   0
@@ -27,7 +27,7 @@ TABLE
   2
 VPORT
   5
-3
+2
   330
 0
   100
@@ -37,9 +37,9 @@ AcDbSymbolTable
   0
 VPORT
   5
-4
+32
   330
-3
+2
   100
 AcDbSymbolTableRecord
   100
@@ -165,7 +165,7 @@ TABLE
   2
 LTYPE
   5
-5
+3
   330
 0
   100
@@ -175,9 +175,9 @@ AcDbSymbolTable
   0
 LTYPE
   5
-6
+D
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -197,9 +197,9 @@ ByBlock
   0
 LTYPE
   5
-7
+E
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -219,9 +219,9 @@ ByLayer
   0
 LTYPE
   5
-8
+F
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -241,9 +241,9 @@ Solid line
   0
 LTYPE
   5
-9
+1B
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -271,9 +271,9 @@ Dot . . . . . . . . . . . . . . . . . . . . . .
   0
 LTYPE
   5
-A
+1C
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -301,9 +301,9 @@ Dot (.15x) .....................................
   0
 LTYPE
   5
-B
+1D
   330
-5
+3
   100
 AcDbSymbolTableRecord
   100
@@ -335,7 +335,7 @@ TABLE
   2
 LAYER
   5
-C
+4
   330
 0
   100
@@ -345,9 +345,9 @@ AcDbSymbolTable
   0
 LAYER
   5
-D
+10
   330
-C
+4
   100
 AcDbSymbolTableRecord
   100
@@ -367,9 +367,9 @@ CONTINUOUS
   0
 LAYER
   5
-E
+1E
   330
-C
+4
   100
 AcDbSymbolTableRecord
   100
@@ -389,9 +389,9 @@ DOT2
   0
 LAYER
   5
-F
+1F
   330
-C
+4
   100
 AcDbSymbolTableRecord
   100
@@ -411,9 +411,9 @@ CONTINUOUS
   0
 LAYER
   5
-10
+20
   330
-C
+4
   100
 AcDbSymbolTableRecord
   100
@@ -437,7 +437,7 @@ TABLE
   2
 STYLE
   5
-11
+5
   330
 0
   100
@@ -447,9 +447,9 @@ AcDbSymbolTable
   0
 STYLE
   5
-12
-  330
 11
+  330
+5
   100
 AcDbSymbolTableRecord
   100
@@ -479,7 +479,7 @@ TABLE
   2
 VIEW
   5
-13
+6
   330
 0
   100
@@ -493,7 +493,7 @@ TABLE
   2
 UCS
   5
-14
+7
   330
 0
   100
@@ -507,7 +507,7 @@ TABLE
   2
 APPID
   5
-15
+8
   330
 0
   100
@@ -517,9 +517,9 @@ AcDbSymbolTable
   0
 APPID
   5
-16
+12
   330
-15
+8
   100
 AcDbSymbolTableRecord
   100
@@ -535,7 +535,7 @@ TABLE
   2
 DIMSTYLE
   5
-17
+9
   330
 0
   100
@@ -549,9 +549,9 @@ AcDbDimStyleTable
   0
 DIMSTYLE
   105
-18
+13
   330
-17
+9
   100
 AcDbSymbolTableRecord
   100
@@ -687,7 +687,7 @@ TABLE
   2
 BLOCK_RECORD
   5
-19
+A
   330
 0
   100
@@ -697,9 +697,9 @@ AcDbSymbolTable
   0
 BLOCK_RECORD
   5
-1A
+B
   330
-19
+A
   100
 AcDbSymbolTableRecord
   100
@@ -715,9 +715,9 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-1B
+C
   330
-19
+A
   100
 AcDbSymbolTableRecord
   100
@@ -741,9 +741,9 @@ BLOCKS
   0
 BLOCK
   5
-1C
+33
   330
-1A
+B
   100
 AcDbEntity
   8
@@ -767,9 +767,9 @@ AcDbBlockBegin
   0
 ENDBLK
   5
-1D
+34
   330
-1A
+B
   100
 AcDbEntity
   8
@@ -779,9 +779,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-1E
+35
   330
-1B
+C
   100
 AcDbEntity
   8
@@ -805,9 +805,9 @@ AcDbBlockBegin
   0
 ENDBLK
   5
-1F
+36
   330
-1B
+C
   100
 AcDbEntity
   8
@@ -823,7 +823,7 @@ ENTITIES
   0
 POINT
   5
-20
+37
   100
 AcDbEntity
   8
@@ -839,7 +839,7 @@ AcDbPoint
   0
 LINE
   5
-21
+38
   100
 AcDbEntity
   8
@@ -861,7 +861,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-22
+39
   100
 AcDbEntity
   8
@@ -891,7 +891,7 @@ AcDbPolyline
   0
 POLYLINE
   5
-23
+3A
   100
 AcDbEntity
   8
@@ -911,7 +911,7 @@ AcDb3dPolyline
   0
 VERTEX
   5
-24
+3C
   100
 AcDbEntity
   8
@@ -931,7 +931,7 @@ AcDb3dPolylineVertex
   0
 VERTEX
   5
-25
+3E
   100
 AcDbEntity
   8
@@ -951,7 +951,7 @@ AcDb3dPolylineVertex
   0
 VERTEX
   5
-26
+40
   100
 AcDbEntity
   8
@@ -971,7 +971,7 @@ AcDb3dPolylineVertex
   0
 SEQEND
   5
-27
+41
   100
 AcDbEntity
   8
@@ -979,7 +979,7 @@ l_cyan
   0
 CIRCLE
   5
-28
+42
   100
 AcDbEntity
   8
@@ -997,7 +997,7 @@ AcDbCircle
   0
 ARC
   5
-29
+43
   100
 AcDbEntity
   8
@@ -1021,7 +1021,7 @@ AcDbArc
   0
 SPLINE
   5
-2A
+44
   100
 AcDbEntity
   8
@@ -1095,7 +1095,7 @@ AcDbSpline
   0
 ELLIPSE
   5
-2B
+45
   100
 AcDbEntity
   8
@@ -1123,7 +1123,7 @@ AcDbEllipse
   0
 3DFACE
   5
-2C
+46
   100
 AcDbEntity
   8
@@ -1157,7 +1157,7 @@ AcDbFace
   0
 TEXT
   5
-2D
+47
   100
 AcDbEntity
   8
@@ -1185,7 +1185,7 @@ OBJECTS
   0
 DICTIONARY
   5
-1
+16
   330
 0
   100
@@ -1195,13 +1195,13 @@ AcDbDictionary
   3
 ACAD_GROUP
   350
-2
+17
   0
 DICTIONARY
   5
-2
+17
   330
-1
+16
   100
 AcDbDictionary
   281

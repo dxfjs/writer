@@ -5,8 +5,7 @@ export default class Classes {
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        return tags;
+        return [];
     }
     public stringify(): string {
         let str = '';
