@@ -74,7 +74,8 @@ dxf.setCurrentLayer('l_green')
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 ```
-
+## Example preview in AutoCAD 2018
+![ac_2018](https://user-images.githubusercontent.com/6343314/109976246-d9f0bb00-7cfb-11eb-91d0-14e5831b6f6e.PNG)
 ## Entities supported
 
 - ARC
