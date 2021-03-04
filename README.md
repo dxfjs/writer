@@ -75,7 +75,7 @@ dxf.setCurrentLayer('l_green')
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 ```
-###***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
+***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
 - ARC
 - CIRCLE
 - ELLIPSE
