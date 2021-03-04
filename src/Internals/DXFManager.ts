@@ -23,6 +23,10 @@ export default class DXFManager {
         R2000:  "AC1015", R2004:    "AC1018", R2007:    "AC1021",
         R2010:  "AC1024", R2013:    "AC1027", R2018:    "AC1032"
     };
+    static colors = {
+        Red:        1, Green:      3, Cyan:       4,
+        Blue:       5, Magenta:    6, White:      7
+    }
     static version: string;
     static handleSeed: number = 0;
     private _handle: string;

@@ -14,9 +14,9 @@ dxf.addLineType('DOT', 'Dot . . . . . . . . . . . . . . . . . . . . . .', [0,-6.
     .addLineType('DOTTINY', 'Dot (.15x) .....................................', [0,-0.9525])
     .addLineType('DOT2', 'Dot (.5x) .....................................', [0,-3.175]);
 
-dxf.addLayer('l_red', 1, 'DOT2', 0)
-    .addLayer('l_green', 3, 'CONTINUOUS', 0)
-    .addLayer('l_cyan', 4, 'CONTINUOUS', 0);
+dxf.addLayer('l_red', DXFWriter.colors.Red, 'DOT2', 0)
+    .addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS', 0)
+    .addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS', 0);
 
 dxf.setCurrentLayer('l_green')
     .addSpline(points, 3, 0, [0, 0, 0, 0, 0.5, 2, 2, 2, 2], [], [])
