@@ -1,4 +1,5 @@
 # DXF (Still under development)
+
 ## _A simple JavaScript interface to DXF written in TypeScript._
 
 DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
@@ -10,25 +11,34 @@ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files
 - Tested on [AutoCAD](https://www.autodesk.com/products/autocad/overview), [LibreCAD](https://librecad.org/) and [DWG FastView](https://play.google.com/store/apps/details?id=com.gstarmc.android&hl=en&gl=US) on mobile.
 
 ## To test the DXF Library
+
 ### Clone the repository
+
 ```bash
 git clone https://github.com/tarikjabiri/dxf.git
 ```
+
 ### Install dependencies
+
 ```bash
 cd dxf
 yarn install
 ```
+
 ### Build the code
+
 ```bash
 yarn run build
 ```
 
 ### Run the example code
+
 ```bash
 node examples/example.js 
 ```
+
 ## Node.js code example
+
 ```javascript
 import DXFWriter from "../lib/DXFWriter.js";
 import * as fs from 'fs';
@@ -76,7 +86,9 @@ dxf.setCurrentLayer('l_green')
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 ```
+
 ***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
+
 - ARC
 - CIRCLE
 - ELLIPSE
@@ -87,6 +99,7 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 - POLYLINE 3D
 - SPLINE
 - TEXT
+
 ## Colors supported
 
 - Red
@@ -98,12 +111,13 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 - Black
 - Yellow
 
-
 ## References used in development
+
 - [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
 - [ezdxf](https://ezdxf.readthedocs.io/en/stable/) (a Python library written by [Manfred Moitzi](https://github.com/mozman))
 - [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
 - [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by [Ognjen Petrovic](https://github.com/ognjen-petrovic))
+
 ## License
 
 MIT
