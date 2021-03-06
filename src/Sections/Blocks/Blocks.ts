@@ -29,9 +29,8 @@ export default class Blocks {
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        const [modelSpace, paperSpace] = this.blocks;
-        if (modelSpace) modelSpace.handleToOwner = this.modelHandle;
-        if (paperSpace) paperSpace.handleToOwner = this.paperHandle;
+        this.blocks[0].handleToOwner = this.modelHandle;
+        this.blocks[1].handleToOwner = this.paperHandle;
         this.blocks.forEach((block) => {
             tags.push(...block.tags());
         });

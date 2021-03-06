@@ -41,9 +41,8 @@ export default class BlockRecordTable extends DXFManager {
             tags = tags.concat(block_record.tags());
         });
         tags.push(new Tag(0, 'ENDTAB'));
-        const [modelSpace, paperSpace] = this.blockRecords;
-        if (modelSpace) this.modelHandle = modelSpace.handle;
-        if (paperSpace) this.paperHandle = paperSpace.handle;
+        this.modelHandle = this.blockRecords[0].handle;
+        this.paperHandle = this.blockRecords[1].handle;
         return tags;
     }
 

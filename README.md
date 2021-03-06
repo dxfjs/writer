@@ -105,7 +105,5 @@ fs.writeFileSync('examples/example.dxf', dxf.stringify());
 - [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
 - [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by [Ognjen Petrovic](https://github.com/ognjen-petrovic))
 ## License
-MIT
-## Core Contributors
 
-[![Tarik EL JABIRI](https://avatars.githubusercontent.com/u/6343314?s=50&u=10b2f3ba986a341a16c902d85474db4a0592138c&v=4)](https://github.com/tarikjabiri)
+MIT
