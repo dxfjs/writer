@@ -25,7 +25,7 @@ export default class Tag {
         return this._value;
     }
     private _groupCode: number;
-    private _nullable: boolean = true;
+    private _nullable: boolean;
     private _value: number | string;
     private _version: string;
     public constructor (

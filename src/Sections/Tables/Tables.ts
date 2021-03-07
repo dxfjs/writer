@@ -36,7 +36,7 @@ export default class Tables {
         this._ucss          = new UCSTable();
         this._appids        = new APPIDTable();
         this._dimstyles     = new DIMStyleTable();
-        this._blockRecords = new BlockRecordTable();
+        this._blockRecords  = new BlockRecordTable();
 
         this.addLineType('ByBlock', '', []);
         this.addLineType('ByLayer', '', []);
@@ -44,7 +44,7 @@ export default class Tables {
 
         this.addLayer('0', 7, 'CONTINUOUS', 0);
 
-        this.addStyle('Standard')
+        this.addStyle('Standard');
 
         this.addAPPID('ACAD', 0);
 
