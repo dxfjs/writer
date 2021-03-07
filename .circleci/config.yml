@@ -4,5 +4,4 @@ orbs:
 workflows:
   node-tests:
     jobs:
-      - node/test:
-          version: 15.8.0
+      - yarn/test
