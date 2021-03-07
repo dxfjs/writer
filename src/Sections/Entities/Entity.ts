@@ -5,8 +5,8 @@ export default class Entity extends DXFManager {
     get layerName(): string {
         return this._layerName;
     }
-    get subclass(): string {
-        return this._subclass;
+    get subClassName(): string {
+        return this._subClassName;
     }
 
     get type(): string {
@@ -14,12 +14,12 @@ export default class Entity extends DXFManager {
     }
 
     protected readonly _type: string;
-    protected readonly _subclass: string;
+    protected readonly _subClassName: string;
     private readonly _layerName: string;
     public constructor(type: string, subclass: string) {
         super();
         this._type = type;
-        this._subclass = subclass;
+        this._subClassName = subclass;
         this._layerName = DXFManager.currentLayer;
     }
 
@@ -29,7 +29,7 @@ export default class Entity extends DXFManager {
             ...this.hand(this.handle),
             ...this.subclassMarker('AcDbEntity'),
             ...this.layer(this.layerName),
-            ...this.subclassMarker(this.subclass)
+            ...this.subclassMarker(this.subClassName)
         ];
     }
 };
