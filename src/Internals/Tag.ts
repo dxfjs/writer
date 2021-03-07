@@ -1,4 +1,3 @@
-import DXFManager from "./DXFManager";
 export default class Tag {
     set groupCode(value: number) {
         this._groupCode = value;
@@ -30,7 +29,7 @@ export default class Tag {
     private _version: string;
     public constructor (
         groupCode: number, value: number | string = '',
-        version: string = DXFManager.versions.R12,
+        version: string = 'AC1009',
         nullable: boolean = true
     ) {
         this._nullable = nullable;

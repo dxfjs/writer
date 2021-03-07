@@ -258,7 +258,7 @@ const colors = [
 ];
 const container = document.getElementsByClassName('container')[0];
 colors.forEach((color) => {
-    let el = document.createElement('div');
+    const el = document.createElement('div');
     el.classList.add('color');
     const red = color[0][0] === '0' ? '00': color[0][0];
     const green = color[0][1] === '0' ? '00': color[0][1];

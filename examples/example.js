@@ -1,6 +1,5 @@
-
-import * as fs from 'fs';
 import DXFWriter from "../lib/DXFWriter";
+import * as fs from 'fs';
 
 const dxf = new DXFWriter();
 dxf.addLine(0, 0, 100, 100);

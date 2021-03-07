@@ -37,7 +37,7 @@ yarn install
 ### Build the code
 
 ```bash
-yarn run build
+yarn build
 ```
 
 ### Run the example code
@@ -49,7 +49,7 @@ yarn example
 ## Node.js code example
 
 ```javascript
-import DXFWriter from "../lib/DXFWriter.js";
+import DXFWriter from "../lib/DXFWriter";
 import * as fs from 'fs';
 
 const dxf = new DXFWriter();
