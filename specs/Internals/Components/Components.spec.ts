@@ -15,7 +15,7 @@ describe('ColorComponent', () => {
     describe('stringify', () => {
         it('should return the correct dxf string', () => {
             const colorComponent = new ColorComponent(7);
-            expect(colorComponent.stringify()).toBe('  62\n7\n');
+            expect(colorComponent.stringify()).toBe('  62\n8\n');
         });
     });
 });
