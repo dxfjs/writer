@@ -37,7 +37,7 @@ yarn run build
 ### Run the example code
 
 ```bash
-node examples/example.js 
+yarn example
 ```
 
 ## Node.js code example
