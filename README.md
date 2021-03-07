@@ -2,6 +2,8 @@
 
 [![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)
 
+[![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
+
 ## _A simple JavaScript interface to DXF written in TypeScript._
 
 DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
