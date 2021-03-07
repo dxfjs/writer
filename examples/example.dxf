@@ -899,7 +899,7 @@ POINT
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbPoint
   10
@@ -915,7 +915,7 @@ LINE
   100
 AcDbEntity
   8
-l_yellow
+0
   100
 AcDbLine
   10
@@ -937,7 +937,7 @@ LWPOLYLINE
   100
 AcDbEntity
   8
-l_yellow
+l_red
   100
 AcDbPolyline
   90
@@ -967,7 +967,7 @@ POLYLINE
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDb3dPolyline
   66
@@ -987,7 +987,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbVertex
   100
@@ -1007,7 +1007,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbVertex
   100
@@ -1027,7 +1027,7 @@ VERTEX
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbVertex
   100
@@ -1040,7 +1040,7 @@ AcDb3dPolylineVertex
 150
   70
 32
-  2
+  0
 SEQEND
   5
 35
@@ -1055,7 +1055,7 @@ CIRCLE
   100
 AcDbEntity
   8
-l_yellow
+l_red
   100
 AcDbCircle
   10
@@ -1073,7 +1073,7 @@ ARC
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbCircle
   10
@@ -1097,7 +1097,7 @@ SPLINE
   100
 AcDbEntity
   8
-l_yellow
+l_green
   100
 AcDbSpline
   70
@@ -1233,7 +1233,7 @@ TEXT
   100
 AcDbEntity
   8
-l_yellow
+l_cyan
   100
 AcDbText
   10

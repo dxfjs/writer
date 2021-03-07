@@ -29,11 +29,12 @@ export default class Arc extends Entity
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = super.tags();
-        tags.push(...this.point(this.center.x, this.center.y, this.center.z, true));
-        tags.push(...this.standard([[40, this.radius]]));
-        tags.push(...this.subclassMarker('AcDbArc'));
-        tags.push(...this.standard([[50, this.startAngle], [51, this.endAngle]]));
-        return tags;
+        return [
+            ...super.tags(),
+            ...this.point(this.center.x, this.center.y, this.center.z, true),
+            ...this.standard([[40, this.radius]]),
+            ...this.subclassMarker('AcDbArc'),
+            ...this.standard([[50, this.startAngle], [51, this.endAngle]])
+        ];
     }
 }

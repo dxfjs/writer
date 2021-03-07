@@ -32,7 +32,7 @@ export default class Polyline3D extends Entity
         this._vertexes.forEach((vertex) => {
             tags.push(...vertex.tags());
         });
-        tags.push(...this.name('SEQEND'));
+        tags.push(...this.entityType('SEQEND'));
         tags.push(...this.hand(this._seqHandle));
         tags.push(...this.subclassMarker('AcDbEntity'));
         tags.push(...this.layer(Entity.currentLayer));
