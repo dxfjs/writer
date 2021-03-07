@@ -1,8 +1,12 @@
 # DXF (Still under development)
 
+[![GitHub license](https://img.shields.io/github/license/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md)
 [![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript)
+[![GitHub issues](https://img.shields.io/github/issues/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/issues)
+[![GitHub stars](https://img.shields.io/github/stars/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/network)
 
 ## _A simple JavaScript interface to DXF written in TypeScript._
 
