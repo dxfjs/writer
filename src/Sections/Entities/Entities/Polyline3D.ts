@@ -1,6 +1,6 @@
-import Entity from "../Entity.js";
-import Vertex from "./Vertex.js";
-import Tag from "../../../Internals/Tag.js";
+import Entity   from "../Entity";
+import Vertex   from "./Vertex";
+import Tag      from "../../../Internals/Tag";
 
 export default class Polyline3D extends Entity
 {
@@ -26,19 +26,16 @@ export default class Polyline3D extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(new Tag(66, 1));
-        tags.push(new Tag(10, 0));
-        tags.push(new Tag(20, 0));
-        tags.push(new Tag(30, 0));
-        tags.push(new Tag(70, this.flag));
+        tags.push(...this.standard([[66, 1]]));
+        tags.push(...this.point(0, 0, 0, true));
+        tags.push(...this.standard([[70, this.flag]]));
         this._vertexes.forEach((vertex) => {
-            tags = tags.concat(vertex.tags());
+            tags.push(...vertex.tags());
         });
-        tags.push(new Tag(0, 'SEQEND'));
-        tags.push(new Tag(5, this._seqHandle));
-        tags.push(new Tag(100, 'AcDbEntity'));
-        tags.push(new Tag(8, this.layerName));
-
+        tags.push(...this.name('SEQEND'));
+        tags.push(...this.hand(this._seqHandle));
+        tags.push(...this.subclassMarker('AcDbEntity'));
+        tags.push(...this.layer(Entity.currentLayer));
         return tags;
     }
 }

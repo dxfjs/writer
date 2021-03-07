@@ -1,17 +1,19 @@
-import NameComponent            from "./Components/NameComponent.js";
-import ColorComponent           from "./Components/ColorComponent.js";
-import LayerComponent           from "./Components/LayerComponent.js";
-import PointComponent           from "./Components/PointComponent.js";
-import HandleComponent          from "./Components/HandleComponent.js";
-import LineTypeComponent        from "./Components/LineTypeComponent.js";
-import StandardComponent        from "./Components/StandardComponent.js";
-import TextStyleComponent       from "./Components/TextStyleComponent.js";
-import ThicknessComponent       from "./Components/ThicknessComponent.js";
-import TrueColorComponent       from "./Components/TrueColorComponent.js";
-import EntityTypeComponent      from "./Components/EntityTypeComponent.js";
-import SubclassMarkerComponent  from "./Components/SubclassMarkerComponent.js";
+import Tag                      from "./Tag";
+import DXFInterface             from "./Interfaces/DXFInterface";
+import NameComponent            from "./Components/NameComponent";
+import ColorComponent           from "./Components/ColorComponent";
+import LayerComponent           from "./Components/LayerComponent";
+import PointComponent           from "./Components/PointComponent";
+import HandleComponent          from "./Components/HandleComponent";
+import LineTypeComponent        from "./Components/LineTypeComponent";
+import StandardComponent        from "./Components/StandardComponent";
+import TextStyleComponent       from "./Components/TextStyleComponent";
+import ThicknessComponent       from "./Components/ThicknessComponent";
+import TrueColorComponent       from "./Components/TrueColorComponent";
+import EntityTypeComponent      from "./Components/EntityTypeComponent";
+import SubclassMarkerComponent  from "./Components/SubclassMarkerComponent";
 
-export default class DXFManager {
+export default class DXFManager implements DXFInterface {
     get handle(): string {
         return this._handle;
     }
@@ -29,46 +31,31 @@ export default class DXFManager {
         Black:      0, Yellow:     2,
     }
     static units = {
-        Unitless: 0,
-        Inches: 1,
-        Feet: 2,
-        Miles: 3,
-        Millimeters: 4,
-        Centimeters: 5,
-        Meters: 6,
-        Kilometers: 7,
-        Microinches: 8,
-        Mils: 9,
-        Yards: 10,
-        Angstroms: 11,
-        Nanometers: 12,
-        Microns: 13,
-        Decimeters: 14,
-        Decameters: 15,
-        Hectometers: 16,
-        Gigameters: 17,
-        AstronomicalUnits: 18,
-        LightYears: 19,
-        Parsecs: 20,
-        USSurveyFeet: 21,
-        USSurveyInch: 22,
-        USSurveyYard: 23,
-        USSurveyMile: 24,
+        Unitless:           0,  Inches:         1,  Feet:           2,
+        Miles:              3,  Millimeters:    4,  Centimeters:    5,
+        Meters:             6,  Kilometers:     7,  Microinches:    8,
+        Mils:               9,  Yards:          10, Angstroms:      11,
+        Nanometers:         12, Microns:        13, Decimeters:     14,
+        Decameters:         15, Hectometers:    16, Gigameters:     17,
+        AstronomicalUnits:  18, LightYears:     19, Parsecs:        20,
+        USSurveyFeet:       21, USSurveyInch:   22, USSurveyYard:   23,
+        USSurveyMile:       24,
     }
     static version:         string;
     static handleSeed:      number = 0;
     private _handle:        string;
     static currentLayer:    string = '0';
-    protected constructor() {
+    public constructor() {
         this._handle = this.handleSeed();
     }
-    protected isInteger(value: number): boolean {
+
+    public isInteger(value: number): boolean {
         return Number(value) === value && value % 1 === 0;
     }
-    protected isFloat(value: number): boolean {
+    public isFloat(value: number): boolean {
         return Number(value) === value && value % 1 !== 0;
     }
-    protected isSupported(version: string): boolean {
+    public isSupported(version: string): boolean {
         const fileVersion = parseInt(DXFManager.version.replace('AC', ''));
         const tagVersion = parseInt(version.replace('AC', ''));
         return tagVersion <= fileVersion;
@@ -79,43 +66,55 @@ export default class DXFManager {
         return DXFManager.handleSeed.toString(16).toUpperCase();
     }
 
-    public color(index: number): ColorComponent {
-        return new ColorComponent(index);
+    tags(): Tag[] {
+        return [];
     }
-    public entityType(name: string): EntityTypeComponent {
-        return new EntityTypeComponent(name);
+
+    public stringify(): string {
+        return this.tags().reduce((str, tag) => {
+            return `${str}${tag.stringify()}`;
+        }, '');
     }
-    public hand(handle: string): HandleComponent {
-        return new HandleComponent(handle);
+
+    public color(index: number): Tag[] {
+        return new ColorComponent(index).tags();
     }
-    public layer(layer: string): LayerComponent {
-        return new LayerComponent(layer);
+    public entityType(name: string): Tag[] {
+        return new EntityTypeComponent(name).tags();
     }
-    public lineType(lineType: string): LineTypeComponent {
-        return new LineTypeComponent(lineType);
+    public hand(handle: string): Tag[] {
+        return new HandleComponent(handle).tags();
     }
-    public name(name: string, groupCode: number = 2): NameComponent {
-        return new NameComponent(name, groupCode);
+    public layer(layer: string): Tag[] {
+        return new LayerComponent(layer).tags();
+    }
+    public lineType(lineType: string): Tag[] {
+        return new LineTypeComponent(lineType).tags();
+    }
+    public name(name: string, groupCode: number = 2): Tag[] {
+        return new NameComponent(name, groupCode).tags();
     }
     public point(
-        x: number, y: number, z: number,
+        x: number, y: number, z: number = 0,
         is3D: boolean = false, digit: number = 0
-    ): PointComponent {
-        return new PointComponent(x, y, z, is3D, digit);
+    ): Tag[] {
+        return new PointComponent(x, y, z, is3D, digit).tags();
     }
-    public standard(tagsArray: [number, number | string][]): StandardComponent {
-        return new StandardComponent(tagsArray);
+    public standard(tagsArray: [number, number | string][]): Tag[] {
+        return new StandardComponent(tagsArray).tags();
     }
-    public subclassMarker(subclass: string): SubclassMarkerComponent {
-        return new SubclassMarkerComponent(subclass);
+    public subclassMarker(subclass: string): Tag[] {
+        return new SubclassMarkerComponent(subclass).tags();
     }
-    public textStyle(textStyleName: string): TextStyleComponent {
-        return new TextStyleComponent(textStyleName);
+    public textStyle(textStyleName: string): Tag[] {
+        return new TextStyleComponent(textStyleName).tags();
     }
-    public thickness(thickness : number): ThicknessComponent {
-        return new ThicknessComponent(thickness);
+    public thickness(thickness : number): Tag[] {
+        return new ThicknessComponent(thickness).tags();
     }
-    public trueColor(red: number, green: number, blue: number, digit: number = 0): TrueColorComponent {
-        return new TrueColorComponent(red, green, blue, digit);
+    public trueColor(
+        red: number, green: number, blue: number, digit: number = 0
+    ): Tag[] {
+        return new TrueColorComponent(red, green, blue, digit).tags();
     }
 };

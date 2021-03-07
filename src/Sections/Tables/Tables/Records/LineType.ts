@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class LineType extends DXFManager implements DXFInterface {
+export default class LineType extends DXFManager{
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -33,30 +32,28 @@ export default class LineType extends DXFManager implements DXFInterface {
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(new Tag(0, 'LTYPE'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbLinetypeTableRecord'));
-        tags.push(new Tag(2, this.lineTypeName));
-        tags.push(new Tag(70, 0));
-        tags.push(new Tag(3, this.descriptive));
-        tags.push(new Tag(72, 65));
-        tags.push(new Tag(73, this.elements.length));
+        tags.push(...this.entityType('LTYPE'));
+        tags.push(...this.hand(this.handle));
+        tags.push(...this.standard([[330, this.handleToOwner]]));
+        tags.push(...this.subclassMarker('AcDbSymbolTableRecord'));
+        tags.push(...this.subclassMarker('AcDbLinetypeTableRecord'));
+        tags.push(...this.name(this.lineTypeName));
+        tags.push(...this.standard([
+            [70, 0],
+            [3, this.descriptive],
+            [72, 65],
+            [73, this.elements.length],
+        ]));
         const sum = this.elements.reduce((sum, element) => {
             return sum + Math.abs(element);
         }, 0);
-        tags.push(new Tag(40, sum));
+        tags.push(...this.standard([[40, sum]]));
         this.elements.forEach((element) => {
-            tags.push(new Tag(49, element));
-            tags.push(new Tag(74, 0));
+            tags.push(...this.standard([
+                [49, element],
+                [74, 0],
+            ]));
         });
         return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
     }
 };

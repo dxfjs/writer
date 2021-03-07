@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class APPID extends DXFManager implements DXFInterface {
+export default class APPID extends DXFManager {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -36,12 +35,6 @@ export default class APPID extends DXFManager implements DXFInterface {
         tags.push(new Tag(2, this.appIDName));
         tags.push(new Tag(70, this.flag));
         return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
     }
 
 };

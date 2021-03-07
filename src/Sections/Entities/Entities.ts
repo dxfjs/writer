@@ -1,17 +1,17 @@
-import Point        from "./Entities/Point.js";
-import Line         from "./Entities/Line.js";
-import Polyline     from "./Entities/Polyline.js";
-import Polyline3D   from "./Entities/Polyline3D.js";
-import Circle       from "./Entities/Circle.js";
-import Arc          from "./Entities/Arc.js";
-import Spline       from "./Entities/Spline.js";
-import Ellipse      from "./Entities/Ellipse.js";
-import Face         from "./Entities/Face.js";
-import Text         from "./Entities/Text.js";
-import Tag          from "../../Internals/Tag.js";
+import Point        from "./Entities/Point";
+import Line         from "./Entities/Line";
+import Polyline     from "./Entities/Polyline";
+import Polyline3D   from "./Entities/Polyline3D";
+import Circle       from "./Entities/Circle";
+import Arc          from "./Entities/Arc";
+import Spline       from "./Entities/Spline";
+import Ellipse      from "./Entities/Ellipse";
+import Face         from "./Entities/Face";
+import Text         from "./Entities/Text";
+import Tag          from "../../Internals/Tag";
+import DXFManager   from "../../Internals/DXFManager";
 
-export default class Entities
-{
+export default class Entities extends DXFManager {
     get texts(): Text[] {
         return this._texts;
     }
@@ -54,6 +54,7 @@ export default class Entities
     private _texts:         Text[]          = [];
 
     public constructor() {
+        super();
     }
     public addLine(
         x_start: number, y_start: number,
@@ -159,6 +160,8 @@ export default class Entities
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
+        tags.push(...this.entityType('SECTION'));
+        tags.push(...this.name('ENTITIES'));
         this.points.forEach((point) => {
             tags = tags.concat(point.tags());
         });
@@ -189,17 +192,7 @@ export default class Entities
         this.texts.forEach((text) => {
             tags = tags.concat(text.tags());
         });
+        tags.push(...this.entityType('ENDSEC'));
         return tags;
     }
-    public stringify(): string {
-        let str = '';
-        str += new Tag(0, 'SECTION').stringify();
-        str += new Tag(2, 'ENTITIES').stringify();
-        str += this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
-        str += new Tag(0, 'ENDSEC').stringify();
-        return str;
-    }
-
 }

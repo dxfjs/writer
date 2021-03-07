@@ -1,8 +1,8 @@
-import BlockRecord  from "./Records/BlockRecord.js";
-import Tag          from "../../../Internals/Tag.js";
-import DXFManager   from "../../../Internals/DXFManager.js";
+import Table        from "../Table";
+import BlockRecord  from "./Records/BlockRecord";
+import Tag          from "../../../Internals/Tag";
 
-export default class BlockRecordTable extends DXFManager {
+export default class BlockRecordTable extends Table {
     get paperHandle(): string {
         return this._paperHandle;
     }
@@ -24,32 +24,20 @@ export default class BlockRecordTable extends DXFManager {
     private _modelHandle: string = '';
     private _paperHandle: string = '';
     public constructor() {
-        super();
+        super('BLOCK_RECORD');
         this._blockRecords.push(new BlockRecord('*Model_Space'));
         this._blockRecords.push(new BlockRecord('*Paper_Space'));
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(new Tag(0, 'TABLE'));
-        tags.push(new Tag(2, 'BLOCK_RECORD'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, 0));
-        tags.push(new Tag(100, 'AcDbSymbolTable'));
-        tags.push(new Tag(70, 2));
+        tags.push(...super.tags());
         this.blockRecords.forEach((block_record) => {
             block_record.handleToOwner = this.handle;
             tags = tags.concat(block_record.tags());
         });
-        tags.push(new Tag(0, 'ENDTAB'));
+        tags.push(...this.entityType('ENDTAB'));
         this.modelHandle = this.blockRecords[0].handle;
         this.paperHandle = this.blockRecords[1].handle;
         return tags;
     }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
-    }
-
 };

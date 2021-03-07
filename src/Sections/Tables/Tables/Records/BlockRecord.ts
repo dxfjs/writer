@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class BlockRecord extends DXFManager implements DXFInterface {
+export default class BlockRecord extends DXFManager {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -33,11 +32,5 @@ export default class BlockRecord extends DXFManager implements DXFInterface {
         tags.push(new Tag(280, 1));
         tags.push(new Tag(281, 0));
         return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
     }
 }

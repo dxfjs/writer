@@ -1,37 +1,27 @@
-import UCS          from "./Records/UCS.js";
-import Tag          from "../../../Internals/Tag.js";
-import DXFManager   from "../../../Internals/DXFManager.js";
+import Table        from "../Table";
+import UCS          from "./Records/UCS";
+import Tag          from "../../../Internals/Tag";
 
-export default class UCSTable extends DXFManager {
+export default class UCSTable extends Table {
     get ucss(): UCS[] {
         return this._ucss;
     }
     private _ucss: UCS[] = [];
     public constructor() {
-        super();
+        super('UCS');
     }
 
     public addUCS() {
         this._ucss.push(new UCS());
     }
+
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(new Tag(0, 'TABLE'));
-        tags.push(new Tag(2, 'UCS'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, 0));
-        tags.push(new Tag(100, 'AcDbSymbolTable'));
-        tags.push(new Tag(70, 0));
+        tags.push(...super.tags());
         this.ucss.forEach((ucs) => {
-            tags = tags.concat(ucs.tags());
+            tags.push(...ucs.tags());
         });
-        tags.push(new Tag(0, 'ENDTAB'));
+        tags.push(...this.entityType('ENDTAB'));
         return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
     }
 };

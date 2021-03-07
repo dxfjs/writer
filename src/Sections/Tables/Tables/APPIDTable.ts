@@ -1,14 +1,14 @@
-import APPID        from "./Records/APPID.js";
-import Tag          from "../../../Internals/Tag.js";
-import DXFManager   from "../../../Internals/DXFManager.js";
+import Table        from "../Table";
+import APPID        from "./Records/APPID";
+import Tag          from "../../../Internals/Tag";
 
-export default class APPIDTable extends DXFManager {
+export default class APPIDTable extends Table {
     get appIDs(): APPID[] {
         return this._appIDs;
     }
     private _appIDs: APPID[] = [];
     public constructor() {
-        super();
+        super('APPID');
     }
 
     public addAPPID(name: string, flag: number) {
@@ -16,23 +16,12 @@ export default class APPIDTable extends DXFManager {
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(new Tag(0, 'TABLE'));
-        tags.push(new Tag(2, 'APPID'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, 0));
-        tags.push(new Tag(100, 'AcDbSymbolTable'));
-        tags.push(new Tag(70, 1));
+        tags.push(...super.tags());
         this.appIDs.forEach((appID) => {
             appID.handleToOwner = this.handle;
-            tags = tags.concat(appID.tags());
+            tags.push(...appID.tags());
         });
-        tags.push(new Tag(0, 'ENDTAB'));
+        tags.push(...this.entityType('ENDTAB'));
         return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
     }
 };

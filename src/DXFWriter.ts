@@ -1,10 +1,10 @@
-import DXFManager   from "./Internals/DXFManager.js";
-import Header       from "./Sections/Header/Header.js";
-import Tables       from "./Sections/Tables/Tables.js";
-import Blocks       from "./Sections/Blocks/Blocks.js";
-import Classes      from "./Sections/Classes/Classes.js";
-import Objects      from "./Sections/Objects/Objects.js";
-import Entities     from "./Sections/Entities/Entities.js";
+import DXFManager   from "./Internals/DXFManager";
+import Header       from "./Sections/Header/Header";
+import Tables       from "./Sections/Tables/Tables";
+import Blocks       from "./Sections/Blocks/Blocks";
+import Classes      from "./Sections/Classes/Classes";
+import Objects      from "./Sections/Objects/Objects";
+import Entities     from "./Sections/Entities/Entities";
 
 export default class DXFWriter extends DXFManager {
     private _header:    Header;
@@ -76,10 +76,10 @@ export default class DXFWriter extends DXFManager {
         bottom_right_x: number, bottom_right_y: number
     ): DXFWriter {
         const corners = [
-            [top_left_x, top_left_y],
-            [bottom_right_x, top_left_y],
-            [bottom_right_x, bottom_right_y],
-            [top_left_x, bottom_right_y]
+            [top_left_x,        top_left_y],
+            [bottom_right_x,    top_left_y],
+            [bottom_right_x,    bottom_right_y],
+            [top_left_x,        bottom_right_y]
         ];
         this._entities.addPolyline(corners, 1);
         return this;
@@ -157,8 +157,8 @@ export default class DXFWriter extends DXFManager {
         str += this._header.stringify();
         str += this._classes.stringify();
         str += this._tables.stringify();
-        this._blocks.modelHandle = this._tables.blockRecords.modelHandle;
-        this._blocks.paperHandle = this._tables.blockRecords.paperHandle;
+        this._blocks.modelHandle = this._tables.blockRecords.modelHandle; // TODO remove this from here
+        this._blocks.paperHandle = this._tables.blockRecords.paperHandle; // TODO remove this from here
         str += this._blocks.stringify();
         str += this._entities.stringify();
         str += this._objects.stringify();

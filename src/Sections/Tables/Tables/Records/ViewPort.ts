@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class ViewPort extends DXFManager implements DXFInterface {
+export default class ViewPort extends DXFManager {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -11,89 +10,37 @@ export default class ViewPort extends DXFManager implements DXFInterface {
         this._handleToOwner = value;
     }
     private _handleToOwner: string;
-    private _vportHandle: string;
+    private readonly _vportHandle: string;
     public constructor() {
         super();
         this._handleToOwner = '0';
         this._vportHandle = this.handleSeed();
     }
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, 'TABLE'));
-        tags.push(new Tag(2, 'VPORT'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, 0));
-        tags.push(new Tag(100, 'AcDbSymbolTable'));
-        tags.push(new Tag(70, 1));
-        tags.push(new Tag(0, 'VPORT'));
-        tags.push(new Tag(5, this._vportHandle));
-        tags.push(new Tag(330, this.handle));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbViewportTableRecord'));
-        tags.push(new Tag(2, '*ACTIVE'));
-        tags.push(new Tag(70, 0));
-        tags.push(new Tag(10, 0));
-        tags.push(new Tag(20, 0));
-        tags.push(new Tag(11, 1));
-        tags.push(new Tag(21, 1));
-        tags.push(new Tag(12, 184)); // TODO
-        tags.push(new Tag(22, 98.75)); // TODO
-        tags.push(new Tag(13, 0));
-        tags.push(new Tag(23, 0));
-        tags.push(new Tag(14, 10));
-        tags.push(new Tag(24, 10));
-        tags.push(new Tag(15, 10));
-        tags.push(new Tag(25, 10));
-        tags.push(new Tag(16, 0));
-        tags.push(new Tag(26, 0));
-        tags.push(new Tag(36, 1));
-        tags.push(new Tag(17, 0));
-        tags.push(new Tag(27, 0));
-        tags.push(new Tag(37, 0));
-        tags.push(new Tag(40, 210));
-        tags.push(new Tag(41, 1.811904761904762)); // TODO
-        tags.push(new Tag(42, 50));
-        tags.push(new Tag(43, 0));
-        tags.push(new Tag(44, 0));
-        tags.push(new Tag(50, 0));
-        tags.push(new Tag(51, 0));
-        tags.push(new Tag(71, 0));
-        tags.push(new Tag(72, 100));
-        tags.push(new Tag(73, 1));
-        tags.push(new Tag(74, 3));
-        tags.push(new Tag(75, 0));
-        tags.push(new Tag(76, 1));
-        tags.push(new Tag(77, 0));
-        tags.push(new Tag(78, 0));
-        tags.push(new Tag(281, 0));
-        tags.push(new Tag(65, 1));
-        tags.push(new Tag(110, 0));
-        tags.push(new Tag(120, 0));
-        tags.push(new Tag(130, 0));
-        tags.push(new Tag(111, 1));
-        tags.push(new Tag(121, 0));
-        tags.push(new Tag(131, 0));
-        tags.push(new Tag(112, 0));
-        tags.push(new Tag(122, 1));
-        tags.push(new Tag(132, 0));
-        tags.push(new Tag(79, 0));
-        tags.push(new Tag(146, 0));
-        tags.push(new Tag(348, 10020));
-        tags.push(new Tag(60, 7));
-        tags.push(new Tag(61, 5));
-        tags.push(new Tag(292, 1));
-        tags.push(new Tag(282, 1));
-        tags.push(new Tag(141, 0));
-        tags.push(new Tag(142, 0));
-        tags.push(new Tag(63, 250));
-        tags.push(new Tag(421, 3358443));
-        tags.push(new Tag(0, 'ENDTAB'));
-        return tags;
-    }
+        return this.standard([
+            [0, 'TABLE'],               [2, 'VPORT'],   [5, this.handle],   [330, 0],
+            [100, 'AcDbSymbolTable'],   [70, 1],        [0, 'VPORT'],       [5, this._vportHandle],
 
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return `${str}${tag.stringify()}`;
-        }, '');
+            [330, this.handle],         [100, 'AcDbSymbolTableRecord'], [100, 'AcDbViewportTableRecord'],
+
+            [2, '*ACTIVE'],     [70, 0],    [10, 0],    [20, 0],    [11, 1],    [21, 1],
+
+            [12, 184], // TODO
+            [22, 98.75], // TODO
+
+            [13, 0],    [23, 0], [14, 10], [24, 10], [15, 10],
+            [25, 10],   [16, 0], [26, 0], [36, 1],
+            [17, 0],    [27, 0], [37, 0], [40, 210],
+
+            [41, 1.811904761904762], // TODO
+
+            [42, 50],   [43, 0],    [44, 0],        [50, 0],        [51, 0],    [71, 0],
+            [72, 100],  [73, 1],    [74, 3],        [75, 0],        [76, 1],
+            [77, 0],    [78, 0],    [281, 0],       [65, 1],        [110, 0],   [120, 0],
+            [130, 0],   [111, 1],   [121, 0],       [131, 0],       [112, 0],
+            [122, 1],   [132, 0],   [79, 0],        [146, 0],       [348, 10020],
+            [60, 7],    [61, 5],    [292, 1],       [282, 1],       [141, 0],
+            [142, 0],   [63, 250],  [421, 3358443], [0, 'ENDTAB'],
+        ]);
     }
 }

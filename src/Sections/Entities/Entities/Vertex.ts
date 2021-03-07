@@ -1,5 +1,5 @@
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Entity from "../Entity";
+import Tag from "../../../Internals/Tag";
 
 export default class Vertex extends Entity
 {
@@ -19,12 +19,12 @@ export default class Vertex extends Entity
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = super.tags();
-        tags.push(new Tag(100, 'AcDb3dPolylineVertex')) // TODO make this dynamic
-        tags.push(new Tag(10, this.vertexPoint[0]))
-        tags.push(new Tag(20, this.vertexPoint[1]))
-        tags.push(new Tag(30, this.vertexPoint[2]))
-        tags.push(new Tag(70, this.vertex_flag))
-        return tags;
+        const [x, y, z] = this.vertexPoint;
+        return [
+            ...super.tags(),
+            ...this.subclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
+            ...this.point(x, y, z, true),
+            ...this.standard([[70, this.vertex_flag]])
+        ];
     }
 }

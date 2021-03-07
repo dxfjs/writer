@@ -1,6 +1,6 @@
-import Point from "./Point.js";
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Point    from "./Point";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Line extends Entity
 {
@@ -20,13 +20,10 @@ export default class Line extends Entity
     }
     public tags(): Tag[]
     {
-        let tags: Tag[] = super.tags();
-        tags.push(new Tag(10, this.start.x));
-        tags.push(new Tag(20, this.start.y));
-        tags.push(new Tag(30, this.start.z));
-        tags.push(new Tag(11, this.end.x));
-        tags.push(new Tag(21, this.end.y));
-        tags.push(new Tag(31, this.end.z));
-        return tags;
+        return [
+            ...super.tags(),
+            ...this.point(this.start.x, this.start.y,   this.start.z,   true),
+            ...this.point(this.end.x,   this.end.y,     this.end.z,     true, 1)
+        ];
     }
 }

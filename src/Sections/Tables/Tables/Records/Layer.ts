@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class Layer extends DXFManager implements DXFInterface {
+export default class Layer extends DXFManager {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -37,24 +36,20 @@ export default class Layer extends DXFManager implements DXFInterface {
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, 'LAYER'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbLayerTableRecord'));
-        tags.push(new Tag(2, this.layerName));
-        tags.push(new Tag(70, this.flag));
-        tags.push(new Tag(62, this.colorIndex));
-        tags.push(new Tag(6, this.ltype));
-        tags.push(new Tag(370, 0));
-        tags.push(new Tag(390, '0')); // TODO add ACDBPLACEHOLDER Object to support this
-        return tags;
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return `${str}${tag.stringify()}`;
-        }, '');
+        return [
+            ...this.entityType('LAYER'),
+            ...this.hand(this.handle),
+            ...this.standard([[330, this.handleToOwner]]),
+            ...this.subclassMarker('AcDbSymbolTableRecord'),
+            ...this.subclassMarker('AcDbLayerTableRecord'),
+            ...this.name(this.layerName),
+            ...this.standard([
+                [70, this.flag],
+                [62, this.colorIndex],
+                [6, this.ltype],
+                [370, 0],
+                [390, '0'], // TODO add ACDBPLACEHOLDER Object to support this
+            ]),
+        ];
     }
 }

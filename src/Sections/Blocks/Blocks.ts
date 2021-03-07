@@ -1,7 +1,8 @@
-import Block from "./Block.js";
-import Tag from "../../Internals/Tag.js";
+import Block        from "./Block";
+import Tag          from "../../Internals/Tag";
+import DXFManager   from "../../Internals/DXFManager";
 
-export default class Blocks {
+export default class Blocks extends DXFManager {
     get paperHandle(): string {
         return this._paperHandle;
     }
@@ -23,27 +24,22 @@ export default class Blocks {
     private _modelHandle: string = '0';
     private _paperHandle: string = '0';
     public constructor() {
+        super();
         this._blocks.push(new Block('*Model_Space'));
         this._blocks.push(new Block('*Paper_Space'));
     }
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        this.blocks[0].handleToOwner = this.modelHandle;
-        this.blocks[1].handleToOwner = this.paperHandle;
+        const [modelSpace, paperSpace] = this._blocks;
+        modelSpace.handleToOwner = this.modelHandle;
+        paperSpace.handleToOwner = this.paperHandle;
+        tags.push(...this.entityType('SECTION'));
+        tags.push(...this.name('BLOCKS'));
         this.blocks.forEach((block) => {
             tags.push(...block.tags());
         });
+        tags.push(...this.entityType('ENDSEC'));
         return tags;
-    }
-    public stringify(): string {
-        let str = '';
-        str += new Tag(0, 'SECTION').stringify();
-        str += new Tag(2, 'BLOCKS').stringify();
-        str += this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
-        str += new Tag(0, 'ENDSEC').stringify();
-        return str;
     }
 }

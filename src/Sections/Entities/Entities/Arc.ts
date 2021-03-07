@@ -1,6 +1,6 @@
-import Point from "./Point.js";
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Point    from "./Point";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Arc extends Entity
 {
@@ -30,10 +30,10 @@ export default class Arc extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(...this.point(this.center.x, this.center.y, this.center.z, true).tags());
-        tags.push(...this.standard([[40, this.radius]]).tags());
-        tags.push(...this.subclassMarker('AcDbArc').tags());
-        tags.push(...this.standard([[50, this.startAngle], [51, this.endAngle]]).tags());
+        tags.push(...this.point(this.center.x, this.center.y, this.center.z, true));
+        tags.push(...this.standard([[40, this.radius]]));
+        tags.push(...this.subclassMarker('AcDbArc'));
+        tags.push(...this.standard([[50, this.startAngle], [51, this.endAngle]]));
         return tags;
     }
 }

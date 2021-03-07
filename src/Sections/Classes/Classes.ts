@@ -1,20 +1,16 @@
-import Tag from "../../Internals/Tag.js";
+import Tag from "../../Internals/Tag";
+import DXFManager from "../../Internals/DXFManager";
 
-export default class Classes {
+export default class Classes extends DXFManager {
     public constructor() {
+        super();
     }
 
     public tags(): Tag[] {
-        return [];
-    }
-    public stringify(): string {
-        let str = '';
-        str += new Tag(0, 'SECTION').stringify();
-        str += new Tag(2, 'CLASSES').stringify();
-        str += this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
-        str += new Tag(0, 'ENDSEC').stringify();
-        return str;
+        return [
+            ...this.entityType('SECTION'),
+            ...this.name('CLASSES'),
+            ...this.entityType('ENDSEC')
+        ];
     }
 };

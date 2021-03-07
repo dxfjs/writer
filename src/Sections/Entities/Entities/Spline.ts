@@ -1,5 +1,5 @@
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Spline extends Entity
 {
@@ -56,26 +56,26 @@ export default class Spline extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(new Tag(70, this.flag));
-        tags.push(new Tag(71, this.curve_degree));
-        tags.push(new Tag(72, this.knots.length));
-        tags.push(new Tag(73, this.control_points.length));
-        tags.push(new Tag(74, this.fit_points.length));
-        tags.push(new Tag(42, 0.0000001));
-        tags.push(new Tag(43, 0.0000001));
-        tags.push(new Tag(44, 0.0000000001));
+        tags.push(...this.standard([
+            [70, this.flag],
+            [71, this.curve_degree],
+            [72, this.knots.length],
+            [73, this.control_points.length],
+            [74, this.fit_points.length],
+            [42, 0.0000001],
+            [43, 0.0000001],
+            [42, 0.0000000001],
+        ]));
         this.knots.forEach((knot) => {
-            tags.push(new Tag(40, knot));
+            tags.push(...this.standard([[40, knot]]));
         })
         this.control_points.forEach((point) => {
-            tags.push(new Tag(10, point[0]))
-            tags.push(new Tag(20, point[1]))
-            tags.push(new Tag(30, point[2]))
+            const [x, y, z] = point;
+            tags.push(...this.point(x, y, z, true));
         })
         this.fit_points.forEach((point) => {
-            tags.push(new Tag(11, point[0]))
-            tags.push(new Tag(21, point[1]))
-            tags.push(new Tag(31, point[2]))
+            const [x, y, z] = point;
+            tags.push(...this.point(x, y, z, true, 1));
         })
         return tags;
     }

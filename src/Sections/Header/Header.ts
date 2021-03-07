@@ -1,6 +1,6 @@
-import Variable     from "./Variable.js";
-import Tag          from "../../Internals/Tag.js";
-import DXFManager   from "../../Internals/DXFManager.js";
+import Variable     from "./Variable";
+import Tag          from "../../Internals/Tag";
+import DXFManager   from "../../Internals/DXFManager";
 
 export default class Header extends DXFManager {
     get unit(): number {
@@ -25,6 +25,8 @@ export default class Header extends DXFManager {
 
     public tags(): Tag[] {
         const tags = [
+            ...this.entityType('SECTION'),
+            ...this.name('HEADER'),
             ...new Variable('ACADVER', 1, DXFManager.version).tags(),
             ...new Variable('HANDSEED', 5, this.handleSeed()).tags(),
             ...new Variable('INSUNITS', 70, this.unit).tags()
@@ -32,17 +34,7 @@ export default class Header extends DXFManager {
         this.variables.forEach((variable) => {
             tags.push(...variable.tags());
         })
+        tags.push(...this.entityType('ENDSEC'));
         return tags;
-    }
-
-    public stringify(): string {
-        let str = '';
-        str += this.entityType('SECTION').stringify();
-        str += this.name('HEADER').stringify();
-        str += this.tags().reduce((str, tag) => {
-            return `${str}${tag.stringify()}`;
-        }, '');
-        str += this.entityType('ENDSEC').stringify();
-        return str;
     }
 }

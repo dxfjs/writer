@@ -1,19 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class View extends DXFManager implements DXFInterface {
+export default class View extends DXFManager {
     public constructor() {
         super();
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return `${str}${tag.stringify()}`;
-        }, '');
-    }
-
-    tags(): Tag[] {
-        return [];
     }
 }

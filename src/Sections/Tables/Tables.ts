@@ -1,14 +1,14 @@
-import Tag                  from "../../Internals/Tag.js";
-import ViewPort             from "./Tables/Records/ViewPort.js";
-import LineTypeTable        from "./Tables/LineTypeTable.js";
-import LayerTable           from "./Tables/LayerTable.js";
-import StyleTable           from "./Tables/StyleTable.js";
-import ViewTable            from "./Tables/ViewTable.js";
-import UCSTable             from "./Tables/UCSTable.js";
-import APPIDTable           from "./Tables/APPIDTable.js";
-import Layer                from "./Tables/Records/Layer.js";
-import DIMStyleTable        from "./Tables/DIMStyleTable.js";
-import BlockRecordTable     from "./Tables/BlockRecordTable.js";
+import Tag                  from "../../Internals/Tag";
+import ViewPort             from "./Tables/Records/ViewPort";
+import LineTypeTable        from "./Tables/LineTypeTable";
+import LayerTable           from "./Tables/LayerTable";
+import StyleTable           from "./Tables/StyleTable";
+import ViewTable            from "./Tables/ViewTable";
+import UCSTable             from "./Tables/UCSTable";
+import APPIDTable           from "./Tables/APPIDTable";
+import Layer                from "./Tables/Records/Layer";
+import DIMStyleTable        from "./Tables/DIMStyleTable";
+import BlockRecordTable     from "./Tables/BlockRecordTable";
 
 export default class Tables {
     get layers(): Layer[] {
@@ -26,6 +26,7 @@ export default class Tables {
     private _appids:        APPIDTable;
     private _dimstyles:     DIMStyleTable;
     private readonly _blockRecords: BlockRecordTable;
+
     public constructor() {
         this._vports        = new ViewPort();
         this._ltypes        = new LineTypeTable();

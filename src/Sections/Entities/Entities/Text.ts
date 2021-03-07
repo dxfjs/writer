@@ -1,6 +1,6 @@
-import Point from "./Point.js";
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Point    from "./Point";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Text extends Entity
 {
@@ -25,13 +25,14 @@ export default class Text extends Entity
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = super.tags();
-        tags.push(new Tag(10, this.position.x));
-        tags.push(new Tag(20, this.position.y));
-        tags.push(new Tag(30, this.position.z));
-        tags.push(new Tag(40, this.height));
-        tags.push(new Tag(1, this.value));
-        tags.push(new Tag(100, 'AcDbText'));
-        return tags;
+        return [
+            ...super.tags(),
+            ...this.point(this.position.x, this.position.y, this.position.z, true),
+            ...this.standard([
+                [40, this.height],
+                [1, this.value]]
+            ),
+            ...this.subclassMarker('AcDbText')
+        ];
     }
 }

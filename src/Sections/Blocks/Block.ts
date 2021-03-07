@@ -1,5 +1,5 @@
-import Tag from "../../Internals/Tag.js";
-import DXFManager from "../../Internals/DXFManager.js";
+import Tag          from "../../Internals/Tag";
+import DXFManager   from "../../Internals/DXFManager";
 
 export default class Block extends DXFManager {
     get handleToOwner(): string {
@@ -17,31 +17,29 @@ export default class Block extends DXFManager {
     private readonly _endBlockHandle: string;
     public constructor(name: string) {
         super();
-        this._blockName = name;
-        this._handleToOwner = '0';
-        this._endBlockHandle = this.handleSeed();
+        this._blockName         = name;
+        this._handleToOwner     = '0';
+        this._endBlockHandle    = this.handleSeed();
     }
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, 'BLOCK'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbEntity'));
-        tags.push(new Tag(8, '0'));
-        tags.push(new Tag(100, 'AcDbBlockBegin'));
-        tags.push(new Tag(2, this.blockName));
-        tags.push(new Tag(70, 0));
-        tags.push(new Tag(10, 0));
-        tags.push(new Tag(20, 0));
-        tags.push(new Tag(30, 0));
-        tags.push(new Tag(3, this.blockName));
-        tags.push(new Tag(1, ''));
-        tags.push(new Tag(0, 'ENDBLK'));
-        tags.push(new Tag(5, this._endBlockHandle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbEntity'));
-        tags.push(new Tag(8, '0'));
-        tags.push(new Tag(100, 'AcDbBlockEnd'));
-        return tags;
+        return [
+            ...this.entityType('BLOCK'),
+            ...this.hand(this.handle),
+            ...this.standard([[330, this.handleToOwner]]),
+            ...this.subclassMarker('AcDbEntity'),
+            ...this.layer('0'),
+            ...this.subclassMarker('AcDbBlockBegin'),
+            ...this.name(this.blockName),
+            ...this.standard([[70, 0]]),
+            ...this.point(0, 0, 0, true),
+            ...this.name(this.blockName, 3),
+            ...this.standard([[1, '']]),
+            ...this.entityType('ENDBLK'),
+            ...this.hand(this._endBlockHandle),
+            ...this.standard([[330, this.handleToOwner]]),
+            ...this.subclassMarker('AcDbEntity'),
+            ...this.layer('0'),
+            ...this.subclassMarker('AcDbBlockEnd')
+        ];
     }
 };

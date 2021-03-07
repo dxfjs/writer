@@ -1,6 +1,6 @@
-import Point from "./Point.js";
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Point    from "./Point";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Ellipse extends Entity
 {
@@ -45,9 +45,13 @@ export default class Ellipse extends Entity
     {
         return [
             ...super.tags(),
-            ...this.point(this.center.x, this.center.y, this.center.z, true).tags(),
-            ...this.point(this.x_major_axis, this.y_major_axis, 0, true, 1).tags(),
-            ...this.standard([[40, this.ratio_minor_axis], [41, this.start_parameter], [42, this.end_parameter]]).tags()
+            ...this.point(this.center.x, this.center.y, this.center.z, true),
+            ...this.point(this.x_major_axis, this.y_major_axis, 0, true, 1),
+            ...this.standard([
+                [40, this.ratio_minor_axis],
+                [41, this.start_parameter],
+                [42, this.end_parameter]
+            ])
         ];
     }
 }

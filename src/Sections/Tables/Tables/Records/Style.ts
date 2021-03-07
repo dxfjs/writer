@@ -1,8 +1,7 @@
-import Tag          from "../../../../Internals/Tag.js";
-import DXFManager   from "../../../../Internals/DXFManager.js";
-import DXFInterface from "../../../../Internals/Interfaces/DXFInterface.js";
+import Tag          from "../../../../Internals/Tag";
+import DXFManager   from "../../../../Internals/DXFManager";
 
-export default class Style extends DXFManager implements DXFInterface {
+export default class Style extends DXFManager {
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -22,22 +21,19 @@ export default class Style extends DXFManager implements DXFInterface {
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, 'STYLE'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbTextStyleTableRecord'));
-        tags.push(new Tag(2, this.styleName));
-        tags.push(new Tag(70, 0));
-        tags.push(new Tag(40, 0));
-        tags.push(new Tag(41, 1));
-        tags.push(new Tag(50, 0));
-        tags.push(new Tag(71, 0));
-        tags.push(new Tag(42, 1));
-        tags.push(new Tag(3, 'txt'));
-        tags.push(new Tag(4, ''));
-        return tags;
+        return [
+            ...this.entityType('STYLE'),
+            ...this.hand(this.handle),
+            ...this.standard([[330, this.handleToOwner]]),
+            ...this.subclassMarker('AcDbSymbolTableRecord'),
+            ...this.subclassMarker('AcDbTextStyleTableRecord'),
+            ...this.name(this.styleName),
+            ...this.standard([
+                [70, 0], [40, 0], [41, 1],
+                [50, 0], [71, 0], [42, 1],
+                [3, 'txt'], [4, '']
+            ])
+        ];
     }
 
     public stringify(): string {

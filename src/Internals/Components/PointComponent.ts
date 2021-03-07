@@ -1,5 +1,5 @@
-import Tag from "../Tag.js";
-import DXFInterface from "../Interfaces/DXFInterface.js";
+import Tag from "../Tag";
+import DXFInterface from "../Interfaces/DXFInterface";
 
 export default class PointComponent implements DXFInterface{
     get digit(): number {
@@ -38,7 +38,7 @@ export default class PointComponent implements DXFInterface{
     private _digit: number = 0;
     private readonly _is3D: boolean;
     public constructor(
-        x: number, y: number, z: number,
+        x: number, y: number, z: number = 0,
         is3D: boolean = false, digit: number = 0
     ) {
         this._x = new Tag(parseInt(`1${digit}`), x);

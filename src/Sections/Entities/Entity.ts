@@ -1,47 +1,31 @@
-import Tag                      from "../../Internals/Tag.js";
-import DXFManager               from "../../Internals/DXFManager.js";
-import DXFInterface             from "../../Internals/Interfaces/DXFInterface.js";
-import LayerComponent           from "../../Internals/Components/LayerComponent.js";
-import EntityTypeComponent      from "../../Internals/Components/EntityTypeComponent.js";
-import SubclassMarkerComponent  from "../../Internals/Components/SubclassMarkerComponent.js";
+import Tag                      from "../../Internals/Tag";
+import DXFManager               from "../../Internals/DXFManager";
 
-export default class Entity extends DXFManager implements DXFInterface {
+export default class Entity extends DXFManager {
     get subclass(): string {
-        return this._subclass.subclass;
-    }
-
-    get layerName(): string {
-        return this._layerName.layer;
+        return this._subclass;
     }
 
     get type(): string {
-        return this._type.name;
+        return this._type;
     }
 
-    protected readonly _type: EntityTypeComponent;
-    protected readonly _layerName: LayerComponent;
-    protected readonly _subclass: SubclassMarkerComponent;
+    protected readonly _type: string;
+    protected readonly _subclass: string;
 
     public constructor(type: string, subclass: string) {
         super();
-        this._type = this.entityType(type);
-        this._layerName = this.layer(DXFManager.currentLayer);
-        this._subclass = this.subclassMarker(subclass);
-    }
-
-    stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
+        this._type = type;
+        this._subclass = subclass;
     }
 
     public tags(): Tag[] {
         return [
-            ...this._type.tags(),
-            ...this.hand(this.handle).tags(),
-            ...this.subclassMarker('AcDbEntity').tags(),
-            ...this._layerName.tags(),
-            ...this._subclass.tags()
+            ...this.entityType(this.type),
+            ...this.hand(this.handle),
+            ...this.subclassMarker('AcDbEntity'),
+            ...this.layer(DXFManager.currentLayer),
+            ...this.subclassMarker(this.subclass)
         ];
     }
 };

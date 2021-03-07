@@ -1,8 +1,9 @@
-import Tag from "../../Internals/Tag.js";
+import Tag          from "../../Internals/Tag";
+import DXFManager   from "../../Internals/DXFManager";
 
-export default class Variable {
-    get name(): string {
-        return this._name;
+export default class Variable extends DXFManager {
+    get variableName(): string {
+        return this._variableName;
     }
     get group_code(): number {
         return this._group_code;
@@ -13,25 +14,17 @@ export default class Variable {
     set value(value: number | string) {
         this._value = value;
     }
-    private readonly _name: string;
+    private readonly _variableName: string;
     private readonly _group_code: number;
     private _value: number | string;
-    public constructor(name: string, group_code: number, value: number | string) {
-        this._name = name;
+    public constructor(variableName: string, group_code: number, value: number | string) {
+        super();
+        this._variableName = variableName;
         this._group_code = group_code;
         this._value = value;
     }
 
     public tags(): Tag[] {
-        return [
-            new Tag(9, `$${this.name}`),
-            new Tag(this.group_code, `${this.value}`)
-        ];
-    }
-
-    public stringify(): string {
-        return this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
+        return this.standard([[9, `$${this.variableName}`], [this.group_code, this.value]]);
     }
 };

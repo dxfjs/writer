@@ -1,5 +1,5 @@
-import Tag from "../Tag.js";
-import DXFInterface from "../Interfaces/DXFInterface.js";
+import Tag from "../Tag";
+import DXFInterface from "../Interfaces/DXFInterface";
 
 export default class SubclassMarkerComponent implements DXFInterface {
     get subclass(): string {

@@ -1,5 +1,5 @@
-import Entity from "../Entity.js";
-import Tag from "../../../Internals/Tag.js";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Point extends Entity
 {
@@ -24,10 +24,9 @@ export default class Point extends Entity
         this._z = z;
     }
     public tags(): Tag[] {
-        let tags: Tag[] = super.tags();
-        tags.push(new Tag(10, this.x))
-        tags.push(new Tag(20, this.y))
-        tags.push(new Tag(30, this.z))
-        return tags;
+        return [
+            ...super.tags(),
+            ...this.point(this.x, this.y,   this.z,   true)
+        ];
     }
 }

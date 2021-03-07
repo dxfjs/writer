@@ -1,5 +1,5 @@
-import Entity   from "../Entity.js";
-import Tag      from "../../../Internals/Tag.js";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Polyline extends Entity
 {
@@ -20,11 +20,11 @@ export default class Polyline extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(new Tag(90, this.points.length));
-        tags.push(new Tag(70, this.flag));
+        tags.push(...this.standard([[90, this.points.length]]));
+        tags.push(...this.standard([[70, this.flag]]));
         this.points.forEach((point) => {
-            tags.push(new Tag(10, point[0]));
-            tags.push(new Tag(20, point[1]));
+            const [x, y] = point;
+            tags.push(...this.point(x, y));
         });
         return tags;
     }
