@@ -11,7 +11,7 @@
     "test": "jest",
     "watch": "tsc -w",
     "build": "yarn test && rollup -c",
-    "example": "node --experimental-specifier-resolution=node examples\\example.js"
+    "example": "node --experimental-specifier-resolution=node examples/example.js"
   },
   "files": [
     "lib/**/*"
