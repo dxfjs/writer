@@ -39,6 +39,7 @@ export default class Tag {
     }
     public stringify():string {
         if (this.nullable || this.value !== '') {
+            // Do not remove the tow spaces in the string 👍
             return `  ${this.groupCode}\n${this.value}\n`;
         }
         return '';

@@ -4,7 +4,7 @@ import Point    from "../../../../src/Sections/Entities/Entities/Point";
 
 describe('Arc', () => {
     const dataState = {
-        instancesCount: 0 // I increment this variable by 2 because we have 2 instantiations of Entity class (Arc and Point)
+        instancesCount: 0
     }
     it('should return the subClassName given.', () => {
         const entity = new Arc(new Point(0, 0, 0), 120, 0, 120);

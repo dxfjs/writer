@@ -46,7 +46,7 @@ export default class Ellipse extends Entity
         return [
             ...super.tags(),
             ...this.point(this.center.x, this.center.y, this.center.z, true),
-            ...this.point(this.x_major_axis, this.y_major_axis, 0, true, 1),
+            ...this.point(this.x_major_axis, this.y_major_axis, 0, false, 1),
             ...this.standard([
                 [40, this.ratio_minor_axis],
                 [41, this.start_parameter],
