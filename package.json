@@ -1,6 +1,6 @@
 {
-  "name": "dxf",
-  "version": "0.0.1",
+  "name": "@tarikjabiri/dxf",
+  "version": "0.0.2",
   "description": "A simple JavaScript interface to DXF written in TypeScript.",
   "main": "lib/DXFWriter.js",
   "type": "module",
@@ -13,6 +13,9 @@
     "build": "yarn test && rollup -c",
     "example": "node --experimental-specifier-resolution=node examples\\example.js"
   },
+  "files": [
+    "lib/**/*"
+  ],
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.9",
@@ -27,5 +30,27 @@
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
     "typescript": "^4.2.2"
-  }
+  },
+  "keywords": [
+    "javascript",
+    "library",
+    "typescript",
+    "js",
+    "geometry",
+    "write",
+    "ts",
+    "draw",
+    "cad",
+    "autocad",
+    "circle",
+    "polyline",
+    "arc",
+    "rectangle",
+    "spline",
+    "dxf",
+    "dxf-writer",
+    "ellipse",
+    "librecad",
+    "face3d"
+  ]
 }
