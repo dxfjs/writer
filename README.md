@@ -4,6 +4,7 @@
 [![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)
 [![Build status](https://ci.appveyor.com/api/projects/status/0k7rcm5jovyr05ua?svg=true)](https://ci.appveyor.com/project/tarikjabiri/dxf)
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript)
 [![GitHub issues](https://img.shields.io/github/issues/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/issues)
 [![GitHub stars](https://img.shields.io/github/stars/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/stargazers)
@@ -19,25 +20,12 @@ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files
 - Creating minimal dxf content possible.
 - Tested on [AutoCAD](https://www.autodesk.com/products/autocad/overview), [LibreCAD](https://librecad.org/) and [DWG FastView](https://play.google.com/store/apps/details?id=com.gstarmc.android&hl=en&gl=US) on mobile.
 
-## To test the DXF Library
-
-### Clone the repository
+### Install the package
 
 ```bash
-git clone https://github.com/tarikjabiri/dxf.git
-```
-
-### Install dependencies
-
-```bash
-cd dxf
-yarn install
-```
-
-### Build the code
-
-```bash
-yarn build
+yarn add @tarikjabiri/dxf
+# Or npm
+npm i @tarikjabiri/dxf
 ```
 
 ### Run the example code
@@ -46,11 +34,10 @@ yarn build
 yarn example
 ```
 
-## Node.js code example
+## Code example
 
 ```javascript
-import DXFWriter from "../lib/DXFWriter";
-import * as fs from 'fs';
+import DXFWriter from "@tarikjabiri/dxf";
 
 const dxf = new DXFWriter();
 dxf.addLine(0, 0, 100, 100);
@@ -92,8 +79,8 @@ dxf.setCurrentLayer('l_green')
         20, 0, 10,
         20, -20, 20,
         0, -20, 20);
-
-fs.writeFileSync('examples/example.dxf', dxf.stringify());
+// To get the dxf string just call the stringify() method
+dxf.stringify();
 ```
 
 ***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
