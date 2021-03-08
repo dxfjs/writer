@@ -28,12 +28,6 @@ yarn add @tarikjabiri/dxf
 npm i @tarikjabiri/dxf
 ```
 
-### Run the example code
-
-```bash
-yarn example
-```
-
 ## Code example
 
 ```javascript
