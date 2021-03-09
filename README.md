@@ -74,7 +74,7 @@ dxf.setCurrentLayer('l_green')
         20, -20, 20,
         0, -20, 20);
 // To get the dxf string just call the stringify() method
-dxf.stringify();
+const dxfString = dxf.stringify();
 ```
 
 ***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
