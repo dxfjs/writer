@@ -9,11 +9,17 @@ AC1021
   9
 $HANDSEED
   5
-41
+42
   9
 $INSUNITS
   70
 0
+  9
+$VIEWCTR
+  10
+100
+  20
+50
   0
 ENDSEC
   0
@@ -61,9 +67,9 @@ AcDbViewportTableRecord
   21
 1
   12
-184
+100
   22
-98.75
+50
   13
 0
   23
@@ -89,9 +95,9 @@ AcDbViewportTableRecord
   37
 0
   40
-210
+1000
   41
-1.811904761904762
+2
   42
 50
   43

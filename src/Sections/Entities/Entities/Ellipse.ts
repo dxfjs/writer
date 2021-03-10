@@ -41,7 +41,7 @@ export default class Ellipse extends Entity
         this._end_parameter = end_parameter;
     }
 
-    public boundingBox(): number[][] {
+    public boundingBox() {
         // This is not the correct Bounding Box :(
         const x = this.center.x;
         const y = this.center.y;

@@ -2,6 +2,19 @@ import Tag          from "../../../../Internals/Tag";
 import DXFManager   from "../../../../Internals/DXFManager";
 
 export default class ViewPort extends DXFManager {
+    set viewCenter(value: [number, number]) {
+        this._viewCenter = value;
+    }
+    get viewCenter(): [number, number] {
+        return this._viewCenter;
+    }
+    get viewHeight(): number {
+        return this._viewHeight;
+    }
+
+    set viewHeight(value: number) {
+        this._viewHeight = value;
+    }
     get handleToOwner(): string {
         return this._handleToOwner;
     }
@@ -11,12 +24,17 @@ export default class ViewPort extends DXFManager {
     }
     private _handleToOwner: string;
     private readonly _vportHandle: string;
+    private _viewHeight: number;
+    private _viewCenter: [number, number];
     public constructor() {
         super();
         this._handleToOwner = '0';
         this._vportHandle = this.handleSeed();
+        this._viewHeight = 200;
+        this._viewCenter = [0, 0];
     }
     public tags(): Tag[] {
+        const [x, y] = this.viewCenter;
         return this.standard([
             [0, 'TABLE'],               [2, 'VPORT'],   [5, this.handle],   [330, 0],
             [100, 'AcDbSymbolTable'],   [70, 1],        [0, 'VPORT'],       [5, this._vportHandle],
@@ -25,14 +43,15 @@ export default class ViewPort extends DXFManager {
 
             [2, '*ACTIVE'],     [70, 0],    [10, 0],    [20, 0],    [11, 1],    [21, 1],
 
-            [12, 184], // TODO
-            [22, 98.75], // TODO
+            [12, x],
+            [22, y],
 
             [13, 0],    [23, 0], [14, 10], [24, 10], [15, 10],
             [25, 10],   [16, 0], [26, 0], [36, 1],
-            [17, 0],    [27, 0], [37, 0], [40, 210],
+            [17, 0],    [27, 0], [37, 0],
 
-            [41, 1.811904761904762], // TODO
+            [40, this.viewHeight],
+            [41, 2],    // TODO ???
 
             [42, 50],   [43, 0],    [44, 0],        [50, 0],        [51, 0],    [71, 0],
             [72, 100],  [73, 1],    [74, 3],        [75, 0],        [76, 1],

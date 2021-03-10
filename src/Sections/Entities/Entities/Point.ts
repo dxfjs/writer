@@ -23,6 +23,14 @@ export default class Point extends Entity
         this._y = y;
         this._z = z;
     }
+
+    public boundingBox() {
+        return [
+            [this.x, this.y],
+            [this.x, this.y],
+        ];
+    }
+
     public tags(): Tag[] {
         return [
             ...super.tags(),

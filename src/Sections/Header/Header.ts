@@ -19,17 +19,17 @@ export default class Header extends DXFManager {
         this._unit = unit;
     }
 
-    public addVariable(name: string, group_code: number, value: number | string) {
-        this._variables.push(new Variable(name, group_code, value));
+    public addVariable(variableName: string, values: [number, (number | string)][]) {
+        this._variables.push(new Variable(variableName, values));
     }
 
     public tags(): Tag[] {
         const tags = [
             ...this.entityType('SECTION'),
             ...this.name('HEADER'),
-            ...new Variable('ACADVER', 1, DXFManager.version).tags(),
-            ...new Variable('HANDSEED', 5, this.handleSeed()).tags(),
-            ...new Variable('INSUNITS', 70, this.unit).tags()
+            ...new Variable('ACADVER', [[1, DXFManager.version]]).tags(),
+            ...new Variable('HANDSEED', [[5, this.handleSeed()]]).tags(),
+            ...new Variable('INSUNITS', [[70, this.unit]]).tags()
         ];
         this.variables.forEach((variable) => {
             tags.push(...variable.tags());

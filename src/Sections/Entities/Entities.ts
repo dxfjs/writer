@@ -10,6 +10,7 @@ import Face         from "./Entities/Face";
 import Text         from "./Entities/Text";
 import Tag          from "../../Internals/Tag";
 import DXFManager   from "../../Internals/DXFManager";
+import Entity from "./Entity";
 
 export default class Entities extends DXFManager {
     get texts(): Text[] {
@@ -158,46 +159,67 @@ export default class Entities extends DXFManager {
         );
     }
 
-    public getBounds(): number[][] {
+    public boundingBox(): number[][] {
+        const arrayX: number[] = [];
+        const arrayY: number[] = [];
+        this.entities().forEach((entity) => {
+            const [[firstX, firstY], [secondX, secondY]] = entity.boundingBox();
+            arrayX.push(firstX, secondX);
+            arrayY.push(firstY, secondY);
+        })
+        const minX = Math.min(...arrayX);
+        const maxX = Math.max(...arrayX);
+        const minY = Math.min(...arrayY);
+        const maxY = Math.max(...arrayY);
+        return [
+            [minX, maxY],
+            [maxX, minY]
+        ];
+    }
 
+    public entitiesTags(entitiesArray: Entity[]): Tag[] {
+        const tags: Tag[] = [];
+        entitiesArray.forEach((entity) => {
+            tags.push(...entity.tags());
+        });
+        return tags;
+    }
 
-        return [[]];
+    public centerView(): [number, number] {
+        const [[leftUpX, leftUpY], [rightBottomX, rightBottomY]] = this.boundingBox();
+        const x = leftUpX + (rightBottomX - leftUpX) / 2;
+        const y = rightBottomY + (leftUpY - rightBottomY) / 2;
+        return [x, y];
+    }
+
+    public viewHeight(): number {
+        const [[, leftUpY], [, rightBottomY]] = this.boundingBox();
+        return leftUpY - rightBottomY;
+    }
+
+    public entities(): Entity[] {
+        return [
+            ...this.points,
+            ...this.lines,
+            ...this.polylines,
+            ...this.polylines3D,
+            ...this.circles,
+            ...this.arcs,
+            ...this.splines,
+            ...this.ellipses,
+            ...this.faces,
+            ...this.texts
+        ];
     }
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(...this.entityType('SECTION'));
         tags.push(...this.name('ENTITIES'));
-        this.points.forEach((point) => {
-            tags = tags.concat(point.tags());
-        });
-        this.lines.forEach((line) => {
-            tags = tags.concat(line.tags());
-        });
-        this.polylines.forEach((polyline) => {
-            tags = tags.concat(polyline.tags());
-        });
-        this.polylines3D.forEach((polyline3D) => {
-            tags = tags.concat(polyline3D.tags());
-        });
-        this.circles.forEach((circle) => {
-            tags = tags.concat(circle.tags());
-        });
-        this.arcs.forEach((arc) => {
-            tags = tags.concat(arc.tags());
-        });
-        this.splines.forEach((spline) => {
-            tags = tags.concat(spline.tags());
-        });
-        this.ellipses.forEach((ellipse) => {
-            tags = tags.concat(ellipse.tags());
-        });
-        this.faces.forEach((face) => {
-            tags = tags.concat(face.tags());
-        });
-        this.texts.forEach((text) => {
-            tags = tags.concat(text.tags());
-        });
+
+        tags.push(
+            ...this.entitiesTags(this.entities())
+        );
         tags.push(...this.entityType('ENDSEC'));
         return tags;
     }

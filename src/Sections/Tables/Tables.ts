@@ -92,6 +92,15 @@ export default class Tables {
         tags.push(...this._blockRecords.tags());
         return tags;
     }
+
+    public setViewHeight(viewHeight: number) {
+        this._vports.viewHeight = viewHeight;
+    }
+
+    public setViewCenter(viewCenter: [number, number]) {
+        this._vports.viewCenter = viewCenter;
+    }
+
     public stringify(): string {
         let str = '';
         str += new Tag(0, 'SECTION').stringify();

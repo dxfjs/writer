@@ -3,19 +3,27 @@ import Tag from "../../../Internals/Tag";
 
 export default class Vertex extends Entity
 {
-    get vertex_flag(): number {
-        return this._vertex_flag;
+    get vertexFlag(): number {
+        return this._vertexFlag;
     }
     get vertexPoint(): number[] {
         return this._vertexPoint;
     }
     private readonly _vertexPoint: number[];
-    private readonly _vertex_flag: number;
+    private readonly _vertexFlag: number;
 
-    public constructor(point: number[], vertex_flag: number) {
+    public constructor(point: number[], vertexFlag: number) {
         super('VERTEX', 'AcDbVertex');
         this._vertexPoint = point;
-        this._vertex_flag = vertex_flag;
+        this._vertexFlag = vertexFlag;
+    }
+
+    public boundingBox() {
+        const [x, y] = this.vertexPoint;
+        return [
+            [x, y],
+            [x, y],
+        ];
     }
 
     public tags(): Tag[] {
@@ -24,7 +32,7 @@ export default class Vertex extends Entity
             ...super.tags(),
             ...this.subclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
             ...this.point(x, y, z, true),
-            ...this.standard([[70, this.vertex_flag]])
+            ...this.standard([[70, this.vertexFlag]])
         ];
     }
 }

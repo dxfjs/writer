@@ -39,5 +39,4 @@ dxf.setCurrentLayer('l_green')
         20, 0, 10,
         20, -20, 20,
         0, -20, 20);
-
 fs.writeFileSync('examples/example.dxf', dxf.stringify());

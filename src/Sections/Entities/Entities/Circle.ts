@@ -18,7 +18,7 @@ export default class Circle extends Entity
         this._radius = radius;
     }
 
-    public boundingBox(): number[][] {
+    public boundingBox() {
         return [
             [this.center.x - this.radius, this.center.y + this.radius],
             [this.center.x + this.radius, this.center.y - this.radius]
