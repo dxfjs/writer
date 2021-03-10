@@ -94,6 +94,7 @@ export default class DXFManager implements DXFInterface {
     public name(name: string, groupCode: number = 2): Tag[] {
         return new NameComponent(name, groupCode).tags();
     }
+
     public point(
         x: number, y: number, z: number = 0,
         is3D: boolean = false, digit: number = 0

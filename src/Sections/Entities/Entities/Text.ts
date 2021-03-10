@@ -24,6 +24,14 @@ export default class Text extends Entity
 
     }
 
+    public boundingBox() {
+        // I have no idea how to get boundingBox of TEXT :(
+        return [
+            [this.position.x, this.position.y],
+            [this.position.x, this.position.y],
+        ];
+    }
+
     public tags(): Tag[] {
         return [
             ...super.tags(),

@@ -31,6 +31,18 @@ export default class Face extends Entity
         this._fourth = fourth;
 
     }
+    public boundingBox() {
+        const arrayX = [this.first.x, this.second.x, this.third.x, this.fourth.x];
+        const arrayY = [this.first.y, this.second.y, this.third.y, this.fourth.y];
+        const minX = Math.min(...arrayX);
+        const maxX = Math.max(...arrayX);
+        const minY = Math.min(...arrayY);
+        const maxY = Math.max(...arrayY);
+        return [
+            [minX, maxY],
+            [maxX, minY]
+        ];
+    }
 
     public tags(): Tag[] {
         return [

@@ -24,6 +24,24 @@ export default class Polyline3D extends Entity
         this._seqHandle = this.handleSeed();
     }
 
+    public boundingBox() {
+        const arrayX: number[] = [];
+        const arrayY: number[] = [];
+        this.points.forEach((point) => {
+            const [x, y] = point;
+            arrayX.push(x);
+            arrayY.push(y);
+        });
+        const minX = Math.min(...arrayX);
+        const maxX = Math.max(...arrayX);
+        const minY = Math.min(...arrayY);
+        const maxY = Math.max(...arrayY);
+        return [
+            [minX, maxY],
+            [maxX, minY]
+        ];
+    }
+
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
         tags.push(...this.standard([[66, 1]]));

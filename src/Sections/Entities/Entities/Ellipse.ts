@@ -41,6 +41,19 @@ export default class Ellipse extends Entity
         this._end_parameter = end_parameter;
     }
 
+    public boundingBox() {
+        // This is not the correct Bounding Box :(
+        const x = this.center.x;
+        const y = this.center.y;
+        const xMajor = this.x_major_axis;
+        const yMajor = this.y_major_axis;
+        const bigRadius = Math.sqrt(Math.pow((x - (x + xMajor)), 2) + Math.pow((y - (y + yMajor)), 2));
+        return [
+            [this.center.x - bigRadius, this.center.y + bigRadius],
+            [this.center.x + bigRadius, this.center.y - bigRadius]
+        ];
+    }
+
     public tags(): Tag[]
     {
         return [

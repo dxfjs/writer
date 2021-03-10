@@ -18,6 +18,28 @@ export default class Line extends Entity
         this._start = start;
         this._end = end;
     }
+
+    public boundingBox() {
+        const xs: number[] = [];
+        if (this.start.x < this.end.x) {
+            xs.push(this.start.x, this.end.x);
+        } else {
+            xs.push(this.end.x, this.start.x);
+        }
+        const ys: number[] = [];
+        if (this.start.y < this.end.y) {
+            ys.push(this.start.y, this.end.y);
+        } else {
+            ys.push(this.end.y, this.start.y);
+        }
+        const [minX, maxX] = xs;
+        const [minY, maxY] = ys;
+        return [
+            [minX, maxY],
+            [maxX, minY]
+        ];
+    }
+
     public tags(): Tag[]
     {
         return [

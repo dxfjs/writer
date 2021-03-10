@@ -28,6 +28,13 @@ export default class Arc extends Entity
         this._endAngle = endAngle;
     }
 
+    public boundingBox() {
+        return [
+            [this.center.x - this.radius, this.center.y + this.radius],
+            [this.center.x + this.radius, this.center.y - this.radius]
+        ];
+    }
+
     public tags(): Tag[] {
         return [
             ...super.tags(),

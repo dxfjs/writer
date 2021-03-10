@@ -23,6 +23,10 @@ export default class Entity extends DXFManager {
         this._layerName = DXFManager.currentLayer;
     }
 
+    public boundingBox(): number[][] {
+        return [];
+    }
+
     public tags(): Tag[] {
         return [
             ...this.entityType(this.type),
