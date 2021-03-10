@@ -109,11 +109,11 @@ export default class DXFWriter extends DXFManager {
     }
 
     public addSpline(
-        controlPoints: number[][], curveDegree: number,
+        controlPoints: number[][], fitPoints: number[][], curveDegree: number,
         flag: number, knots: number[],
-        weights: number[], fitPoints: number[][]
+        weights: number[]
     ): DXFWriter {
-        this._entities.addSpline(controlPoints, curveDegree, flag, knots, weights, fitPoints);
+        this._entities.addSpline(controlPoints, fitPoints, curveDegree, flag, knots, weights);
         return this;
     }
 

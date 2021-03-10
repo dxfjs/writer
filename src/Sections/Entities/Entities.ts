@@ -106,13 +106,13 @@ export default class Entities extends DXFManager {
     }
 
     public addSpline(
-        controlPoints: number[][], curveDegree: number,
+        controlPoints: number[][], fitPoints: number[][], curveDegree: number,
         flag: number, knots: number[],
-        weights: number[], fitPoints: number[][]
+        weights: number[]
     )
     {
         this._splines.push(
-            new Spline(controlPoints, curveDegree, flag, knots, weights, fitPoints)
+            new Spline(controlPoints, fitPoints, curveDegree, flag, knots, weights)
         );
     }
 
@@ -156,6 +156,12 @@ export default class Entities extends DXFManager {
                 new Point(x, y, 0), height, value
             )
         );
+    }
+
+    public getBounds(): number[][] {
+
+
+        return [[]];
     }
 
     public tags(): Tag[] {

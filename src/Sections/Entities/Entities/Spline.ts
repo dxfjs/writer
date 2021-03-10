@@ -28,8 +28,8 @@ export default class Spline extends Entity
     private readonly _flag: number;
     private readonly _fit_points: number[][];
     public constructor(
-        control_points: number[][], curve_degree: number, flag: number,
-        knots: number[], weights: number[], fit_points: number[][]
+        control_points: number[][], fit_points: number[][] = [], curve_degree: number = 3, flag: number = 8,
+        knots: number[] = [], weights: number[] = []
     ) {
         super('SPLINE', 'AcDbSpline');
         this._control_points = control_points;
@@ -38,19 +38,15 @@ export default class Spline extends Entity
         this._knots = knots;
         this._weights = weights;
         this._fit_points = fit_points;
+        const knotsLength = this.curve_degree + control_points.length - 1;
         if (this.knots.length === 0) {
-            for (let i = 0; i < this.curve_degree + 1; i++) {
-                this.knots.push(0);
-            }
-            for (let i = 1; i < this.control_points.length - this.curve_degree; i++) {
+            for (let i = 0; i < knotsLength; i++) {
                 this.knots.push(i);
             }
-            for (let i = 0; i < this.curve_degree + 1; i++) {
-                knots.push(this.control_points.length - this.curve_degree);
-            }
         }
-        if (knots.length !== this.control_points.length + this.curve_degree + 1) {
-            throw new Error(`Invalid knot vector length. Expected ${this.control_points.length + this.curve_degree + 1} but received ${this.knots.length}.`);
+
+        if (knots.length !== knotsLength) {
+            throw new Error(`Invalid knot vector length. Expected ${knotsLength} but received ${this.knots.length}.`);
         }
     }
 
