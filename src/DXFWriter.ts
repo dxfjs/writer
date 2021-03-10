@@ -21,12 +21,13 @@ export default class DXFWriter extends DXFManager {
     public constructor(version: string = DXFManager.versions.R2007) {
         super();
         this.setVersion(version);
-        this.header    = new Header();
-        this.classes   = new Classes();
-        this.tables    = new Tables();
-        this.blocks    = new Blocks();
-        this.entities  = new Entities();
-        this.objects   = new Objects();
+        this.header             = new Header();
+        this.classes            = new Classes();
+        this.blocks             = new Blocks();
+        this.tables             = this.blocks.tables;
+        this.entities           = this.header.entities;
+        this.objects            = new Objects();
+        this.tables.entities    = this.header.entities;
     }
 
     /**
@@ -277,15 +278,9 @@ export default class DXFWriter extends DXFManager {
      */
     public stringify(): string {
         let str: string = '';
-        const [x, y] = this.entities.centerView();
-        this.addVariable('VIEWCTR', [[10, x], [20, y]]);
         str += this.header.stringify();
         str += this.classes.stringify();
-        this.tables.setViewCenter([x, y]);
-        this.tables.setViewHeight(this.entities.viewHeight());
         str += this.tables.stringify();
-        this.blocks.modelHandle = this.tables.blockRecords.modelHandle; // TODO remove this from here
-        this.blocks.paperHandle = this.tables.blockRecords.paperHandle; // TODO remove this from here
         str += this.blocks.stringify();
         str += this.entities.stringify();
         str += this.objects.stringify();

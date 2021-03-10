@@ -1,16 +1,25 @@
-import Tag                  from "../../Internals/Tag";
-import ViewPort             from "./Tables/Records/ViewPort";
-import LineTypeTable        from "./Tables/LineTypeTable";
+import UCSTable             from "./Tables/UCSTable";
+import ViewTable            from "./Tables/ViewTable";
 import LayerTable           from "./Tables/LayerTable";
 import StyleTable           from "./Tables/StyleTable";
-import ViewTable            from "./Tables/ViewTable";
-import UCSTable             from "./Tables/UCSTable";
+import Tag                  from "../../Internals/Tag";
 import APPIDTable           from "./Tables/APPIDTable";
+import Entities             from "../Entities/Entities";
 import Layer                from "./Tables/Records/Layer";
+import LineTypeTable        from "./Tables/LineTypeTable";
 import DIMStyleTable        from "./Tables/DIMStyleTable";
 import BlockRecordTable     from "./Tables/BlockRecordTable";
+import ViewPort             from "./Tables/Records/ViewPort";
 
 export default class Tables {
+
+    get entities(): Entities {
+        return this._entities;
+    }
+
+    set entities(value: Entities) {
+        this._entities = value;
+    }
     get layers(): Layer[] {
         return this._layers.layers;
     }
@@ -26,6 +35,8 @@ export default class Tables {
     private _appids:        APPIDTable;
     private _dimstyles:     DIMStyleTable;
     private readonly _blockRecords: BlockRecordTable;
+
+    private _entities: Entities = new Entities();
 
     public constructor() {
         this._vports        = new ViewPort();
@@ -81,6 +92,9 @@ export default class Tables {
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
+        const [x, y] = this.entities.centerView();
+        this.setViewCenter([x, y]);
+        this.setViewHeight(this.entities.viewHeight());
         tags.push(...this._vports.tags());
         tags.push(...this._ltypes.tags());
         tags.push(...this._layers.tags());
