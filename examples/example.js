@@ -2,6 +2,7 @@ import DXFWriter from "../lib/DXFWriter";
 import * as fs from 'fs';
 
 const dxf = new DXFWriter();
+dxf.setVersion(DXFWriter.versions.R12);
 dxf.addLine(0, 0, 100, 100);
 let points = [
     [-200, 0, 0],

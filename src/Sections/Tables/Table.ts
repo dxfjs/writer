@@ -14,7 +14,7 @@ export default class Table extends DXFManager {
             ...this.entityType('TABLE'),
             ...this.name(this.tableName),
             ...this.hand(this.handle),
-            ...this.standard([[330, 0]]),
+            ...this.softPointerHandle('0'),
             ...this.subclassMarker('AcDbSymbolTable'),
             ...this.standard([[70, 1]]),
         ];

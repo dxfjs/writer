@@ -1,5 +1,5 @@
-import Entity from "../Entity";
-import Tag from "../../../Internals/Tag";
+import Entity   from "../Entity";
+import Tag      from "../../../Internals/Tag";
 
 export default class Vertex extends Entity
 {

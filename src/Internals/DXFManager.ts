@@ -1,17 +1,21 @@
-import Tag                      from "./Tag";
-import DXFInterface             from "./Interfaces/DXFInterface";
-import NameComponent            from "./Components/NameComponent";
-import ColorComponent           from "./Components/ColorComponent";
-import LayerComponent           from "./Components/LayerComponent";
-import PointComponent           from "./Components/PointComponent";
-import HandleComponent          from "./Components/HandleComponent";
-import LineTypeComponent        from "./Components/LineTypeComponent";
-import StandardComponent        from "./Components/StandardComponent";
-import TextStyleComponent       from "./Components/TextStyleComponent";
-import ThicknessComponent       from "./Components/ThicknessComponent";
-import TrueColorComponent       from "./Components/TrueColorComponent";
-import EntityTypeComponent      from "./Components/EntityTypeComponent";
-import SubclassMarkerComponent  from "./Components/SubclassMarkerComponent";
+import Tag                          from "./Tag";
+import DXFInterface                 from "./Interfaces/DXFInterface";
+import NameComponent                from "./Components/NameComponent";
+import ColorComponent               from "./Components/ColorComponent";
+import LayerComponent               from "./Components/LayerComponent";
+import PointComponent               from "./Components/PointComponent";
+import HandleComponent              from "./Components/HandleComponent";
+import LineTypeComponent            from "./Components/LineTypeComponent";
+import StandardComponent            from "./Components/StandardComponent";
+import TextStyleComponent           from "./Components/TextStyleComponent";
+import ThicknessComponent           from "./Components/ThicknessComponent";
+import TrueColorComponent           from "./Components/TrueColorComponent";
+import EntityTypeComponent          from "./Components/EntityTypeComponent";
+import SubclassMarkerComponent      from "./Components/SubclassMarkerComponent";
+import SoftOwnerHandleComponent     from "./Components/SoftOwnerHandleComponent";
+import HardOwnerHandleComponent     from "./Components/HardOwnerHandleComponent";
+import SoftPointerHandleComponent   from "./Components/SoftPointerHandleComponent";
+import HardPointerHandleComponent   from "./Components/HardPointerHandleComponent";
 
 export default class DXFManager implements DXFInterface {
     get handle(): string {
@@ -41,13 +45,12 @@ export default class DXFManager implements DXFInterface {
         USSurveyFeet:       21, USSurveyInch:   22, USSurveyYard:   23,
         USSurveyMile:       24,
     }
-    static version:         string;
+    static version:         string = DXFManager.versions.R2007;
     static handleSeed:      number = 0;
     private _handle:        string;
     static currentLayer:    string = '0';
     public constructor() {
         this._handle = this.handleSeed();
-        DXFManager.version = DXFManager.versions.R2007;
     }
 
     public isInteger(value: number): boolean {
@@ -74,7 +77,10 @@ export default class DXFManager implements DXFInterface {
     public stringify(): string {
         return this.tags().reduce((str, tag) => {
             if (this.isSupported(tag.version)) {
+
                 return `${str}${tag.stringify()}`;
+            } else {
+                console.log(this.isSupported(tag.version));
             }
             return str;
         }, '');
@@ -121,5 +127,17 @@ export default class DXFManager implements DXFInterface {
         red: number, green: number, blue: number, digit: number = 0
     ): Tag[] {
         return new TrueColorComponent(red, green, blue, digit).tags();
+    }
+    public softPointerHandle(softPointerHandle: string, digit: number = 0): Tag[] {
+        return new SoftPointerHandleComponent(softPointerHandle, digit).tags();
+    }
+    public softOwnerHandle(softOwnerHandle: string, digit: number = 0): Tag[] {
+        return new SoftOwnerHandleComponent(softOwnerHandle, digit).tags();
+    }
+    public hardPointerHandle(hardPointerHandle: string, digit: number = 0): Tag[] {
+        return new HardPointerHandleComponent(hardPointerHandle, digit).tags();
+    }
+    public hardOwnerHandle(hardOwnerHandle: string, digit: number = 0): Tag[] {
+        return new HardOwnerHandleComponent(hardOwnerHandle, digit).tags();
     }
 };

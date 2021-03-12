@@ -36,20 +36,23 @@ export default class Layer extends DXFManager {
     }
 
     public tags(): Tag[] {
-        return [
+        const tags: Tag[] =  [
             ...this.entityType('LAYER'),
             ...this.hand(this.handle),
-            ...this.standard([[330, this.handleToOwner]]),
+            ...this.softPointerHandle(this.handleToOwner),
             ...this.subclassMarker('AcDbSymbolTableRecord'),
             ...this.subclassMarker('AcDbLayerTableRecord'),
             ...this.name(this.layerName),
             ...this.standard([
                 [70, this.flag],
                 [62, this.colorIndex],
-                [6, this.ltype],
-                [370, 0],
-                [390, '0'], // TODO add ACDBPLACEHOLDER Object to support this
+                [6, this.ltype]
             ]),
         ];
+        if (this.isSupported(DXFManager.versions.R13)) {
+            tags.push(...this.standard([[370, 0]]));
+            tags.push(...this.hardPointerHandle('0')); // TODO add ACDBPLACEHOLDER Object to support this
+        }
+        return tags;
     }
 }

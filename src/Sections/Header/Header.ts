@@ -7,7 +7,6 @@ export default class Header extends DXFManager {
     get entities(): Entities {
         return this._entities;
     }
-
     set entities(value: Entities) {
         this._entities = value;
     }

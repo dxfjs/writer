@@ -34,7 +34,7 @@ export default class LineType extends DXFManager{
         let tags: Tag[] = [];
         tags.push(...this.entityType('LTYPE'));
         tags.push(...this.hand(this.handle));
-        tags.push(...this.standard([[330, this.handleToOwner]]));
+        tags.push(...this.softPointerHandle(this.handleToOwner));
         tags.push(...this.subclassMarker('AcDbSymbolTableRecord'));
         tags.push(...this.subclassMarker('AcDbLinetypeTableRecord'));
         tags.push(...this.name(this.lineTypeName));
@@ -49,10 +49,10 @@ export default class LineType extends DXFManager{
         }, 0);
         tags.push(...this.standard([[40, sum]]));
         this.elements.forEach((element) => {
-            tags.push(...this.standard([
-                [49, element],
-                [74, 0],
-            ]));
+            tags.push(...this.standard([[49, element]]));
+            if (this.isSupported(DXFManager.versions.R2000)) {
+                tags.push(...this.standard([[74, 0]]));
+            }
         });
         return tags;
     }

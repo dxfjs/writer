@@ -26,15 +26,16 @@ export default class APPID extends DXFManager {
     }
 
     tags(): Tag[] {
-        let tags: Tag[] = [];
-        tags.push(new Tag(0, 'APPID'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbRegAppTableRecord'));
-        tags.push(new Tag(2, this.appIDName));
-        tags.push(new Tag(70, this.flag));
-        return tags;
+
+        return [
+            ...this.entityType('APPID'),
+            ...this.hand(this.handle),
+            ...this.softPointerHandle(this.handleToOwner),
+            ...this.subclassMarker('AcDbSymbolTableRecord'),
+            ...this.subclassMarker('AcDbRegAppTableRecord'),
+            ...this.name(this.appIDName),
+            ...this.standard([[70, this.flag]]),
+        ];
     }
 
 };

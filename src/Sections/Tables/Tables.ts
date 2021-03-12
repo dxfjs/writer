@@ -96,20 +96,25 @@ export default class Tables extends DXFManager {
         const [x, y] = this.entities.centerView();
         this.setViewCenter([x, y]);
         this.setViewHeight(this.entities.viewHeight());
-        return [
+        const tags: Tag[] = [
             ...this.entityType('SECTION'),
             ...this.name('TABLES'),
             ...this._vports.tags(),
             ...this._ltypes.tags(),
             ...this._layers.tags(),
-            ...this._styles.tags(),
-            ...this._views.tags(),
-            ...this._ucss.tags(),
-            ...this._appids.tags(),
-            ...this._dimstyles.tags(),
-            ...this._blockRecords.tags(),
-            ...this.entityType('ENDSEC')
         ];
+        if (this.isSupported(DXFManager.versions.R13)) {
+            tags.push(
+                ...this._styles.tags(),
+                ...this._views.tags(),
+                ...this._ucss.tags(),
+                ...this._appids.tags(),
+                ...this._dimstyles.tags(),
+                ...this._blockRecords.tags(),
+            );
+        }
+        tags.push(...this.entityType('ENDSEC'));
+        return tags;
     }
 
     public setViewHeight(viewHeight: number) {

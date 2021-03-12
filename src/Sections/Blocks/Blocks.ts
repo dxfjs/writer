@@ -50,6 +50,9 @@ export default class Blocks extends DXFManager {
             tags.push(...block.tags());
         });
         tags.push(...this.entityType('ENDSEC'));
-        return tags;
+        if (this.isSupported(DXFManager.versions.R13)) {
+            return tags;
+        }
+        return [];
     }
 }

@@ -35,16 +35,27 @@ export default class ViewPort extends DXFManager {
     }
     public tags(): Tag[] {
         const [x, y] = this.viewCenter;
-        return this.standard([
-            [0, 'TABLE'],               [2, 'VPORT'],   [5, this.handle],   [330, 0],
+        const tags: Tag[] = [];
+
+
+        tags.push(...this.standard([[0, 'TABLE'],[2, 'VPORT']]));
+        tags.push(...this.hand(this.handle));
+        tags.push(...this.softPointerHandle('0'));
+        tags.push(...this.subclassMarker('AcDbSymbolTable'));
+        tags.push(...this.standard([[70, 1]]));
+        tags.push(...this.entityType('VPORT'));
+        tags.push(...this.hand(this._vportHandle));
+        tags.push(...this.softPointerHandle(this.handle));
+        tags.push(...this.subclassMarker('AcDbSymbolTableRecord'));
+        tags.push(...this.subclassMarker('AcDbViewportTableRecord'));
+
+            /*[5, this.handle],   [330, 0],
             [100, 'AcDbSymbolTable'],   [70, 1],        [0, 'VPORT'],       [5, this._vportHandle],
 
-            [330, this.handle],         [100, 'AcDbSymbolTableRecord'], [100, 'AcDbViewportTableRecord'],
-
+            [330, this.handle],         [100, 'AcDbSymbolTableRecord'], [100, 'AcDbViewportTableRecord'], */
+        tags.push(...this.standard([
             [2, '*ACTIVE'],     [70, 0],    [10, 0],    [20, 0],    [11, 1],    [21, 1],
-
-            [12, x],
-            [22, y],
+            [12, x],            [22, y],
 
             [13, 0],    [23, 0], [14, 10], [24, 10], [15, 10],
             [25, 10],   [16, 0], [26, 0], [36, 1],
@@ -55,11 +66,17 @@ export default class ViewPort extends DXFManager {
 
             [42, 50],   [43, 0],    [44, 0],        [50, 0],        [51, 0],    [71, 0],
             [72, 100],  [73, 1],    [74, 3],        [75, 0],        [76, 1],
-            [77, 0],    [78, 0],    [281, 0],       [65, 1],        [110, 0],   [120, 0],
-            [130, 0],   [111, 1],   [121, 0],       [131, 0],       [112, 0],
-            [122, 1],   [132, 0],   [79, 0],        [146, 0],       [348, 10020],
-            [60, 7],    [61, 5],    [292, 1],       [282, 1],       [141, 0],
-            [142, 0],   [63, 250],  [421, 3358443], [0, 'ENDTAB'],
-        ]);
+            [77, 0],    [78, 0]]));
+        if (this.isSupported(DXFManager.versions.R13)) {
+            tags.push(...this.standard([[281, 0],       [65, 1],        [110, 0],   [120, 0],
+                [130, 0],   [111, 1],   [121, 0],       [131, 0],       [112, 0],
+                [122, 1],   [132, 0],   [79, 0],        [146, 0],       [348, 10020],
+                [60, 7],    [61, 5],    [292, 1],       [282, 1],       [141, 0],
+                [142, 0],   [63, 250],  [421, 3358443],
+            ]));
+        }
+        tags.push(...this.entityType('ENDTAB'));
+
+        return tags;
     }
 }

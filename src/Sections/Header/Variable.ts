@@ -17,7 +17,9 @@ export default class Variable extends DXFManager {
     }
 
     public tags(): Tag[] {
-
+        if (this.variableName === 'HANDSEED' && !this.isSupported(DXFManager.versions.R13)) {
+            return [];
+        }
         return this.standard([[9, `$${this.variableName}`], ...this.values]);
     }
 };

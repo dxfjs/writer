@@ -22,15 +22,19 @@ export default class BlockRecord extends DXFManager {
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(new Tag(0, 'BLOCK_RECORD'));
-        tags.push(new Tag(5, this.handle));
-        tags.push(new Tag(330, this.handleToOwner));
-        tags.push(new Tag(100, 'AcDbSymbolTableRecord'));
-        tags.push(new Tag(100, 'AcDbBlockTableRecord'));
-        tags.push(new Tag(2, this.blockRecordName));
-        tags.push(new Tag(70, 0));
-        tags.push(new Tag(280, 1));
-        tags.push(new Tag(281, 0));
+        tags.push(
+            ...this.entityType('BLOCK_RECORD'),
+            ...this.hand(this.handle),
+            ...this.softPointerHandle(this.handleToOwner),
+            ...this.subclassMarker('AcDbSymbolTableRecord'),
+            ...this.subclassMarker('AcDbBlockTableRecord'),
+            ...this.name(this.blockRecordName),
+            ...this.standard([[70, 0]]),
+        );
+        if (this.isSupported(DXFManager.versions.R13)) {
+            tags.push(new Tag(280, 1));
+            tags.push(new Tag(281, 0));
+        }
         return tags;
     }
 }

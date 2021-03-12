@@ -7,10 +7,13 @@ export default class Classes extends DXFManager {
     }
 
     public tags(): Tag[] {
-        return [
-            ...this.entityType('SECTION'),
-            ...this.name('CLASSES'),
-            ...this.entityType('ENDSEC')
-        ];
+        if (this.isSupported(DXFManager.versions.R13)) {
+            return [
+                ...this.entityType('SECTION'),
+                ...this.name('CLASSES'),
+                ...this.entityType('ENDSEC')
+            ];
+        }
+        return [];
     }
 };
