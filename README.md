@@ -53,7 +53,7 @@ dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED')
     .addLayer('l_yellow', DXFWriter.colors.Yellow, 'ACAD_ISO11W100');
 
 dxf.setCurrentLayer('l_green')
-    .addSpline(points, 3, 0, [0, 0, 0, 0, 0.5, 2, 2, 2, 2], [], [])
+    .addSpline(points, points)
     .setCurrentLayer('l_red')
     .addCircle(60, 150, 50)
     .addRectangle(20, 20,100, 100)
