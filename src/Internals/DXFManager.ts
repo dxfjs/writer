@@ -23,7 +23,7 @@ export default class DXFManager implements DXFInterface {
     static versions = {
         R12:    "AC1009", R13:      "AC1012", R14:      "AC1014",
         R2000:  "AC1015", R2004:    "AC1018", R2007:    "AC1021",
-        R2010:  "AC1024", R2013:    "AC1027", R2018:    "AC1032"
+        R2010:  "AC1024", R2013:    "AC1027"//, R2018:    "AC1032"
     };
     static colors = {
         Red:        1, Green:      3, Cyan:       4,
@@ -72,7 +72,10 @@ export default class DXFManager implements DXFInterface {
 
     public stringify(): string {
         return this.tags().reduce((str, tag) => {
-            return `${str}${tag.stringify()}`;
+            if (this.isSupported(tag.version)) {
+                return `${str}${tag.stringify()}`;
+            }
+            return str;
         }, '');
     }
 

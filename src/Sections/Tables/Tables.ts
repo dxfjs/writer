@@ -10,8 +10,9 @@ import LineTypeTable        from "./Tables/LineTypeTable";
 import DIMStyleTable        from "./Tables/DIMStyleTable";
 import BlockRecordTable     from "./Tables/BlockRecordTable";
 import ViewPort             from "./Tables/Records/ViewPort";
+import DXFManager           from "../../Internals/DXFManager";
 
-export default class Tables {
+export default class Tables extends DXFManager {
 
     get entities(): Entities {
         return this._entities;
@@ -26,19 +27,20 @@ export default class Tables {
     get blockRecords(): BlockRecordTable {
         return this._blockRecords;
     }
-    private _vports:        ViewPort;
-    private _ltypes:        LineTypeTable;
-    private readonly _layers:        LayerTable;
-    private _styles:        StyleTable;
-    private _views:         ViewTable;
-    private _ucss:          UCSTable;
-    private _appids:        APPIDTable;
-    private _dimstyles:     DIMStyleTable;
-    private readonly _blockRecords: BlockRecordTable;
+    private _vports:                    ViewPort;
+    private _ltypes:                    LineTypeTable;
+    private readonly _layers:           LayerTable;
+    private _styles:                    StyleTable;
+    private _views:                     ViewTable;
+    private _ucss:                      UCSTable;
+    private _appids:                    APPIDTable;
+    private _dimstyles:                 DIMStyleTable;
+    private readonly _blockRecords:     BlockRecordTable;
 
     private _entities: Entities = new Entities();
 
     public constructor() {
+        super();
         this._vports        = new ViewPort();
         this._ltypes        = new LineTypeTable();
         this._layers        = new LayerTable();
@@ -91,20 +93,23 @@ export default class Tables {
     }
 
     public tags(): Tag[] {
-        let tags: Tag[] = [];
         const [x, y] = this.entities.centerView();
         this.setViewCenter([x, y]);
         this.setViewHeight(this.entities.viewHeight());
-        tags.push(...this._vports.tags());
-        tags.push(...this._ltypes.tags());
-        tags.push(...this._layers.tags());
-        tags.push(...this._styles.tags());
-        tags.push(...this._views.tags());
-        tags.push(...this._ucss.tags());
-        tags.push(...this._appids.tags());
-        tags.push(...this._dimstyles.tags());
-        tags.push(...this._blockRecords.tags());
-        return tags;
+        return [
+            ...this.entityType('SECTION'),
+            ...this.name('TABLES'),
+            ...this._vports.tags(),
+            ...this._ltypes.tags(),
+            ...this._layers.tags(),
+            ...this._styles.tags(),
+            ...this._views.tags(),
+            ...this._ucss.tags(),
+            ...this._appids.tags(),
+            ...this._dimstyles.tags(),
+            ...this._blockRecords.tags(),
+            ...this.entityType('ENDSEC')
+        ];
     }
 
     public setViewHeight(viewHeight: number) {
@@ -113,16 +118,5 @@ export default class Tables {
 
     public setViewCenter(viewCenter: [number, number]) {
         this._vports.viewCenter = viewCenter;
-    }
-
-    public stringify(): string {
-        let str = '';
-        str += new Tag(0, 'SECTION').stringify();
-        str += new Tag(2, 'TABLES').stringify();
-        str += this.tags().reduce((str, tag) => {
-            return str += tag.stringify();
-        }, '');
-        str += new Tag(0, 'ENDSEC').stringify();
-        return str;
     }
 }

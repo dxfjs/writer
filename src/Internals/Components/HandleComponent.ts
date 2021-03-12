@@ -10,7 +10,7 @@ export default class HandleComponent implements DXFInterface {
     }
     private readonly _handle: Tag;
     public constructor(handle : string) {
-        this._handle = new Tag(5, handle );
+        this._handle = new Tag(5, handle, 'AC1012');
     }
     stringify(): string {
         return this._handle.stringify();
