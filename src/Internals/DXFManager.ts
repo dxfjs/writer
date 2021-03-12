@@ -47,6 +47,7 @@ export default class DXFManager implements DXFInterface {
     static currentLayer:    string = '0';
     public constructor() {
         this._handle = this.handleSeed();
+        DXFManager.version = DXFManager.versions.R2007;
     }
 
     public isInteger(value: number): boolean {
