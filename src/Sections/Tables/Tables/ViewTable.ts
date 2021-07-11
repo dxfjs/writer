@@ -20,7 +20,7 @@ export default class ViewTable extends Table {
         this.views.forEach((view) => {
             tags = tags.concat(view.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 };

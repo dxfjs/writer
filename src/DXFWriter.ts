@@ -1,26 +1,30 @@
-import DXFManager   from "./Internals/DXFManager";
-import Header       from "./Sections/Header/Header";
-import Tables       from "./Sections/Tables/Tables";
-import Blocks       from "./Sections/Blocks/Blocks";
-import Classes      from "./Sections/Classes/Classes";
-import Objects      from "./Sections/Objects/Objects";
-import Entities     from "./Sections/Entities/Entities";
+import DXFManager   from    "./Internals/DXFManager";
+import Header       from    "./Sections/Header/Header";
+import Tables       from    "./Sections/Tables/Tables";
+import Blocks       from    "./Sections/Blocks/Blocks";
+import Classes      from    "./Sections/Classes/Classes";
+import Objects      from    "./Sections/Objects/Objects";
+import Entities     from    "./Sections/Entities/Entities";
 
-export default class DXFWriter extends DXFManager {
-    private header:    Header;
-    private classes:   Classes;
-    private tables:    Tables;
-    private blocks:    Blocks;
+export default class DXFWriter extends DXFManager
+{
+    private header  :    Header;
+    private classes :   Classes;
+    private tables  :    Tables;
+    private blocks  :    Blocks;
     private entities:  Entities;
-    private objects:   Objects;
+    private objects :   Objects;
 
     /**
      * The base class for creating the dxf content.
-     * @param version{string}   Not working at this moment :(. Do bot bother using it. Use DXFWriter.versions to set the version.
+     * @param version{string} Not working at this moment☹️. Do not bother yourself using it.
+     *                        Use DXFWriter.versions to set the version.
      */
-    public constructor(version: string = DXFManager.versions.R2007) {
+    public constructor(version : string = DXFManager.versions.R2007)
+    {
         super();
         this.setVersion(version);
+
         this.header             = new Header();
         this.classes            = new Classes();
         this.blocks             = new Blocks();
@@ -35,7 +39,8 @@ export default class DXFWriter extends DXFManager {
      * @param variableName
      * @param values
      */
-    public addVariable(variableName: string, values: [number, (number | string)][]): DXFWriter {
+    public addVariable(variableName: string, values: [number, (number | string)][]): DXFWriter
+    {
         this.header.addVariable(variableName, values);
         return this;
     }
@@ -46,7 +51,8 @@ export default class DXFWriter extends DXFManager {
      * @param descriptive the descriptive of the line ex: __ __ . __ __ .
      * @param elements an array of the pattern. NB: need more explications :(
      */
-    public addLineType(name: string, descriptive: string, elements: number []): DXFWriter {
+    public addLineType(name: string, descriptive: string, elements: number []): DXFWriter
+    {
         this.tables.addLineType(name, descriptive, elements);
         return this;
     }
@@ -58,7 +64,8 @@ export default class DXFWriter extends DXFManager {
      * @param ltype{string} the linetype name.
      * @param flag{number} the flag of the layer (0: is thawed, 1: is frozen).
      */
-    public addLayer(name: string, color: number, ltype: string, flag: number = 0): DXFWriter {
+    public addLayer(name: string, color: number, ltype: string, flag: number = 0): DXFWriter
+    {
         this.tables.addLayer(name, color, ltype, flag);
         return this;
     }
@@ -71,6 +78,8 @@ export default class DXFWriter extends DXFManager {
     {
         if (this.tables.layers.find((layer) => layer.layerName === layerName)) {
             DXFManager.currentLayer = layerName;
+        } else {
+            throw new Error(`The layer ${layerName} doesn't exist in the LayerTable.`);
         }
         return this;
     }
@@ -80,7 +89,12 @@ export default class DXFWriter extends DXFManager {
      * @param unit{number} use DXFWriter.units to set the unit.
      */
     public setUnit(unit: number): DXFWriter {
-        this.header.unit = unit;
+        if (Object.values(DXFManager.units).indexOf(unit) > -1)
+        {
+            this.header.unit = unit;
+        } else {
+            throw new Error(`The ${unit} is not a valid Unit, please see DXFManager.units.`);
+        }
         return this;
     }
 
@@ -90,7 +104,12 @@ export default class DXFWriter extends DXFManager {
      * @param version{string} use DXFWriter.versions to set the version.
      */
     public setVersion(version: string): DXFWriter {
-        DXFManager.version = version;
+        if (Object.values(DXFManager.versions).indexOf(version) > -1)
+        {
+            DXFManager.version = version;
+        } else {
+            throw new Error(`The ${version} is not a valid Version, please see DXFManager.versions.`);
+        }
         return this;
     }
 

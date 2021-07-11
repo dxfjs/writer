@@ -70,7 +70,7 @@ export default class Spline extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(...this.standard([
+        tags.push(...this.makeStandard([
             [70, this.flag],
             [71, this.curveDegree],
             [72, this.knots.length],
@@ -81,15 +81,15 @@ export default class Spline extends Entity
             [42, 0.0000000001],
         ]));
         this.knots.forEach((knot) => {
-            tags.push(...this.standard([[40, knot]]));
+            tags.push(...this.makeStandard([[40, knot]]));
         })
         this.controlPoints.forEach((point) => {
             const [x, y, z] = point;
-            tags.push(...this.point(x, y, z, true));
+            tags.push(...this.makePoint(x, y, z, true));
         })
         this.fitPoints.forEach((point) => {
             const [x, y, z] = point;
-            tags.push(...this.point(x, y, z, true, 1));
+            tags.push(...this.makePoint(x, y, z, true, 1));
         })
         return tags;
     }

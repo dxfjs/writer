@@ -35,7 +35,7 @@ export default class BlockRecordTable extends Table {
             block_record.handleToOwner = this.handle;
             tags = tags.concat(block_record.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         this.modelHandle = this.blockRecords[0].handle;
         this.paperHandle = this.blockRecords[1].handle;
         return tags;

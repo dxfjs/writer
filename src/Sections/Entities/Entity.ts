@@ -29,10 +29,10 @@ export default class Entity extends DXFManager {
 
     public tags(): Tag[] {
         return [
-            ...this.entityType(this.type),
-            ...this.hand(this.handle),
+            ...this.makeEntityType(this.type),
+            ...this.makeHandle(this.handle),
             ...this.subclassMarker('AcDbEntity'),
-            ...this.layer(this.layerName),
+            ...this.makeLayer(this.layerName),
             ...this.subclassMarker(this.subClassName)
         ];
     }

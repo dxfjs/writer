@@ -15,18 +15,18 @@ export default class Dictionary extends DXFManager {
 
     tags(): Tag[] {
         return [
-            ...this.entityType('DICTIONARY'),
-            ...this.hand(this.handle),
-            ...this.standard([[330, 0]]),
+            ...this.makeEntityType('DICTIONARY'),
+            ...this.makeHandle(this.handle),
+            ...this.makeStandard([[330, 0]]),
             ...this.subclassMarker('AcDbDictionary'),
-            ...this.standard([[281, 1]]),
-            ...this.name(this.dictionaryName, 3),
-            ...this.standard([[350, this._dictionaryEntryHandle]]),
-            ...this.entityType('DICTIONARY'),
-            ...this.hand(this._dictionaryEntryHandle),
-            ...this.standard([[330, this.handle]]),
+            ...this.makeStandard([[281, 1]]),
+            ...this.makeName(this.dictionaryName, 3),
+            ...this.makeStandard([[350, this._dictionaryEntryHandle]]),
+            ...this.makeEntityType('DICTIONARY'),
+            ...this.makeHandle(this._dictionaryEntryHandle),
+            ...this.makeStandard([[330, this.handle]]),
             ...this.subclassMarker('AcDbDictionary'),
-            ...this.standard([[281, 1]]),
+            ...this.makeStandard([[281, 1]]),
         ];
     }
 };

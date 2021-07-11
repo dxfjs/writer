@@ -14,13 +14,13 @@ export default class Objects extends DXFManager {
     }
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(...this.entityType('SECTION'));
-        tags.push(...this.name('OBJECTS'));
+        tags.push(...this.makeEntityType('SECTION'));
+        tags.push(...this.makeName('OBJECTS'));
         this.dictionaries.forEach((dictionary) => {
             tags.push(...dictionary.tags());
         });
-        tags.push(...this.entityType('ENDSEC'));
-        tags.push(...this.entityType('EOF'));
+        tags.push(...this.makeEntityType('ENDSEC'));
+        tags.push(...this.makeEntityType('EOF'));
         return tags;
     }
 };

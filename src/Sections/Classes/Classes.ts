@@ -1,5 +1,5 @@
-import Tag from "../../Internals/Tag";
-import DXFManager from "../../Internals/DXFManager";
+import Tag          from    "../../Internals/Tag";
+import DXFManager   from    "../../Internals/DXFManager";
 
 export default class Classes extends DXFManager {
     public constructor() {
@@ -8,9 +8,9 @@ export default class Classes extends DXFManager {
 
     public tags(): Tag[] {
         return [
-            ...this.entityType('SECTION'),
-            ...this.name('CLASSES'),
-            ...this.entityType('ENDSEC')
+            ...this.makeEntityType('SECTION'),
+            ...this.makeName('CLASSES'),
+            ...this.makeEntityType('ENDSEC')
         ];
     }
 };

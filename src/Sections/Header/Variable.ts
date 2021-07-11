@@ -18,6 +18,6 @@ export default class Variable extends DXFManager {
 
     public tags(): Tag[] {
 
-        return this.standard([[9, `$${this.variableName}`], ...this.values]);
+        return this.makeStandard([[9, `$${this.variableName}`], ...this.values]);
     }
 };

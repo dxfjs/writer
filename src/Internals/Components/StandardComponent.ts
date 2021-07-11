@@ -1,19 +1,24 @@
-import Tag from "../Tag";
-import DXFInterface from "../Interfaces/DXFInterface";
+import Tag          from    "../Tag";
+import DXFInterface from    "../Interfaces/DXFInterface";
 
-export default class StandardComponent implements DXFInterface {
-    private _tags: Tag[] = [];
-    public constructor(tagsArray: [number, number | string][]) {
+export default class StandardComponent implements DXFInterface
+{
+    private _tags : Tag[] = [];
+
+    public constructor(tagsArray : [number, number | string][])
+    {
         tagsArray.forEach((tag) => {
             this._tags.push(new Tag(tag[0], tag[1]));
         });
     }
-    stringify(): string {
+    stringify() : string
+    {
         return this._tags.reduce((str, tag) => {
             return `${str}${tag.stringify()}`;
         }, '');
     }
-    tags(): Tag[] {
+    tags() : Tag[]
+    {
         return this._tags;
     }
 };

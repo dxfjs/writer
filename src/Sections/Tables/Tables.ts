@@ -27,15 +27,15 @@ export default class Tables extends DXFManager {
     get blockRecords(): BlockRecordTable {
         return this._blockRecords;
     }
-    private _vports:                    ViewPort;
-    private _ltypes:                    LineTypeTable;
-    private readonly _layers:           LayerTable;
-    private _styles:                    StyleTable;
-    private _views:                     ViewTable;
-    private _ucss:                      UCSTable;
-    private _appids:                    APPIDTable;
-    private _dimstyles:                 DIMStyleTable;
-    private readonly _blockRecords:     BlockRecordTable;
+    private             _vports         :   ViewPort;
+    private             _ltypes         :   LineTypeTable;
+    private readonly    _layers         :   LayerTable;
+    private             _styles         :   StyleTable;
+    private             _views          :   ViewTable;
+    private             _ucss           :   UCSTable;
+    private             _appids         :   APPIDTable;
+    private             _dimstyles      :   DIMStyleTable;
+    private readonly    _blockRecords   :   BlockRecordTable;
 
     private _entities: Entities = new Entities();
 
@@ -53,7 +53,7 @@ export default class Tables extends DXFManager {
 
         this.addLineType('ByBlock', '', []);
         this.addLineType('ByLayer', '', []);
-        this.addLineType('Continuous', 'Solid line', []);
+        this.addLineType('CONTINUOUS', 'Solid line', []);
 
         this.addLayer('0', 7, 'CONTINUOUS', 0);
 
@@ -69,7 +69,12 @@ export default class Tables extends DXFManager {
     }
 
     public addLayer(name: string, color: number, lineType: string, flag: number) {
-        this._layers.addLayer(name, color, lineType, flag);
+        if (this._ltypes.lineTypeExist(lineType))
+        {
+            this._layers.addLayer(name, color, lineType, flag);
+        } else {
+            throw new Error(`The lineType ${lineType} doesn't exist in the LineTypeTable.`);
+        }
     }
 
     public addStyle(name: string) {
@@ -97,8 +102,8 @@ export default class Tables extends DXFManager {
         this.setViewCenter([x, y]);
         this.setViewHeight(this.entities.viewHeight());
         return [
-            ...this.entityType('SECTION'),
-            ...this.name('TABLES'),
+            ...this.makeEntityType('SECTION'),
+            ...this.makeName('TABLES'),
             ...this._vports.tags(),
             ...this._ltypes.tags(),
             ...this._layers.tags(),
@@ -108,7 +113,7 @@ export default class Tables extends DXFManager {
             ...this._appids.tags(),
             ...this._dimstyles.tags(),
             ...this._blockRecords.tags(),
-            ...this.entityType('ENDSEC')
+            ...this.makeEntityType('ENDSEC')
         ];
     }
 

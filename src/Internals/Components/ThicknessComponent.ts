@@ -1,5 +1,5 @@
-import Tag from "../Tag";
-import DXFInterface from "../Interfaces/DXFInterface";
+import Tag          from    "../Tag";
+import DXFInterface from    "../Interfaces/DXFInterface";
 
 export default class ThicknessComponent implements DXFInterface {
     get thickness(): number {

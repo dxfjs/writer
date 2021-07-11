@@ -35,8 +35,8 @@ export default class Text extends Entity
     public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.point(this.position.x, this.position.y, this.position.z, true),
-            ...this.standard([
+            ...this.makePoint(this.position.x, this.position.y, this.position.z, true),
+            ...this.makeStandard([
                 [40, this.height],
                 [1, this.value]]
             ),

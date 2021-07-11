@@ -37,13 +37,13 @@ export default class Layer extends DXFManager {
 
     public tags(): Tag[] {
         return [
-            ...this.entityType('LAYER'),
-            ...this.hand(this.handle),
-            ...this.standard([[330, this.handleToOwner]]),
+            ...this.makeEntityType('LAYER'),
+            ...this.makeHandle(this.handle),
+            ...this.makeStandard([[330, this.handleToOwner]]),
             ...this.subclassMarker('AcDbSymbolTableRecord'),
             ...this.subclassMarker('AcDbLayerTableRecord'),
-            ...this.name(this.layerName),
-            ...this.standard([
+            ...this.makeName(this.layerName),
+            ...this.makeStandard([
                 [70, this.flag],
                 [62, this.colorIndex],
                 [6, this.ltype],

@@ -35,7 +35,7 @@ export default class ViewPort extends DXFManager {
     }
     public tags(): Tag[] {
         const [x, y] = this.viewCenter;
-        return this.standard([
+        return this.makeStandard([
             [0, 'TABLE'],               [2, 'VPORT'],   [5, this.handle],   [330, 0],
             [100, 'AcDbSymbolTable'],   [70, 1],        [0, 'VPORT'],       [5, this._vportHandle],
 

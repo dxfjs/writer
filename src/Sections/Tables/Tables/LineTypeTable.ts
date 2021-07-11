@@ -1,14 +1,27 @@
-import Table        from "../Table";
-import LineType     from "./Records/LineType";
-import Tag          from "../../../Internals/Tag";
+import Table        from    "../Table";
+import LineType     from    "./Records/LineType";
+import Tag          from    "../../../Internals/Tag";
 
-export default class LineTypeTable extends Table {
-    get lineTypes(): LineType[] {
-        return this._lineTypes;
-    }
+export default class LineTypeTable extends Table
+{
+
+    get lineTypes() : LineType[] { return this._lineTypes; }
+
     private _lineTypes: LineType[] = [];
-    public constructor() {
-        super('LTYPE');
+
+    public constructor() { super('LTYPE'); }
+
+    public lineTypeExist(lineType : string) : boolean
+    {
+        let lineTypeExist = false;
+
+        this._lineTypes.forEach((ltype) => {
+            if (ltype.lineTypeName === lineType)
+            {
+                lineTypeExist = true;
+            }
+        });
+        return lineTypeExist;
     }
 
     public addLineType(name: string, descriptive: string, elements: number []) {
@@ -22,7 +35,7 @@ export default class LineTypeTable extends Table {
             lineType.handleToOwner = this.handle;
             tags = tags.concat(lineType.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 }

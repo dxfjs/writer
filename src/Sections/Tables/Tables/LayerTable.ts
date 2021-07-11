@@ -21,7 +21,7 @@ export default class LayerTable extends Table {
             layer.handleToOwner = this.handle;
             tags = tags.concat(layer.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 }

@@ -20,7 +20,7 @@ export default class StyleTable extends Table {
             style.handleToOwner = this.handle;
             tags = tags.concat(style.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 }

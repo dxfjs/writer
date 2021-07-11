@@ -11,12 +11,12 @@ export default class Table extends DXFManager {
 
     tags(): Tag[] {
         return [
-            ...this.entityType('TABLE'),
-            ...this.name(this.tableName),
-            ...this.hand(this.handle),
-            ...this.standard([[330, 0]]),
+            ...this.makeEntityType('TABLE'),
+            ...this.makeName(this.tableName),
+            ...this.makeHandle(this.handle),
+            ...this.makeStandard([[330, 0]]),
             ...this.subclassMarker('AcDbSymbolTable'),
-            ...this.standard([[70, 1]]),
+            ...this.makeStandard([[70, 1]]),
         ];
     }
 };

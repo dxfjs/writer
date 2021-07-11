@@ -36,9 +36,11 @@ import DXFWriter from "@tarikjabiri/dxf";
 const dxf = new DXFWriter();
 dxf.addLine(0, 0, 100, 100);
 let points = [
-    [-200, 0, 0],
+    [-300, 0, 0],
     [0, 200, 0],
-    [300, 70, 0]
+    [300, 70, 0],
+    [700, 100, 0],
+    [1000, 1200, 0]
 ];
 dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0,-4])
     .addLineType('ACAD_ISO11W100', '__ __ . __ __ . __ __ .', [4, -2, 4, -2, 0, -2])
@@ -51,7 +53,7 @@ dxf.addLayer('l_red',       DXFWriter.colors.Red,       'DASHED')
     .addLayer('l_yellow',   DXFWriter.colors.Yellow,    'ACAD_ISO11W100');
 
 dxf.setCurrentLayer('l_green')
-    .addSpline(points, points)
+    .addSpline(points, points, 3, 8, [], [])
     .setCurrentLayer('l_red')
     .addCircle(60, 150, 50)
     .addRectangle(20, 20,100, 100)
@@ -65,7 +67,7 @@ dxf.setCurrentLayer('l_green')
     .addArc(0, 0, 120, 0, 120)
     .addPoint(65, -30, 0)
     .setCurrentLayer('l_yellow')
-    .addEllipse(100, 50, 300, 400, 0.5, 0, 2 * Math.PI)
+    .addEllipse(100, 50, 150, 0, 1, 0, 2 * Math.PI)
     .add3DFace(
         0, 0, 10,
         20, 0, 10,
@@ -77,6 +79,7 @@ const dxfString = dxf.stringify();
 
 ***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
 
+## Supported entities
 - ARC
 - CIRCLE
 - ELLIPSE
@@ -88,7 +91,7 @@ const dxfString = dxf.stringify();
 - SPLINE
 - TEXT
 
-## Colors supported
+## Colors integrated
 
 - Red
 - Green

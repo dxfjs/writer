@@ -214,13 +214,13 @@ export default class Entities extends DXFManager {
 
     public tags(): Tag[] {
         let tags: Tag[] = [];
-        tags.push(...this.entityType('SECTION'));
-        tags.push(...this.name('ENTITIES'));
+        tags.push(...this.makeEntityType('SECTION'));
+        tags.push(...this.makeName('ENTITIES'));
 
         tags.push(
             ...this.entitiesTags(this.entities())
         );
-        tags.push(...this.entityType('ENDSEC'));
+        tags.push(...this.makeEntityType('ENDSEC'));
         return tags;
     }
 }

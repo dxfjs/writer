@@ -21,7 +21,7 @@ export default class APPIDTable extends Table {
             appID.handleToOwner = this.handle;
             tags.push(...appID.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 };

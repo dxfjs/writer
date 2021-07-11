@@ -21,7 +21,7 @@ export default class UCSTable extends Table {
         this.ucss.forEach((ucs) => {
             tags.push(...ucs.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 };

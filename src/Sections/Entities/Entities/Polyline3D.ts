@@ -1,23 +1,23 @@
-import Entity   from "../Entity";
-import Vertex   from "./Vertex";
-import Tag      from "../../../Internals/Tag";
+import Entity   from    "../Entity";
+import Vertex   from    "./Vertex";
+import Tag      from    "../../../Internals/Tag";
 
 export default class Polyline3D extends Entity
 {
-    get flag(): number {
-        return this._flag;
-    }
-    get points(): number[][] {
-        return this._points;
-    }
-    private readonly _points: number[][];
-    private readonly _flag: number;
-    private _vertexes: Vertex[] = [];
-    private readonly _seqHandle: string;
+    get flag()  : number        { return this._flag;    }
+    get points(): number[][]    { return this._points;  }
+
+    private readonly _points    : number[][];
+    private readonly _flag      : number;
+    private _vertexes           : Vertex[] = [];
+    private readonly _seqHandle : string;
+
     public constructor(points: number[][], flag: number) {
         super('POLYLINE', 'AcDb3dPolyline');
-        this._points = points;
-        this._flag = flag;
+        
+        this._points    = points;
+        this._flag      = flag;
+
         this.points.forEach((point) => {
             this._vertexes.push(new Vertex(point, 32));
         });
@@ -44,16 +44,16 @@ export default class Polyline3D extends Entity
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(...this.standard([[66, 1]]));
-        tags.push(...this.point(0, 0, 0, true));
-        tags.push(...this.standard([[70, this.flag]]));
+        tags.push(...this.makeStandard([[66, 1]]));
+        tags.push(...this.makePoint(0, 0, 0, true));
+        tags.push(...this.makeStandard([[70, this.flag]]));
         this._vertexes.forEach((vertex) => {
             tags.push(...vertex.tags());
         });
-        tags.push(...this.entityType('SEQEND'));
-        tags.push(...this.hand(this._seqHandle));
+        tags.push(...this.makeEntityType('SEQEND'));
+        tags.push(...this.makeHandle(this._seqHandle));
         tags.push(...this.subclassMarker('AcDbEntity'));
-        tags.push(...this.layer(Entity.currentLayer));
+        tags.push(...this.makeLayer(Entity.currentLayer));
         return tags;
     }
 }

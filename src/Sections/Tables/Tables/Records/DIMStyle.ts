@@ -27,7 +27,7 @@ export default class DIMStyle extends DXFManager {
     }
 
     public tags(): Tag[] {
-        return this.standard([
+        return this.makeStandard([
             [0, 'DIMSTYLE'], [105, this.handle], [330, this.handleToOwner],
             [100, 'AcDbSymbolTableRecord'], [100, 'AcDbDimStyleTableRecord'],
             [2, this.dimStyleName], [70, this.flag],

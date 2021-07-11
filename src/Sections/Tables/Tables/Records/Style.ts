@@ -22,13 +22,13 @@ export default class Style extends DXFManager {
 
     public tags(): Tag[] {
         return [
-            ...this.entityType('STYLE'),
-            ...this.hand(this.handle),
-            ...this.standard([[330, this.handleToOwner]]),
+            ...this.makeEntityType('STYLE'),
+            ...this.makeHandle(this.handle),
+            ...this.makeStandard([[330, this.handleToOwner]]),
             ...this.subclassMarker('AcDbSymbolTableRecord'),
             ...this.subclassMarker('AcDbTextStyleTableRecord'),
-            ...this.name(this.styleName),
-            ...this.standard([
+            ...this.makeName(this.styleName),
+            ...this.makeStandard([
                 [70, 0], [40, 0], [41, 1],
                 [50, 0], [71, 0], [42, 1],
                 [3, 'txt'], [4, '']

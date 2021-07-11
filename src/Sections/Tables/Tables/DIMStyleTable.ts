@@ -18,12 +18,12 @@ export default class DIMStyleTable extends Table {
         let tags: Tag[] = [];
         tags.push(...super.tags());
         tags.push(...this.subclassMarker('AcDbDimStyleTable'));
-        tags.push(...this.standard([[71, 1]]));
+        tags.push(...this.makeStandard([[71, 1]]));
         this.dimStyles.forEach((dimstyle) => {
             dimstyle.handleToOwner = this.handle;
             tags = tags.concat(dimstyle.tags());
         });
-        tags.push(...this.entityType('ENDTAB'));
+        tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
 };

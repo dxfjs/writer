@@ -1,17 +1,11 @@
-import Entity   from "../Entity";
-import Tag      from "../../../Internals/Tag";
+import Entity   from    "../Entity";
+import Tag      from    "../../../Internals/Tag";
 
 export default class Point extends Entity
 {
-    get x(): number {
-        return this._x;
-    }
-    get y(): number {
-        return this._y;
-    }
-    get z(): number {
-        return this._z;
-    }
+    get x(): number { return this._x;   }
+    get y(): number { return this._y;   }
+    get z(): number { return this._z;   }
 
     private readonly _x: number;
     private readonly _y: number;
@@ -34,7 +28,7 @@ export default class Point extends Entity
     public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.point(this.x, this.y,   this.z,   true)
+            ...this.makePoint(this.x, this.y,   this.z,   true)
         ];
     }
 }
