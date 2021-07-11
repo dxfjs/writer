@@ -1,4 +1,4 @@
-# _DXF_ (🧩 Still under development 😇)
+# _DXF_ (🧩 Still under development 👨🏽‍💻)
 
 [![GitHub license](https://img.shields.io/github/license/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md)
 [![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)

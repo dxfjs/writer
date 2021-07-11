@@ -24,15 +24,15 @@ export default class Arc extends Entity
 
     public boundingBox() {
         return [
-            [this.center.x_center - this.radius, this.center.y_center + this.radius],
-            [this.center.x_center + this.radius, this.center.y_center - this.radius]
+            [this.center.x - this.radius, this.center.y + this.radius],
+            [this.center.x + this.radius, this.center.y - this.radius]
         ];
     }
 
     public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.makePoint(this.center.x_center, this.center.y_center, this.center.z_center, true),
+            ...this.makePoint(this.center.x, this.center.y, this.center.z, true),
             ...this.makeStandard([[40, this.radius]]),
             ...this.makeSubclassMarker('AcDbArc'),
             ...this.makeStandard([[50, this.startAngle], [51, this.endAngle]])

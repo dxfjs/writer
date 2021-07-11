@@ -24,21 +24,21 @@ describe('Face', () => {
             new Point(90, 0, 0)
         );
         dataState.instancesCount += 5;
-        expect(entity.first.x_center).toBe(0);
-        expect(entity.first.y_center).toBe(0);
-        expect(entity.first.z_center).toBe(50);
+        expect(entity.first.x).toBe(0);
+        expect(entity.first.y).toBe(0);
+        expect(entity.first.z).toBe(50);
 
-        expect(entity.second.x_center).toBe(3);
-        expect(entity.second.y_center).toBe(0);
-        expect(entity.second.z_center).toBe(0);
+        expect(entity.second.x).toBe(3);
+        expect(entity.second.y).toBe(0);
+        expect(entity.second.z).toBe(0);
 
-        expect(entity.third.x_center).toBe(0);
-        expect(entity.third.y_center).toBe(2);
-        expect(entity.third.z_center).toBe(0);
+        expect(entity.third.x).toBe(0);
+        expect(entity.third.y).toBe(2);
+        expect(entity.third.z).toBe(0);
 
-        expect(entity.fourth.x_center).toBe(90);
-        expect(entity.fourth.y_center).toBe(0);
-        expect(entity.fourth.z_center).toBe(0);
+        expect(entity.fourth.x).toBe(90);
+        expect(entity.fourth.y).toBe(0);
+        expect(entity.fourth.z).toBe(0);
     });
 
     it('should return the correct dxf string.', () => {

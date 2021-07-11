@@ -13,9 +13,9 @@ describe('Point', () => {
     it('should the given parameters.', () => {
         const entity = new Point(2444578787454548787878455454.33578787, 4.54874541454545454, 0.141111222155555555444);
         dataState.instancesCount++;
-        expect(entity.x_center).toBe(2444578787454548787878455454.33578787);
-        expect(entity.y_center).toBe(4.54874541454545454);
-        expect(entity.z_center).toBe(0.141111222155555555444);
+        expect(entity.x).toBe(2444578787454548787878455454.33578787);
+        expect(entity.y).toBe(4.54874541454545454);
+        expect(entity.z).toBe(0.141111222155555555444);
     });
 
     it('should return the correct dxf string.', () => {

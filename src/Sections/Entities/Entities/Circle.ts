@@ -18,14 +18,14 @@ export default class Circle extends Entity
 
     public boundingBox() {
         return [
-            [this.center.x_center - this.radius, this.center.y_center + this.radius],
-            [this.center.x_center + this.radius, this.center.y_center - this.radius]
+            [this.center.x - this.radius, this.center.y + this.radius],
+            [this.center.x + this.radius, this.center.y - this.radius]
         ];
     }
 
     public tags(): Tag[] {
         let tags: Tag[] = super.tags();
-        tags.push(...this.makePoint(this.center.x_center, this.center.y_center, this.center.z_center, true));
+        tags.push(...this.makePoint(this.center.x, this.center.y, this.center.z, true));
         tags.push(...this.makeStandard([[40, this.radius]]));
         return tags;
     }

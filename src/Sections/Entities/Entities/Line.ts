@@ -19,16 +19,16 @@ export default class Line extends Entity {
 
     public boundingBox() {
         const xs: number[] = [];
-        if (this.start.x_center < this.end.x_center) {
-            xs.push(this.start.x_center, this.end.x_center);
+        if (this.start.x < this.end.x) {
+            xs.push(this.start.x, this.end.x);
         } else {
-            xs.push(this.end.x_center, this.start.x_center);
+            xs.push(this.end.x, this.start.x);
         }
         const ys: number[] = [];
-        if (this.start.y_center < this.end.y_center) {
-            ys.push(this.start.y_center, this.end.y_center);
+        if (this.start.y < this.end.y) {
+            ys.push(this.start.y, this.end.y);
         } else {
-            ys.push(this.end.y_center, this.start.y_center);
+            ys.push(this.end.y, this.start.y);
         }
         const [minX, maxX] = xs;
         const [minY, maxY] = ys;
@@ -42,8 +42,8 @@ export default class Line extends Entity {
     {
         return [
             ...super.tags(),
-            ...this.makePoint(this.start.x_center, this.start.y_center,   this.start.z_center,   true),
-            ...this.makePoint(this.end.x_center,   this.end.y_center,     this.end.z_center,     true, 1)
+            ...this.makePoint(this.start.x, this.start.y,   this.start.z,   true),
+            ...this.makePoint(this.end.x,   this.end.y,     this.end.z,     true, 1)
         ];
     }
 }

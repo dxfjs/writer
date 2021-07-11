@@ -33,11 +33,18 @@ export default class Spline extends Entity
         this._weights        = weights;
         this._fit_points     = fit_points;
         
-        const knotsLength    = this._curve_degree + this._control_points.length - 1;
+        const knotsLength    = this._curve_degree + this._control_points.length + 1;
 
         if (this._knots.length === 0) {
-            for (let i = 0; i < knotsLength; i++) {
-                this.knots.push(i);
+            
+            for (let i = 0; i < this._curve_degree + 1; i++) {
+                this._knots.push(0);
+            }
+            for (let i = 1; i < this._control_points.length - this._curve_degree; i++) {
+                this._knots.push(i);
+            }
+            for (let i = 0; i < this._curve_degree + 1; i++) {
+                this._knots.push(this._control_points.length - this._curve_degree);
             }
         }
 
@@ -76,16 +83,7 @@ export default class Spline extends Entity
             [71, this._curve_degree],
             [72, this._knots.length],
             [73, this._control_points.length],
-        ]));
-        
-        if(this._fit_points.length > 0)
-        {
-            tags.push(...this.makeStandard([
-                [74, this._fit_points.length]
-            ]))
-        }
-
-        tags.push(...this.makeStandard([
+            [74, this._fit_points.length],
             [42, 0.0000001],
             [43, 0.0000001],
             [42, 0.0000000001],
