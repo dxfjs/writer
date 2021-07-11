@@ -18,14 +18,14 @@ export default class Dictionary extends DXFManager {
             ...this.makeEntityType('DICTIONARY'),
             ...this.makeHandle(this.handle),
             ...this.makeStandard([[330, 0]]),
-            ...this.subclassMarker('AcDbDictionary'),
+            ...this.makeSubclassMarker('AcDbDictionary'),
             ...this.makeStandard([[281, 1]]),
             ...this.makeName(this.dictionaryName, 3),
             ...this.makeStandard([[350, this._dictionaryEntryHandle]]),
             ...this.makeEntityType('DICTIONARY'),
             ...this.makeHandle(this._dictionaryEntryHandle),
             ...this.makeStandard([[330, this.handle]]),
-            ...this.subclassMarker('AcDbDictionary'),
+            ...this.makeSubclassMarker('AcDbDictionary'),
             ...this.makeStandard([[281, 1]]),
         ];
     }

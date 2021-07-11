@@ -15,7 +15,7 @@ export default class Table extends DXFManager {
             ...this.makeName(this.tableName),
             ...this.makeHandle(this.handle),
             ...this.makeStandard([[330, 0]]),
-            ...this.subclassMarker('AcDbSymbolTable'),
+            ...this.makeSubclassMarker('AcDbSymbolTable'),
             ...this.makeStandard([[70, 1]]),
         ];
     }

@@ -17,7 +17,7 @@ export default class DIMStyleTable extends Table {
     public tags(): Tag[] {
         let tags: Tag[] = [];
         tags.push(...super.tags());
-        tags.push(...this.subclassMarker('AcDbDimStyleTable'));
+        tags.push(...this.makeSubclassMarker('AcDbDimStyleTable'));
         tags.push(...this.makeStandard([[71, 1]]));
         this.dimStyles.forEach((dimstyle) => {
             dimstyle.handleToOwner = this.handle;

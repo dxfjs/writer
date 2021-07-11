@@ -8,7 +8,7 @@ describe('Entity', () => {
     it('should return the subClassName given.', () => {
         const entity = new Entity('LINE', 'AcDbLine');
         dataState.instancesCount++;
-        expect(entity.subClassName).toBe('AcDbLine');
+        expect(entity.subclassMarker).toBe('AcDbLine');
     });
     it('should return the entity Type given.', () => {
         const entity = new Entity('LINE', 'AcDbLine');

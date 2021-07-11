@@ -25,8 +25,8 @@ export default class Style extends DXFManager {
             ...this.makeEntityType('STYLE'),
             ...this.makeHandle(this.handle),
             ...this.makeStandard([[330, this.handleToOwner]]),
-            ...this.subclassMarker('AcDbSymbolTableRecord'),
-            ...this.subclassMarker('AcDbTextStyleTableRecord'),
+            ...this.makeSubclassMarker('AcDbSymbolTableRecord'),
+            ...this.makeSubclassMarker('AcDbTextStyleTableRecord'),
             ...this.makeName(this.styleName),
             ...this.makeStandard([
                 [70, 0], [40, 0], [41, 1],

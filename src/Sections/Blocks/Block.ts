@@ -24,9 +24,9 @@ export default class Block extends DXFManager {
             ...this.makeEntityType('BLOCK'),
             ...this.makeHandle(this.handle),
             ...this.makeStandard([[330, this.handleToOwner]]),
-            ...this.subclassMarker('AcDbEntity'),
+            ...this.makeSubclassMarker('AcDbEntity'),
             ...this.makeLayer('0'),
-            ...this.subclassMarker('AcDbBlockBegin'),
+            ...this.makeSubclassMarker('AcDbBlockBegin'),
             ...this.makeName(this.blockName),
             ...this.makeStandard([[70, 0]]),
             ...this.makePoint(0, 0, 0, true),
@@ -35,9 +35,9 @@ export default class Block extends DXFManager {
             ...this.makeEntityType('ENDBLK'),
             ...this.makeHandle(this._endBlockHandle),
             ...this.makeStandard([[330, this.handleToOwner]]),
-            ...this.subclassMarker('AcDbEntity'),
+            ...this.makeSubclassMarker('AcDbEntity'),
             ...this.makeLayer('0'),
-            ...this.subclassMarker('AcDbBlockEnd')
+            ...this.makeSubclassMarker('AcDbBlockEnd')
         ];
     }
 };

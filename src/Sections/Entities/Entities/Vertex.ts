@@ -30,7 +30,7 @@ export default class Vertex extends Entity
         const [x, y, z] = this.vertexPoint;
         return [
             ...super.tags(),
-            ...this.subclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
+            ...this.makeSubclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
             ...this.makePoint(x, y, z, true),
             ...this.makeStandard([[70, this.vertexFlag]])
         ];

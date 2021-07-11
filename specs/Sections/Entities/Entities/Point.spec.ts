@@ -7,15 +7,15 @@ describe('Point', () => {
     it('should return the subClassName given.', () => {
         const entity = new Point(0, 0, 0);
         dataState.instancesCount++;
-        expect(entity.subClassName).toBe('AcDbPoint');
+        expect(entity.subclassMarker).toBe('AcDbPoint');
     });
 
     it('should the given parameters.', () => {
         const entity = new Point(2444578787454548787878455454.33578787, 4.54874541454545454, 0.141111222155555555444);
         dataState.instancesCount++;
-        expect(entity.x).toBe(2444578787454548787878455454.33578787);
-        expect(entity.y).toBe(4.54874541454545454);
-        expect(entity.z).toBe(0.141111222155555555444);
+        expect(entity.x_center).toBe(2444578787454548787878455454.33578787);
+        expect(entity.y_center).toBe(4.54874541454545454);
+        expect(entity.z_center).toBe(0.141111222155555555444);
     });
 
     it('should return the correct dxf string.', () => {

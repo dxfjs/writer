@@ -1,3 +1,13 @@
+function toFixed(value : number) {
+    if (Math.abs(value) < 1.0) {
+        var exp = parseInt(value.toString().split('-')[1]);
+        if (exp) {
+            return value.toFixed(exp);
+        }
+    }
+    return value;
+}
+
 /**
  * Tag class
  */
@@ -31,6 +41,10 @@ export default class Tag {
     }
     public stringify() : string {
         if (this.nullable || this.value !== '') {
+            if (typeof(this._value) === 'number')
+            {
+                return `  ${this.groupCode}\n${toFixed(this._value)}\n`;
+            }
             // Do not remove the tow spaces in the string 👍 I like them
             return `  ${this.groupCode}\n${this.value}\n`;
         }

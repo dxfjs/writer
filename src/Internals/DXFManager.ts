@@ -116,24 +116,29 @@ export default class DXFManager implements DXFInterface
         return new PointComponent(x, y, z, is3D, digit).tags();
     }
 
-    public makeStandard(tagsArray: [number, number | string][]): Tag[] {
+    public makeStandard(tagsArray: [number, number | string][]): Tag[]
+    {
         return new StandardComponent(tagsArray).tags();
     }
 
-    public subclassMarker(subclass: string): Tag[] {
+    public makeSubclassMarker(subclass: string): Tag[]
+    {
         return new SubclassMarkerComponent(subclass).tags();
     }
-    public makeTextStyle(textStyleName: string): Tag[] {
+    public makeTextStyle(textStyleName: string): Tag[]
+    {
         return new TextStyleComponent(textStyleName).tags();
     }
 
-    public makeThickness(thickness : number): Tag[] {
+    public makeThickness(thickness : number): Tag[]
+    {
         return new ThicknessComponent(thickness).tags();
     }
     
     public makeTrueColor(
         red: number, green: number, blue: number, digit: number = 0
-    ): Tag[] {
+    ): Tag[]
+    {
         return new TrueColorComponent(red, green, blue, digit).tags();
     }
 };

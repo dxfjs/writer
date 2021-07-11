@@ -52,7 +52,7 @@ export default class Polyline3D extends Entity
         });
         tags.push(...this.makeEntityType('SEQEND'));
         tags.push(...this.makeHandle(this._seqHandle));
-        tags.push(...this.subclassMarker('AcDbEntity'));
+        tags.push(...this.makeSubclassMarker('AcDbEntity'));
         tags.push(...this.makeLayer(Entity.currentLayer));
         return tags;
     }

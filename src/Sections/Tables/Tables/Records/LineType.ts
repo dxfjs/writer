@@ -29,8 +29,8 @@ export default class LineType extends DXFManager
         tags.push(...this.makeEntityType('LTYPE'));
         tags.push(...this.makeHandle(this.handle));
         tags.push(...this.makeStandard([[330, this.handleToOwner]]));
-        tags.push(...this.subclassMarker('AcDbSymbolTableRecord'));
-        tags.push(...this.subclassMarker('AcDbLinetypeTableRecord'));
+        tags.push(...this.makeSubclassMarker('AcDbSymbolTableRecord'));
+        tags.push(...this.makeSubclassMarker('AcDbLinetypeTableRecord'));
         tags.push(...this.makeName(this.lineTypeName));
         tags.push(...this.makeStandard([
             [70, 0],

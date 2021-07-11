@@ -32,15 +32,17 @@ export default class Ellipse extends Entity
     }
 
     public boundingBox() {
-        // This is not the correct Bounding Box :(
-        const x = this.center.x;
-        const y = this.center.y;
-        const xMajor = this.x_major_axis;
-        const yMajor = this.y_major_axis;
+        // This is not the correct Bounding Box 😭
+        const x         = this.center.x_center;
+        const y         = this.center.y_center;
+        const xMajor    = this.x_major_axis;
+        const yMajor    = this.y_major_axis;
+        
         const bigRadius = Math.sqrt(Math.pow((x - (x + xMajor)), 2) + Math.pow((y - (y + yMajor)), 2));
+
         return [
-            [this.center.x - bigRadius, this.center.y + bigRadius],
-            [this.center.x + bigRadius, this.center.y - bigRadius]
+            [this.center.x_center - bigRadius, this.center.y_center + bigRadius],
+            [this.center.x_center + bigRadius, this.center.y_center - bigRadius]
         ];
     }
 
@@ -48,7 +50,7 @@ export default class Ellipse extends Entity
     {
         return [
             ...super.tags(),
-            ...this.makePoint(this.center.x, this.center.y, this.center.z, true),
+            ...this.makePoint(this.center.x_center, this.center.y_center, this.center.z_center, true),
             ...this.makePoint(this.x_major_axis, this.y_major_axis, 0, false, 1),
             ...this.makeStandard([
                 [40, this.ratio_minor_axis],

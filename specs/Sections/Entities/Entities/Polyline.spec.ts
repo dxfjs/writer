@@ -7,7 +7,7 @@ describe('Polyline', () => {
     it('should return the subClassName given.', () => {
         const entity = new Polyline([[0,0], [120, 54]], 0);
         dataState.instancesCount++;
-        expect(entity.subClassName).toBe('AcDbPolyline');
+        expect(entity.subclassMarker).toBe('AcDbPolyline');
     });
 
     it('should return the given parameters.', () => {

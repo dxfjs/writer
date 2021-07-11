@@ -8,19 +8,19 @@ describe('Line', () => {
     it('should return the subClassName given.', () => {
         const entity = new Line(new Point(0, 0, 0), new Point(0, 0, 0));
         dataState.instancesCount += 3;
-        expect(entity.subClassName).toBe('AcDbLine');
+        expect(entity.subclassMarker).toBe('AcDbLine');
     });
 
     it('should return the given points.', () => {
         const entity = new Line(new Point(0, 0, 0.22), new Point(125, 85.23, 0.336));
         dataState.instancesCount += 3;
-        expect(entity.start.x).toBe(0);
-        expect(entity.start.y).toBe(0);
-        expect(entity.start.z).toBe(0.22);
+        expect(entity.start.x_center).toBe(0);
+        expect(entity.start.y_center).toBe(0);
+        expect(entity.start.z_center).toBe(0.22);
 
-        expect(entity.end.x).toBe(125);
-        expect(entity.end.y).toBe(85.23);
-        expect(entity.end.z).toBe(0.336);
+        expect(entity.end.x_center).toBe(125);
+        expect(entity.end.y_center).toBe(85.23);
+        expect(entity.end.z_center).toBe(0.336);
     });
 
     it('should return the correct dxf string.', () => {

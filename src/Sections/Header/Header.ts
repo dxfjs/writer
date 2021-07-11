@@ -5,28 +5,31 @@ import DXFManager   from    "../../Internals/DXFManager";
 
 export default class Header extends DXFManager
 {
-    get entities    () : Entities   { return this._entities;    }
-    get unit        () : number     { return this._unit;        }
-    get variables   () : Variable[] { return this._variables;   }
+    get entities  () : Entities   { return this._entities;  }
+    get unit      () : number     { return this._unit;      }
+    get variables () : Variable[] { return this._variables; }
 
-    set entities(value : Entities)  { this._entities    = value; }
-    set unit    (value : number)    { this._unit        = value; }
+    set entities (value : Entities) { this._entities    = value; }
+    set unit     (value : number)   { this._unit        = value; }
 
     private _unit       : number;
     private _variables  : Variable[] = [];
     private _entities   : Entities;
 
-    public constructor(unit: number = DXFManager.units.Unitless) {
+    public constructor(unit: number = DXFManager.units.Unitless)
+    {
         super();
-        this._unit      = unit;
-        this._entities  = new Entities();
+        this._unit     = unit;
+        this._entities = new Entities();
     }
 
-    public addVariable(variableName: string, values: [number, (number | string)][]) {
-        this._variables.push(new Variable(variableName, values));
+    public addVariable(variable_name : string, values : [number, (number | string)][])
+    {
+        this._variables.push(new Variable(variable_name, values));
     }
 
-    public tags(): Tag[] {
+    public tags() : Tag[]
+    {
         const [x, y] = this.entities.centerView();
         const tags = [
             ...this.makeEntityType('SECTION'),

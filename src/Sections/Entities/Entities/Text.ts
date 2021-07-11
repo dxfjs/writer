@@ -27,20 +27,20 @@ export default class Text extends Entity
     public boundingBox() {
         // I have no idea how to get boundingBox of TEXT :(
         return [
-            [this.position.x, this.position.y],
-            [this.position.x, this.position.y],
+            [this.position.x_center, this.position.y_center],
+            [this.position.x_center, this.position.y_center],
         ];
     }
 
     public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.makePoint(this.position.x, this.position.y, this.position.z, true),
+            ...this.makePoint(this.position.x_center, this.position.y_center, this.position.z_center, true),
             ...this.makeStandard([
                 [40, this.height],
                 [1, this.value]]
             ),
-            ...this.subclassMarker('AcDbText')
+            ...this.makeSubclassMarker('AcDbText')
         ];
     }
 }

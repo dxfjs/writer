@@ -32,7 +32,7 @@ dxf.setCurrentLayer('l_green')
         [150, 70, 0],
         [170, 170, 150]
     ], 0)
-    .addArc(0, 0, 120, 0, 120)
+    .addArc(0, 0, 120, 90, 180)
     .addPoint(65, -30, 0)
     .setCurrentLayer('l_yellow')
     .addEllipse(100, 50, 150, 0, 1, 0, 2 * Math.PI)

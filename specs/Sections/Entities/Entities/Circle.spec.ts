@@ -8,15 +8,15 @@ describe('Circle', () => {
     it('should return the subClassName given.', () => {
         const entity = new Circle(new Point(0, 0, 0), 120);
         dataState.instancesCount += 2;
-        expect(entity.subClassName).toBe('AcDbCircle');
+        expect(entity.subclassMarker).toBe('AcDbCircle');
     });
 
     it('should return the center given.', () => {
         const entity = new Circle(new Point(10, 1250, 63.3), 120);
         dataState.instancesCount += 2;
-        expect(entity.center.x).toBe(10);
-        expect(entity.center.y).toBe(1250);
-        expect(entity.center.z).toBe(63.3);
+        expect(entity.center.x_center).toBe(10);
+        expect(entity.center.y_center).toBe(1250);
+        expect(entity.center.z_center).toBe(63.3);
     });
 
     it('should return the correct dxf string.', () => {

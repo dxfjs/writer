@@ -1,4 +1,4 @@
-# DXF (Still under development)
+# _DXF_ (🧩 Still under development 😇)
 
 [![GitHub license](https://img.shields.io/github/license/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md)
 [![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)
@@ -7,28 +7,26 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript)
 [![GitHub issues](https://img.shields.io/github/issues/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/issues)
-[![GitHub stars](https://img.shields.io/github/stars/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/network)
+[![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
 
-## _A simple JavaScript interface to DXF written in TypeScript._
+## 🌟 A simple JavaScript interface to DXF written in TypeScript.
 
-DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
+✔️ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
 
-> influenced by [js-dxf](https://github.com/ognjen-petrovic/js-dxf)
+✨ influenced by 🔗 [js-dxf](https://github.com/ognjen-petrovic/js-dxf).
 
-- Now it's supporting AC1021 and above.
-- Creating minimal dxf content possible.
-- Tested on [AutoCAD](https://www.autodesk.com/products/autocad/overview), [LibreCAD](https://librecad.org/) and [DWG FastView](https://play.google.com/store/apps/details?id=com.gstarmc.android&hl=en&gl=US) on mobile.
+- 🔥 Now it's supporting AC1021 and above.
+- 🔥 Creating minimal dxf content possible.
+- 🔥 Tested on 🔗 [AutoCAD](https://www.autodesk.com/products/autocad/overview), 🔗 [LibreCAD](https://librecad.org/) and 🔗 [DWG FastView](https://play.google.com/store/apps/details?id=com.gstarmc.android&hl=en&gl=US) on mobile.
 
-### Install the package
-
+## 🗳️ Install the package
 ```bash
 yarn add @tarikjabiri/dxf
 # Or npm
 npm i @tarikjabiri/dxf
 ```
 
-## Code example
+## ⌨️ Code example
 
 ```javascript
 import DXFWriter from "@tarikjabiri/dxf";
@@ -36,10 +34,10 @@ import DXFWriter from "@tarikjabiri/dxf";
 const dxf = new DXFWriter();
 dxf.addLine(0, 0, 100, 100);
 let points = [
-    [-300, 0, 0],
-    [0, 200, 0],
-    [300, 70, 0],
-    [700, 100, 0],
+    [-300, 0   , 0],
+    [0   , 200 , 0],
+    [300 , 70  , 0],
+    [700 , 100 , 0],
     [1000, 1200, 0]
 ];
 dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0,-4])
@@ -73,13 +71,13 @@ dxf.setCurrentLayer('l_green')
         20, 0, 10,
         20, -20, 20,
         0, -20, 20);
-// To get the dxf string just call the stringify() method
+// ✔️ To get the dxf string just call the stringify() method
 const dxfString = dxf.stringify();
 ```
 
-***- For the priview of the example see [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.***
+ For the priview of the example see 🔗 [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.
 
-## Supported entities
+## ✔️ Supported entities :
 - ARC
 - CIRCLE
 - ELLIPSE
@@ -90,9 +88,7 @@ const dxfString = dxf.stringify();
 - POLYLINE 3D
 - SPLINE
 - TEXT
-
-## Colors integrated
-
+## 💉 Colors integrated :
 - Red
 - Green
 - Cyan
@@ -101,14 +97,14 @@ const dxfString = dxf.stringify();
 - White
 - Black
 - Yellow
+## ℹ️ References used in development :
 
-## References used in development
+- 🔗 [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
+- 🔗 [ezdxf](https://ezdxf.readthedocs.io/en/stable/) (a Python library written by 🔗 [Manfred Moitzi](https://github.com/mozman))
+- 🔗 [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
+- 🔗 [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by 🔗 [Ognjen Petrovic](https://github.com/ognjen-petrovic))
 
-- [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
-- [ezdxf](https://ezdxf.readthedocs.io/en/stable/) (a Python library written by [Manfred Moitzi](https://github.com/mozman))
-- [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
-- [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by [Ognjen Petrovic](https://github.com/ognjen-petrovic))
-
-## License
-
-MIT
+## ⚖️ License
+[MIT](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md) license.
+## 💯 Used by :
+- 💖 My website [Mapper](https://mapper.ma).

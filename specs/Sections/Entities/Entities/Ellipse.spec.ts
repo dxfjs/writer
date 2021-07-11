@@ -8,15 +8,15 @@ describe('Ellipse', () => {
     it('should return the subClassName given.', () => {
         const entity = new Ellipse(new Point(0, 0, 0), 100, 50, 0.4243, 0, 2 * Math.PI);
         dataState.instancesCount += 2;
-        expect(entity.subClassName).toBe('AcDbEllipse');
+        expect(entity.subclassMarker).toBe('AcDbEllipse');
     });
 
     it('should return the center given.', () => {
         const entity = new Ellipse(new Point(10, 1250, 63.3), 100, 50, 0.4243, 0, 2 * Math.PI);
         dataState.instancesCount += 2;
-        expect(entity.center.x).toBe(10);
-        expect(entity.center.y).toBe(1250);
-        expect(entity.center.z).toBe(63.3);
+        expect(entity.center.x_center).toBe(10);
+        expect(entity.center.y_center).toBe(1250);
+        expect(entity.center.z_center).toBe(63.3);
     });
 
     it('should return the given parameters', () => {
