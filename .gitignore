@@ -2,3 +2,6 @@
 /lib/
 /dist/
 /.idea/
+yarn.lock
+package-lock.json
+examples/example.dxf
