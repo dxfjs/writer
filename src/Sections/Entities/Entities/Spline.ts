@@ -27,11 +27,11 @@ export default class Spline extends Entity
         super('SPLINE', 'AcDbSpline');
 
         this._control_points = control_points;
-        this._curve_degree   = curve_degree;
-        this._flag           = flag;
-        this._knots          = knots;
-        this._weights        = weights;
-        this._fit_points     = fit_points;
+        this._curve_degree   =   curve_degree;
+        this._flag           =           flag;
+        this._knots          =          knots;
+        this._weights        =        weights;
+        this._fit_points     =     fit_points;
         
         const knotsLength    = this._curve_degree + this._control_points.length + 1;
 
