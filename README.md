@@ -117,7 +117,7 @@ For the priview of the example see 🔗 [examples](https://github.com/tarikjabir
 
 ## ⚖️ License
 
-[MIT](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md) license.
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_large)
 
 ## 💯 Used by :
 
