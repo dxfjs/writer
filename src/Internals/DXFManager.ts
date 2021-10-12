@@ -120,18 +120,18 @@ export default class DXFManager implements DXFInterface {
         return DXFManager.handleSeed.toString(16).toUpperCase();
     };
 
-    tags = (): Tag[] => {
+    tags(): Tag[] {
         return [];
-    };
+    }
 
-    public stringify = (): string => {
+    public stringify(): string {
         return this.tags().reduce((str, tag) => {
             if (this.isSupported(tag.version)) {
                 return `${str}${tag.stringify()}`;
             }
             return str;
         }, '');
-    };
+    }
 
     public makeColor = (index: number): Tag[] => {
         return new ColorComponent(index).tags();
