@@ -1,6 +1,6 @@
 {
   "name": "@tarikjabiri/dxf",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A simple JavaScript interface to DXF written in TypeScript.",
   "main": "lib/DXFWriter.js",
   "type": "module",
