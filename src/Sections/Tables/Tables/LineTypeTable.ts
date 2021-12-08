@@ -1,30 +1,30 @@
-import Table        from    "../Table";
-import LineType     from    "./Records/LineType";
-import Tag          from    "../../../Internals/Tag";
+import Table from '../Table';
+import LineType from './Records/LineType';
+import Tag from '../../../Internals/Tag';
 
-export default class LineTypeTable extends Table
-{
-
-    get lineTypes() : LineType[] { return this._lineTypes; }
+export default class LineTypeTable extends Table {
+    get lineTypes(): LineType[] {
+        return this._lineTypes;
+    }
 
     private _lineTypes: LineType[] = [];
 
-    public constructor() { super('LTYPE'); }
+    public constructor() {
+        super('LTYPE');
+    }
 
-    public lineTypeExist(lineType : string) : boolean
-    {
+    public lineTypeExist(lineType: string): boolean {
         let lineTypeExist = false;
 
         this._lineTypes.forEach((ltype) => {
-            if (ltype.lineTypeName === lineType)
-            {
+            if (ltype.lineTypeName === lineType) {
                 lineTypeExist = true;
             }
         });
         return lineTypeExist;
     }
 
-    public addLineType(name: string, descriptive: string, elements: number []) {
+    public addLineType(name: string, descriptive: string, elements: number[]) {
         this._lineTypes.push(new LineType(name, descriptive, elements));
     }
 

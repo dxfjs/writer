@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import DIMStyle     from "./Records/DIMStyle";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import DIMStyle from './Records/DIMStyle';
+import Tag from '../../../Internals/Tag';
 
 export default class DIMStyleTable extends Table {
     get dimStyles(): DIMStyle[] {
@@ -26,4 +26,4 @@ export default class DIMStyleTable extends Table {
         tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
-};
+}

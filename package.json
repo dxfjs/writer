@@ -25,7 +25,7 @@
     "babel-jest": "^27.2.5",
     "jest": "^27.2.5",
     "rollup": "^2.40.0",
-    "rollup-plugin-ts": "^1.4.0",
+    "rollup-plugin-ts": "^2.0.4",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "tslib": "^2.1.0",

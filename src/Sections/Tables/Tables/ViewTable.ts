@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import View         from "./Records/View";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import View from './Records/View';
+import Tag from '../../../Internals/Tag';
 
 export default class ViewTable extends Table {
     get views(): View[] {
@@ -23,4 +23,4 @@ export default class ViewTable extends Table {
         tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
-};
+}

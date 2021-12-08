@@ -1,8 +1,7 @@
-import Entity from "../Entity";
-import Tag from "../../../Internals/Tag";
+import Entity from '../Entity';
+import Tag from '../../../Internals/Tag';
 
-export default class Vertex extends Entity
-{
+export default class Vertex extends Entity {
     get vertexFlag(): number {
         return this._vertexFlag;
     }
@@ -32,7 +31,7 @@ export default class Vertex extends Entity
             ...super.tags(),
             ...this.makeSubclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
             ...this.makePoint(x, y, z, true),
-            ...this.makeStandard([[70, this.vertexFlag]])
+            ...this.makeStandard([[70, this.vertexFlag]]),
         ];
     }
 }

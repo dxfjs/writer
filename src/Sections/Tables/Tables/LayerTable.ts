@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import Layer        from "./Records/Layer";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import Layer from './Records/Layer';
+import Tag from '../../../Internals/Tag';
 
 export default class LayerTable extends Table {
     get layers(): Layer[] {
@@ -11,7 +11,12 @@ export default class LayerTable extends Table {
         super('LAYER');
     }
 
-    public addLayer(name: string, color: number, lineType: string, flag: number) {
+    public addLayer(
+        name: string,
+        color: number,
+        lineType: string,
+        flag: number
+    ) {
         this._layers.push(new Layer(name, color, lineType, flag));
     }
     public tags(): Tag[] {

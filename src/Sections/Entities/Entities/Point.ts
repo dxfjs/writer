@@ -1,37 +1,39 @@
-import Entity   from    "../Entity";
-import Tag      from    "../../../Internals/Tag";
+import Entity from '../Entity';
+import Tag from '../../../Internals/Tag';
 
-export default class Point extends Entity
-{
-    get x(): number { return this._x;   }
-    get y(): number { return this._y;   }
-    get z(): number { return this._z;   }
+export default class Point extends Entity {
+    get x(): number {
+        return this._x;
+    }
+    get y(): number {
+        return this._y;
+    }
+    get z(): number {
+        return this._z;
+    }
 
     private readonly _x: number;
     private readonly _y: number;
     private readonly _z: number;
 
-    public constructor(x : number, y : number, z : number = 0)
-    {
+    public constructor(x: number, y: number, z: number = 0) {
         super('POINT', 'AcDbPoint');
         this._x = x;
         this._y = y;
         this._z = z;
     }
 
-    public boundingBox()
-    {
+    public boundingBox() {
         return [
             [this.x, this.y],
             [this.x, this.y],
         ];
     }
 
-    public tags() : Tag[]
-    {
+    public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.makePoint(this.x, this.y,   this.z,   true)
+            ...this.makePoint(this.x, this.y, this.z, true),
         ];
     }
 }

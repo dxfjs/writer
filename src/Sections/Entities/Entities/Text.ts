@@ -1,9 +1,8 @@
-import Point    from "./Point";
-import Entity   from "../Entity";
-import Tag      from "../../../Internals/Tag";
+import Point from './Point';
+import Entity from '../Entity';
+import Tag from '../../../Internals/Tag';
 
-export default class Text extends Entity
-{
+export default class Text extends Entity {
     get value(): string {
         return this._value;
     }
@@ -17,11 +16,10 @@ export default class Text extends Entity
     private readonly _height: number;
     private readonly _value: string;
     public constructor(position: Point, height: number, value: string) {
-        super('TEXT', 'AcDbText')
+        super('TEXT', 'AcDbText');
         this._position = position;
         this._height = height;
         this._value = value;
-
     }
 
     public boundingBox() {
@@ -35,12 +33,17 @@ export default class Text extends Entity
     public tags(): Tag[] {
         return [
             ...super.tags(),
-            ...this.makePoint(this.position.x, this.position.y, this.position.z, true),
+            ...this.makePoint(
+                this.position.x,
+                this.position.y,
+                this.position.z,
+                true
+            ),
             ...this.makeStandard([
                 [40, this.height],
-                [1, this.value]]
-            ),
-            ...this.makeSubclassMarker('AcDbText')
+                [1, this.value],
+            ]),
+            ...this.makeSubclassMarker('AcDbText'),
         ];
     }
 }

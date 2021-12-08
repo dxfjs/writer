@@ -1,18 +1,21 @@
-import Entity   from    "../Entity";
-import Tag      from    "../../../Internals/Tag";
+import Entity from '../Entity';
+import Tag from '../../../Internals/Tag';
 
-export default class Polyline extends Entity
-{
-    get flag()  : number        { return this._flag;    }
-    get points(): number[][]    { return this._points;  }
+export default class Polyline extends Entity {
+    get flag(): number {
+        return this._flag;
+    }
+    get points(): number[][] {
+        return this._points;
+    }
 
     private readonly _points: number[][];
-    private readonly _flag  : number;
+    private readonly _flag: number;
 
     public constructor(points: number[][], flag: number) {
         super('LWPOLYLINE', 'AcDbPolyline');
-        this._points    = points;
-        this._flag      = flag;
+        this._points = points;
+        this._flag = flag;
     }
 
     public boundingBox() {
@@ -29,7 +32,7 @@ export default class Polyline extends Entity
         const maxY = Math.max(...arrayY);
         return [
             [minX, maxY],
-            [maxX, minY]
+            [maxX, minY],
         ];
     }
 

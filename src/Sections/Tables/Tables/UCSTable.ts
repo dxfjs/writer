@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import UCS          from "./Records/UCS";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import UCS from './Records/UCS';
+import Tag from '../../../Internals/Tag';
 
 export default class UCSTable extends Table {
     get ucss(): UCS[] {
@@ -24,4 +24,4 @@ export default class UCSTable extends Table {
         tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
-};
+}

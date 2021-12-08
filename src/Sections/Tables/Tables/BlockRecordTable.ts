@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import BlockRecord  from "./Records/BlockRecord";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import BlockRecord from './Records/BlockRecord';
+import Tag from '../../../Internals/Tag';
 
 export default class BlockRecordTable extends Table {
     get paperHandle(): string {
@@ -40,4 +40,4 @@ export default class BlockRecordTable extends Table {
         this.paperHandle = this.blockRecords[1].handle;
         return tags;
     }
-};
+}

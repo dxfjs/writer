@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import APPID        from "./Records/APPID";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import APPID from './Records/APPID';
+import Tag from '../../../Internals/Tag';
 
 export default class APPIDTable extends Table {
     get appIDs(): APPID[] {
@@ -24,4 +24,4 @@ export default class APPIDTable extends Table {
         tags.push(...this.makeEntityType('ENDTAB'));
         return tags;
     }
-};
+}

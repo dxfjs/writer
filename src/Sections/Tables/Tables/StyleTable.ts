@@ -1,6 +1,6 @@
-import Table        from "../Table";
-import Style        from "./Records/Style";
-import Tag          from "../../../Internals/Tag";
+import Table from '../Table';
+import Style from './Records/Style';
+import Tag from '../../../Internals/Tag';
 
 export default class StyleTable extends Table {
     get styles(): Style[] {

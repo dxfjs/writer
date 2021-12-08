@@ -1,22 +1,25 @@
-import Entity   from    "../Entity";
-import Vertex   from    "./Vertex";
-import Tag      from    "../../../Internals/Tag";
+import Entity from '../Entity';
+import Vertex from './Vertex';
+import Tag from '../../../Internals/Tag';
 
-export default class Polyline3D extends Entity
-{
-    get flag()  : number        { return this._flag;    }
-    get points(): number[][]    { return this._points;  }
+export default class Polyline3D extends Entity {
+    get flag(): number {
+        return this._flag;
+    }
+    get points(): number[][] {
+        return this._points;
+    }
 
-    private readonly _points    : number[][];
-    private readonly _flag      : number;
-    private _vertexes           : Vertex[] = [];
-    private readonly _seqHandle : string;
+    private readonly _points: number[][];
+    private readonly _flag: number;
+    private _vertexes: Vertex[] = [];
+    private readonly _seqHandle: string;
 
     public constructor(points: number[][], flag: number) {
         super('POLYLINE', 'AcDb3dPolyline');
-        
-        this._points    = points;
-        this._flag      = flag;
+
+        this._points = points;
+        this._flag = flag;
 
         this.points.forEach((point) => {
             this._vertexes.push(new Vertex(point, 32));
@@ -38,7 +41,7 @@ export default class Polyline3D extends Entity
         const maxY = Math.max(...arrayY);
         return [
             [minX, maxY],
-            [maxX, minY]
+            [maxX, minY],
         ];
     }
 
