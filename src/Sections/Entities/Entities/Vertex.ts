@@ -1,37 +1,35 @@
 import Entity from '../Entity';
-import Tag from '../../../Internals/Tag';
+import TagsManager, { point3d_t, tag_t } from '../../../Internals/TagsManager';
 
 export default class Vertex extends Entity {
-    get vertexFlag(): number {
-        return this._vertexFlag;
-    }
-    get vertexPoint(): number[] {
-        return this._vertexPoint;
-    }
-    private readonly _vertexPoint: number[];
-    private readonly _vertexFlag: number;
+	get flag(): number {
+		return this._flag;
+	}
+	get point(): point3d_t {
+		return this._point;
+	}
+	private readonly _point: point3d_t;
+	private readonly _flag: number;
 
-    public constructor(point: number[], vertexFlag: number) {
-        super('VERTEX', 'AcDbVertex');
-        this._vertexPoint = point;
-        this._vertexFlag = vertexFlag;
-    }
+	public constructor(point: point3d_t, flag: number) {
+		super('VERTEX', 'AcDbVertex');
+		this._point = point;
+		this._flag = flag;
+	}
 
-    public boundingBox() {
-        const [x, y] = this.vertexPoint;
-        return [
-            [x, y],
-            [x, y],
-        ];
-    }
+	public boundingBox() {
+		return [
+			[this.point.x, this.point.y],
+			[this.point.x, this.point.y],
+		];
+	}
 
-    public tags(): Tag[] {
-        const [x, y, z] = this.vertexPoint;
-        return [
-            ...super.tags(),
-            ...this.makeSubclassMarker('AcDb3dPolylineVertex'), // TODO make this dynamic
-            ...this.makePoint(x, y, z, true),
-            ...this.makeStandard([[70, this.vertexFlag]]),
-        ];
-    }
+	public tags(): tag_t[] {
+		const manager = new TagsManager();
+		manager.pushTags(super.tags());
+		manager.subclassMarker('AcDb3dPolylineVertex'); // TODO Make this dynamic
+		manager.point3d(this.point);
+		manager.addTag(70, this.flag);
+		return manager.tags;
+	}
 }

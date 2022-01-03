@@ -1,89 +1,81 @@
-import Point from './Point';
 import Entity from '../Entity';
-import Tag from '../../../Internals/Tag';
+import TagsManager, { point3d_t, tag_t } from '../../../Internals/TagsManager';
 
 export default class Ellipse extends Entity {
-    get end_parameter(): number {
-        return this._end_parameter;
-    }
-    get start_parameter(): number {
-        return this._start_parameter;
-    }
-    get ratio_minor_axis(): number {
-        return this._ratio_minor_axis;
-    }
-    get y_major_axis(): number {
-        return this._y_major_axis;
-    }
-    get x_major_axis(): number {
-        return this._x_major_axis;
-    }
-    get center(): Point {
-        return this._center;
-    }
+	private readonly _center: point3d_t;
+	private readonly _xMajorAxis: number;
+	private readonly _yMajorAxis: number;
+	private readonly _ratioMinorAxis: number;
+	private readonly _startParameter: number;
+	private readonly _endParameter: number;
 
-    private readonly _center: Point;
-    private readonly _x_major_axis: number;
-    private readonly _y_major_axis: number;
-    private readonly _ratio_minor_axis: number;
-    private readonly _start_parameter: number;
-    private readonly _end_parameter: number;
+	public get endParameter(): number {
+		return this._endParameter;
+	}
 
-    public constructor(
-        center: Point,
-        x_major_axis: number,
-        y_major_axis: number,
-        ratio_minor_axis: number,
-        start_parameter: number,
-        end_parameter: number
-    ) {
-        super('ELLIPSE', 'AcDbEllipse');
-        this._center = center;
-        this._x_major_axis = x_major_axis;
-        this._y_major_axis = y_major_axis;
-        this._ratio_minor_axis = ratio_minor_axis;
-        this._start_parameter = start_parameter;
-        this._end_parameter = end_parameter;
-    }
+	public get startParameter(): number {
+		return this._startParameter;
+	}
 
-    public boundingBox() {
-        // This is not the correct Bounding Box 😭
-        const x = this.center.x;
-        const y = this.center.y;
-        const xMajor = this.x_major_axis;
-        const yMajor = this.y_major_axis;
+	public get ratioMinorAxis(): number {
+		return this._ratioMinorAxis;
+	}
 
-        const bigRadius = Math.sqrt(
-            Math.pow(x - (x + xMajor), 2) + Math.pow(y - (y + yMajor), 2)
-        );
+	public get yMajorAxis(): number {
+		return this._yMajorAxis;
+	}
 
-        return [
-            [this.center.x - bigRadius, this.center.y + bigRadius],
-            [this.center.x + bigRadius, this.center.y - bigRadius],
-        ];
-    }
+	public get xMajorAxis(): number {
+		return this._xMajorAxis;
+	}
 
-    public tags(): Tag[] {
-        return [
-            ...super.tags(),
-            ...this.makePoint(
-                this.center.x,
-                this.center.y,
-                this.center.z,
-                true
-            ),
-            ...this.makePoint(
-                this.x_major_axis,
-                this.y_major_axis,
-                0,
-                false,
-                1
-            ),
-            ...this.makeStandard([
-                [40, this.ratio_minor_axis],
-                [41, this.start_parameter],
-                [42, this.end_parameter],
-            ]),
-        ];
-    }
+	public get center(): point3d_t {
+		return this._center;
+	}
+
+	public constructor(
+		center: point3d_t,
+		xMajorAxis: number,
+		yMajorAxis: number,
+		ratioMinorAxis: number,
+		startParameter: number,
+		endParameter: number
+	) {
+		super('ELLIPSE', 'AcDbEllipse');
+		this._center = center;
+		this._xMajorAxis = xMajorAxis;
+		this._yMajorAxis = yMajorAxis;
+		this._ratioMinorAxis = ratioMinorAxis;
+		this._startParameter = startParameter;
+		this._endParameter = endParameter;
+	}
+
+	public boundingBox() {
+		// This is not the correct Bounding Box 😭
+		const x = this.center.x;
+		const y = this.center.y;
+		const xMajor = this.xMajorAxis;
+		const yMajor = this.yMajorAxis;
+
+		const bigRadius = Math.sqrt(
+			Math.pow(x - (x + xMajor), 2) + Math.pow(y - (y + yMajor), 2)
+		);
+
+		return [
+			[this.center.x - bigRadius, this.center.y + bigRadius],
+			[this.center.x + bigRadius, this.center.y - bigRadius],
+		];
+	}
+
+	public tags(): tag_t[] {
+		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
+		const manager = new TagsManager();
+		manager.pushTags(super.tags());
+		manager.point3d({ x, y, z });
+		manager.point3d({ x: this.xMajorAxis, y: this.yMajorAxis, z: 0 }, 1);
+		manager.addTag(40, this.ratioMinorAxis);
+		manager.addTag(41, this.startParameter);
+		manager.addTag(42, this.endParameter);
+		return manager.tags;
+	}
 }

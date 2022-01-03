@@ -1,37 +1,38 @@
 import Point from './Point';
 import Entity from '../Entity';
-import Tag from '../../../Internals/Tag';
+import TagsManager, { tag_t } from '../../../Internals/TagsManager';
 
 export default class Circle extends Entity {
-    get radius(): number {
-        return this._radius;
-    }
-    get center(): Point {
-        return this._center;
-    }
+	private readonly _center: Point;
+	private readonly _radius: number;
 
-    private readonly _center: Point;
-    private readonly _radius: number;
+	get radius(): number {
+		return this._radius;
+	}
 
-    public constructor(center: Point, radius: number) {
-        super('CIRCLE', 'AcDbCircle');
-        this._center = center;
-        this._radius = radius;
-    }
+	get center(): Point {
+		return this._center;
+	}
 
-    public boundingBox() {
-        return [
-            [this.center.x - this.radius, this.center.y + this.radius],
-            [this.center.x + this.radius, this.center.y - this.radius],
-        ];
-    }
+	public constructor(center: Point, radius: number) {
+		super('CIRCLE', 'AcDbCircle');
+		this._center = center;
+		this._radius = radius;
+	}
 
-    public tags(): Tag[] {
-        let tags: Tag[] = super.tags();
-        tags.push(
-            ...this.makePoint(this.center.x, this.center.y, this.center.z, true)
-        );
-        tags.push(...this.makeStandard([[40, this.radius]]));
-        return tags;
-    }
+	public boundingBox() {
+		return [
+			[this.center.x - this.radius, this.center.y + this.radius],
+			[this.center.x + this.radius, this.center.y - this.radius],
+		];
+	}
+
+	public tags(): tag_t[] {
+		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
+		const manager = new TagsManager();
+		manager.pushTags(super.tags());
+		manager.point3d({ x, y, z });
+		manager.addTag(40, this.radius);
+		return manager.tags;
+	}
 }

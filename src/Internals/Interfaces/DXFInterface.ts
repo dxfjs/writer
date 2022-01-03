@@ -1,6 +1,6 @@
-import Tag from "../Tag";
+import TagsManager from '../TagsManager';
 
-export default interface DXFInterface {
-    stringify(): string;
-    tags(): Tag[];
+export default interface DxfInterface {
+	stringify(): string;
+	get manager(): TagsManager;
 }

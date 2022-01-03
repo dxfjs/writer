@@ -1,124 +1,129 @@
 import Entity, { SplineFlags } from '../Entity';
-import Tag from '../../../Internals/Tag';
+import TagsManager, {
+	createPoint3d,
+	tag_t,
+} from '../../../Internals/TagsManager';
 
 export default class Spline extends Entity {
-    get fitPoints(): number[][] {
-        return this._fit_points;
-    }
-    get weights(): number[] {
-        return this._weights;
-    }
-    get knots(): number[] {
-        return this._knots;
-    }
-    get flag(): number {
-        return this._flag;
-    }
-    get curveDegree(): number {
-        return this._curve_degree;
-    }
-    get controlPoints(): number[][] {
-        return this._control_points;
-    }
+	private readonly _controlPoints: number[][];
+	private readonly _degreeCurve: number;
+	private readonly _knots: number[];
+	private readonly _weights: number[];
+	private readonly _flag: SplineFlags;
+	private readonly _fitPoints: number[][];
 
-    private readonly _control_points: number[][];
-    private readonly _curve_degree: number;
-    private readonly _knots: number[];
-    private readonly _weights: number[];
-    private readonly _flag: SplineFlags;
-    private readonly _fit_points: number[][];
+	public get fitPoints(): number[][] {
+		return this._fitPoints;
+	}
 
-    public constructor(
-        control_points: number[][],
-        fit_points: number[][] = [],
-        curve_degree: number = 3,
-        flag: SplineFlags = SplineFlags.Planar,
-        knots: number[] = [],
-        weights: number[] = []
-    ) {
-        super('SPLINE', 'AcDbSpline');
+	public get weights(): number[] {
+		return this._weights;
+	}
 
-        this._control_points = control_points;
-        this._curve_degree = curve_degree;
-        this._flag = flag;
-        this._knots = knots;
-        this._weights = weights;
-        this._fit_points = fit_points;
+	public get knots(): number[] {
+		return this._knots;
+	}
 
-        const knotsLength =
-            this._curve_degree + this._control_points.length + 1;
+	public get flag(): number {
+		return this._flag;
+	}
 
-        if (this._knots.length === 0) {
-            for (let i = 0; i < this._curve_degree + 1; i++) {
-                this._knots.push(0);
-            }
-            for (
-                let i = 1;
-                i < this._control_points.length - this._curve_degree;
-                i++
-            ) {
-                this._knots.push(i);
-            }
-            for (let i = 0; i < this._curve_degree + 1; i++) {
-                this._knots.push(
-                    this._control_points.length - this._curve_degree
-                );
-            }
-        }
+	public get degreeCurve(): number {
+		return this._degreeCurve;
+	}
 
-        if (this._knots.length !== knotsLength) {
-            throw new Error(
-                `Invalid knot vector length. Expected ${knotsLength} but received ${this._knots.length}.`
-            );
-        }
-    }
+	public get controlPoints(): number[][] {
+		return this._controlPoints;
+	}
 
-    public boundingBox() {
-        const arrayX: number[] = [];
-        const arrayY: number[] = [];
+	public constructor(
+		controlPoints: number[][],
+		fitPoints: number[][] = [],
+		degreeCurve: number = 3,
+		flag: SplineFlags = SplineFlags.Planar,
+		knots: number[] = [],
+		weights: number[] = []
+	) {
+		super('SPLINE', 'AcDbSpline');
 
-        this._control_points.forEach((control_point) => {
-            const [x, y] = control_point;
-            arrayX.push(x);
-            arrayY.push(y);
-        });
+		this._controlPoints = controlPoints;
+		this._degreeCurve = degreeCurve;
+		this._flag = flag;
+		this._knots = knots;
+		this._weights = weights;
+		this._fitPoints = fitPoints;
 
-        const minX = Math.min(...arrayX);
-        const maxX = Math.max(...arrayX);
-        const minY = Math.min(...arrayY);
-        const maxY = Math.max(...arrayY);
+		const knotsLength = this._degreeCurve + this._controlPoints.length + 1;
 
-        return [
-            [minX, maxY],
-            [maxX, minY],
-        ];
-    }
+		if (this._knots.length === 0) {
+			for (let i = 0; i < this._degreeCurve + 1; i++) {
+				this._knots.push(0);
+			}
+			for (
+				let i = 1;
+				i < this._controlPoints.length - this._degreeCurve;
+				i++
+			) {
+				this._knots.push(i);
+			}
+			for (let i = 0; i < this._degreeCurve + 1; i++) {
+				this._knots.push(
+					this._controlPoints.length - this._degreeCurve
+				);
+			}
+		}
 
-    public tags(): Tag[] {
-        const tags: Tag[] = super.tags();
-        tags.push(
-            ...this.makeStandard([
-                [70, this._flag],
-                [71, this._curve_degree],
-                [72, this._knots.length],
-                [73, this._control_points.length],
-                [74, this._fit_points.length],
-                [42, 0.0000001],
-                [43, 0.0000001],
-                [42, 0.0000000001],
-            ])
-        );
-        this._knots.forEach((knot) => {
-            tags.push(...this.makeStandard([[40, knot]]));
-        });
-        this._control_points.forEach((point) => {
-            const [x, y, z] = point;
-            tags.push(...this.makePoint(x, y, z, true));
-        });
-        this._fit_points.forEach((fit_point) => {
-            const [x, y, z] = fit_point;
-            tags.push(...this.makePoint(x, y, z, true, 1));
-        });
-        return tags;
-    }
+		if (this._knots.length !== knotsLength) {
+			throw new Error(
+				`Invalid knot vector length. Expected ${knotsLength} but received ${this._knots.length}.`
+			);
+		}
+	}
+
+	public boundingBox() {
+		const arrayX: number[] = [];
+		const arrayY: number[] = [];
+
+		this._controlPoints.forEach((control_point) => {
+			const [x, y] = control_point;
+			arrayX.push(x);
+			arrayY.push(y);
+		});
+
+		const minX = Math.min(...arrayX);
+		const maxX = Math.max(...arrayX);
+		const minY = Math.min(...arrayY);
+		const maxY = Math.max(...arrayY);
+
+		return [
+			[minX, maxY],
+			[maxX, minY],
+		];
+	}
+
+	public tags(): tag_t[] {
+		const manager = new TagsManager();
+		manager.pushTags(super.tags());
+		manager.addTag(70, this.flag);
+		manager.addTag(71, this.degreeCurve);
+		manager.addTag(72, this.knots.length);
+		manager.addTag(73, this.controlPoints.length);
+		manager.addTag(74, this.fitPoints.length);
+		manager.addTag(42, '0.0000001');
+		manager.addTag(43, '0.0000001');
+		manager.addTag(42, '0.0000000001');
+
+		this._knots.forEach((knot) => {
+			manager.addTag(40, knot);
+		});
+		this._controlPoints.forEach((point) => {
+			const [x, y, z] = point;
+			manager.point3d(createPoint3d(x, y, z));
+		});
+		this._fitPoints.forEach((fitPoint) => {
+			const [x, y, z] = fitPoint;
+			manager.point3d(createPoint3d(x, y, z), 1);
+		});
+		return manager.tags;
+	}
 }
