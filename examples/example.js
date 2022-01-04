@@ -1,10 +1,9 @@
-import DXFWriter from '../dist/DXFWriter';
+import DxfWriter from '../lib/DxfWriter';
 import * as fs from 'fs';
-import Image from '../dist/Sections/Entities/Entities/Image';
 
-const dxf = new DXFWriter();
+const dxf = new DxfWriter();
 
-/*dxf.setTrueColor(200, 0, 207);
+dxf.setTrueColor(200, 0, 207);
 dxf.addLine(0, 0, 100, 100);
 let points = [
 	[-300, 0, 0],
@@ -13,6 +12,7 @@ let points = [
 	[700, 100, 0],
 	[1000, 1200, 0],
 ];
+dxf.addLine();
 dxf.unsetTrueColor();
 dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0, -4])
 	.addLineType(
@@ -23,10 +23,10 @@ dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0, -4])
 	.addLineType('DOT2', '.................................', [0, -2])
 	.addLineType('DASHED', '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [4, -4]);
 
-dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED')
-	.addLayer('l_green', DXFWriter.colors.Green, 'Continuous')
-	.addLayer('l_cyan', DXFWriter.colors.Cyan, 'Continuous')
-	.addLayer('l_yellow', DXFWriter.colors.Yellow, 'ACAD_ISO11W100');
+dxf.addLayer('l_red', 1, 'DASHED')
+	.addLayer('l_green', 3, 'Continuous')
+	.addLayer('l_cyan', 4, 'Continuous')
+	.addLayer('l_yellow', 2, 'ACAD_ISO11W100');
 
 dxf.setCurrentLayer('l_green')
 	.addSpline(points, points, 3, 8, [], [])
@@ -49,7 +49,7 @@ dxf.setCurrentLayer('l_green')
 	.addEllipse(100, 50, 150, 0, 0.5, 0, 2 * Math.PI)
 	.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
 
-const img = new Image({
+/*const img = new Image({
 	fileName: 'E:/GitHub/dxf/examples/X_310168.70_Y_163789.62_S_388.28.png',
 	width: '1000',
 	height: '500',
@@ -62,6 +62,6 @@ const img = new Image({
 });
 dxf.addObject(img.imageDef);
 //dxf.addDictionary('X_310168.70_Y_163789.62_S_388.28', img.imageDef);
-dxf.addEntity(img);
-*/
+dxf.addEntity(img);*/
+
 fs.writeFileSync('examples/example.dxf', dxf.stringify());

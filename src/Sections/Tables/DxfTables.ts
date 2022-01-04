@@ -3,16 +3,16 @@ import DxfViewTable from './Tables/DxfViewTable';
 import DxfLayerTable from './Tables/DxfLayerTable';
 import DxfStyleTable from './Tables/DxfStyleTable';
 import DxfAppIdTable from './Tables/DxfAppIdTable';
-import Entities from '../Entities/Entities';
 import DxfLayer from './Tables/Records/DxfLayer';
 import DxfLineTypeTable from './Tables/DxfLineTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfViewPortTable from './Tables/DxfViewPortTable';
 import DxfViewPort from './Tables/Records/DxfViewPort';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import TagsManager from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DXFInterface';
 
-export default class DxfTables {
+export default class DxfTables implements DxfInterface {
 	private readonly _dxfViewPortTable: DxfViewPortTable;
 	private readonly _linetypeTable: DxfLineTypeTable;
 	private readonly _layerTable: DxfLayerTable;
@@ -22,8 +22,6 @@ export default class DxfTables {
 	private readonly _appIdTable: DxfAppIdTable;
 	private readonly _dimStyleTable: DxfDimStyleTable;
 	private readonly _blockRecordTable: DxfBlockRecordTable;
-
-	private _entities: Entities = new Entities();
 
 	private readonly _activeViewPort: DxfViewPort;
 
@@ -67,14 +65,6 @@ export default class DxfTables {
 		return this._blockRecordTable;
 	}
 
-	public get entities(): Entities {
-		return this._entities;
-	}
-
-	public set entities(entities: Entities) {
-		this._entities = entities;
-	}
-
 	public get layers(): DxfLayer[] {
 		return this._layerTable.layerRecords;
 	}
@@ -107,6 +97,22 @@ export default class DxfTables {
 		this.addDimStyle('Standard');
 
 		this._activeViewPort = this.addViewPort('*Active');
+	}
+
+	get manager(): TagsManager {
+		const manager = new TagsManager();
+		manager.sectionBegin('TABLES');
+		manager.appendTags(this.dxfViewPortTable);
+		manager.appendTags(this.linetypeTable);
+		manager.appendTags(this.layerTable);
+		manager.appendTags(this.styleTable);
+		manager.appendTags(this.viewTable);
+		manager.appendTags(this.ucsTable);
+		manager.appendTags(this.appIdTable);
+		manager.appendTags(this.dimStyleTable);
+		manager.appendTags(this.blockRecordTable);
+		manager.sectionEnd();
+		return manager;
 	}
 
 	public addLineType(name: string, descriptive: string, elements: number[]) {
@@ -159,29 +165,7 @@ export default class DxfTables {
 		this.activeViewPort.viewCenter = viewCenter;
 	}
 
-	public tags(): tag_t[] {
-		const [x, y] = this.entities.centerView();
-		this.setViewCenter([x || 0, y || 0]);
-		this.setViewHeight(this.entities.viewHeight());
-
-		const manager = new TagsManager();
-		manager.sectionBegin('TABLES');
-		manager.pushTags(this.dxfViewPortTable.tags());
-		manager.pushTags(this.linetypeTable.tags());
-		manager.pushTags(this.layerTable.tags());
-		manager.pushTags(this.styleTable.tags());
-		manager.pushTags(this.viewTable.tags());
-		manager.pushTags(this.ucsTable.tags());
-		manager.pushTags(this.appIdTable.tags());
-		manager.pushTags(this.dimStyleTable.tags());
-		manager.pushTags(this.blockRecordTable.tags());
-		manager.sectionEnd();
-		return manager.tags;
-	}
-
 	public stringify(): string {
-		const manager = new TagsManager();
-		manager.pushTags(this.tags());
-		return manager.stringify();
+		return this.manager.stringify();
 	}
 }

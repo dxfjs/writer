@@ -1,7 +1,8 @@
 import Handle from '../../../../Internals/Handle';
+import DxfInterface from '../../../../Internals/Interfaces/DXFInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
-export default class DxfRecord extends Handle {
+export default class DxfRecord extends Handle implements DxfInterface {
 	private readonly _entityType: string;
 
 	public get entityType(): string {
@@ -13,13 +14,16 @@ export default class DxfRecord extends Handle {
 		this._entityType = type;
 	}
 
-	public tags() {
+	public stringify(): string {
+		return this.manager.stringify();
+	}
+
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType(this.entityType);
 		manager.handle(this.handle);
-		// TODO Defined Applications
-		manager.pushTags(this.softPointersTags());
+		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbSymbolTableRecord');
-		return manager.tags;
+		return manager;
 	}
 }

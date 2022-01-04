@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfUcs from './Records/DxfUcs';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfUcsTable extends DxfTable {
 	private _ucsRecords: DxfUcs[] = [];
@@ -20,14 +20,14 @@ export default class DxfUcsTable extends DxfTable {
 		return ucsRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.ucsRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.ucsRecords.forEach((ucsRecord) => {
-			manager.pushTags(ucsRecord.tags());
+			manager.appendTags(ucsRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

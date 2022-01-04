@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfView extends DxfRecord {
@@ -13,9 +13,9 @@ export default class DxfView extends DxfRecord {
 		this._name = name;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
-		return manager.tags;
+		manager.pushTags(super.manager.tags);
+		return manager;
 	}
 }

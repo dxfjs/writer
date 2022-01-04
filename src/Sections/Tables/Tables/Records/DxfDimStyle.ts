@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 // TODO Refactor this class to be more dynamic
@@ -14,9 +14,9 @@ export default class DxfDimStyle extends DxfRecord {
 		this._name = name;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.addTag(100, 'AcDbDimStyleTableRecord');
 		manager.addTag(2, this.name);
 		manager.addTag(70, 0);
@@ -80,6 +80,6 @@ export default class DxfDimStyle extends DxfRecord {
 		manager.addTag(341, '');
 		manager.addTag(371, '-2');
 		manager.addTag(372, '-2');
-		return manager.tags;
+		return manager;
 	}
 }

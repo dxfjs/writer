@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfLineType extends DxfRecord {
@@ -25,9 +25,9 @@ export default class DxfLineType extends DxfRecord {
 		this._elements = elements;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbLinetypeTableRecord');
 		manager.name(this.name);
 		manager.addTag(70, 0);
@@ -43,6 +43,6 @@ export default class DxfLineType extends DxfRecord {
 			manager.addTag(49, element);
 			manager.addTag(74, 0);
 		});
-		return manager.tags;
+		return manager;
 	}
 }

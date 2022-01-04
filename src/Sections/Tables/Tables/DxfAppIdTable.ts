@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfAppId from './Records/DxfAppId';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class AppIdTable extends DxfTable {
 	private readonly _appIdRecords: DxfAppId[] = [];
@@ -20,14 +20,14 @@ export default class AppIdTable extends DxfTable {
 		return appIdRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.appIdRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.appIdRecords.forEach((appIdRecord) => {
-			manager.pushTags(appIdRecord.tags());
+			manager.appendTags(appIdRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

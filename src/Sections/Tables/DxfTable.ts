@@ -1,7 +1,8 @@
 import Handle from '../../Internals/Handle';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import TagsManager from '../../Internals/TagsManager';
 
-export default class DxfTable extends Handle {
+export default class DxfTable extends Handle implements DxfInterface {
 	private _maxNumberEntries: number = 0;
 
 	public get maxNumberEntries(): number {
@@ -19,7 +20,11 @@ export default class DxfTable extends Handle {
 		super();
 	}
 
-	tags(): tag_t[] {
+	stringify(): string {
+		return this.manager.stringify();
+	}
+
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType('TABLE');
 		manager.name(this.name);
@@ -27,6 +32,6 @@ export default class DxfTable extends Handle {
 		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbSymbolTable');
 		manager.addTag(70, this.maxNumberEntries);
-		return manager.tags;
+		return manager;
 	}
 }

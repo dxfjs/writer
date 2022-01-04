@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
@@ -75,9 +75,9 @@ export default class DxfStyle extends DxfRecord {
 		this._fontFileName = value;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbTextStyleTableRecord');
 		manager.name(this.name);
 		manager.addTag(70, 0);
@@ -88,6 +88,6 @@ export default class DxfStyle extends DxfRecord {
 		manager.addTag(42, this.lastHeightUsed);
 		manager.addTag(3, this.fontFileName);
 		manager.addTag(4, this.bigFontFileName);
-		return manager.tags;
+		return manager;
 	}
 }

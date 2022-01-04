@@ -1,11 +1,12 @@
 import DxfDimStyle from './Records/DxfDimStyle';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 import Handle from '../../../Internals/Handle';
+import DxfInterface from '../../../Internals/Interfaces/DXFInterface';
 
-export default class DxfDimStyleTable extends Handle {
-	private _dimStyleRecords: DxfDimStyle[] = [];
+export default class DxfDimStyleTable extends Handle implements DxfInterface {
+	private readonly _dimStyleRecords: DxfDimStyle[] = [];
 
-	get dimStylesRecords(): DxfDimStyle[] {
+	public get dimStylesRecords(): DxfDimStyle[] {
 		return this._dimStyleRecords;
 	}
 
@@ -13,29 +14,30 @@ export default class DxfDimStyleTable extends Handle {
 		super();
 	}
 
-	public addDimStyle(name: string) {
-		const dimStyle = new DxfDimStyle(name);
-		dimStyle.softPointer = this.handle;
-		this._dimStyleRecords.push(dimStyle);
-		return dimStyle;
+	public stringify(): string {
+		return this.manager.stringify();
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-
 		manager.entityType('TABLE');
 		manager.name('DIMSTYLE');
 		manager.addTag(105, this.handle);
 		manager.subclassMarker('AcDbSymbolTable');
 		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbDimStyleTable');
-
 		manager.addTag(70, this.dimStylesRecords.length);
-
 		this.dimStylesRecords.forEach((dimStyleRecord) => {
-			manager.pushTags(dimStyleRecord.tags());
+			manager.appendTags(dimStyleRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
+	}
+
+	public addDimStyle(name: string) {
+		const dimStyle = new DxfDimStyle(name);
+		dimStyle.softPointer = this.handle;
+		this._dimStyleRecords.push(dimStyle);
+		return dimStyle;
 	}
 }

@@ -1,7 +1,7 @@
 import DxfTable from '../DxfTable';
 import BlockRecord from './Records/DxfBlockRecord';
 import DxfBlockRecord from './Records/DxfBlockRecord';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfBlockRecordTable extends DxfTable {
 	private _blockRecords: BlockRecord[] = [];
@@ -23,14 +23,14 @@ export default class DxfBlockRecordTable extends DxfTable {
 		return blockRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.blockRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.blockRecords.forEach((blockRecord) => {
-			manager.pushTags(blockRecord.tags());
+			manager.appendTags(blockRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

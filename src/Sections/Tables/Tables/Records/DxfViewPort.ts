@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfViewPort extends DxfRecord {
@@ -32,10 +32,11 @@ export default class DxfViewPort extends DxfRecord {
 		this._viewHeight = 200;
 		this._viewCenter = [0, 0];
 	}
-	public tags(): tag_t[] {
+
+	public get manager(): TagsManager {
 		const [x, y] = this.viewCenter;
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbViewportTableRecord');
 		manager.name(this.name);
 		manager.addTag(70, 0);
@@ -84,6 +85,6 @@ export default class DxfViewPort extends DxfRecord {
 		manager.addTag(63, 250);
 		manager.addTag(421, 3358443);
 
-		return manager.tags;
+		return manager;
 	}
 }

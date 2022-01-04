@@ -1,6 +1,4 @@
 import Tag, { makeArrayTags, makeTag } from './Tag';
-import DxfInterface from './Interfaces/DXFInterface';
-import TagsManager from './TagsManager';
 
 export default class DXFManager {
 	get handle(): string {

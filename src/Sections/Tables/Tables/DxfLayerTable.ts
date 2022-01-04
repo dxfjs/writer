@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfLayer from './Records/DxfLayer';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfLayerTable extends DxfTable {
 	private readonly _layerRecords: DxfLayer[] = [];
@@ -20,14 +20,14 @@ export default class DxfLayerTable extends DxfTable {
 		return layerRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.layerRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.layerRecords.forEach((layerRecord) => {
-			manager.pushTags(layerRecord.tags());
+			manager.appendTags(layerRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

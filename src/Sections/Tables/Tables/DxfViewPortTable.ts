@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfViewPort from './Records/DxfViewPort';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewPortTable extends DxfTable {
 	private readonly _viewPortRecords: DxfViewPort[] = [];
@@ -20,14 +20,14 @@ export default class DxfViewPortTable extends DxfTable {
 		return viewPortRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewPortRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.viewPortRecords.forEach((viewPortRecord) => {
-			manager.pushTags(viewPortRecord.tags());
+			manager.appendTags(viewPortRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

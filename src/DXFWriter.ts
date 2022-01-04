@@ -7,54 +7,50 @@ import Entity, { PolylineFlags, SplineFlags } from './Sections/Entities/Entity';
 import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfDictionary from './Sections/Objects/Objects/DxfDictionary';
 import DxfObject from './Sections/Objects/DxfObject';
-import { createTag } from './Internals/TagsManager';
 import DxfClasses from './Sections/Classes/DxfClasses';
+import { values_t } from './Sections/Header/DxfVariable';
+import DxfInterface from './Internals/Interfaces/DXFInterface';
+import TagsManager from './Internals/TagsManager';
 
-export default class DXFWriter extends DXFManager {
-	private header: DxfHeader;
-	private classes: DxfClasses;
-	private tables: DxfTables;
-	private blocks: DxfBlocks;
-	private entities: Entities;
-	private objects: DxfObjects;
+/**
+ *
+ */
+export default class DxfWriter implements DxfInterface {
+	private readonly _header: DxfHeader;
+	private readonly _classes: DxfClasses;
+	private readonly _tables: DxfTables;
+	private readonly _blocks: DxfBlocks;
+	private readonly _entities: Entities;
+	private readonly _objects: DxfObjects;
 
 	/**
 	 * The base class for creating the dxf content.
-	 * @param version{string} Not working at this moment 😞. Do not bother yourself using it.
-	 *                        Use DXFWriter.versions to set the version.
 	 */
-	public constructor(version: string = DXFManager.versions.R2007) {
-		super();
-		this.setVersion(version);
-
-		this.header = new DxfHeader();
-		this.classes = new DxfClasses();
-		this.blocks = new DxfBlocks();
-		this.tables = this.blocks.tables;
-		this.entities = this.header.entities;
-		this.objects = new DxfObjects();
-		this.tables.entities = this.header.entities;
+	public constructor() {
+		this._header = new DxfHeader();
+		this._classes = new DxfClasses();
+		this._blocks = new DxfBlocks();
+		this._tables = this._blocks.tables;
+		this._entities = new Entities();
+		this._objects = new DxfObjects();
 	}
 
 	/**
-	 * Add a variable to the Header section of the dxf.
+	 * Add a header variable to dxf if not exist. \
+	 * If exist it will updates values.
+	 * @example
+	 * ```js
+	 * const dxf = new DxfWriter();
+	 * dxf.setVariable("$ANGDIR", {70: 1});
+	 * dxf.setVariable("$EXTMAX", {10: 500, 20: 500, 30: 0});
+	 * ```
+	 * @param name The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
+	 * @param values The values correspanding to the variable
 	 *
-	 * @param name {string} The name of the variable.
-	 * @param values {[number, (number | string)][]}
-	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addVariable(
-		name: string,
-		values: [number, number | string][]
-	): DXFWriter {
-		this.header.setVariable(
-			name,
-			values.map((tag) => {
-				const [groupCode, value] = tag;
-				return createTag(groupCode, value);
-			})
-		);
+	public setVariable(name: string, values: values_t): DxfWriter {
+		this._header.setVariable(name, values);
 		return this;
 	}
 
@@ -65,14 +61,14 @@ export default class DXFWriter extends DXFManager {
 	 * @param descriptive {string} the descriptive of the line ex: __ __ . __ __ .
 	 * @param elements {number[]} an array of the pattern. 📝 need more explications 😭
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addLineType(
 		name: string,
 		descriptive: string,
 		elements: number[]
-	): DXFWriter {
-		this.tables.addLineType(name, descriptive, elements);
+	): DxfWriter {
+		this._tables.addLineType(name, descriptive, elements);
 		return this;
 	}
 
@@ -84,10 +80,10 @@ export default class DXFWriter extends DXFManager {
 	 * @param lineType {string} the lineType name.
 	 * @param flag  {number} the flag of the layer (0: is thawed, 1: is frozen).
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public addLayer(name: string, color: number, lineType: string): DXFWriter {
-		this.tables.addLayer(name, color, lineType);
+	public addLayer(name: string, color: number, lineType: string): DxfWriter {
+		this._tables.addLayer(name, color, lineType);
 		return this;
 	}
 
@@ -96,10 +92,10 @@ export default class DXFWriter extends DXFManager {
 	 *
 	 * @param layerName {string} the layer name.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public setCurrentLayer(layerName: string): DXFWriter {
-		if (this.tables.layers.find((layer) => layer.name === layerName)) {
+	public setCurrentLayer(layerName: string): DxfWriter {
+		if (this._tables.layers.find((layer) => layer.name === layerName)) {
 			DXFManager.currentLayer = layerName;
 		} else {
 			throw new Error(
@@ -110,18 +106,18 @@ export default class DXFWriter extends DXFManager {
 	}
 
 	/**
-	 * Set the unit of the dxf.
+	 * Set the units of the dxf.
 	 *
-	 * @param unit {number} use DXFWriter.units to set the unit.
+	 * @param units use DXFWriter.units to set the unit.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public setUnit(unit: number): DXFWriter {
-		if (Object.values(DXFManager.units).indexOf(unit) > -1) {
-			this.header.units = unit;
+	public setUnits(units: number): DxfWriter {
+		if (Object.values(DXFManager.units).indexOf(units) > -1) {
+			//this.header.units = unit;
 		} else {
 			throw new Error(
-				`The ${unit} is not a valid Unit, please see DXFManager.units.`
+				`The ${units} is not a valid Units, please see DXFManager.units.`
 			);
 		}
 		return this;
@@ -131,9 +127,9 @@ export default class DXFWriter extends DXFManager {
 	 * Set the version of the dxf.
 	 * Not working at this moment :(. Do bot bother using it.
 	 * @param version {string} use DXFWriter.versions to set the version.
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public setVersion(version: string): DXFWriter {
+	public setVersion(version: string): DxfWriter {
 		if (Object.values(DXFManager.versions).indexOf(version) > -1) {
 			DXFManager.version = version;
 		} else {
@@ -145,19 +141,19 @@ export default class DXFWriter extends DXFManager {
 	}
 
 	public addEntity(entity: Entity) {
-		this.entities.addEntity(entity);
+		this._entities.addEntity(entity);
 		return this;
 	}
 
 	public addObject(object: DxfObject) {
-		this.objects.addObject(object);
+		this._objects.addObject(object);
 		return this;
 	}
 
 	public addDictionary(name: string, entryObject: DXFManager) {
 		const dictionary = new DxfDictionary();
 		dictionary.addEntryObject(name, entryObject.handle);
-		this.objects.addObject(dictionary);
+		this._objects.addObject(dictionary);
 		return this;
 	}
 
@@ -167,15 +163,15 @@ export default class DXFWriter extends DXFManager {
 	 * @param y_start {number} the Y coordinate of the first point.
 	 * @param x_end   {number} the X coordinate of the second point.
 	 * @param y_end   {number} the Y coordinate of the second point.
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addLine(
 		x_start: number,
 		y_start: number,
 		x_end: number,
 		y_end: number
-	): DXFWriter {
-		this.entities.addLine(x_start, y_start, x_end, y_end);
+	): DxfWriter {
+		this._entities.addLine(x_start, y_start, x_end, y_end);
 		return this;
 	}
 
@@ -189,10 +185,10 @@ export default class DXFWriter extends DXFManager {
 	 * @param points {number[][]}    an array of points like: [[x1, y1], [x2, y2], ...].
 	 * @param flag   {PolylineFlags} an enteger number represent the Polyline flag.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public addPolyline(points: number[][], flag: PolylineFlags): DXFWriter {
-		this.entities.addPolyline(points, flag);
+	public addPolyline(points: number[][], flag: PolylineFlags): DxfWriter {
+		this._entities.addPolyline(points, flag);
 		return this;
 	}
 
@@ -206,14 +202,14 @@ export default class DXFWriter extends DXFManager {
 	 * @param bottom_right_x {number} the X coordinate of the Bottom Right corner of the rectangle.
 	 * @param bottom_right_y {number} the Y coordinate of the Bottom Right corner of the rectangle.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addRectangle(
 		top_left_x: number,
 		top_left_y: number,
 		bottom_right_x: number,
 		bottom_right_y: number
-	): DXFWriter {
+	): DxfWriter {
 		const corners = [
 			[top_left_x, top_left_y],
 			[bottom_right_x, top_left_y],
@@ -221,7 +217,7 @@ export default class DXFWriter extends DXFManager {
 			[top_left_x, bottom_right_y],
 		];
 
-		this.entities.addPolyline(corners, PolylineFlags.Closed);
+		this._entities.addPolyline(corners, PolylineFlags.Closed);
 		return this;
 	}
 
@@ -230,10 +226,10 @@ export default class DXFWriter extends DXFManager {
 	 * @param points{number[][]} an array of points like: [[x1, y1, z1], [x2, y2, z2], ...].
 	 * @param flag
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public addPolyline3D(points: number[][], flag: number): DXFWriter {
-		this.entities.addPolyline3D(points, flag);
+	public addPolyline3D(points: number[][], flag: number): DxfWriter {
+		this._entities.addPolyline3D(points, flag);
 		return this;
 	}
 
@@ -243,10 +239,10 @@ export default class DXFWriter extends DXFManager {
 	 * @param y {number} the Y coordinate of the point.
 	 * @param z {number} the Z coordinate of the point.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
-	public addPoint(x: number, y: number, z: number): DXFWriter {
-		this.entities.addPoint(x, y, z);
+	public addPoint(x: number, y: number, z: number): DxfWriter {
+		this._entities.addPoint(x, y, z);
 		return this;
 	}
 
@@ -256,14 +252,14 @@ export default class DXFWriter extends DXFManager {
 	 * @param y_center  {number} the Y coordinate of the center of the circle.
 	 * @param radius    {number} the radius of the circle.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addCircle(
 		x_center: number,
 		y_center: number,
 		radius: number
-	): DXFWriter {
-		this.entities.addCircle(x_center, y_center, radius);
+	): DxfWriter {
+		this._entities.addCircle(x_center, y_center, radius);
 		return this;
 	}
 
@@ -278,7 +274,7 @@ export default class DXFWriter extends DXFManager {
 	 *
 	 * 📝 Angles always start from X-axis towards anticlockwise.
 	 *
-	 * @returns {DXFWriter} return the instance of DXFWriter.
+	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addArc(
 		x_center: number,
@@ -286,8 +282,14 @@ export default class DXFWriter extends DXFManager {
 		radius: number,
 		start_angle: number,
 		endAngle: number
-	): DXFWriter {
-		this.entities.addArc(x_center, y_center, radius, start_angle, endAngle);
+	): DxfWriter {
+		this._entities.addArc(
+			x_center,
+			y_center,
+			radius,
+			start_angle,
+			endAngle
+		);
 		return this;
 	}
 
@@ -317,8 +319,8 @@ export default class DXFWriter extends DXFManager {
 		flag: SplineFlags,
 		knots: number[],
 		weights: number[]
-	): DXFWriter {
-		this.entities.addSpline(
+	): DxfWriter {
+		this._entities.addSpline(
 			control_points,
 			fit_points,
 			curve_degree,
@@ -348,8 +350,8 @@ export default class DXFWriter extends DXFManager {
 		ratio_minor_axis: number,
 		start_parameter: number,
 		end_parameter: number
-	): DXFWriter {
-		this.entities.addEllipse(
+	): DxfWriter {
+		this._entities.addEllipse(
 			x_center,
 			y_center,
 			x_major_axis,
@@ -389,8 +391,8 @@ export default class DXFWriter extends DXFManager {
 		x_fourth: number,
 		y_fourth: number,
 		z_fourth: number
-	): DXFWriter {
-		this.entities.add3DFace(
+	): DxfWriter {
+		this._entities.add3DFace(
 			x_first,
 			y_first,
 			z_first,
@@ -419,8 +421,8 @@ export default class DXFWriter extends DXFManager {
 		y: number,
 		height: number,
 		value: string
-	): DXFWriter {
-		this.entities.addText(x, y, height, value);
+	): DxfWriter {
+		this._entities.addText(x, y, height, value);
 		return this;
 	}
 
@@ -429,9 +431,9 @@ export default class DXFWriter extends DXFManager {
 	 * @param red The red value between 0 and 255
 	 * @param green The green value between 0 and 255
 	 * @param blue The blue value between 0 and 255
-	 * @returns {DXFWriter}
+	 * @returns {DxfWriter}
 	 */
-	public setTrueColor(red: number, green: number, blue: number): DXFWriter {
+	public setTrueColor(red: number, green: number, blue: number): DxfWriter {
 		DXFManager.setTrueColorRGB(red, green, blue);
 		return this;
 	}
@@ -441,13 +443,13 @@ export default class DXFWriter extends DXFManager {
 	 * @param red The red value between 0 and 255
 	 * @param green The green value between 0 and 255
 	 * @param blue The blue value between 0 and 255
-	 * @returns {DXFWriter}
+	 * @returns {DxfWriter}
 	 */
 	public setTrueColorRGB(
 		red: number,
 		green: number,
 		blue: number
-	): DXFWriter {
+	): DxfWriter {
 		DXFManager.setTrueColorRGB(red, green, blue);
 		return this;
 	}
@@ -455,18 +457,18 @@ export default class DXFWriter extends DXFManager {
 	/**
 	 * Set the current true color for all coming entities.
 	 * @param hex The hexadecimal representation of the color.
-	 * @returns {DXFWriter}
+	 * @returns {DxfWriter}
 	 */
-	public setTrueColorHex(hex: string): DXFWriter {
+	public setTrueColorHex(hex: string): DxfWriter {
 		DXFManager.setTrueColorHex(hex);
 		return this;
 	}
 
 	/**
 	 * Unset the current true color to stop using it in coming entities.
-	 * @returns {DXFWriter}
+	 * @returns {DxfWriter}
 	 */
-	public unsetTrueColor(): DXFWriter {
+	public unsetTrueColor(): DxfWriter {
 		DXFManager.unsetTrueColor();
 		return this;
 	}
@@ -475,13 +477,17 @@ export default class DXFWriter extends DXFManager {
 	 * @return string get the dxf string.
 	 */
 	public stringify(): string {
-		let str: string = '';
-		str += this.header.stringify();
-		str += this.classes.stringify();
-		str += this.tables.stringify();
-		str += this.blocks.stringify();
-		str += this.entities.stringify();
-		str += this.objects.stringify();
-		return str;
+		return this.manager.stringify();
+	}
+
+	get manager(): TagsManager {
+		const manager = new TagsManager();
+		manager.appendTags(this._header);
+		manager.appendTags(this._classes);
+		manager.appendTags(this._tables);
+		//manager.appendTags(this._blocks);
+		//manager.appendTags(this._entities);
+		//manager.appendTags(this._objects);
+		return manager;
 	}
 }

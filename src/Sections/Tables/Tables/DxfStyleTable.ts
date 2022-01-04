@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfStyle from './Records/DxfStyle';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfStyleTable extends DxfTable {
 	private _styleRecords: DxfStyle[] = [];
@@ -19,14 +19,14 @@ export default class DxfStyleTable extends DxfTable {
 		this._styleRecords.push(styleRecord);
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.styleRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.styleRecords.forEach((styleRecord) => {
-			manager.pushTags(styleRecord.tags());
+			manager.appendTags(styleRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

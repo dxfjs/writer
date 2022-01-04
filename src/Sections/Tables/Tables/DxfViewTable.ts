@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfView from './Records/DxfView';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewTable extends DxfTable {
 	private _viewRecords: DxfView[] = [];
@@ -19,14 +19,14 @@ export default class DxfViewTable extends DxfTable {
 		this._viewRecords.push();
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.viewRecords.forEach((viewRecord) => {
-			manager.pushTags(viewRecord.tags());
+			manager.appendTags(viewRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

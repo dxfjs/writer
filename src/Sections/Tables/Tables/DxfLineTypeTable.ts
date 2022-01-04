@@ -1,6 +1,6 @@
 import DxfTable from '../DxfTable';
 import DxfLineType from './Records/DxfLineType';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfLineTypeTable extends DxfTable {
 	private readonly _lineTypeRecords: DxfLineType[] = [];
@@ -28,14 +28,14 @@ export default class DxfLineTypeTable extends DxfTable {
 		return lineTypeRecord;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.lineTypeRecords.length;
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		this.lineTypeRecords.forEach((lineTypeRecord) => {
-			manager.pushTags(lineTypeRecord.tags());
+			manager.appendTags(lineTypeRecord);
 		});
 		manager.entityType('ENDTAB');
-		return manager.tags;
+		return manager;
 	}
 }

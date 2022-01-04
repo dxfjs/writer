@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../../Internals/TagsManager';
+import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfBlockRecord extends DxfRecord {
@@ -40,16 +40,16 @@ export default class DxfBlockRecord extends DxfRecord {
 		this._name = name;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbRegAppTableRecord');
 		manager.name(this._name);
 		manager.addTag(70, 0);
-		manager.pushTags(this.hardPointersTags());
+		manager.pushTag(this.hardPointerTag());
 		manager.addTag(70, this.insertionUnits);
 		manager.addTag(280, this.explodability);
 		manager.addTag(280, this.scalability);
-		return manager.tags;
+		return manager;
 	}
 }
