@@ -8,7 +8,6 @@ import DxfLineTypeTable from './Tables/DxfLineTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfViewPortTable from './Tables/DxfViewPortTable';
-import DxfViewPort from './Tables/Records/DxfViewPort';
 import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DXFInterface';
 
@@ -22,12 +21,6 @@ export default class DxfTables implements DxfInterface {
 	private readonly _appIdTable: DxfAppIdTable;
 	private readonly _dimStyleTable: DxfDimStyleTable;
 	private readonly _blockRecordTable: DxfBlockRecordTable;
-
-	private readonly _activeViewPort: DxfViewPort;
-
-	public get activeViewPort(): DxfViewPort {
-		return this._activeViewPort;
-	}
 
 	public get dxfViewPortTable() {
 		return this._dxfViewPortTable;
@@ -83,20 +76,6 @@ export default class DxfTables implements DxfInterface {
 		this._appIdTable = new DxfAppIdTable();
 		this._dimStyleTable = new DxfDimStyleTable();
 		this._blockRecordTable = new DxfBlockRecordTable();
-
-		this.addLineType('ByBlock', '', []);
-		this.addLineType('ByLayer', '', []);
-		this.addLineType('Continuous', 'Solid line', []);
-
-		this.addLayer('0', 7, 'Continuous');
-
-		this.addStyle('Standard');
-
-		this.addAppId('ACAD');
-
-		this.addDimStyle('Standard');
-
-		this._activeViewPort = this.addViewPort('*Active');
 	}
 
 	get manager(): TagsManager {
@@ -155,14 +134,6 @@ export default class DxfTables implements DxfInterface {
 
 	public addViewPort(name: string) {
 		return this._dxfViewPortTable.addViewPort(name);
-	}
-
-	public setViewHeight(viewHeight: number) {
-		this.activeViewPort.viewHeight = viewHeight;
-	}
-
-	public setViewCenter(viewCenter: [number, number]) {
-		this.activeViewPort.viewCenter = viewCenter;
 	}
 
 	public stringify(): string {

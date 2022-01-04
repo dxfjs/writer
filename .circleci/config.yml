@@ -3,8 +3,7 @@ jobs:
   build:
     docker:
       - image: node:latest
-    steps:
-      - checkout
-      - run: yarn
-      - run: yarn build
-      - run: yarn example
+      steps:
+        - checkout
+          - run: yarn
+          - run: yarn build

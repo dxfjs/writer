@@ -18,6 +18,7 @@ export default class DxfTable extends Handle implements DxfInterface {
 
 	public constructor(private _name: string) {
 		super();
+		this.softPointer = '0';
 	}
 
 	stringify(): string {

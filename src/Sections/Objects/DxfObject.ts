@@ -11,6 +11,7 @@ export default class DxfObject extends Handle {
 	public constructor(type: string) {
 		super();
 		this._type = type;
+		this.softPointer = '0';
 	}
 
 	public tags() {

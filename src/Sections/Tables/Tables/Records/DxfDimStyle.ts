@@ -76,7 +76,7 @@ export default class DxfDimStyle extends DxfRecord {
 		manager.addTag(286, 0);
 		manager.addTag(288, 0);
 		manager.addTag(289, 3);
-		manager.addTag(340, 'standard');
+		manager.addTag(340, this.name);
 		manager.addTag(341, '');
 		manager.addTag(371, '-2');
 		manager.addTag(372, '-2');

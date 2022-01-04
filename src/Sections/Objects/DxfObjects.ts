@@ -1,10 +1,10 @@
 import DxfDictionary from './Objects/DxfDictionary';
 import DxfObject from './DxfObject';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import TagsManager from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DXFInterface';
 
-export default class DxfObjects {
+export default class DxfObjects implements DxfInterface {
 	private _rootDictionary: DxfDictionary = new DxfDictionary();
-	private _acadDictionary: DxfDictionary;
 
 	private _objects: DxfObject[] = [];
 
@@ -12,23 +12,15 @@ export default class DxfObjects {
 		return this._rootDictionary;
 	}
 
-	public get acadDictionary(): DxfDictionary {
-		return this._acadDictionary;
-	}
-
 	public get objects(): DxfObject[] {
 		return this._objects;
 	}
 
 	public constructor() {
-		this._acadDictionary = this.createDictionary();
 		this.rootDictionary.duplicateRecordCloningFlag = 1;
-		this.acadDictionary.duplicateRecordCloningFlag = 1;
+		const dic = this.createDictionary();
 
-		this.rootDictionary.addEntryObject(
-			'ACAD_GROUP',
-			this.acadDictionary.handle
-		);
+		this.rootDictionary.addEntryObject('ACAD_GROUP', dic.handle);
 	}
 
 	public addObject(object: DxfObject): void {
@@ -46,7 +38,7 @@ export default class DxfObjects {
 		this.rootDictionary.addEntryObject(name, softOwner);
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionBegin('OBJECTS');
 		manager.pushTags(this.rootDictionary.tags());
@@ -54,12 +46,11 @@ export default class DxfObjects {
 			manager.pushTags(object.tags());
 		});
 		manager.sectionEnd();
-		return manager.tags;
+		manager.entityType('EOF');
+		return manager;
 	}
 
 	public stringify(): string {
-		const manager = new TagsManager();
-		manager.pushTags(this.tags());
-		return manager.stringify();
+		return this.manager.stringify();
 	}
 }

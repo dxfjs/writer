@@ -9,9 +9,10 @@ import Spline from './Entities/Spline';
 import Ellipse from './Entities/Ellipse';
 import Polyline from './Entities/Polyline';
 import Polyline3D from './Entities/Polyline3D';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import TagsManager from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DXFInterface';
 
-export default class Entities {
+export default class Entities implements DxfInterface {
 	private _entities: Entity[] = [];
 
 	public constructor() {}
@@ -175,19 +176,17 @@ export default class Entities {
 		return this._entities;
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionBegin('ENTITIES');
 		this.entities.forEach((entity) => {
 			manager.pushTags(entity.tags());
 		});
 		manager.sectionEnd();
-		return manager.tags;
+		return manager;
 	}
 
 	public stringify(): string {
-		const manager = new TagsManager();
-		manager.pushTags(this.tags());
-		return manager.stringify();
+		return this.manager.stringify();
 	}
 }

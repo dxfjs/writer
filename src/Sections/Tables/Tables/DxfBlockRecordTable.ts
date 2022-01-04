@@ -12,8 +12,6 @@ export default class DxfBlockRecordTable extends DxfTable {
 
 	public constructor() {
 		super('BLOCK_RECORD');
-		// this.addBlockRecord('*Model_Space');
-		// this.addBlockRecord('*Paper_Space');
 	}
 
 	public addBlockRecord(name: string) {

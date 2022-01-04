@@ -1,38 +1,27 @@
 import DXFManager from './Internals/DXFManager';
-import DxfHeader from './Sections/Header/DxfHeader';
-import DxfTables from './Sections/Tables/DxfTables';
-import DxfBlocks from './Sections/Blocks/DxfBlocks';
-import Entities from './Sections/Entities/Entities';
 import Entity, { PolylineFlags, SplineFlags } from './Sections/Entities/Entity';
-import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfDictionary from './Sections/Objects/Objects/DxfDictionary';
 import DxfObject from './Sections/Objects/DxfObject';
-import DxfClasses from './Sections/Classes/DxfClasses';
 import { values_t } from './Sections/Header/DxfVariable';
 import DxfInterface from './Internals/Interfaces/DXFInterface';
 import TagsManager from './Internals/TagsManager';
+import DxfManager from './DxfManager';
 
 /**
  *
  */
 export default class DxfWriter implements DxfInterface {
-	private readonly _header: DxfHeader;
-	private readonly _classes: DxfClasses;
-	private readonly _tables: DxfTables;
-	private readonly _blocks: DxfBlocks;
-	private readonly _entities: Entities;
-	private readonly _objects: DxfObjects;
+	private readonly _dxfManager: DxfManager;
+
+	public get dxfManager(): DxfManager {
+		return this._dxfManager;
+	}
 
 	/**
 	 * The base class for creating the dxf content.
 	 */
 	public constructor() {
-		this._header = new DxfHeader();
-		this._classes = new DxfClasses();
-		this._blocks = new DxfBlocks();
-		this._tables = this._blocks.tables;
-		this._entities = new Entities();
-		this._objects = new DxfObjects();
+		this._dxfManager = new DxfManager();
 	}
 
 	/**
@@ -50,7 +39,7 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns return the current object of DxfWriter.
 	 */
 	public setVariable(name: string, values: values_t): DxfWriter {
-		this._header.setVariable(name, values);
+		this.dxfManager.header.setVariable(name, values);
 		return this;
 	}
 
@@ -68,7 +57,7 @@ export default class DxfWriter implements DxfInterface {
 		descriptive: string,
 		elements: number[]
 	): DxfWriter {
-		this._tables.addLineType(name, descriptive, elements);
+		this.dxfManager.tables.addLineType(name, descriptive, elements);
 		return this;
 	}
 
@@ -83,7 +72,7 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addLayer(name: string, color: number, lineType: string): DxfWriter {
-		this._tables.addLayer(name, color, lineType);
+		this.dxfManager.tables.addLayer(name, color, lineType);
 		return this;
 	}
 
@@ -95,7 +84,11 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public setCurrentLayer(layerName: string): DxfWriter {
-		if (this._tables.layers.find((layer) => layer.name === layerName)) {
+		if (
+			this.dxfManager.tables.layers.find(
+				(layer) => layer.name === layerName
+			)
+		) {
 			DXFManager.currentLayer = layerName;
 		} else {
 			throw new Error(
@@ -141,19 +134,19 @@ export default class DxfWriter implements DxfInterface {
 	}
 
 	public addEntity(entity: Entity) {
-		this._entities.addEntity(entity);
+		this.dxfManager.entities.addEntity(entity);
 		return this;
 	}
 
 	public addObject(object: DxfObject) {
-		this._objects.addObject(object);
+		this.dxfManager.objects.addObject(object);
 		return this;
 	}
 
 	public addDictionary(name: string, entryObject: DXFManager) {
 		const dictionary = new DxfDictionary();
 		dictionary.addEntryObject(name, entryObject.handle);
-		this._objects.addObject(dictionary);
+		this.dxfManager.objects.addObject(dictionary);
 		return this;
 	}
 
@@ -171,7 +164,7 @@ export default class DxfWriter implements DxfInterface {
 		x_end: number,
 		y_end: number
 	): DxfWriter {
-		this._entities.addLine(x_start, y_start, x_end, y_end);
+		this.dxfManager.entities.addLine(x_start, y_start, x_end, y_end);
 		return this;
 	}
 
@@ -188,7 +181,7 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addPolyline(points: number[][], flag: PolylineFlags): DxfWriter {
-		this._entities.addPolyline(points, flag);
+		this.dxfManager.entities.addPolyline(points, flag);
 		return this;
 	}
 
@@ -217,7 +210,7 @@ export default class DxfWriter implements DxfInterface {
 			[top_left_x, bottom_right_y],
 		];
 
-		this._entities.addPolyline(corners, PolylineFlags.Closed);
+		this.dxfManager.entities.addPolyline(corners, PolylineFlags.Closed);
 		return this;
 	}
 
@@ -229,7 +222,7 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addPolyline3D(points: number[][], flag: number): DxfWriter {
-		this._entities.addPolyline3D(points, flag);
+		this.dxfManager.entities.addPolyline3D(points, flag);
 		return this;
 	}
 
@@ -242,7 +235,7 @@ export default class DxfWriter implements DxfInterface {
 	 * @returns {DxfWriter} return the instance of DXFWriter.
 	 */
 	public addPoint(x: number, y: number, z: number): DxfWriter {
-		this._entities.addPoint(x, y, z);
+		this.dxfManager.entities.addPoint(x, y, z);
 		return this;
 	}
 
@@ -259,7 +252,7 @@ export default class DxfWriter implements DxfInterface {
 		y_center: number,
 		radius: number
 	): DxfWriter {
-		this._entities.addCircle(x_center, y_center, radius);
+		this.dxfManager.entities.addCircle(x_center, y_center, radius);
 		return this;
 	}
 
@@ -283,7 +276,7 @@ export default class DxfWriter implements DxfInterface {
 		start_angle: number,
 		endAngle: number
 	): DxfWriter {
-		this._entities.addArc(
+		this.dxfManager.entities.addArc(
 			x_center,
 			y_center,
 			radius,
@@ -320,7 +313,7 @@ export default class DxfWriter implements DxfInterface {
 		knots: number[],
 		weights: number[]
 	): DxfWriter {
-		this._entities.addSpline(
+		this.dxfManager.entities.addSpline(
 			control_points,
 			fit_points,
 			curve_degree,
@@ -351,7 +344,7 @@ export default class DxfWriter implements DxfInterface {
 		start_parameter: number,
 		end_parameter: number
 	): DxfWriter {
-		this._entities.addEllipse(
+		this.dxfManager.entities.addEllipse(
 			x_center,
 			y_center,
 			x_major_axis,
@@ -392,7 +385,7 @@ export default class DxfWriter implements DxfInterface {
 		y_fourth: number,
 		z_fourth: number
 	): DxfWriter {
-		this._entities.add3DFace(
+		this.dxfManager.entities.add3DFace(
 			x_first,
 			y_first,
 			z_first,
@@ -422,7 +415,7 @@ export default class DxfWriter implements DxfInterface {
 		height: number,
 		value: string
 	): DxfWriter {
-		this._entities.addText(x, y, height, value);
+		this.dxfManager.entities.addText(x, y, height, value);
 		return this;
 	}
 
@@ -482,12 +475,12 @@ export default class DxfWriter implements DxfInterface {
 
 	get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.appendTags(this._header);
-		manager.appendTags(this._classes);
-		manager.appendTags(this._tables);
-		//manager.appendTags(this._blocks);
-		//manager.appendTags(this._entities);
-		//manager.appendTags(this._objects);
+		manager.appendTags(this.dxfManager.header);
+		manager.appendTags(this.dxfManager.classes);
+		manager.appendTags(this.dxfManager.tables);
+		//manager.appendTags(this.dxfManager.blocks);
+		//manager.appendTags(this.dxfManager.entities);
+		//manager.appendTags(this.dxfManager.objects);
 		return manager;
 	}
 }
