@@ -15,7 +15,7 @@ export default class DxfLayerTable extends DxfTable {
 
 	public addLayer(name: string, color: number, lineType: string) {
 		const layerRecord = new DxfLayer(name, color, lineType);
-		layerRecord.addSoftPointer(this.handle);
+		layerRecord.softPointer = this.handle;
 		this._layerRecords.push(layerRecord);
 		return layerRecord;
 	}

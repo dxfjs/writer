@@ -17,7 +17,7 @@ export default class DxfObject extends Handle {
 		const manager = new TagsManager();
 		manager.entityType(this.type);
 		manager.handle(this.handle);
-		manager.pushTags(this.softPointersTags());
+		manager.pushTag(this.softPointerTag());
 		return manager.tags;
 	}
 }

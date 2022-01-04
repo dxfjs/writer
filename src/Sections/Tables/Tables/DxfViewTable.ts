@@ -15,7 +15,7 @@ export default class DxfViewTable extends DxfTable {
 
 	public addView(name: string) {
 		const viewRecord = new DxfView(name);
-		viewRecord.addSoftPointer(this.handle);
+		viewRecord.softPointer = this.handle;
 		this._viewRecords.push();
 	}
 

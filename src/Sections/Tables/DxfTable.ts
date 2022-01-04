@@ -24,7 +24,7 @@ export default class DxfTable extends Handle {
 		manager.entityType('TABLE');
 		manager.name(this.name);
 		manager.handle(this.handle);
-		//manager.pushTags(this.softPointersTags());
+		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbSymbolTable');
 		manager.addTag(70, this.maxNumberEntries);
 		return manager.tags;

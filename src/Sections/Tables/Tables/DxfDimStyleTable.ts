@@ -15,7 +15,7 @@ export default class DxfDimStyleTable extends Handle {
 
 	public addDimStyle(name: string) {
 		const dimStyle = new DxfDimStyle(name);
-		dimStyle.addSoftPointer(this.handle);
+		dimStyle.softPointer = this.handle;
 		this._dimStyleRecords.push(dimStyle);
 		return dimStyle;
 	}
@@ -27,7 +27,7 @@ export default class DxfDimStyleTable extends Handle {
 		manager.name('DIMSTYLE');
 		manager.addTag(105, this.handle);
 		manager.subclassMarker('AcDbSymbolTable');
-		manager.pushTags(this.softPointersTags());
+		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbDimStyleTable');
 
 		manager.addTag(70, this.dimStylesRecords.length);

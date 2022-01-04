@@ -15,7 +15,7 @@ export default class DxfStyleTable extends DxfTable {
 
 	public addStyle(name: string) {
 		const styleRecord = new DxfStyle(name);
-		styleRecord.addSoftPointer(this.handle);
+		styleRecord.softPointer = this.handle;
 		this._styleRecords.push(styleRecord);
 	}
 

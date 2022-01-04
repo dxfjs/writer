@@ -23,7 +23,7 @@ export default class DxfLineTypeTable extends DxfTable {
 
 	public addLineType(name: string, descriptive: string, elements: number[]) {
 		const lineTypeRecord = new DxfLineType(name, descriptive, elements);
-		lineTypeRecord.addSoftPointer(this.handle);
+		lineTypeRecord.softPointer = this.handle;
 		this._lineTypeRecords.push(lineTypeRecord);
 		return lineTypeRecord;
 	}

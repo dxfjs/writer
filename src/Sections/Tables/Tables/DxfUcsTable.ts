@@ -15,7 +15,7 @@ export default class DxfUcsTable extends DxfTable {
 
 	public addUcs(name: string) {
 		const ucsRecord = new DxfUcs(name);
-		ucsRecord.addSoftPointer(this.handle);
+		ucsRecord.softPointer = this.handle;
 		this._ucsRecords.push(ucsRecord);
 		return ucsRecord;
 	}

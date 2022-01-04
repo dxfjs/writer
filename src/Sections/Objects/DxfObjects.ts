@@ -37,7 +37,7 @@ export default class DxfObjects {
 
 	public createDictionary(): DxfDictionary {
 		const dictionary = new DxfDictionary();
-		dictionary.addSoftPointer(this.rootDictionary.handle);
+		dictionary.softPointer = this.rootDictionary.handle;
 		this.addObject(dictionary);
 		return dictionary;
 	}
