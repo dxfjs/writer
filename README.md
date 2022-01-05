@@ -10,6 +10,7 @@
 [![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
 [![GitHub license](https://img.shields.io/github/license/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_shield)
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 </div>
 <!---[![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)-->
