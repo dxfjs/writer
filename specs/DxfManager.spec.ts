@@ -1,7 +1,6 @@
 import DxfManager from '../src/DxfManager';
 
 jest.mock('../src/DxfManager');
-jest.mock('../src/Internals/Handle');
 
 describe('DxfManager class', () => {
 	const d = new DxfManager();

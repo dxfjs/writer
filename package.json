@@ -12,7 +12,8 @@
 		"watch": "tsc -w",
 		"build": "yarn test && rollup -c",
 		"example": "node --experimental-specifier-resolution=node examples/example.js",
-		"latest": "node --experimental-specifier-resolution=node dist/index.js"
+		"latest": "node --experimental-specifier-resolution=node dist/index.js",
+		"dxf": "node --experimental-specifier-resolution=node dxf/index.js"
 	},
 	"files": [
 		"lib/**/*"

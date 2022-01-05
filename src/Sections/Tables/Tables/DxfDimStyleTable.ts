@@ -12,6 +12,7 @@ export default class DxfDimStyleTable extends Handle implements DxfInterface {
 
 	public constructor() {
 		super();
+		this.softPointer = '0';
 	}
 
 	public stringify(): string {

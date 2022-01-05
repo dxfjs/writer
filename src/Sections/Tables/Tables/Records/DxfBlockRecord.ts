@@ -43,9 +43,8 @@ export default class DxfBlockRecord extends DxfRecord {
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
-		manager.subclassMarker('AcDbRegAppTableRecord');
+		manager.subclassMarker('AcDbBlockTableRecord');
 		manager.name(this._name);
-		manager.addTag(70, 0);
 		manager.pushTag(this.hardPointerTag());
 		manager.addTag(70, this.insertionUnits);
 		manager.addTag(280, this.explodability);

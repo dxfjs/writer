@@ -9,7 +9,7 @@ AC1021
   9
 $HANDSEED
   5
-20000
+1A
   9
 $INSUNITS
   70
@@ -17,9 +17,9 @@ $INSUNITS
   9
 $VIEWCTR
   10
-0
+5
   20
-0
+5
   0
 ENDSEC
   0
@@ -55,7 +55,7 @@ AcDbSymbolTableRecord
   100
 AcDbViewportTableRecord
   2
-*ACTIVE
+*Active
   70
 0
   10
@@ -67,9 +67,9 @@ AcDbViewportTableRecord
   21
 1
   12
-209.475294253
+5
   22
-86.0026335861
+5
   13
 0
   23
@@ -95,9 +95,9 @@ AcDbViewportTableRecord
   37
 0
   40
-319.744231092
+10
   41
-2.12946428571
+2
   42
 50
   43
@@ -150,6 +150,8 @@ AcDbViewportTableRecord
 0
   146
 0
+  348
+10020
   60
 7
   61
@@ -191,7 +193,7 @@ AcDbSymbolTableRecord
   100
 AcDbLinetypeTableRecord
   2
-BYBLOCK
+ByBlock
   70
 0
   3
@@ -213,7 +215,7 @@ AcDbSymbolTableRecord
   100
 AcDbLinetypeTableRecord
   2
-BYLAYER
+ByLayer
   70
 0
   3
@@ -235,7 +237,7 @@ AcDbSymbolTableRecord
   100
 AcDbLinetypeTableRecord
   2
-CONTINUOUS
+Continuous
   70
 0
   3
@@ -277,9 +279,9 @@ AcDbLayerTableRecord
   62
 7
   6
-CONTINUOUS
+Continuous
   370
--3
+0
   390
 0
   0
@@ -307,7 +309,7 @@ AcDbSymbolTableRecord
   100
 AcDbTextStyleTableRecord
   2
-STANDARD
+Standard
   70
 0
   40
@@ -390,6 +392,8 @@ DIMSTYLE
 8
   100
 AcDbSymbolTable
+  330
+0
   100
 AcDbDimStyleTable
   70
@@ -405,7 +409,7 @@ AcDbSymbolTableRecord
   100
 AcDbDimStyleTableRecord
   2
-STANDARD
+Standard
   70
 0
   40
@@ -413,11 +417,11 @@ STANDARD
   41
 2.5
   42
-0.0625
+0.625
   43
 0.38
   44
-0.18
+1.25
   45
 0
   46
@@ -521,7 +525,7 @@ STANDARD
   289
 3
   340
-STANDARD
+standard
   341
 
   371
@@ -551,11 +555,9 @@ BLOCK_RECORD
   100
 AcDbSymbolTableRecord
   100
-AcDbRegAppTableRecord
+AcDbBlockTableRecord
   2
-*MODEL_SPACE
-  70
-0
+*Model_Space
   70
 0
   280
@@ -571,11 +573,9 @@ BLOCK_RECORD
   100
 AcDbSymbolTableRecord
   100
-AcDbRegAppTableRecord
+AcDbBlockTableRecord
   2
-*PAPER_SPACE
-  70
-0
+*Paper_Space
   70
 0
   280
@@ -594,6 +594,8 @@ BLOCKS
 BLOCK
   5
 16
+  330
+14
   100
 AcDbEntity
   8
@@ -601,7 +603,7 @@ AcDbEntity
   100
 AcDbBlockBegin
   2
-*MODEL_SPACE
+*Model_Space
   70
 0
   10
@@ -611,13 +613,15 @@ AcDbBlockBegin
   30
 0
   3
-*MODEL_SPACE
+*Model_Space
   1
 
   0
 ENDBLK
   5
 17
+  330
+14
   100
 AcDbEntity
   8
@@ -628,6 +632,8 @@ AcDbBlockEnd
 BLOCK
   5
 18
+  330
+15
   100
 AcDbEntity
   8
@@ -635,7 +641,7 @@ AcDbEntity
   100
 AcDbBlockBegin
   2
-*PAPER_SPACE
+*Paper_Space
   70
 0
   10
@@ -645,13 +651,15 @@ AcDbBlockBegin
   30
 0
   3
-*PAPER_SPACE
+*Paper_Space
   1
 
   0
 ENDBLK
   5
 19
+  330
+15
   100
 AcDbEntity
   8

@@ -54,21 +54,27 @@ export default class DxfManager implements DxfInterface {
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandleSeed();
 		this.header.setVariable('$INSUNITS', { 70: DxfManager.currentUnits });
-		this.setViewCenter(0, 0);
+		this.setViewCenter(5, 5);
 
-		this.tables.addLineType('BYBLOCK', '', []);
-		this.tables.addLineType('BYLAYER', '', []);
-		this.tables.addLineType('CONTINUOUS', 'Solid line', []);
-		this.tables.addLayer('0', 7, 'CONTINUOUS');
-		this.tables.addStyle('STANDARD');
+		this.tables.addLineType('ByBlock', '', []);
+		this.tables.addLineType('ByLayer', '', []);
+		this.tables.addLineType('Continuous', 'Solid line', []);
+		this.tables.addLayer('0', 7, 'Continuous');
+		this.tables.addStyle('Standard');
 		this.tables.addAppId('ACAD');
-		this.tables.addDimStyle('STANDARD');
-		this.tables.addViewPort('*ACTIVE');
-		this.tables.addBlockRecord('*MODEL_SPACE');
-		this.tables.addBlockRecord('*PAPER_SPACE');
+		this.tables.addDimStyle('Standard');
+		const activeVPort = this.tables.addViewPort('*Active');
+		activeVPort.viewCenter = [5, 5];
+		activeVPort.viewHeight = 10;
+		const modelRecord = this.tables.addBlockRecord('*Model_Space');
+		const paperRecord = this.tables.addBlockRecord('*Paper_Space');
 
-		this.blocks.addBlock('*MODEL_SPACE');
-		this.blocks.addBlock('*PAPER_SPACE');
+		const modelBlock = this.blocks.addBlock('*Model_Space');
+		const paperBlock = this.blocks.addBlock('*Paper_Space');
+		modelBlock.softPointer = modelRecord.handle;
+		modelBlock.endBlk.softPointer = modelRecord.handle;
+		paperBlock.softPointer = paperRecord.handle;
+		paperBlock.endBlk.softPointer = paperRecord.handle;
 	}
 
 	private updateHandleSeed() {

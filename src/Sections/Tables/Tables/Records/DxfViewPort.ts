@@ -42,7 +42,7 @@ export default class DxfViewPort extends DxfRecord {
 		manager.addTag(70, 0);
 		manager.point2d({ x: 0, y: 0 });
 		manager.point2d({ x: 1, y: 1 }, 1);
-		manager.point2d({ x: x || 0, y: y || 0 }, 2);
+		manager.point2d({ x: x, y: y }, 2);
 		manager.point2d({ x: 0, y: 0 }, 3);
 		manager.point2d({ x: 10, y: 10 }, 4);
 		manager.point2d({ x: 10, y: 10 }, 5);
@@ -76,6 +76,7 @@ export default class DxfViewPort extends DxfRecord {
 		manager.addTag(132, 0);
 		manager.addTag(79, 0);
 		manager.addTag(146, 0);
+		manager.addTag(348, 10020);
 		manager.addTag(60, 7);
 		manager.addTag(61, 5);
 		manager.addTag(292, 1);

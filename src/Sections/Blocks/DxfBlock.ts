@@ -23,6 +23,11 @@ export default class DxfBlock extends Handle {
 	public get name(): string {
 		return this._name;
 	}
+
+	public get endBlk(): EndBlk {
+		return this._endBlk;
+	}
+
 	public get blockTypeFlags(): number {
 		return this._blockTypeFlags;
 	}
