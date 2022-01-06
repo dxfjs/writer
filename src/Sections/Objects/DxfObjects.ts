@@ -41,9 +41,9 @@ export default class DxfObjects implements DxfInterface {
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionBegin('OBJECTS');
-		manager.pushTags(this.rootDictionary.tags());
+		manager.appendTags(this.rootDictionary);
 		this.objects.forEach((object) => {
-			manager.pushTags(object.tags());
+			manager.appendTags(object);
 		});
 		manager.sectionEnd();
 		manager.entityType('EOF');

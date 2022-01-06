@@ -180,7 +180,7 @@ export default class Entities implements DxfInterface {
 		const manager = new TagsManager();
 		manager.sectionBegin('ENTITIES');
 		this.entities.forEach((entity) => {
-			manager.pushTags(entity.tags());
+			manager.appendTags(entity);
 		});
 		manager.sectionEnd();
 		return manager;

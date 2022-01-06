@@ -1,8 +1,5 @@
 import Entity, { SplineFlags } from '../Entity';
-import TagsManager, {
-	createPoint3d,
-	tag_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { createPoint3d } from '../../../Internals/TagsManager';
 
 export default class Spline extends Entity {
 	private readonly _controlPoints: number[][];
@@ -101,9 +98,9 @@ export default class Spline extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.addTag(70, this.flag);
 		manager.addTag(71, this.degreeCurve);
 		manager.addTag(72, this.knots.length);
@@ -124,6 +121,6 @@ export default class Spline extends Entity {
 			const [x, y, z] = fitPoint;
 			manager.point3d(createPoint3d(x, y, z), 1);
 		});
-		return manager.tags;
+		return manager;
 	}
 }

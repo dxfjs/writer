@@ -2,7 +2,6 @@ import Entity from '../Entity';
 import TagsManager, {
 	createPoint3d,
 	point3d_t,
-	tag_t,
 } from '../../../Internals/TagsManager';
 
 export default class Line extends Entity {
@@ -43,13 +42,13 @@ export default class Line extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d(
 			createPoint3d(this.start.x, this.start.y, this.start.z)
 		);
 		manager.point3d(createPoint3d(this.end.x, this.end.y, this.end.z), 1);
-		return manager.tags;
+		return manager;
 	}
 }

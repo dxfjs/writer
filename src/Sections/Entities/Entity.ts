@@ -1,6 +1,7 @@
 import DXFManager from '../../Internals/DXFManager';
 import Handle from '../../Internals/Handle';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import TagsManager from '../../Internals/TagsManager';
 
 export const enum SplineFlags {
 	Closed = 1, // Closed spline.
@@ -33,7 +34,7 @@ export const enum VertexFlags {
 	PolyfaceMeshVertex = 128, // Polyface mesh vertex.
 }
 
-export default class Entity extends Handle {
+export default class Entity extends Handle implements DxfInterface {
 	protected readonly _type: string;
 	protected readonly _subclassMarker: string | null;
 	private readonly _layerName: string;
@@ -78,9 +79,8 @@ export default class Entity extends Handle {
 	 *
 	 * @returns {Tag[]} Array of Tag.
 	 */
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-
 		manager.entityType(this._type);
 		manager.handle(this.handle);
 		manager.subclassMarker('AcDbEntity');
@@ -88,13 +88,10 @@ export default class Entity extends Handle {
 			manager.addTag(420, DXFManager.currentTrueColor);
 		manager.layerName(this.layerName);
 		if (this.subclassMarker) manager.subclassMarker(this.subclassMarker);
-
-		return manager.tags;
+		return manager;
 	}
 
 	public stringify(): string {
-		const manager = new TagsManager();
-		manager.pushTags(this.tags());
-		return manager.stringify();
+		return this.manager.stringify();
 	}
 }

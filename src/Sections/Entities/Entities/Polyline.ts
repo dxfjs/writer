@@ -1,8 +1,5 @@
 import Entity from '../Entity';
-import TagsManager, {
-	createPoint2d,
-	tag_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { createPoint2d } from '../../../Internals/TagsManager';
 
 export default class Polyline extends Entity {
 	get flag(): number {
@@ -39,15 +36,15 @@ export default class Polyline extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.addTag(90, this.points.length);
 		manager.addTag(70, this.flag);
 		this.points.forEach((point) => {
 			const [x, y] = point;
 			manager.point2d(createPoint2d(x, y));
 		});
-		return manager.tags;
+		return manager;
 	}
 }

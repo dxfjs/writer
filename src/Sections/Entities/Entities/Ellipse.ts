@@ -1,5 +1,5 @@
 import Entity from '../Entity';
-import TagsManager, { point3d_t, tag_t } from '../../../Internals/TagsManager';
+import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 
 export default class Ellipse extends Entity {
 	private readonly _center: point3d_t;
@@ -67,15 +67,15 @@ export default class Ellipse extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d({ x, y, z });
 		manager.point3d({ x: this.xMajorAxis, y: this.yMajorAxis, z: 0 }, 1);
 		manager.addTag(40, this.ratioMinorAxis);
 		manager.addTag(41, this.startParameter);
 		manager.addTag(42, this.endParameter);
-		return manager.tags;
+		return manager;
 	}
 }

@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 import Entity from '../Entity';
 
 export default class SeqEnd extends Entity {
@@ -6,9 +6,9 @@ export default class SeqEnd extends Entity {
 		super('SEQEND');
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
-		return manager.tags;
+		manager.pushTags(super.manager.tags);
+		return manager;
 	}
 }

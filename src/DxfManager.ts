@@ -1,11 +1,14 @@
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DXFInterface';
-import TagsManager from './Internals/TagsManager';
+import TagsManager, { point3d_t } from './Internals/TagsManager';
 import DxfBlocks from './Sections/Blocks/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
 import Entities from './Sections/Entities/Entities';
+import Image from './Sections/Entities/Entities/Image';
 import DxfHeader from './Sections/Header/DxfHeader';
 import DxfObjects from './Sections/Objects/DxfObjects';
+import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
+import DxfImageDefReactor from './Sections/Objects/Objects/DxfImageDefReactor';
 import DxfTables from './Sections/Tables/DxfTables';
 
 export default class DxfManager implements DxfInterface {
@@ -88,6 +91,38 @@ export default class DxfManager implements DxfInterface {
 
 	public setViewCenter(x: number, y: number) {
 		this.header.setVariable('$VIEWCTR', { 10: x, 20: y });
+	}
+
+	public addImage(
+		absolutePath: string,
+		insertionPoint: point3d_t,
+		width: number,
+		height: number,
+		scale: number
+	) {
+		const imageDef = new DxfImageDef(absolutePath);
+		const image = new Image({
+			height,
+			width,
+			scale,
+			insertionPoint,
+			imageDefId: imageDef.handle,
+		});
+		const imageDefReactor = new DxfImageDefReactor(image.handle);
+		image.imageDefReactorId = imageDefReactor.handle;
+		this.entities.addEntity(image);
+		this.objects.addObject(imageDef);
+		this.objects.addObject(imageDefReactor);
+		const dictionary = this.objects.createDictionary();
+		dictionary.addEntryObject(
+			'X_310168.70_Y_163789.62_S_388.28',
+			imageDef.handle
+		);
+		imageDef.softPointer = dictionary.handle;
+		this.objects.rootDictionary.addEntryObject(
+			'ACAD_IMAGE_DICT',
+			dictionary.handle
+		);
 	}
 
 	stringify(): string {

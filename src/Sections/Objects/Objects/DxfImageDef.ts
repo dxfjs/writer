@@ -1,4 +1,4 @@
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 import DxfObject from '../DxfObject';
 
 export default class DxfImageDef extends DxfObject {
@@ -13,12 +13,13 @@ export default class DxfImageDef extends DxfObject {
 		this._fileName = fileName;
 	}
 
-	tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbRasterImageDef');
 		manager.addTag(1, this.fileName);
 		manager.addTag(280, 1);
-		return manager.tags;
+		manager.addTag(281, 0);
+		return manager;
 	}
 }

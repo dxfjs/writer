@@ -1,6 +1,6 @@
 import Point from './Point';
 import Entity from '../Entity';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export default class Circle extends Entity {
 	private readonly _center: Point;
@@ -27,12 +27,12 @@ export default class Circle extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d({ x, y, z });
 		manager.addTag(40, this.radius);
-		return manager.tags;
+		return manager;
 	}
 }

@@ -1,5 +1,5 @@
 import DxfObject from '../DxfObject';
-import TagsManager, { tag_t } from '../../../Internals/TagsManager';
+import TagsManager from '../../../Internals/TagsManager';
 
 export type entryObject_t = {
 	name: string;
@@ -43,9 +43,9 @@ export default class DxfDictionary extends DxfObject {
 		});
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbDictionary');
 		if (this.hardOwnerFlag) manager.addTag(280, this.hardOwnerFlag);
 		manager.addTag(281, this.duplicateRecordCloningFlag);
@@ -53,6 +53,6 @@ export default class DxfDictionary extends DxfObject {
 			manager.addTag(3, entry.name);
 			manager.addTag(350, entry.softOwner);
 		});
-		return manager.tags;
+		return manager;
 	}
 }

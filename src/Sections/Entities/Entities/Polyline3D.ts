@@ -1,10 +1,7 @@
 import Entity from '../Entity';
 import Vertex from './Vertex';
 import SeqEnd from './SeqEnd';
-import TagsManager, {
-	createPoint3d,
-	tag_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { createPoint3d } from '../../../Internals/TagsManager';
 
 export default class Polyline3D extends Entity {
 	get flag(): number {
@@ -49,16 +46,16 @@ export default class Polyline3D extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.addTag(66, 1);
 		manager.point3d(createPoint3d(0, 0, 0));
 		manager.addTag(70, this.flag);
 		this._vertexes.forEach((vertex) => {
-			manager.pushTags(vertex.tags());
+			manager.appendTags(vertex);
 		});
-		manager.pushTags(this._seqEnd.tags());
-		return manager.tags;
+		manager.appendTags(this._seqEnd);
+		return manager;
 	}
 }

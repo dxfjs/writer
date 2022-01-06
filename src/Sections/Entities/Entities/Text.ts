@@ -1,7 +1,6 @@
 import TagsManager, {
 	createPoint3d,
 	point3d_t,
-	tag_t,
 } from '../../../Internals/TagsManager';
 import Entity from '../Entity';
 
@@ -33,15 +32,15 @@ export default class Text extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const [x, y, z] = [this.position.x, this.position.y, this.position.z];
 
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d(createPoint3d(x, y, z));
 		manager.addTag(40, this.height);
 		manager.addTag(1, this.value);
 		manager.subclassMarker('AcDbText');
-		return manager.tags;
+		return manager;
 	}
 }

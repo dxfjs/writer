@@ -9,7 +9,7 @@ AC1021
   9
 $HANDSEED
   5
-1A
+1E
   9
 $INSUNITS
   70
@@ -388,19 +388,19 @@ ENDTAB
 TABLE
   2
 DIMSTYLE
-  105
+  5
 8
-  100
-AcDbSymbolTable
   330
 0
   100
-AcDbDimStyleTable
+AcDbSymbolTable
   70
 1
+  100
+AcDbDimStyleTable
   0
 DIMSTYLE
-  5
+  105
 12
   330
 8
@@ -673,6 +673,46 @@ SECTION
   2
 ENTITIES
   0
+IMAGE
+  5
+1B
+  100
+AcDbEntity
+  8
+0
+  100
+AcDbRasterImage
+  90
+0
+  10
+10
+  20
+10
+  30
+10
+  11
+0.0006510416666666666
+  21
+0
+  31
+0
+  12
+0
+  22
+0.0006510416666666666
+  32
+0
+  13
+1536
+  23
+1280
+  340
+1A
+  70
+1
+  360
+1C
+  0
 ENDSEC
   0
 SECTION
@@ -692,6 +732,10 @@ AcDbDictionary
 ACAD_GROUP
   350
 B
+  3
+ACAD_IMAGE_DICT
+  350
+1D
   0
 DICTIONARY
   5
@@ -702,6 +746,44 @@ A
 AcDbDictionary
   281
 0
+  0
+IMAGEDEF
+  5
+1A
+  330
+1D
+  100
+AcDbRasterImageDef
+  1
+E:/GitHub/dxf/examples/X_310168.70_Y_163789.62_S_388.28.png
+  280
+1
+  281
+0
+  0
+IMAGEDEF_REACTOR
+  5
+1C
+  330
+1B
+  100
+AcDbRasterImageDefReactor
+  330
+1B
+  0
+DICTIONARY
+  5
+1D
+  330
+A
+  100
+AcDbDictionary
+  281
+0
+  3
+X_310168.70_Y_163789.62_S_388.28
+  350
+1A
   0
 ENDSEC
   0

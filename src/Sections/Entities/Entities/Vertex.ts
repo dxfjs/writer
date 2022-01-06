@@ -1,5 +1,5 @@
 import Entity from '../Entity';
-import TagsManager, { point3d_t, tag_t } from '../../../Internals/TagsManager';
+import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 
 export default class Vertex extends Entity {
 	get flag(): number {
@@ -24,12 +24,12 @@ export default class Vertex extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDb3dPolylineVertex'); // TODO Make this dynamic
 		manager.point3d(this.point);
 		manager.addTag(70, this.flag);
-		return manager.tags;
+		return manager;
 	}
 }

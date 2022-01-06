@@ -75,12 +75,9 @@ export default class DxfBlock extends Handle {
 		manager.point3d(this.basePoint);
 		manager.name(this.name, 3);
 		manager.addTag(1, this.xrefPathName);
-		manager.pushTags(
-			this.entities.reduce((tags: tag_t[], entity) => {
-				return [...tags, ...entity.tags()];
-			}, [])
-		);
-
+		this.entities.forEach((entity) => {
+			manager.appendTags(entity);
+		});
 		manager.appendTags(this._endBlk);
 		return manager.tags;
 	}

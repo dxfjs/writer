@@ -2,7 +2,6 @@ import Entity from '../Entity';
 import TagsManager, {
 	createPoint3d,
 	point3d_t,
-	tag_t,
 } from '../../../Internals/TagsManager';
 
 export default class Face extends Entity {
@@ -59,9 +58,9 @@ export default class Face extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d(
 			createPoint3d(this.first.x, this.first.y, this.first.z)
 		);
@@ -77,6 +76,6 @@ export default class Face extends Entity {
 			createPoint3d(this.fourth.x, this.fourth.y, this.fourth.z),
 			3
 		);
-		return manager.tags;
+		return manager;
 	}
 }

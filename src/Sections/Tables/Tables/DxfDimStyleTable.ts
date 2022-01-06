@@ -1,9 +1,8 @@
 import DxfDimStyle from './Records/DxfDimStyle';
 import TagsManager from '../../../Internals/TagsManager';
-import Handle from '../../../Internals/Handle';
-import DxfInterface from '../../../Internals/Interfaces/DXFInterface';
+import DxfTable from '../DxfTable';
 
-export default class DxfDimStyleTable extends Handle implements DxfInterface {
+export default class DxfDimStyleTable extends DxfTable {
 	private readonly _dimStyleRecords: DxfDimStyle[] = [];
 
 	public get dimStylesRecords(): DxfDimStyle[] {
@@ -11,7 +10,7 @@ export default class DxfDimStyleTable extends Handle implements DxfInterface {
 	}
 
 	public constructor() {
-		super();
+		super('DIMSTYLE');
 		this.softPointer = '0';
 	}
 
@@ -21,13 +20,8 @@ export default class DxfDimStyleTable extends Handle implements DxfInterface {
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.entityType('TABLE');
-		manager.name('DIMSTYLE');
-		manager.addTag(105, this.handle);
-		manager.subclassMarker('AcDbSymbolTable');
-		manager.pushTag(this.softPointerTag());
-		manager.subclassMarker('AcDbDimStyleTable');
-		manager.addTag(70, this.dimStylesRecords.length);
+		this.maxNumberEntries = this.dimStylesRecords.length;
+		manager.pushTags(super.manager.tags);
 		this.dimStylesRecords.forEach((dimStyleRecord) => {
 			manager.appendTags(dimStyleRecord);
 		});

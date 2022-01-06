@@ -1,8 +1,5 @@
 import Entity from '../Entity';
-import TagsManager, {
-	createPoint3d,
-	tag_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { createPoint3d } from '../../../Internals/TagsManager';
 
 export default class Point extends Entity {
 	get x(): number {
@@ -33,10 +30,10 @@ export default class Point extends Entity {
 		];
 	}
 
-	public tags(): tag_t[] {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.tags());
+		manager.pushTags(super.manager.tags);
 		manager.point3d(createPoint3d(this.x, this.y, this.z));
-		return manager.tags;
+		return manager;
 	}
 }
