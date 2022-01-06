@@ -13,6 +13,8 @@
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
 </div>
+
+💡 [Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.
 <!---[![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)-->
 <!---[![Build status](https://ci.appveyor.com/api/projects/status/0k7rcm5jovyr05ua?svg=true)](https://ci.appveyor.com/project/tarikjabiri/dxf)-->
 <!---[![Total alerts](https://img.shields.io/lgtm/alerts/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/alerts/)-->
