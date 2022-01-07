@@ -1,4 +1,4 @@
-import DxfManager from '../../DxfManager';
+import GlobalState from '../../GlobalState';
 import { boundingBox_t } from '../../Internals/BoundingBox';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
@@ -31,7 +31,7 @@ export default abstract class Entity extends Handle implements DxfInterface {
 		super();
 		this._type = type;
 		this._subclassMarker = subclassMarker;
-		this._layerName = DxfManager.currentLayerName;
+		this._layerName = GlobalState.currentLayerName;
 	}
 
 	/**
@@ -50,8 +50,8 @@ export default abstract class Entity extends Handle implements DxfInterface {
 		manager.entityType(this._type);
 		manager.handle(this.handle);
 		manager.subclassMarker('AcDbEntity');
-		if (!isNaN(DxfManager.currentTrueColor))
-			manager.addTag(420, DxfManager.currentTrueColor);
+		if (!isNaN(GlobalState.currentTrueColor))
+			manager.addTag(420, GlobalState.currentTrueColor);
 		manager.layerName(this.layerName);
 		if (this.subclassMarker) manager.subclassMarker(this.subclassMarker);
 		return manager;

@@ -1,3 +1,4 @@
+import GlobalState from './GlobalState';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
 import TagsManager, { point3d_t } from './Internals/TagsManager';
@@ -21,10 +22,6 @@ export default class DxfManager implements DxfInterface {
 	private readonly _objects: DxfObjects;
 
 	private readonly _activeViewPort: DxfViewPort;
-
-	static currentLayerName = '0';
-	static currentUnits = 0;
-	static currentTrueColor = NaN;
 
 	public get header(): DxfHeader {
 		return this._header;
@@ -60,7 +57,7 @@ export default class DxfManager implements DxfInterface {
 
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandleSeed();
-		this.header.setVariable('$INSUNITS', { 70: DxfManager.currentUnits });
+		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
 
 		this.tables.addLineType('ByBlock', '', []);
 		this.tables.addLineType('ByLayer', '', []);
@@ -87,8 +84,8 @@ export default class DxfManager implements DxfInterface {
 	}
 
 	public setUnits(units: number) {
-		DxfManager.currentUnits = units;
-		this.header.setVariable('$INSUNITS', { 70: DxfManager.currentUnits });
+		GlobalState.units = units;
+		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
 	}
 
 	public setViewCenter(center: point3d_t) {

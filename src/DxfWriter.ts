@@ -3,6 +3,7 @@ import { point2d, point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfManager from './DxfManager';
 import { values_t } from './Sections/Header/DxfVariable';
 import DxfObject from './Sections/Objects/DxfObject';
+import GlobalState from './GlobalState';
 
 /**
  *
@@ -84,7 +85,7 @@ export default class DxfWriter {
 				(layer) => layer.name === layerName
 			)
 		) {
-			DxfManager.currentLayerName = layerName;
+			GlobalState.currentLayerName = layerName;
 		} else {
 			throw new Error(
 				`The layer ${layerName} doesn't exist in the LayerTable.`
@@ -101,7 +102,7 @@ export default class DxfWriter {
 	 * @returns return the current object of DxfWriter.
 	 */
 	public setUnits(units: number): this {
-		if (Object.values(DxfManager.currentUnits).indexOf(units) > -1) {
+		if (Object.values(GlobalState.units).indexOf(units) > -1) {
 			//this.header.units = unit;
 		} else {
 			throw new Error(
