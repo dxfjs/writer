@@ -1,4 +1,4 @@
-import { createGroupCode, createTag } from './TagsManager';
+import { createGroupCode, tag } from './TagsManager';
 
 export default class TrueColor {
 	private _color: number;
@@ -8,7 +8,7 @@ export default class TrueColor {
 	}
 
 	public trueColorTag(lastDigit: number = 0) {
-		return createTag(createGroupCode(42, lastDigit), this.color);
+		return tag(createGroupCode(42, lastDigit), this.color);
 	}
 
 	public constructor(hexColor: string) {

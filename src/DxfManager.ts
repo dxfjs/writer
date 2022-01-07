@@ -1,7 +1,7 @@
 import Handle from './Internals/Handle';
-import DxfInterface from './Internals/Interfaces/DXFInterface';
+import DxfInterface from './Internals/Interfaces/DxfInterface';
 import TagsManager, { point3d_t } from './Internals/TagsManager';
-import DxfBlocks from './Sections/Blocks/DxfBlocks';
+import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
 import Entities from './Sections/Entities/Entities';
 import Image from './Sections/Entities/Entities/Image';
@@ -10,6 +10,7 @@ import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
 import DxfImageDefReactor from './Sections/Objects/Objects/DxfImageDefReactor';
 import DxfTables from './Sections/Tables/DxfTables';
+import DxfViewPort from './Sections/Tables/Tables/Records/DxfViewPort';
 
 export default class DxfManager implements DxfInterface {
 	private readonly _header: DxfHeader;
@@ -19,8 +20,11 @@ export default class DxfManager implements DxfInterface {
 	private readonly _entities: Entities;
 	private readonly _objects: DxfObjects;
 
+	private readonly _activeViewPort: DxfViewPort;
+
 	static currentLayerName = '0';
 	static currentUnits = 0;
+	static currentTrueColor = NaN;
 
 	public get header(): DxfHeader {
 		return this._header;
@@ -57,7 +61,6 @@ export default class DxfManager implements DxfInterface {
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandleSeed();
 		this.header.setVariable('$INSUNITS', { 70: DxfManager.currentUnits });
-		this.setViewCenter(5, 5);
 
 		this.tables.addLineType('ByBlock', '', []);
 		this.tables.addLineType('ByLayer', '', []);
@@ -66,9 +69,8 @@ export default class DxfManager implements DxfInterface {
 		this.tables.addStyle('Standard');
 		this.tables.addAppId('ACAD');
 		this.tables.addDimStyle('Standard');
-		const activeVPort = this.tables.addViewPort('*Active');
-		activeVPort.viewCenter = [5, 5];
-		activeVPort.viewHeight = 10;
+		this._activeViewPort = this.tables.addViewPort('*Active');
+
 		const modelRecord = this.tables.addBlockRecord('*Model_Space');
 		const paperRecord = this.tables.addBlockRecord('*Paper_Space');
 
@@ -89,22 +91,26 @@ export default class DxfManager implements DxfInterface {
 		this.header.setVariable('$INSUNITS', { 70: DxfManager.currentUnits });
 	}
 
-	public setViewCenter(x: number, y: number) {
-		this.header.setVariable('$VIEWCTR', { 10: x, 20: y });
+	public setViewCenter(center: point3d_t) {
+		this.header.setVariable('$VIEWCTR', { 10: center.x, 20: center.y });
+		this._activeViewPort.viewCenter = [center.x, center.y];
 	}
 
 	public addImage(
 		absolutePath: string,
+		name: string,
 		insertionPoint: point3d_t,
 		width: number,
 		height: number,
-		scale: number
+		scale: number,
+		rotation: number
 	) {
 		const imageDef = new DxfImageDef(absolutePath);
 		const image = new Image({
 			height,
 			width,
 			scale,
+			rotation,
 			insertionPoint,
 			imageDefId: imageDef.handle,
 		});
@@ -114,19 +120,21 @@ export default class DxfManager implements DxfInterface {
 		this.objects.addObject(imageDef);
 		this.objects.addObject(imageDefReactor);
 		const dictionary = this.objects.createDictionary();
-		dictionary.addEntryObject(
-			'X_310168.70_Y_163789.62_S_388.28',
-			imageDef.handle
-		);
+
+		dictionary.addEntryObject(name, imageDef.handle);
 		imageDef.softPointer = dictionary.handle;
 		this.objects.rootDictionary.addEntryObject(
 			'ACAD_IMAGE_DICT',
 			dictionary.handle
 		);
+		imageDef.acadImageDicId = dictionary.handle;
+		imageDef.imageReactorId = imageDefReactor.handle;
 	}
 
 	stringify(): string {
 		this.updateHandleSeed();
+		this.setViewCenter(this.entities.centerView());
+		this._activeViewPort.viewHeight = this.entities.viewHeight();
 		return this.manager.stringify();
 	}
 

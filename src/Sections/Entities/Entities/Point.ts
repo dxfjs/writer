@@ -1,5 +1,6 @@
 import Entity from '../Entity';
-import TagsManager, { createPoint3d } from '../../../Internals/TagsManager';
+import TagsManager, { point3d } from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Point extends Entity {
 	get x(): number {
@@ -23,17 +24,14 @@ export default class Point extends Entity {
 		this._z = z;
 	}
 
-	public boundingBox() {
-		return [
-			[this.x, this.y],
-			[this.x, this.y],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
-		manager.point3d(createPoint3d(this.x, this.y, this.z));
+		manager.point3d(point3d(this.x, this.y, this.z));
 		return manager;
 	}
 }

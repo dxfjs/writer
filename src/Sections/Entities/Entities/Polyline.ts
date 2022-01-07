@@ -1,39 +1,31 @@
 import Entity from '../Entity';
-import TagsManager, { createPoint2d } from '../../../Internals/TagsManager';
+import TagsManager, {
+	point3d,
+	point2d_t,
+} from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Polyline extends Entity {
 	get flag(): number {
 		return this._flag;
 	}
-	get points(): number[][] {
+	get points(): point2d_t[] {
 		return this._points;
 	}
 
-	private readonly _points: number[][];
+	private readonly _points: point2d_t[];
 	private readonly _flag: number;
 
-	public constructor(points: number[][], flag: number) {
+	public constructor(points: point2d_t[], flag: number) {
 		super('LWPOLYLINE', 'AcDbPolyline');
 		this._points = points;
 		this._flag = flag;
 	}
 
-	public boundingBox() {
-		const arrayX: number[] = [];
-		const arrayY: number[] = [];
-		this.points.forEach((point) => {
-			const [x, y] = point;
-			arrayX.push(x);
-			arrayY.push(y);
-		});
-		const minX = Math.min(...arrayX);
-		const maxX = Math.max(...arrayX);
-		const minY = Math.min(...arrayY);
-		const maxY = Math.max(...arrayY);
-		return [
-			[minX, maxY],
-			[maxX, minY],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.verticesBBox(
+			this.points.map((p) => point3d(p.x, p.y, 0))
+		);
 	}
 
 	public get manager(): TagsManager {
@@ -42,8 +34,7 @@ export default class Polyline extends Entity {
 		manager.addTag(90, this.points.length);
 		manager.addTag(70, this.flag);
 		this.points.forEach((point) => {
-			const [x, y] = point;
-			manager.point2d(createPoint2d(x, y));
+			manager.point2d(point);
 		});
 		return manager;
 	}

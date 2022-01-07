@@ -1,8 +1,8 @@
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export type values_t = {
-	[key: number]: number | string;
+	[groupCode: number]: number | string;
 };
 
 export default class DxfVariable implements DxfInterface {

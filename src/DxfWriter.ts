@@ -1,16 +1,13 @@
-import DXFManager from './Internals/DXFManager';
-import Entity, { PolylineFlags, SplineFlags } from './Sections/Entities/Entity';
-import DxfDictionary from './Sections/Objects/Objects/DxfDictionary';
-import DxfObject from './Sections/Objects/DxfObject';
-import { values_t } from './Sections/Header/DxfVariable';
-import DxfInterface from './Internals/Interfaces/DXFInterface';
-import TagsManager from './Internals/TagsManager';
+import Entity from './Sections/Entities/Entity';
+import { point2d, point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfManager from './DxfManager';
+import { values_t } from './Sections/Header/DxfVariable';
+import DxfObject from './Sections/Objects/DxfObject';
 
 /**
  *
  */
-export default class DxfWriter implements DxfInterface {
+export default class DxfWriter {
 	private readonly _dxfManager: DxfManager;
 
 	public get dxfManager(): DxfManager {
@@ -18,14 +15,14 @@ export default class DxfWriter implements DxfInterface {
 	}
 
 	/**
-	 * The base class for creating the dxf content.
+	 * The base class for creating the Dxf content.
 	 */
 	public constructor() {
 		this._dxfManager = new DxfManager();
 	}
 
 	/**
-	 * Add a header variable to dxf if not exist. \
+	 * Add a header variable to the Dxf if not exist. \
 	 * If exist it will updates values.
 	 * @example
 	 * ```js
@@ -38,58 +35,56 @@ export default class DxfWriter implements DxfInterface {
 	 *
 	 * @returns return the current object of DxfWriter.
 	 */
-	public setVariable(name: string, values: values_t): DxfWriter {
+	public setVariable(name: string, values: values_t): this {
 		this.dxfManager.header.setVariable(name, values);
 		return this;
 	}
 
 	/**
-	 * Add a new LineType o the dxf.
+	 * Add a new LineType to the Dxf.
 	 *
-	 * @param name {string} name of linetype.
-	 * @param descriptive {string} the descriptive of the line ex: __ __ . __ __ .
-	 * @param elements {number[]} an array of the pattern. 📝 need more explications 😭
+	 * @param name name of linetype.
+	 * @param descriptive the descriptive of the line ex: __ __ . __ __ .
+	 * @param elements an array of the pattern. 📝 need more explications 😭
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
 	public addLineType(
 		name: string,
 		descriptive: string,
 		elements: number[]
-	): DxfWriter {
+	): this {
 		this.dxfManager.tables.addLineType(name, descriptive, elements);
 		return this;
 	}
 
 	/**
-	 * Add a new Layer to the dxf.
+	 * Add a new Layer to the Dxf.
 	 *
-	 * @param name  {string} the name of the layer.
-	 * @param color {number} the color index.
-	 * @param lineType {string} the lineType name.
-	 * @param flag  {number} the flag of the layer (0: is thawed, 1: is frozen).
-	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @param name  the name of the layer.
+	 * @param color the color index.
+	 * @param lineType the lineType name.
+	 * @param flag the flag of the layer (0: is thawed, 1: is frozen).
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addLayer(name: string, color: number, lineType: string): DxfWriter {
+	public addLayer(name: string, color: number, lineType: string): this {
 		this.dxfManager.tables.addLayer(name, color, lineType);
 		return this;
 	}
 
 	/**
-	 * Set the current Layer.
+	 * Set the current layer of the Dxf.
 	 *
-	 * @param layerName {string} the layer name.
-	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @param layerName the layer name.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public setCurrentLayer(layerName: string): DxfWriter {
+	public setCurrentLayer(layerName: string): this {
 		if (
 			this.dxfManager.tables.layers.find(
 				(layer) => layer.name === layerName
 			)
 		) {
-			DXFManager.currentLayer = layerName;
+			DxfManager.currentLayerName = layerName;
 		} else {
 			throw new Error(
 				`The layer ${layerName} doesn't exist in the LayerTable.`
@@ -99,35 +94,18 @@ export default class DxfWriter implements DxfInterface {
 	}
 
 	/**
-	 * Set the units of the dxf.
+	 * Set the units of the Dxf.
 	 *
 	 * @param units use DXFWriter.units to set the unit.
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public setUnits(units: number): DxfWriter {
-		if (Object.values(DXFManager.units).indexOf(units) > -1) {
+	public setUnits(units: number): this {
+		if (Object.values(DxfManager.currentUnits).indexOf(units) > -1) {
 			//this.header.units = unit;
 		} else {
 			throw new Error(
 				`The ${units} is not a valid Units, please see DXFManager.units.`
-			);
-		}
-		return this;
-	}
-
-	/**
-	 * Set the version of the dxf.
-	 * Not working at this moment :(. Do bot bother using it.
-	 * @param version {string} use DXFWriter.versions to set the version.
-	 * @returns {DxfWriter} return the instance of DXFWriter.
-	 */
-	public setVersion(version: string): DxfWriter {
-		if (Object.values(DXFManager.versions).indexOf(version) > -1) {
-			DXFManager.version = version;
-		} else {
-			throw new Error(
-				`The ${version} is not a valid Version, please see DXFManager.versions.`
 			);
 		}
 		return this;
@@ -143,151 +121,116 @@ export default class DxfWriter implements DxfInterface {
 		return this;
 	}
 
-	public addDictionary(name: string, entryObject: DXFManager) {
-		const dictionary = new DxfDictionary();
-		dictionary.addEntryObject(name, entryObject.handle);
-		this.dxfManager.objects.addObject(dictionary);
-		return this;
-	}
-
 	/**
-	 * Add a Line entity to the dxf in the current Layer.
-	 * @param x_start {number} the X coordinate of the first point.
-	 * @param y_start {number} the Y coordinate of the first point.
-	 * @param x_end   {number} the X coordinate of the second point.
-	 * @param y_end   {number} the Y coordinate of the second point.
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * Add a Line entity to the Dxf.
+	 *
+	 * @param startPoint The start point of the line.
+	 * @param endPoint The end point of the line.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addLine(
-		x_start: number,
-		y_start: number,
-		x_end: number,
-		y_end: number
-	): DxfWriter {
-		this.dxfManager.entities.addLine(x_start, y_start, x_end, y_end);
+	public addLine(startPoint: point3d_t, endPoint: point3d_t): this {
+		this.dxfManager.entities.addLine(startPoint, endPoint);
 		return this;
 	}
 
 	/**
-	 * Add a Polyline entity to the dxf in the current Layer.
+	 * Add a Polyline entity to the Dxf.
 	 * @link http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3.
 	 *
 	 * The Polyline entity can represent the Rectangle and the Polygon \
 	 * just pass the array of points and PolylineFlags.Closed flag (flag = 1).
 	 *
-	 * @param points {number[][]}    an array of points like: [[x1, y1], [x2, y2], ...].
-	 * @param flag   {PolylineFlags} an enteger number represent the Polyline flag.
+	 * @param points An array of points like: [[x1, y1], [x2, y2], ...].
+	 * @param flag An enteger number represent the Polyline flag.
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addPolyline(points: number[][], flag: PolylineFlags): DxfWriter {
+	public addLWPolyline(points: point3d_t[], flag: number): this {
 		this.dxfManager.entities.addPolyline(points, flag);
 		return this;
 	}
 
 	/**
-	 * Add a Rectangle as Polyline entity (Closed) to the dxf in the current Layer.
+	 * Add a Rectangle as closed lwpolyline entity to the Dxf.
 	 * In DXF Reference there is no entity called Rectangle or Polygon.
 	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
 	 *
-	 * @param top_left_x     {number} the X coordinate of the Top Lef corner of the rectangle.
-	 * @param top_left_y     {number} the Y coordinate of the Top Lef corner of the rectangle.
-	 * @param bottom_right_x {number} the X coordinate of the Bottom Right corner of the rectangle.
-	 * @param bottom_right_y {number} the Y coordinate of the Bottom Right corner of the rectangle.
-	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @param topLeft The topleft corner of the rectangle.
+	 * @param bottomRight The bottom right corner of the rectangle.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addRectangle(
-		top_left_x: number,
-		top_left_y: number,
-		bottom_right_x: number,
-		bottom_right_y: number
-	): DxfWriter {
+	public addRectangle(topLeft: point2d_t, bottomRight: point2d_t): this {
 		const corners = [
-			[top_left_x, top_left_y],
-			[bottom_right_x, top_left_y],
-			[bottom_right_x, bottom_right_y],
-			[top_left_x, bottom_right_y],
+			topLeft,
+			point2d(bottomRight.x, topLeft.y),
+			bottomRight,
+			point2d(topLeft.x, bottomRight.y),
 		];
-
-		this.dxfManager.entities.addPolyline(corners, PolylineFlags.Closed);
+		this.dxfManager.entities.addPolyline(corners, 1);
 		return this;
 	}
 
 	/**
-	 * Add a 3D Polyline entity to the dxf in the current Layer.
+	 * Add a 3D Polyline entity to the Dxf.
 	 * @param points{number[][]} an array of points like: [[x1, y1, z1], [x2, y2, z2], ...].
 	 * @param flag
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addPolyline3D(points: number[][], flag: number): DxfWriter {
+	public addPolyline3D(points: point3d_t[], flag: number): this {
 		this.dxfManager.entities.addPolyline3D(points, flag);
 		return this;
 	}
 
 	/**
-	 * Add a Point entity to the dxf in the current Layer.
-	 * @param x {number} the X coordinate of the point.
-	 * @param y {number} the Y coordinate of the point.
-	 * @param z {number} the Z coordinate of the point.
+	 * Add a Point entity to the Dxf.
+	 * @param  the X coordinate of the point.
+	 * @param  the Y coordinate of the point.
+	 * @param  the Z coordinate of the point.
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addPoint(x: number, y: number, z: number): DxfWriter {
+	public addPoint(x: number, y: number, z: number): this {
 		this.dxfManager.entities.addPoint(x, y, z);
 		return this;
 	}
 
 	/**
-	 * Add a Circle entity to the dxf in the current Layer.
-	 * @param x_center  {number} the X coordinate of the center of the circle.
-	 * @param y_center  {number} the Y coordinate of the center of the circle.
-	 * @param radius    {number} the radius of the circle.
-	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * Add a Circle entity to the Dxf.
+	 * @param center The center point of the circle.
+	 * @param radius The radius of the circle.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public addCircle(
-		x_center: number,
-		y_center: number,
-		radius: number
-	): DxfWriter {
-		this.dxfManager.entities.addCircle(x_center, y_center, radius);
+	public addCircle(center: point3d_t, radius: number): this {
+		this.dxfManager.entities.addCircle(center, radius);
 		return this;
 	}
 
 	/**
-	 * Add an Arc entity to the dxf in the current Layer.
+	 * Add an Arc entity to the Dxf.
 	 *
-	 * @param x_center      {number} the X coordinate of the center of the arc.
-	 * @param y_center      {number} the Y coordinate of the center of the arc.
-	 * @param radius        {number} the radius of the arc.
-	 * @param start_angle   {number} the start of the angle (begining of arc) in degrees Anticlockwise.
-	 * @param endAngle      {number} the end of the angle (end of arc) in degrees Anticlockwise.
+	 * @param x_center     the X coordinate of the center of the arc.
+	 * @param y_center     the Y coordinate of the center of the arc.
+	 * @param radius       the radius of the arc.
+	 * @param startAngle  the start of the angle (begining of arc) in degrees Anticlockwise.
+	 * @param endAngle     the end of the angle (end of arc) in degrees Anticlockwise.
 	 *
 	 * 📝 Angles always start from X-axis towards anticlockwise.
 	 *
-	 * @returns {DxfWriter} return the instance of DXFWriter.
+	 * @returns return the current object of DxfWriter.
 	 */
 	public addArc(
-		x_center: number,
-		y_center: number,
+		center: point3d_t,
 		radius: number,
-		start_angle: number,
+		startAngle: number,
 		endAngle: number
-	): DxfWriter {
-		this.dxfManager.entities.addArc(
-			x_center,
-			y_center,
-			radius,
-			start_angle,
-			endAngle
-		);
+	): this {
+		this.dxfManager.entities.addArc(center, radius, startAngle, endAngle);
 		return this;
 	}
 
 	/**
-	 * Add a Spline entity to the dxf. It's a NURBS.
+	 * Add a Spline entity to the Dxf. It's a NURBS.
 	 *
 	 * NURBS, Non-Uniform Rational B-Splines, are mathematical representations of 3D geometry that
 	 * can accurately describe any shape from a simple 2D line, circle, arc, or curve to the most
@@ -298,25 +241,25 @@ export default class DxfWriter implements DxfInterface {
 	 * @link https://www.rhino3d.com/features/nurbs/.
 	 * @link http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74.
 	 *
-	 * @param control_points {[number, number][]} the control points of the spline.
-	 * @param fit_points {[number, number][]} the fit points for the spline.
-	 * @param curve_degree {number} the curve degree of the spline, mostly 3.
-	 * @param flag {SplineFlags} an integer represent the flag of the spline.
-	 * @param knots {number[]} the knots of th spline. If you don't know what is this set it to an empty array []
-	 * @param weights {number[]} the weights of th spline. If you don't know what is this set it to an empty array []
+	 * @param controlPoints The control points of the spline.
+	 * @param fitPoints The fit points of the spline.
+	 * @param degreeCurve The degree curve of the spline, mostly 3.
+	 * @param flag An integer represent the flag of the spline.
+	 * @param knots The knots of th spline. If you don't know what is this set it to an empty array [].
+	 * @param weights The weights of th spline. If you don't know what is this set it to an empty array [].
 	 */
 	public addSpline(
-		control_points: number[][],
-		fit_points: number[][],
-		curve_degree: number,
-		flag: SplineFlags,
+		controlPoints: point3d_t[],
+		fitPoints: point3d_t[],
+		degreeCurve: number,
+		flag: number,
 		knots: number[],
 		weights: number[]
-	): DxfWriter {
+	): this {
 		this.dxfManager.entities.addSpline(
-			control_points,
-			fit_points,
-			curve_degree,
+			controlPoints,
+			fitPoints,
+			degreeCurve,
 			flag,
 			knots,
 			weights
@@ -325,162 +268,123 @@ export default class DxfWriter implements DxfInterface {
 	}
 
 	/**
-	 * Add an Ellipse entity to the dxf in the current Layer.
+	 * Add an Ellipse entity to the Dxf.
 	 *
-	 * @param x_center
-	 * @param y_center
-	 * @param x_major_axis
-	 * @param y_major_axis
-	 * @param ratio_minor_axis
-	 * @param start_parameter
-	 * @param end_parameter
+	 * @param center The center point of the ellipse.
+	 * @param endPointOfMajorAxis The end point of major axis, relative to the center of the ellipse.
+	 * @param ratioOfMinorAxisToMajorAxis The ratio of minor axis to major axis.
+	 * @param startParameter The start parameter (this value is 0.0 for a full ellipse).
+	 * @param endParameter The end parameter (this value is 2pi for a full ellipse).
+	 * @returns return the current object of DxfWriter.
 	 */
 	public addEllipse(
-		x_center: number,
-		y_center: number,
-		x_major_axis: number,
-		y_major_axis: number,
-		ratio_minor_axis: number,
-		start_parameter: number,
-		end_parameter: number
-	): DxfWriter {
+		center: point3d_t,
+		endPointOfMajorAxis: point3d_t,
+		ratioOfMinorAxisToMajorAxis: number,
+		startParameter: number,
+		endParameter: number
+	): this {
 		this.dxfManager.entities.addEllipse(
-			x_center,
-			y_center,
-			x_major_axis,
-			y_major_axis,
-			ratio_minor_axis,
-			start_parameter,
-			end_parameter
+			center,
+			endPointOfMajorAxis,
+			ratioOfMinorAxisToMajorAxis,
+			startParameter,
+			endParameter
 		);
 		return this;
 	}
 
 	/**
-	 * Add an entity 3D Face to the dxf.
-	 * @param x_first
-	 * @param y_first
-	 * @param z_first
-	 * @param x_second
-	 * @param y_second
-	 * @param z_second
-	 * @param x_third
-	 * @param y_third
-	 * @param z_third
-	 * @param x_fourth
-	 * @param y_fourth
-	 * @param z_fourth
+	 * Add an image entity to the Dxf.
+	 *
+	 * @example
+	 * ```js
+	 * const dxf = new DxfWriter();
+	 * dxf.addImage(
+	 *		'E:/folder/subfolder/test.png', // The absolute path of the image.
+	 *		'test', // The name of the image.
+	 *		createPoint3d(10, 10, 10), // The insertion point.
+	 *		600, // The width of the image in pixels.
+	 *		600, //The height of the image in pixels.
+	 *		1, // The scale to be applied to the image.
+	 *		0 //The scale to be applied to the image.
+	 * );
+	 * ```
+	 * @param absolutePath The absolute path of the image.
+	 * @param name The name of the image.
+	 * @param insertionPoint The insertion point.
+	 * @param width The width of the image in pixels.
+	 * @param height The height of the image in pixels.
+	 * @param scale The scale to be applied to the image.
+	 * @param rotation The rotation angle (Degrees) to be applied to the image.
+	 * @returns return the current object of DxfWriter.
 	 */
-	public add3DFace(
-		x_first: number,
-		y_first: number,
-		z_first: number,
-		x_second: number,
-		y_second: number,
-		z_second: number,
-		x_third: number,
-		y_third: number,
-		z_third: number,
-		x_fourth: number,
-		y_fourth: number,
-		z_fourth: number
-	): DxfWriter {
-		this.dxfManager.entities.add3DFace(
-			x_first,
-			y_first,
-			z_first,
-			x_second,
-			y_second,
-			z_second,
-			x_third,
-			y_third,
-			z_third,
-			x_fourth,
-			y_fourth,
-			z_fourth
+	public addImage(
+		absolutePath: string,
+		name: string,
+		insertionPoint: point3d_t,
+		width: number,
+		height: number,
+		scale: number,
+		rotation: number
+	) {
+		this.dxfManager.addImage(
+			absolutePath,
+			name,
+			insertionPoint,
+			width,
+			height,
+			scale,
+			rotation
 		);
 		return this;
 	}
 
 	/**
-	 * Add an entity text to the the dxf.
-	 * @param x
-	 * @param y
-	 * @param height
-	 * @param value the text value
+	 * Add a 3D Face entity to the Dxf.
+	 *
+	 * @param firstCorner The first corner of the 3d face.
+	 * @param secondCorner The first corner of the 3d face.
+	 * @param thirdCorner The first corner of the 3d face.
+	 * @param fourthCorner The first corner of the 3d face.
+	 * @returns return the current object of DxfWriter.
+	 */
+	public add3dFace(
+		firstCorner: point3d_t,
+		secondCorner: point3d_t,
+		thirdCorner: point3d_t,
+		fourthCorner: point3d_t
+	): this {
+		this.dxfManager.entities.add3dFace(
+			firstCorner,
+			secondCorner,
+			thirdCorner,
+			fourthCorner
+		);
+		return this;
+	}
+
+	/**
+	 * Add a text entity to the Dxf.
+	 * @param firstAlignementPoint The first alignment point of the text.
+	 * @param height The text height.
+	 * @param value The default value (the string itself).
+	 * @returns return the current object of DxfWriter.
 	 */
 	public addText(
-		x: number,
-		y: number,
+		firstAlignementPoint: point3d_t,
 		height: number,
 		value: string
-	): DxfWriter {
-		this.dxfManager.entities.addText(x, y, height, value);
+	): this {
+		this.dxfManager.entities.addText(firstAlignementPoint, height, value);
 		return this;
 	}
 
 	/**
-	 * Set the current true color for all coming entities.
-	 * @param red The red value between 0 and 255
-	 * @param green The green value between 0 and 255
-	 * @param blue The blue value between 0 and 255
-	 * @returns {DxfWriter}
-	 */
-	public setTrueColor(red: number, green: number, blue: number): DxfWriter {
-		DXFManager.setTrueColorRGB(red, green, blue);
-		return this;
-	}
-
-	/**
-	 * Set the current true color for all coming entities.
-	 * @param red The red value between 0 and 255
-	 * @param green The green value between 0 and 255
-	 * @param blue The blue value between 0 and 255
-	 * @returns {DxfWriter}
-	 */
-	public setTrueColorRGB(
-		red: number,
-		green: number,
-		blue: number
-	): DxfWriter {
-		DXFManager.setTrueColorRGB(red, green, blue);
-		return this;
-	}
-
-	/**
-	 * Set the current true color for all coming entities.
-	 * @param hex The hexadecimal representation of the color.
-	 * @returns {DxfWriter}
-	 */
-	public setTrueColorHex(hex: string): DxfWriter {
-		DXFManager.setTrueColorHex(hex);
-		return this;
-	}
-
-	/**
-	 * Unset the current true color to stop using it in coming entities.
-	 * @returns {DxfWriter}
-	 */
-	public unsetTrueColor(): DxfWriter {
-		DXFManager.unsetTrueColor();
-		return this;
-	}
-
-	/**
-	 * @return string get the dxf string.
+	 * Get the content of the Dxf.
+	 * @return Get the Dxf string.
 	 */
 	public stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.appendTags(this.dxfManager.header);
-		manager.appendTags(this.dxfManager.classes);
-		manager.appendTags(this.dxfManager.tables);
-		//manager.appendTags(this.dxfManager.blocks);
-		//manager.appendTags(this.dxfManager.entities);
-		//manager.appendTags(this.dxfManager.objects);
-		return manager;
+		return this.dxfManager.stringify();
 	}
 }

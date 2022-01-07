@@ -14,14 +14,14 @@ let points = [
 ];
 dxf.addLine();
 dxf.unsetTrueColor();
-dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0, -4])
+dxf.addLineType('DOT', '. . . . . . . . . . ', [0, -4])
 	.addLineType(
 		'ACAD_ISO11W100',
 		'__ __ . __ __ . __ __ .',
 		[4, -2, 4, -2, 0, -2]
 	)
-	.addLineType('DOT2', '.................................', [0, -2])
-	.addLineType('DASHED', '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [4, -4]);
+	.addLineType('DOT2', '......................', [0, -2])
+	.addLineType('DASHED', '_ _ _ _ _ _ _ _ _ _ _ ', [4, -4]);
 
 dxf.addLayer('l_red', 1, 'DASHED')
 	.addLayer('l_green', 3, 'Continuous')
@@ -48,20 +48,5 @@ dxf.setCurrentLayer('l_green')
 	.setCurrentLayer('l_yellow')
 	.addEllipse(100, 50, 150, 0, 0.5, 0, 2 * Math.PI)
 	.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
-
-/*const img = new Image({
-	fileName: 'E:/GitHub/dxf/examples/X_310168.70_Y_163789.62_S_388.28.png',
-	width: '1000',
-	height: '500',
-	scale: 100,
-	insertionPoint: {
-		x: 100,
-		y: 100,
-		z: 0,
-	},
-});
-dxf.addObject(img.imageDef);
-//dxf.addDictionary('X_310168.70_Y_163789.62_S_388.28', img.imageDef);
-dxf.addEntity(img);*/
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());

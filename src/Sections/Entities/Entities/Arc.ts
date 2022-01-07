@@ -1,6 +1,6 @@
-import Point from './Point';
 import Entity from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Arc extends Entity {
 	private readonly _center: point3d_t;
@@ -22,7 +22,7 @@ export default class Arc extends Entity {
 	}
 
 	public constructor(
-		center: Point,
+		center: point3d_t,
 		radius: number,
 		startAngle: number,
 		endAngle: number
@@ -34,18 +34,14 @@ export default class Arc extends Entity {
 		this._endAngle = endAngle;
 	}
 
-	public boundingBox() {
-		return [
-			[this.center.x - this.radius, this.center.y + this.radius],
-			[this.center.x + this.radius, this.center.y - this.radius],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
 	public get manager(): TagsManager {
-		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
-		manager.point3d({ x, y, z });
+		manager.point3d(this.center);
 		manager.addTag(40, this.radius);
 		manager.subclassMarker('AcDbArc');
 		manager.addTag(50, this.startAngle);

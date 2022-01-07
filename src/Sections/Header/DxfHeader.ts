@@ -1,6 +1,6 @@
 import DxfVariable, { values_t } from './DxfVariable';
 import TagsManager from '../../Internals/TagsManager';
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfHeader implements DxfInterface {
 	private readonly _variables: DxfVariable[] = [];

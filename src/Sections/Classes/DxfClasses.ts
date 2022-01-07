@@ -1,4 +1,4 @@
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfClasses implements DxfInterface {

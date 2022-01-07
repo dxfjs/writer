@@ -1,6 +1,6 @@
 import DxfBlock from './DxfBlock';
 import TagsManager, { tag_t } from '../../Internals/TagsManager';
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfBlocks implements DxfInterface {
 	private readonly _blocks: DxfBlock[] = [];

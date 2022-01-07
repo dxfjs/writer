@@ -9,7 +9,7 @@ import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfViewPortTable from './Tables/DxfViewPortTable';
 import TagsManager from '../../Internals/TagsManager';
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfTables implements DxfInterface {
 	private readonly _dxfViewPortTable: DxfViewPortTable;

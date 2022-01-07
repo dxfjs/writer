@@ -1,4 +1,4 @@
-import Entity, { PolylineFlags, SplineFlags } from './Entity';
+import Entity from './Entity';
 import Arc from './Entities/Arc';
 import Line from './Entities/Line';
 import Face from './Entities/Face';
@@ -9,8 +9,9 @@ import Spline from './Entities/Spline';
 import Ellipse from './Entities/Ellipse';
 import Polyline from './Entities/Polyline';
 import Polyline3D from './Entities/Polyline3D';
-import TagsManager from '../../Internals/TagsManager';
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import TagsManager, { point2d_t, point3d_t } from '../../Internals/TagsManager';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 
 export default class Entities implements DxfInterface {
 	private _entities: Entity[] = [];
@@ -21,25 +22,17 @@ export default class Entities implements DxfInterface {
 		this._entities.push(entity);
 	}
 
-	public addLine(
-		x_start: number,
-		y_start: number,
-		x_end: number,
-		y_end: number
-	) {
-		this.addEntity(
-			new Line(new Point(x_start, y_start), new Point(x_end, y_end))
-		);
+	public addLine(startPoint: point3d_t, endPoint: point3d_t): Line {
+		const line = new Line(startPoint, endPoint);
+		this.addEntity(line);
+		return line;
 	}
 
-	public addPolyline(
-		points: number[][],
-		flag: PolylineFlags = PolylineFlags.Default
-	) {
+	public addPolyline(points: point2d_t[], flag: number = 0) {
 		this.addEntity(new Polyline(points, flag));
 	}
 
-	public addPolyline3D(points: number[][], flag: number) {
+	public addPolyline3D(points: point3d_t[], flag: number = 0) {
 		this.addEntity(new Polyline3D(points, flag));
 	}
 
@@ -47,40 +40,32 @@ export default class Entities implements DxfInterface {
 		this.addEntity(new Point(x, y, z));
 	}
 
-	public addCircle(x_center: number, y_center: number, radius: number) {
-		this.addEntity(new Circle(new Point(x_center, y_center), radius));
+	public addCircle(center: point3d_t, radius: number) {
+		this.addEntity(new Circle(center, radius));
 	}
 
 	public addArc(
-		x_center: number,
-		y_center: number,
+		center: point3d_t,
 		radius: number,
-		start_angle: number,
-		end_angle: number
+		startAngle: number,
+		endAngle: number
 	) {
-		this.addEntity(
-			new Arc(
-				new Point(x_center, y_center),
-				radius,
-				start_angle,
-				end_angle
-			)
-		);
+		this.addEntity(new Arc(center, radius, startAngle, endAngle));
 	}
 
 	public addSpline(
-		control_points: number[][],
-		fit_points: number[][],
-		curve_degree: number,
-		flag: SplineFlags,
+		controlPoints: point3d_t[],
+		fitPoints: point3d_t[],
+		degreeCurve: number,
+		flag: number,
 		knots: number[],
 		weights: number[]
 	) {
 		this.addEntity(
 			new Spline(
-				control_points,
-				fit_points,
-				curve_degree,
+				controlPoints,
+				fitPoints,
+				degreeCurve,
 				flag,
 				knots,
 				weights
@@ -89,90 +74,57 @@ export default class Entities implements DxfInterface {
 	}
 
 	public addEllipse(
-		x_center: number,
-		y_center: number,
-		x_major_axis: number,
-		y_major_axis: number,
-		ratio_minor_axis: number,
-		start_parameter: number,
-		end_parameter: number
+		center: point3d_t,
+		endPointOfMajorAxis: point3d_t,
+		ratioOfMinorAxisToMajorAxis: number,
+		startParameter: number,
+		endParameter: number
+	): Ellipse {
+		const ellipse = new Ellipse(
+			center,
+			endPointOfMajorAxis,
+			ratioOfMinorAxisToMajorAxis,
+			startParameter,
+			endParameter
+		);
+		this.addEntity(ellipse);
+		return ellipse;
+	}
+
+	public add3dFace(
+		firstCorner: point3d_t,
+		secondCorner: point3d_t,
+		thirdCorner: point3d_t,
+		fourthCorner: point3d_t
 	) {
 		this.addEntity(
-			new Ellipse(
-				new Point(x_center, y_center),
-				x_major_axis,
-				y_major_axis,
-				ratio_minor_axis,
-				start_parameter,
-				end_parameter
-			)
+			new Face(firstCorner, secondCorner, thirdCorner, fourthCorner)
 		);
 	}
 
-	public add3DFace(
-		x_first: number,
-		y_first: number,
-		z_first: number,
-		x_second: number,
-		y_second: number,
-		z_second: number,
-		x_third: number,
-		y_third: number,
-		z_third: number,
-		x_fourth: number,
-		y_fourth: number,
-		z_fourth: number
+	public addText(
+		firstAlignementPoint: point3d_t,
+		height: number,
+		value: string
 	) {
-		this.addEntity(
-			new Face(
-				new Point(x_first, y_first, z_first),
-				new Point(x_second, y_second, z_second),
-				new Point(x_third, y_third, z_third),
-				new Point(x_fourth, y_fourth, z_fourth)
-			)
+		this.addEntity(new Text(firstAlignementPoint, height, value));
+	}
+
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.boundingBox(
+			this.entities.map((enity) => enity.boundingBox())
 		);
 	}
 
-	public addText(x: number, y: number, height: number, value: string) {
-		this.addEntity(new Text(new Point(x, y), height, value));
-	}
-
-	public boundingBox(): number[][] {
-		const arrayX: number[] = [];
-		const arrayY: number[] = [];
-
-		this.entities.forEach((entity) => {
-			const [[firstX, firstY], [secondX, secondY]] = entity.boundingBox();
-			arrayX.push(firstX, secondX);
-			arrayY.push(firstY, secondY);
-		});
-		const minX = Math.min(...arrayX);
-		const maxX = Math.max(...arrayX);
-		const minY = Math.min(...arrayY);
-		const maxY = Math.max(...arrayY);
-
-		return [
-			[minX, maxY],
-			[maxX, minY],
-		];
-	}
-
-	public centerView(): [number, number] {
-		const [[leftUpX, leftUpY], [rightBottomX, rightBottomY]] =
-			this.boundingBox();
-		const x = leftUpX + (rightBottomX - leftUpX) / 2;
-		const y = rightBottomY + (leftUpY - rightBottomY) / 2;
-		return [x, y];
+	public centerView(): point3d_t {
+		return BoundingBox.boundingBoxCenter(this.boundingBox());
 	}
 
 	public viewHeight(): number {
-		const [[, leftUpY], [, rightBottomY]] = this.boundingBox();
-		const r = leftUpY - rightBottomY;
-		if (r === -Infinity) return 500;
-		return r;
+		return BoundingBox.boundingBoxHeight(this.boundingBox());
 	}
 
-	get entities(): Entity[] {
+	public get entities(): Entity[] {
 		return this._entities;
 	}
 

@@ -1,15 +1,16 @@
-import Entity, { SplineFlags } from '../Entity';
-import TagsManager, { createPoint3d } from '../../../Internals/TagsManager';
+import Entity from '../Entity';
+import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Spline extends Entity {
-	private readonly _controlPoints: number[][];
+	private readonly _controlPoints: point3d_t[];
 	private readonly _degreeCurve: number;
 	private readonly _knots: number[];
 	private readonly _weights: number[];
-	private readonly _flag: SplineFlags;
-	private readonly _fitPoints: number[][];
+	private readonly _flag: number;
+	private readonly _fitPoints: point3d_t[];
 
-	public get fitPoints(): number[][] {
+	public get fitPoints(): point3d_t[] {
 		return this._fitPoints;
 	}
 
@@ -29,15 +30,15 @@ export default class Spline extends Entity {
 		return this._degreeCurve;
 	}
 
-	public get controlPoints(): number[][] {
+	public get controlPoints(): point3d_t[] {
 		return this._controlPoints;
 	}
 
 	public constructor(
-		controlPoints: number[][],
-		fitPoints: number[][] = [],
+		controlPoints: point3d_t[],
+		fitPoints: point3d_t[] = [],
 		degreeCurve: number = 3,
-		flag: SplineFlags = SplineFlags.Planar,
+		flag: number = 8,
 		knots: number[] = [],
 		weights: number[] = []
 	) {
@@ -77,25 +78,11 @@ export default class Spline extends Entity {
 		}
 	}
 
-	public boundingBox() {
-		const arrayX: number[] = [];
-		const arrayY: number[] = [];
-
-		this._controlPoints.forEach((control_point) => {
-			const [x, y] = control_point;
-			arrayX.push(x);
-			arrayY.push(y);
-		});
-
-		const minX = Math.min(...arrayX);
-		const maxX = Math.max(...arrayX);
-		const minY = Math.min(...arrayY);
-		const maxY = Math.max(...arrayY);
-
-		return [
-			[minX, maxY],
-			[maxX, minY],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.verticesBBox([
+			...this.controlPoints,
+			...this.fitPoints,
+		]);
 	}
 
 	public get manager(): TagsManager {
@@ -114,12 +101,10 @@ export default class Spline extends Entity {
 			manager.addTag(40, knot);
 		});
 		this._controlPoints.forEach((point) => {
-			const [x, y, z] = point;
-			manager.point3d(createPoint3d(x, y, z));
+			manager.point3d(point);
 		});
-		this._fitPoints.forEach((fitPoint) => {
-			const [x, y, z] = fitPoint;
-			manager.point3d(createPoint3d(x, y, z), 1);
+		this._fitPoints.forEach((point) => {
+			manager.point3d(point, 1);
 		});
 		return manager;
 	}

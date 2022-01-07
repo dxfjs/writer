@@ -1,9 +1,9 @@
 import typescript from 'rollup-plugin-typescript2';
 
 export default {
-	input: 'src/DxfWriter.ts',
+	input: 'src/index.ts',
 	output: {
-		file: 'lib/DxfWriter.js',
+		file: 'lib/index.js',
 		name: 'DxfWriter',
 		format: 'es',
 	},

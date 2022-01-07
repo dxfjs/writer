@@ -1,5 +1,5 @@
-import DxfInterface from './Interfaces/DXFInterface';
-import TagsManager, { createTag, tag_t } from './TagsManager';
+import DxfInterface from './Interfaces/DxfInterface';
+import TagsManager, { tag, tag_t } from './TagsManager';
 
 export default class DxfDefinedApplication implements DxfInterface {
 	private readonly _name: string;
@@ -18,7 +18,7 @@ export default class DxfDefinedApplication implements DxfInterface {
 	}
 
 	public addTag(groupCode: number, value: string) {
-		this._tags.push(createTag(groupCode, value));
+		this._tags.push(tag(groupCode, value));
 	}
 
 	stringify(): string {

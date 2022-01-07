@@ -1,7 +1,7 @@
 import DxfDictionary from './Objects/DxfDictionary';
 import DxfObject from './DxfObject';
 import TagsManager from '../../Internals/TagsManager';
-import DxfInterface from '../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfObjects implements DxfInterface {
 	private _rootDictionary: DxfDictionary = new DxfDictionary();

@@ -1,4 +1,4 @@
-import { createGroupCode, createTag } from './TagsManager';
+import { createGroupCode, tag } from './TagsManager';
 
 export default class Handle {
 	static seed: number = 0;
@@ -46,25 +46,25 @@ export default class Handle {
 
 	public softPointerTag(lastDigit: number = 0) {
 		if (this._softPointer)
-			return createTag(createGroupCode(33, lastDigit), this._softPointer);
+			return tag(createGroupCode(33, lastDigit), this._softPointer);
 		return null;
 	}
 
 	public hardPointerTag(lastDigit: number = 0) {
 		if (this._hardPointer)
-			return createTag(createGroupCode(34, lastDigit), this._hardPointer);
+			return tag(createGroupCode(34, lastDigit), this._hardPointer);
 		return null;
 	}
 
 	public softOwnerTag(lastDigit: number = 0) {
 		if (this._softOwner)
-			return createTag(createGroupCode(35, lastDigit), this._softOwner);
+			return tag(createGroupCode(35, lastDigit), this._softOwner);
 		return null;
 	}
 
 	public hardOwnerTag(lastDigit: number = 0) {
 		if (this._hardOwner)
-			return createTag(createGroupCode(36, lastDigit), this._hardOwner);
+			return tag(createGroupCode(36, lastDigit), this._hardOwner);
 		return null;
 	}
 }

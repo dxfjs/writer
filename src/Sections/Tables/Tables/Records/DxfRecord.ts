@@ -1,5 +1,5 @@
 import Handle from '../../../../Internals/Handle';
-import DxfInterface from '../../../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
 export default class DxfRecord extends Handle implements DxfInterface {

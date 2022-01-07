@@ -1,5 +1,5 @@
 import Handle from '../../../../Internals/Handle';
-import DxfInterface from '../../../../Internals/Interfaces/DXFInterface';
+import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
 // TODO Refactor this class to be more dynamic

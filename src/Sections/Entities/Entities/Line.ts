@@ -1,54 +1,33 @@
 import Entity from '../Entity';
-import TagsManager, {
-	createPoint3d,
-	point3d_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Line extends Entity {
-	get start(): point3d_t {
-		return this._start;
+	get startPoint(): point3d_t {
+		return this._startPoint;
 	}
-	get end(): point3d_t {
-		return this._end;
+	get endPoint(): point3d_t {
+		return this._endPoint;
 	}
 
-	private readonly _start: point3d_t;
-	private readonly _end: point3d_t;
+	private readonly _startPoint: point3d_t;
+	private readonly _endPoint: point3d_t;
 
-	public constructor(start: point3d_t, end: point3d_t) {
+	public constructor(startPoint: point3d_t, endPoint: point3d_t) {
 		super('LINE', 'AcDbLine');
-		this._start = start;
-		this._end = end;
+		this._startPoint = startPoint;
+		this._endPoint = endPoint;
 	}
 
-	public boundingBox() {
-		const xs: number[] = [];
-		if (this.start.x < this.end.x) {
-			xs.push(this.start.x, this.end.x);
-		} else {
-			xs.push(this.end.x, this.start.x);
-		}
-		const ys: number[] = [];
-		if (this.start.y < this.end.y) {
-			ys.push(this.start.y, this.end.y);
-		} else {
-			ys.push(this.end.y, this.start.y);
-		}
-		const [minX, maxX] = xs;
-		const [minY, maxY] = ys;
-		return [
-			[minX, maxY],
-			[maxX, minY],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
-		manager.point3d(
-			createPoint3d(this.start.x, this.start.y, this.start.z)
-		);
-		manager.point3d(createPoint3d(this.end.x, this.end.y, this.end.z), 1);
+		manager.point3d(this.startPoint);
+		manager.point3d(this.endPoint, 1);
 		return manager;
 	}
 }

@@ -1,5 +1,6 @@
 import Entity from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Vertex extends Entity {
 	get flag(): number {
@@ -17,11 +18,8 @@ export default class Vertex extends Entity {
 		this._flag = flag;
 	}
 
-	public boundingBox() {
-		return [
-			[this.point.x, this.point.y],
-			[this.point.x, this.point.y],
-		];
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.pointBBox(this.point);
 	}
 
 	public get manager(): TagsManager {

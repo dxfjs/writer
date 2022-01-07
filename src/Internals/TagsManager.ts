@@ -1,4 +1,4 @@
-import DxfInterface from './Interfaces/DXFInterface';
+import DxfInterface from './Interfaces/DxfInterface';
 
 export type tag_t = {
 	groupCode: number;
@@ -16,15 +16,15 @@ export type point2d_t = {
 	y: number;
 };
 
-export const createPoint3d = (x: number, y: number, z: number): point3d_t => {
+export const point3d = (x: number, y: number, z: number): point3d_t => {
 	return { x, y, z };
 };
 
-export const createPoint2d = (x: number, y: number): point2d_t => {
+export const point2d = (x: number, y: number): point2d_t => {
 	return { x, y };
 };
 
-export const createTag = (groupCode: number, value: number | string): tag_t => {
+export const tag = (groupCode: number, value: number | string): tag_t => {
 	return {
 		groupCode,
 		value,
@@ -54,7 +54,7 @@ export default class TagsManager {
 	}
 
 	public addTag(groupCode: number, value: number | string) {
-		this.pushTag(createTag(groupCode, value));
+		this.pushTag(tag(groupCode, value));
 	}
 
 	public pushTag(tag: tag_t | null) {
@@ -99,16 +99,16 @@ export default class TagsManager {
 
 	public point2d(point: point2d_t, lastDigit: number = 0) {
 		this.pushTags([
-			createTag(createGroupCode(1, lastDigit), point.x),
-			createTag(createGroupCode(2, lastDigit), point.y),
+			tag(createGroupCode(1, lastDigit), point.x),
+			tag(createGroupCode(2, lastDigit), point.y),
 		]);
 	}
 
 	public point3d(point: point3d_t, lastDigit: number = 0) {
 		this.pushTags([
-			createTag(createGroupCode(1, lastDigit), point.x),
-			createTag(createGroupCode(2, lastDigit), point.y),
-			createTag(createGroupCode(3, lastDigit), point.z),
+			tag(createGroupCode(1, lastDigit), point.x),
+			tag(createGroupCode(2, lastDigit), point.y),
+			tag(createGroupCode(3, lastDigit), point.z),
 		]);
 	}
 
