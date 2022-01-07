@@ -128,14 +128,14 @@ export default class DxfManager implements DxfInterface {
 		imageDef.imageReactorId = imageDefReactor.handle;
 	}
 
-	stringify(): string {
+	public stringify(): string {
 		this.updateHandleSeed();
 		this.setViewCenter(this.entities.centerView());
 		this._activeViewPort.viewHeight = this.entities.viewHeight();
 		return this.manager.stringify();
 	}
 
-	get manager(): TagsManager {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.appendTags(this.header);
 		manager.appendTags(this.classes);
