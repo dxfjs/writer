@@ -1,6 +1,19 @@
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
+/**
+ * This is the type for variable values.
+ * @example
+ * ```js
+ * const values = {
+ * 	10: 350,
+ * 	20: 145,
+ * 	30: 0
+ * }
+ * // 10,20 and 30 represent the groupCodes.
+ * // 350,145 and 0 represent the values.
+ * ```
+ */
 export type values_t = {
 	[groupCode: number]: number | string;
 };

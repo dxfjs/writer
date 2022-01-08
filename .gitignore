@@ -5,3 +5,4 @@
 yarn.lock
 package-lock.json
 examples/example.dxf
+/docs/
