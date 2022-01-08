@@ -1,4 +1,6 @@
-# Dxf
+# **[Dxf](https://mapper.ma)**
+
+A [Javascript](https://www.javascript.com/) interface to [AutoCAD Dxf](https://en.wikipedia.org/wiki/AutoCAD_DXF) written in [Typescript](https://www.typescriptlang.org/).
 
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
@@ -9,23 +11,9 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_shield)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 
-💡 [Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.
+<!--[Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.-->
 
-<!---[![Build Status](https://www.travis-ci.com/tarikjabiri/dxf.svg?branch=master)](https://www.travis-ci.com/tarikjabiri/dxf)-->
-<!---[![Build status](https://ci.appveyor.com/api/projects/status/0k7rcm5jovyr05ua?svg=true)](https://ci.appveyor.com/project/tarikjabiri/dxf)-->
-<!---[![Total alerts](https://img.shields.io/lgtm/alerts/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/alerts/)-->
-
-## 🌟 A simple JavaScript interface to DXF written in TypeScript
-
-✔️ DXF is a JavaScript library, for Nodejs and Browser, it's for creating DXF files in a simple way.
-
-✨ influenced by 🔗 [js-dxf](https://github.com/ognjen-petrovic/js-dxf).
-
--   🔥 Now it's supporting AC1021 and above.
--   🔥 Creating minimal dxf content possible.
--   🔥 Tested on 🔗 [AutoCAD](https://www.autodesk.com/products/autocad/overview), 🔗 [LibreCAD](https://librecad.org/) and 🔗 [DWG FastView](https://play.google.com/store/apps/details?id=com.gstarmc.android&hl=en&gl=US) on mobile.
-
-## 🗳️ Install the package
+## Installation
 
 ```bash
 yarn add @tarikjabiri/dxf
@@ -33,97 +21,41 @@ yarn add @tarikjabiri/dxf
 npm i @tarikjabiri/dxf
 ```
 
-## ⌨️ Code example
+## Getting started
 
 ```javascript
-import DXFWriter from '@tarikjabiri/dxf';
+import DxfWriter, { point2d, point3d } from '@tarikjabiri/dxf';
 
-const dxf = new DXFWriter();
-dxf.setTrueColor(200, 0, 207); // Set the true color.
-dxf.addLine(0, 0, 100, 100);
-let points = [
-	[-300, 0, 0],
-	[0, 200, 0],
-	[300, 70, 0],
-	[700, 100, 0],
-	[1000, 1200, 0],
-];
-dxf.unsetTrueColor(); // Unset the true color.
-dxf.addLineType('DOT', '. . . . . . . . . . . . . . . . . .', [0, -4])
-	.addLineType(
-		'ACAD_ISO11W100',
-		'__ __ . __ __ . __ __ .',
-		[4, -2, 4, -2, 0, -2]
-	)
-	.addLineType('DOT2', '.................................', [0, -2])
-	.addLineType('DASHED', '_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _', [4, -4]);
+const dxf = new DxfWriter();
 
-dxf.addLayer('l_red', DXFWriter.colors.Red, 'DASHED')
-	.addLayer('l_green', DXFWriter.colors.Green, 'CONTINUOUS')
-	.addLayer('l_cyan', DXFWriter.colors.Cyan, 'CONTINUOUS')
-	.addLayer('l_yellow', DXFWriter.colors.Yellow, 'ACAD_ISO11W100');
+dxf.addLine(point2d(0,0,0), point(100,100,0));
 
-dxf.setCurrentLayer('l_green')
-	.addSpline(points, points, 3, 8, [], [])
-	.setCurrentLayer('l_red')
-	.addCircle(60, 150, 50)
-	.addRectangle(20, 20, 100, 100)
-	.setCurrentLayer('l_cyan')
-	.addText(30, 30, 10, 'Hello World')
-	.addPolyline3D(
-		[
-			[70, 70, 50],
-			[150, 70, 0],
-			[170, 170, 150],
-		],
-		0
-	)
-	.addArc(0, 0, 120, 90, 180)
-	.addPoint(65, -30, 0)
-	.setCurrentLayer('l_yellow')
-	.addEllipse(100, 50, 150, 0, 1, 0, 2 * Math.PI)
-	.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
-// ✔️ To get the dxf string just call the stringify() method
+// To get the dxf string just call the stringify() method
 const dxfString = dxf.stringify();
 ```
 
-For the priview of the example see 🔗 [examples](https://github.com/tarikjabiri/dxf/tree/master/examples) directory.
+## Supported entities
 
-## ✔️ Supported entities
+<details>
 
--   ARC
--   CIRCLE
--   ELLIPSE
--   FACE 3D
--   LINE
--   POINT
--   POLYLINE
--   POLYLINE 3D
--   SPLINE
--   TEXT
+- [Arc](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8)
+- [Circle](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18)
+- [Ellipse](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB)
+- [3DFace](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-747865D5-51F0-45F2-BEFE-9572DBC5B151)
+- [Line](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66)
+- [Point](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317)
+- [LWPolyline](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-748FC305-F3F2-4F74-825A-61F04D757A50)
+- [Polyline](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
+- [Spline](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74)
+- [Text](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363)
+- [Image](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-3A2FF847-BE14-4AC5-9BD4-BD3DCAEF2281)
 
-## 💉 Colors integrated
+</details>
 
--   Red
--   Green
--   Cyan
--   Blue
--   Magenta
--   White
--   Black
--   Yellow
-
-## ℹ️ References used in development
-
--   🔗 [Autodesk Help](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3)
--   🔗 [ezdxf](https://ezdxf.readthedocs.io/en/stable/) (a Python library written by 🔗 [Manfred Moitzi](https://github.com/mozman))
--   🔗 [AutoCAD Color Index (ACI)](https://gohtx.com/acadcolors.php)
--   🔗 [js-dxf](https://github.com/ognjen-petrovic/js-dxf) (a Javascript library written by 🔗 [Ognjen Petrovic](https://github.com/ognjen-petrovic))
-
-## ⚖️ License
+## License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_large)
 
-## 💯 Used by
+## Become a patron
 
--   💖 My website [Mapper](https://mapper.ma).
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Duser%3Fu%3D33866044%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/user?u=33866044)
