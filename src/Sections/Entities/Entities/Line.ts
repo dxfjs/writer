@@ -3,15 +3,16 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Line extends Entity {
+	private readonly _startPoint: point3d_t;
+	private readonly _endPoint: point3d_t;
+
 	get startPoint(): point3d_t {
 		return this._startPoint;
 	}
+
 	get endPoint(): point3d_t {
 		return this._endPoint;
 	}
-
-	private readonly _startPoint: point3d_t;
-	private readonly _endPoint: point3d_t;
 
 	public constructor(
 		startPoint: point3d_t,

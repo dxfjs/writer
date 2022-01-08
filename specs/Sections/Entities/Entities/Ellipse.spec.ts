@@ -11,7 +11,8 @@ describe('Ellipse', () => {
 			point3d(100, 50, 0),
 			0.4243,
 			0,
-			2 * Math.PI
+			2 * Math.PI,
+			{}
 		);
 		dataState.instancesCount++;
 		expect(entity.subclassMarker).toBe('AcDbEllipse');
@@ -23,7 +24,8 @@ describe('Ellipse', () => {
 			point3d(100, 50, 0),
 			0.4243,
 			0,
-			2 * Math.PI
+			2 * Math.PI,
+			{}
 		);
 		dataState.instancesCount++;
 		expect(entity.center.x).toBe(10);
@@ -37,7 +39,8 @@ describe('Ellipse', () => {
 			point3d(100, 50, 0),
 			0.4243,
 			0,
-			2 * Math.PI
+			2 * Math.PI,
+			{}
 		);
 		dataState.instancesCount++;
 		expect(entity.endPointOfMajorAxis.x).toBe(100);
@@ -53,11 +56,12 @@ describe('Ellipse', () => {
 			point3d(100, 50, 0),
 			0.4243,
 			0,
-			2 * Math.PI
+			2 * Math.PI,
+			{}
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nELLIPSE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbEllipse\n`;
+		let entityString = `  0\nELLIPSE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbEllipse\n`;
 		entityString += `  10\n10\n  20\n1250\n  30\n63.3\n  11\n100\n  21\n50\n  31\n0\n  40\n0.4243\n  41\n0\n  42\n6.283185307179586\n`;
 		expect(entity.stringify()).toBe(entityString);
 	});

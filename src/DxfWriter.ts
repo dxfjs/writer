@@ -33,7 +33,7 @@ export default class DxfWriter {
 	 * @returns return the current object of DxfWriter.
 	 */
 	public setVariable(name: string, values: values_t): this {
-		this._dxfManager.header.setVariable(name, values);
+		this._dxfManager.headerSection.setVariable(name, values);
 		return this;
 	}
 
@@ -51,7 +51,7 @@ export default class DxfWriter {
 		descriptive: string,
 		elements: number[]
 	): this {
-		this._dxfManager.tables.addLineType(name, descriptive, elements);
+		this._dxfManager.tablesSection.addLineType(name, descriptive, elements);
 		return this;
 	}
 
@@ -65,7 +65,7 @@ export default class DxfWriter {
 	 * @returns return the current object of DxfWriter.
 	 */
 	public addLayer(name: string, color: number, lineType: string): this {
-		this._dxfManager.tables.addLayer(name, color, lineType);
+		this._dxfManager.tablesSection.addLayer(name, color, lineType);
 		return this;
 	}
 
@@ -77,7 +77,7 @@ export default class DxfWriter {
 	 */
 	public setCurrentLayer(layerName: string): this {
 		if (
-			this._dxfManager.tables.layers.find(
+			this._dxfManager.tablesSection.layers.find(
 				(layer) => layer.name === layerName
 			)
 		) {
@@ -99,7 +99,7 @@ export default class DxfWriter {
 	 */
 	public setUnits(units: number): this {
 		if (Object.values(GlobalState.units).indexOf(units) > -1) {
-			//this.header.units = unit;
+			//this.headerSection.units = unit;
 		} else {
 			throw new Error(
 				`The ${units} is not a valid Units, please see DXFManager.units.`
@@ -120,7 +120,7 @@ export default class DxfWriter {
 		endPoint: point3d_t,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addLine(startPoint, endPoint, options);
+		this._dxfManager.addLine(startPoint, endPoint, options);
 		return this;
 	}
 
@@ -141,7 +141,7 @@ export default class DxfWriter {
 		flag: number,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addPolyline(points, flag, options);
+		this._dxfManager.addPolyline(points, flag, options);
 		return this;
 	}
 
@@ -165,7 +165,7 @@ export default class DxfWriter {
 			bottomRight,
 			point2d(topLeft.x, bottomRight.y),
 		];
-		this._dxfManager.entities.addPolyline(corners, 1, options);
+		this._dxfManager.addPolyline(corners, 1, options);
 		return this;
 	}
 
@@ -181,7 +181,7 @@ export default class DxfWriter {
 		flag: number,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addPolyline3D(points, flag, options);
+		this._dxfManager.addPolyline3D(points, flag, options);
 		return this;
 	}
 
@@ -194,7 +194,7 @@ export default class DxfWriter {
 	 * @returns return the current object of DxfWriter.
 	 */
 	public addPoint(x: number, y: number, z: number, options: options_t): this {
-		this._dxfManager.entities.addPoint(x, y, z, options);
+		this._dxfManager.addPoint(x, y, z, options);
 		return this;
 	}
 
@@ -209,7 +209,7 @@ export default class DxfWriter {
 		radius: number,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addCircle(center, radius, options);
+		this._dxfManager.addCircle(center, radius, options);
 		return this;
 	}
 
@@ -233,13 +233,7 @@ export default class DxfWriter {
 		endAngle: number,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addArc(
-			center,
-			radius,
-			startAngle,
-			endAngle,
-			options
-		);
+		this._dxfManager.addArc(center, radius, startAngle, endAngle, options);
 		return this;
 	}
 
@@ -271,7 +265,7 @@ export default class DxfWriter {
 		weights: number[],
 		options: options_t
 	): this {
-		this._dxfManager.entities.addSpline(
+		this._dxfManager.addSpline(
 			controlPoints,
 			fitPoints,
 			degreeCurve,
@@ -301,7 +295,7 @@ export default class DxfWriter {
 		endParameter: number,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addEllipse(
+		this._dxfManager.addEllipse(
 			center,
 			endPointOfMajorAxis,
 			ratioOfMinorAxisToMajorAxis,
@@ -376,7 +370,7 @@ export default class DxfWriter {
 		fourthCorner: point3d_t,
 		options: options_t
 	): this {
-		this._dxfManager.entities.add3dFace(
+		this._dxfManager.add3dFace(
 			firstCorner,
 			secondCorner,
 			thirdCorner,
@@ -399,12 +393,7 @@ export default class DxfWriter {
 		value: string,
 		options: options_t
 	): this {
-		this._dxfManager.entities.addText(
-			firstAlignementPoint,
-			height,
-			value,
-			options
-		);
+		this._dxfManager.addText(firstAlignementPoint, height, value, options);
 		return this;
 	}
 

@@ -1,52 +1,8 @@
-import DxfWriter from '../lib/DxfWriter';
+import DxfWriter, { point3d } from '../lib';
 import * as fs from 'fs';
 
 const dxf = new DxfWriter();
 
-dxf.setTrueColor(200, 0, 207);
-dxf.addLine(0, 0, 100, 100);
-let points = [
-	[-300, 0, 0],
-	[0, 200, 0],
-	[300, 70, 0],
-	[700, 100, 0],
-	[1000, 1200, 0],
-];
-dxf.addLine();
-dxf.unsetTrueColor();
-dxf.addLineType('DOT', '. . . . . . . . . . ', [0, -4])
-	.addLineType(
-		'ACAD_ISO11W100',
-		'__ __ . __ __ . __ __ .',
-		[4, -2, 4, -2, 0, -2]
-	)
-	.addLineType('DOT2', '......................', [0, -2])
-	.addLineType('DASHED', '_ _ _ _ _ _ _ _ _ _ _ ', [4, -4]);
-
-dxf.addLayer('l_red', 1, 'DASHED')
-	.addLayer('l_green', 3, 'Continuous')
-	.addLayer('l_cyan', 4, 'Continuous')
-	.addLayer('l_yellow', 2, 'ACAD_ISO11W100');
-
-dxf.setCurrentLayer('l_green')
-	.addSpline(points, points, 3, 8, [], [])
-	.setCurrentLayer('l_red')
-	.addCircle(60, 150, 50)
-	.addRectangle(20, 20, 100, 100)
-	.setCurrentLayer('l_cyan')
-	.addText(30, 30, 10, 'Hello World')
-	.addPolyline3D(
-		[
-			[70, 70, 50],
-			[150, 70, 0],
-			[170, 170, 150],
-		],
-		0
-	)
-	.addArc(0, 0, 120, 90, 180)
-	.addPoint(65, -30, 0)
-	.setCurrentLayer('l_yellow')
-	.addEllipse(100, 50, 150, 0, 0.5, 0, 2 * Math.PI)
-	.add3DFace(0, 0, 10, 20, 0, 10, 20, -20, 20, 0, -20, 20);
+dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0), {});
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());

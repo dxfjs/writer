@@ -6,7 +6,7 @@ import TagsManager from '../../Internals/TagsManager';
 
 export type options_t = {
 	trueColor?: string;
-	colorNumber?: string | number;
+	colorNumber?: number;
 	thickness?: number;
 	layerName?: string;
 	visible?: boolean;
@@ -69,11 +69,12 @@ export default abstract class Entity extends Handle implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this._type);
 		manager.handle(this.handle);
+		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbEntity');
 		if (this.options.trueColor) manager.addTag(420, this.options.trueColor);
 		manager.layerName(this.options.layerName || this.layerName);
-		manager.lineType(this.options.lineType || 'BYLAYER');
-		manager.colorNumber(this.options.colorNumber || 'BYLAYER');
+		manager.lineType(this.options.lineType || 'ByLayer');
+		manager.colorNumber(this.options.colorNumber || 256);
 		manager.addTag(48, this.options.lineTypeScale || 1.0);
 		manager.visibilty(Number(!(this.options.visible || true)));
 		if (this.subclassMarker) manager.subclassMarker(this.subclassMarker);

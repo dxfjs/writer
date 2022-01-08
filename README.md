@@ -24,11 +24,11 @@ npm i @tarikjabiri/dxf
 ## Getting started
 
 ```javascript
-import DxfWriter, { point2d, point3d } from '@tarikjabiri/dxf';
+import DxfWriter, { point3d } from '@tarikjabiri/dxf';
 
 const dxf = new DxfWriter();
 
-dxf.addLine(point2d(0,0,0), point(100,100,0));
+dxf.addLine(point3d(0,0,0), point3d(100,100,0));
 
 // To get the dxf string just call the stringify() method
 const dxfString = dxf.stringify();

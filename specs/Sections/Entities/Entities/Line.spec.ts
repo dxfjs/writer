@@ -6,7 +6,7 @@ describe('Line', () => {
 		instancesCount: 0,
 	};
 	it('should return the subClassName given.', () => {
-		const entity = new Line(point3d(0, 0, 0), point3d(0, 0, 0));
+		const entity = new Line(point3d(0, 0, 0), point3d(0, 0, 0), {});
 		dataState.instancesCount++;
 		expect(entity.subclassMarker).toBe('AcDbLine');
 	});
@@ -14,7 +14,8 @@ describe('Line', () => {
 	it('should return the given points.', () => {
 		const entity = new Line(
 			point3d(0, 0, 0.22),
-			point3d(125, 85.23, 0.336)
+			point3d(125, 85.23, 0.336),
+			{}
 		);
 		dataState.instancesCount++;
 		expect(entity.startPoint.x).toBe(0);
@@ -29,11 +30,12 @@ describe('Line', () => {
 	it('should return the correct dxf string.', () => {
 		const entity = new Line(
 			point3d(1.32, 1, 0.22),
-			point3d(135, 855.23, 0.336)
+			point3d(135, 855.23, 0.336),
+			{}
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbLine\n`;
+		let entityString = `  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbLine\n`;
 		entityString += `  10\n1.32\n  20\n1\n  30\n0.22\n  11\n135\n  21\n855.23\n  31\n0.336\n`;
 		expect(entity.stringify()).toBe(entityString);
 	});

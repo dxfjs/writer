@@ -1,12 +1,23 @@
 import GlobalState from './GlobalState';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
-import TagsManager, { point3d_t } from './Internals/TagsManager';
+import TagsManager, { point2d_t, point3d_t } from './Internals/TagsManager';
+import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
 import Entities from './Sections/Entities/Entities';
+import Arc from './Sections/Entities/Entities/Arc';
+import Circle from './Sections/Entities/Entities/Circle';
+import Ellipse from './Sections/Entities/Entities/Ellipse';
+import Face from './Sections/Entities/Entities/Face';
 import Image from './Sections/Entities/Entities/Image';
-import { options_t } from './Sections/Entities/Entity';
+import Line from './Sections/Entities/Entities/Line';
+import LWPolyline from './Sections/Entities/Entities/LWPolyline';
+import Point from './Sections/Entities/Entities/Point';
+import Polyline from './Sections/Entities/Entities/Polyline';
+import Spline from './Sections/Entities/Entities/Spline';
+import Text from './Sections/Entities/Entities/Text';
+import Entity, { options_t } from './Sections/Entities/Entity';
 import DxfHeader from './Sections/Header/DxfHeader';
 import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
@@ -15,82 +26,96 @@ import DxfTables from './Sections/Tables/DxfTables';
 import DxfViewPort from './Sections/Tables/Tables/Records/DxfViewPort';
 
 export default class DxfManager implements DxfInterface {
-	private readonly _header: DxfHeader;
-	private readonly _classes: DxfClasses;
-	private readonly _tables: DxfTables;
-	private readonly _blocks: DxfBlocks;
-	private readonly _entities: Entities;
-	private readonly _objects: DxfObjects;
+	private readonly _headerSection: DxfHeader;
+	private readonly _classesSection: DxfClasses;
+	private readonly _tablesSection: DxfTables;
+	private readonly _blocksSection: DxfBlocks;
+	private readonly _entitiesSection: Entities;
+	private readonly _objectsSection: DxfObjects;
 
 	private readonly _activeViewPort: DxfViewPort;
 
-	public get header(): DxfHeader {
-		return this._header;
+	private readonly _modelSpace: DxfBlock;
+	private readonly _paperSpace: DxfBlock;
+
+	public get modelSpace(): DxfBlock {
+		return this._modelSpace;
 	}
 
-	public get classes(): DxfClasses {
-		return this._classes;
+	public get paperSpace(): DxfBlock {
+		return this._paperSpace;
 	}
 
-	public get tables(): DxfTables {
-		return this._tables;
+	public get headerSection(): DxfHeader {
+		return this._headerSection;
 	}
 
-	public get blocks(): DxfBlocks {
-		return this._blocks;
+	public get classesSection(): DxfClasses {
+		return this._classesSection;
 	}
 
-	public get entities(): Entities {
-		return this._entities;
+	public get tablesSection(): DxfTables {
+		return this._tablesSection;
 	}
 
-	public get objects(): DxfObjects {
-		return this._objects;
+	public get blocksSection(): DxfBlocks {
+		return this._blocksSection;
+	}
+
+	public get entitiesSection(): Entities {
+		return this._entitiesSection;
+	}
+
+	public get objectsSection(): DxfObjects {
+		return this._objectsSection;
 	}
 
 	public constructor() {
-		this._header = new DxfHeader();
-		this._classes = new DxfClasses();
-		this._tables = new DxfTables();
-		this._blocks = new DxfBlocks();
-		this._entities = new Entities();
-		this._objects = new DxfObjects();
+		this._headerSection = new DxfHeader();
+		this._classesSection = new DxfClasses();
+		this._tablesSection = new DxfTables();
+		this._blocksSection = new DxfBlocks();
+		this._entitiesSection = new Entities();
+		this._objectsSection = new DxfObjects();
 
-		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
+		this.headerSection.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandleSeed();
-		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
+		this.headerSection.setVariable('$INSUNITS', { 70: GlobalState.units });
 
-		this.tables.addLineType('ByBlock', '', []);
-		this.tables.addLineType('ByLayer', '', []);
-		this.tables.addLineType('Continuous', 'Solid line', []);
-		this.tables.addLayer('0', 7, 'Continuous');
-		this.tables.addStyle('Standard');
-		this.tables.addAppId('ACAD');
-		this.tables.addDimStyle('Standard');
-		this._activeViewPort = this.tables.addViewPort('*Active');
+		this.tablesSection.addLineType('ByBlock', '', []);
+		this.tablesSection.addLineType('ByLayer', '', []);
+		this.tablesSection.addLineType('Continuous', 'Solid line', []);
+		this.tablesSection.addLayer('0', 7, 'Continuous');
+		this.tablesSection.addStyle('Standard');
+		this.tablesSection.addAppId('ACAD');
+		this.tablesSection.addDimStyle('Standard');
+		this._activeViewPort = this.tablesSection.addViewPort('*Active');
 
-		const modelRecord = this.tables.addBlockRecord('*Model_Space');
-		const paperRecord = this.tables.addBlockRecord('*Paper_Space');
+		const modelRecord = this.tablesSection.addBlockRecord('*Model_Space');
+		const paperRecord = this.tablesSection.addBlockRecord('*Paper_Space');
 
-		const modelBlock = this.blocks.addBlock('*Model_Space');
-		const paperBlock = this.blocks.addBlock('*Paper_Space');
-		modelBlock.softPointer = modelRecord.handle;
-		modelBlock.endBlk.softPointer = modelRecord.handle;
-		paperBlock.softPointer = paperRecord.handle;
-		paperBlock.endBlk.softPointer = paperRecord.handle;
+		this._modelSpace = this.blocksSection.addBlock('*Model_Space');
+		this._paperSpace = this.blocksSection.addBlock('*Paper_Space');
+		this.modelSpace.softPointer = modelRecord.handle;
+		this.modelSpace.endBlk.softPointer = modelRecord.handle;
+		this.paperSpace.softPointer = paperRecord.handle;
+		this.paperSpace.endBlk.softPointer = paperRecord.handle;
 	}
 
 	private updateHandleSeed() {
-		this.header.setVariable('$HANDSEED', { 5: Handle.nextHandle() });
+		this.headerSection.setVariable('$HANDSEED', { 5: Handle.nextHandle() });
 	}
 
 	public setUnits(units: number) {
 		GlobalState.units = units;
-		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
+		this.headerSection.setVariable('$INSUNITS', { 70: GlobalState.units });
 	}
 
 	public setViewCenter(center: point3d_t) {
-		this.header.setVariable('$VIEWCTR', { 10: center.x, 20: center.y });
+		this.headerSection.setVariable('$VIEWCTR', {
+			10: center.x,
+			20: center.y,
+		});
 		this._activeViewPort.viewCenter = [center.x, center.y];
 	}
 
@@ -118,14 +143,14 @@ export default class DxfManager implements DxfInterface {
 		);
 		const imageDefReactor = new DxfImageDefReactor(image.handle);
 		image.imageDefReactorId = imageDefReactor.handle;
-		this.entities.addEntity(image);
-		this.objects.addObject(imageDef);
-		this.objects.addObject(imageDefReactor);
-		const dictionary = this.objects.createDictionary();
+		this.addEntity(image);
+		this.objectsSection.addObject(imageDef);
+		this.objectsSection.addObject(imageDefReactor);
+		const dictionary = this.objectsSection.createDictionary();
 
 		dictionary.addEntryObject(name, imageDef.handle);
 		imageDef.softPointer = dictionary.handle;
-		this.objects.rootDictionary.addEntryObject(
+		this.objectsSection.rootDictionary.addEntryObject(
 			'ACAD_IMAGE_DICT',
 			dictionary.handle
 		);
@@ -133,21 +158,135 @@ export default class DxfManager implements DxfInterface {
 		imageDef.imageReactorId = imageDefReactor.handle;
 	}
 
+	public addEntity(entity: Entity) {
+		entity.softPointer = this.modelSpace.handle;
+		this.entitiesSection.entities.push(entity);
+	}
+
+	public addLine(
+		startPoint: point3d_t,
+		endPoint: point3d_t,
+		options: options_t
+	): Line {
+		const line = new Line(startPoint, endPoint, options);
+		this.addEntity(line);
+		return line;
+	}
+
+	public addPolyline(points: point2d_t[], flag: number, options: options_t) {
+		this.addEntity(new LWPolyline(points, flag, options));
+	}
+
+	public addPolyline3D(
+		points: point3d_t[],
+		flag: number,
+		options: options_t
+	) {
+		this.addEntity(new Polyline(points, flag, options));
+	}
+
+	public addPoint(x: number, y: number, z: number, options: options_t) {
+		this.addEntity(new Point(x, y, z, options));
+	}
+
+	public addCircle(center: point3d_t, radius: number, options: options_t) {
+		this.addEntity(new Circle(center, radius, options));
+	}
+
+	public addArc(
+		center: point3d_t,
+		radius: number,
+		startAngle: number,
+		endAngle: number,
+		options: options_t
+	) {
+		this.addEntity(new Arc(center, radius, startAngle, endAngle, options));
+	}
+
+	public addSpline(
+		controlPoints: point3d_t[],
+		fitPoints: point3d_t[],
+		degreeCurve: number,
+		flag: number,
+		knots: number[],
+		weights: number[],
+		options: options_t
+	) {
+		this.addEntity(
+			new Spline(
+				controlPoints,
+				fitPoints,
+				degreeCurve,
+				flag,
+				knots,
+				weights,
+				options
+			)
+		);
+	}
+
+	public addEllipse(
+		center: point3d_t,
+		endPointOfMajorAxis: point3d_t,
+		ratioOfMinorAxisToMajorAxis: number,
+		startParameter: number,
+		endParameter: number,
+		options: options_t
+	): Ellipse {
+		const ellipse = new Ellipse(
+			center,
+			endPointOfMajorAxis,
+			ratioOfMinorAxisToMajorAxis,
+			startParameter,
+			endParameter,
+			options
+		);
+		this.addEntity(ellipse);
+		return ellipse;
+	}
+
+	public add3dFace(
+		firstCorner: point3d_t,
+		secondCorner: point3d_t,
+		thirdCorner: point3d_t,
+		fourthCorner: point3d_t,
+		options: options_t
+	) {
+		this.addEntity(
+			new Face(
+				firstCorner,
+				secondCorner,
+				thirdCorner,
+				fourthCorner,
+				options
+			)
+		);
+	}
+
+	public addText(
+		firstAlignementPoint: point3d_t,
+		height: number,
+		value: string,
+		options: options_t
+	) {
+		this.addEntity(new Text(firstAlignementPoint, height, value, options));
+	}
+
 	public stringify(): string {
 		this.updateHandleSeed();
-		this.setViewCenter(this.entities.centerView());
-		this._activeViewPort.viewHeight = this.entities.viewHeight();
+		this.setViewCenter(this.entitiesSection.centerView());
+		this._activeViewPort.viewHeight = this.entitiesSection.viewHeight();
 		return this.manager.stringify();
 	}
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.appendTags(this.header);
-		manager.appendTags(this.classes);
-		manager.appendTags(this.tables);
-		manager.appendTags(this.blocks);
-		manager.appendTags(this.entities);
-		manager.appendTags(this.objects);
+		manager.appendTags(this.headerSection);
+		manager.appendTags(this.classesSection);
+		manager.appendTags(this.tablesSection);
+		manager.appendTags(this.blocksSection);
+		manager.appendTags(this.entitiesSection);
+		manager.appendTags(this.objectsSection);
 		return manager;
 	}
 }

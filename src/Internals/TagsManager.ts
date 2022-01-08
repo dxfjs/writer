@@ -124,7 +124,7 @@ export default class TagsManager {
 		this.addTag(60, visibilty);
 	}
 
-	public colorNumber(colorNumber: number | string) {
+	public colorNumber(colorNumber: number) {
 		this.addTag(62, colorNumber);
 	}
 

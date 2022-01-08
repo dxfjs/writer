@@ -17,7 +17,7 @@ describe('Entity', () => {
 	let entity: DummyEntity;
 
 	beforeEach(() => {
-		entity = new DummyEntity('LINE', 'AcDbLine');
+		entity = new DummyEntity('LINE', 'AcDbLine', {});
 	});
 
 	it('should return the subClassName given.', () => {
@@ -43,7 +43,7 @@ describe('Entity', () => {
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		expect(entity.stringify()).toBe(
-			`  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\nl_green\n  100\nAcDbLine\n`
+			`  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\nl_green\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbLine\n`
 		);
 	});
 });

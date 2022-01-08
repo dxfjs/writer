@@ -7,7 +7,7 @@ import TagsManager, {
 } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
-export default class Polyline3D extends Entity {
+export default class Polyline extends Entity {
 	get flag(): number {
 		return this._flag;
 	}
