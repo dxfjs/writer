@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -34,9 +34,10 @@ export default class Ellipse extends Entity {
 		endPointOfMajorAxis: point3d_t,
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
-		endParameter: number
+		endParameter: number,
+		options: options_t
 	) {
-		super('ELLIPSE', 'AcDbEllipse');
+		super('ELLIPSE', 'AcDbEllipse', options);
 		this._center = center;
 		this._endPointOfMajorAxis = endPointOfMajorAxis;
 		this._ratioOfMinorAxisToMajorAxis = ratioOfMinorAxisToMajorAxis;

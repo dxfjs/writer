@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -14,8 +14,8 @@ export default class Circle extends Entity {
 		return this._center;
 	}
 
-	public constructor(center: point3d_t, radius: number) {
-		super('CIRCLE', 'AcDbCircle');
+	public constructor(center: point3d_t, radius: number, options: options_t) {
+		super('CIRCLE', 'AcDbCircle', options);
 		this._center = center;
 		this._radius = radius;
 	}

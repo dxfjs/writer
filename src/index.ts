@@ -12,6 +12,7 @@ import {
 	point2d_t,
 	point3d_t,
 } from './Internals/TagsManager';
+import { options_t } from './Sections/Entities/Entity';
 
-export { values_t, point3d, point2d, point2d_t, point3d_t };
+export { values_t, point3d, point2d, point2d_t, point3d_t, options_t };
 export default DxfWriter;

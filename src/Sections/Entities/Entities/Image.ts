@@ -5,7 +5,7 @@ import TagsManager, {
 	point2d_t,
 	point3d_t,
 } from '../../../Internals/TagsManager';
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 
 export type ImageOptions = {
 	width: number;
@@ -63,15 +63,15 @@ export default class Image extends Entity {
 		return this._ratio;
 	}
 
-	public constructor(options: ImageOptions) {
-		super('IMAGE', 'AcDbRasterImage');
-		this._width = options.width;
-		this._height = options.height;
-		this._scale = options.scale;
-		this._rotation = options.rotation;
-		this._insertionPoint = options.insertionPoint;
+	public constructor(imageOptions: ImageOptions, options: options_t) {
+		super('IMAGE', 'AcDbRasterImage', options);
+		this._width = imageOptions.width;
+		this._height = imageOptions.height;
+		this._scale = imageOptions.scale;
+		this._rotation = imageOptions.rotation;
+		this._insertionPoint = imageOptions.insertionPoint;
 		this._ratio = this.scale / this.width;
-		this._imageDefId = options.imageDefId;
+		this._imageDefId = imageOptions.imageDefId;
 		this._imageDefReactorId = '0';
 	}
 

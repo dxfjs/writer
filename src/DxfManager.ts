@@ -6,6 +6,7 @@ import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
 import Entities from './Sections/Entities/Entities';
 import Image from './Sections/Entities/Entities/Image';
+import { options_t } from './Sections/Entities/Entity';
 import DxfHeader from './Sections/Header/DxfHeader';
 import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
@@ -100,17 +101,21 @@ export default class DxfManager implements DxfInterface {
 		width: number,
 		height: number,
 		scale: number,
-		rotation: number
+		rotation: number,
+		options: options_t
 	) {
 		const imageDef = new DxfImageDef(absolutePath);
-		const image = new Image({
-			height,
-			width,
-			scale,
-			rotation,
-			insertionPoint,
-			imageDefId: imageDef.handle,
-		});
+		const image = new Image(
+			{
+				height,
+				width,
+				scale,
+				rotation,
+				insertionPoint,
+				imageDefId: imageDef.handle,
+			},
+			options
+		);
 		const imageDefReactor = new DxfImageDefReactor(image.handle);
 		image.imageDefReactorId = imageDefReactor.handle;
 		this.entities.addEntity(image);

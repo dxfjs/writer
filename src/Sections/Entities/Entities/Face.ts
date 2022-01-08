@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -25,9 +25,10 @@ export default class Face extends Entity {
 		firstCorner: point3d_t,
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
-		fourthCorner: point3d_t
+		fourthCorner: point3d_t,
+		options: options_t
 	) {
-		super('3DFACE', 'AcDbFace');
+		super('3DFACE', 'AcDbFace', options);
 		this._firstCorner = firstCorner;
 		this._secondCorner = secondCorner;
 		this._thirdCorner = thirdCorner;

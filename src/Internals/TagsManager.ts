@@ -16,13 +16,13 @@ export type point2d_t = {
 	y: number;
 };
 
-export const point3d = (x: number, y: number, z: number): point3d_t => {
+export function point3d(x: number, y: number, z: number): point3d_t {
 	return { x, y, z };
-};
+}
 
-export const point2d = (x: number, y: number): point2d_t => {
+export function point2d(x: number, y: number): point2d_t {
 	return { x, y };
-};
+}
 
 export const tag = (groupCode: number, value: number | string): tag_t => {
 	return {
@@ -124,7 +124,7 @@ export default class TagsManager {
 		this.addTag(60, visibilty);
 	}
 
-	public colorNumber(colorNumber: number) {
+	public colorNumber(colorNumber: number | string) {
 		this.addTag(62, colorNumber);
 	}
 

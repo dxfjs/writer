@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -12,8 +12,8 @@ export default class Vertex extends Entity {
 	private readonly _point: point3d_t;
 	private readonly _flag: number;
 
-	public constructor(point: point3d_t, flag: number) {
-		super('VERTEX', 'AcDbVertex');
+	public constructor(point: point3d_t, flag: number, options: options_t) {
+		super('VERTEX', 'AcDbVertex', options);
 		this._point = point;
 		this._flag = flag;
 	}

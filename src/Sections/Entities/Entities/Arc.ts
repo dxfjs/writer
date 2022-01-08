@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -25,9 +25,10 @@ export default class Arc extends Entity {
 		center: point3d_t,
 		radius: number,
 		startAngle: number,
-		endAngle: number
+		endAngle: number,
+		options: options_t
 	) {
-		super('ARC', 'AcDbCircle');
+		super('ARC', 'AcDbCircle', options);
 		this._center = center;
 		this._radius = radius;
 		this._startAngle = startAngle;

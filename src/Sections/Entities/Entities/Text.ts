@@ -1,6 +1,6 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {
 	get value(): string {
@@ -15,8 +15,13 @@ export default class Text extends Entity {
 	private readonly _position: point3d_t;
 	private readonly _height: number;
 	private readonly _value: string;
-	public constructor(position: point3d_t, height: number, value: string) {
-		super('TEXT', 'AcDbText');
+	public constructor(
+		position: point3d_t,
+		height: number,
+		value: string,
+		options: options_t
+	) {
+		super('TEXT', 'AcDbText', options);
 		this._position = position;
 		this._height = height;
 		this._value = value;

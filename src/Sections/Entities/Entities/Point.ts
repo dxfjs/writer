@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -17,8 +17,8 @@ export default class Point extends Entity {
 	private readonly _y: number;
 	private readonly _z: number;
 
-	public constructor(x: number, y: number, z: number = 0) {
-		super('POINT', 'AcDbPoint');
+	public constructor(x: number, y: number, z: number, options: options_t) {
+		super('POINT', 'AcDbPoint', options);
 		this._x = x;
 		this._y = y;
 		this._z = z;

@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
@@ -39,10 +39,11 @@ export default class Spline extends Entity {
 		fitPoints: point3d_t[] = [],
 		degreeCurve: number = 3,
 		flag: number = 8,
-		knots: number[] = [],
-		weights: number[] = []
+		knots: number[],
+		weights: number[],
+		options: options_t
 	) {
-		super('SPLINE', 'AcDbSpline');
+		super('SPLINE', 'AcDbSpline', options);
 
 		this._controlPoints = controlPoints;
 		this._degreeCurve = degreeCurve;
