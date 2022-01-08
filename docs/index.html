@@ -1,0 +1,58 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Dxf - v1.0.7</title><meta name="description" content="Documentation for Dxf - v1.0.7"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Dxf - v1.0.7</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>Dxf - v1.0.7</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#dxf" id="dxf" style="color: inherit; text-decoration: none;">
+  <h1><strong><a href="https://mapper.ma">Dxf</a></strong></h1>
+</a>
+<p>A <a href="https://www.javascript.com/">Javascript</a> interface to <a href="https://en.wikipedia.org/wiki/AutoCAD_DXF">AutoCAD Dxf</a> written in <a href="https://www.typescriptlang.org/">Typescript</a>.</p>
+<p><a href="https://github.com/facebook/jest"><img src="https://jestjs.io/img/jest-badge.svg" alt="jest"></a>
+<a href="https://circleci.com/github/tarikjabiri/dxf"><img src="https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg" alt="CircleCI&gt;"></a>
+<a href="https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript"></a>
+<a href="https://github.com/tarikjabiri/dxf/issues"><img src="https://img.shields.io/github/issues/tarikjabiri/dxf" alt="GitHub issues"></a>
+<a href="https://badge.fury.io/js/%40tarikjabiri%2Fdxf"><img src="https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg" alt="npm version"></a>
+<a href="https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/tarikjabiri/dxf" alt="GitHub license"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_shield"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=shield" alt="FOSSA Status"></a></p>
+<!--[Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.-->
+
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<pre><code class="language-bash"><span class="hl-1">yarn add @tarikjabiri/dxf</span><br/><span class="hl-5"># Or npm</span><br/><span class="hl-1">npm i @tarikjabiri/dxf</span>
+</code></pre>
+
+<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+  <h2>Getting started</h2>
+</a>
+<pre><code class="language-javascript"><span class="hl-6">import</span><span class="hl-1"> </span><span class="hl-4">DxfWriter</span><span class="hl-1">, { </span><span class="hl-4">point2d</span><span class="hl-1">, </span><span class="hl-4">point3d</span><span class="hl-1"> } </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-7">&#39;@tarikjabiri/dxf&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">dxf</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-8">DxfWriter</span><span class="hl-1">();</span><br/><br/><span class="hl-4">dxf</span><span class="hl-1">.</span><span class="hl-8">addLine</span><span class="hl-1">(</span><span class="hl-8">point2d</span><span class="hl-1">(</span><span class="hl-3">0</span><span class="hl-1">,</span><span class="hl-3">0</span><span class="hl-1">,</span><span class="hl-3">0</span><span class="hl-1">), </span><span class="hl-8">point</span><span class="hl-1">(</span><span class="hl-3">100</span><span class="hl-1">,</span><span class="hl-3">100</span><span class="hl-1">,</span><span class="hl-3">0</span><span class="hl-1">));</span><br/><br/><span class="hl-5">// To get the dxf string just call the stringify() method</span><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">dxfString</span><span class="hl-1"> = </span><span class="hl-4">dxf</span><span class="hl-1">.</span><span class="hl-8">stringify</span><span class="hl-1">();</span>
+</code></pre>
+
+<a href="#supported-entities" id="supported-entities" style="color: inherit; text-decoration: none;">
+  <h2>Supported entities</h2>
+</a>
+<details>
+
+<ul>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8">Arc</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18">Circle</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB">Ellipse</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-747865D5-51F0-45F2-BEFE-9572DBC5B151">3DFace</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66">Line</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317">Point</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-748FC305-F3F2-4F74-825A-61F04D757A50">LWPolyline</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3">Polyline</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74">Spline</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363">Text</a></li>
+<li><a href="https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-3A2FF847-BE14-4AC5-9BD4-BD3DCAEF2281">Image</a></li>
+</ul>
+</details>
+
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p><a href="https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_large"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=large" alt="FOSSA Status"></a></p>
+
+<a href="#become-a-patron" id="become-a-patron" style="color: inherit; text-decoration: none;">
+  <h2>Become a patron</h2>
+</a>
+<p><a href="https://patreon.com/user?u=33866044"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Duser%3Fu%3D33866044%26type%3Dpatrons&style=for-the-badge" alt="Support me on Patreon"></a></p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/DxfWriter.html" class="tsd-kind-icon">Dxf<wbr/>Writer</a></li><li class="tsd-kind-type-alias"><a href="modules.html#point2d_t" class="tsd-kind-icon">point2d_<wbr/>t</a></li><li class="tsd-kind-type-alias"><a href="modules.html#point3d_t" class="tsd-kind-icon">point3d_<wbr/>t</a></li><li class="tsd-kind-type-alias"><a href="modules.html#values_t" class="tsd-kind-icon">values_<wbr/>t</a></li><li class="tsd-kind-function"><a href="modules.html#point2d" class="tsd-kind-icon">point2d</a></li><li class="tsd-kind-function"><a href="modules.html#point3d" class="tsd-kind-icon">point3d</a></li></ul></nav></div></div></div><footer class=""><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="overlay"></div><script src="assets/main.js"></script></body></html>
