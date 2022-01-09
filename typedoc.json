@@ -1,8 +1,0 @@
-{
-	"entryPoints": ["src/index.ts"],
-	"out": "docs",
-	"excludeInternal": true,
-	"name": "Dxf",
-	"hideGenerator": true,
-	"includeVersion": true
-}

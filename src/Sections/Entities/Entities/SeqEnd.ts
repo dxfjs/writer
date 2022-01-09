@@ -4,7 +4,7 @@ import Entity, { options_t } from '../Entity';
 
 export default class SeqEnd extends Entity {
 	public constructor(options: options_t) {
-		super('SEQEND', null, options);
+		super({ type: 'SEQEND', options });
 	}
 
 	public boundingBox(): boundingBox_t {

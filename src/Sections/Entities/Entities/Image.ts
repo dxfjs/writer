@@ -64,7 +64,7 @@ export default class Image extends Entity {
 	}
 
 	public constructor(imageOptions: ImageOptions, options: options_t) {
-		super('IMAGE', 'AcDbRasterImage', options);
+		super({ type: 'IMAGE', subclassMarker: 'AcDbRasterImage', options });
 		this._width = imageOptions.width;
 		this._height = imageOptions.height;
 		this._scale = imageOptions.scale;

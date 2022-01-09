@@ -37,7 +37,7 @@ export default class Ellipse extends Entity {
 		endParameter: number,
 		options: options_t
 	) {
-		super('ELLIPSE', 'AcDbEllipse', options);
+		super({ type: 'ELLIPSE', subclassMarker: 'AcDbEllipse', options });
 		this._center = center;
 		this._endPointOfMajorAxis = endPointOfMajorAxis;
 		this._ratioOfMinorAxisToMajorAxis = ratioOfMinorAxisToMajorAxis;

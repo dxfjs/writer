@@ -53,7 +53,8 @@ export default class TagsManager {
 		this.pushTags(dxfEntity.manager.tags);
 	}
 
-	public addTag(groupCode: number, value: number | string) {
+	public addTag(groupCode: number, value: number | string | undefined) {
+		if (value === undefined) return;
 		this.pushTag(tag(groupCode, value));
 	}
 
@@ -81,7 +82,7 @@ export default class TagsManager {
 		this.addTag(5, handle);
 	}
 
-	public lineType(lineType: string) {
+	public lineType(lineType: string | undefined) {
 		this.addTag(6, lineType);
 	}
 
@@ -112,19 +113,20 @@ export default class TagsManager {
 		]);
 	}
 
-	public elevation(elevation: number) {
+	public elevation(elevation: number | undefined) {
 		this.addTag(38, elevation);
 	}
 
-	public thickness(thickness: number) {
+	public thickness(thickness: number | undefined) {
 		this.addTag(39, thickness);
 	}
 
-	public visibilty(visibilty: number) {
-		this.addTag(60, visibilty);
+	public visibilty(visibilty: boolean | undefined) {
+		if (visibilty === undefined) return;
+		this.addTag(60, visibilty ? 0 : 1);
 	}
 
-	public colorNumber(colorNumber: number) {
+	public colorNumber(colorNumber: number | undefined) {
 		this.addTag(62, colorNumber);
 	}
 
@@ -132,7 +134,7 @@ export default class TagsManager {
 		this.addTag(66, entitiesFollowFlag);
 	}
 
-	public subclassMarker(subclassMarker: string) {
+	public subclassMarker(subclassMarker: string | undefined) {
 		this.addTag(100, subclassMarker);
 	}
 

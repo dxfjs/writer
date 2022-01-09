@@ -35,7 +35,7 @@ describe('Arc', () => {
 
 	it('should return the correct dxf string.', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nARC\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbCircle\n`;
+		let entityString = `  0\nARC\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbCircle\n`;
 		entityString += `  10\n10\n  20\n1250\n  30\n63.3\n  40\n120\n  100\nAcDbArc\n  50\n0\n  51\n120\n`;
 		expect(entity.stringify()).toBe(entityString);
 	});

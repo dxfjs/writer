@@ -15,7 +15,7 @@ export default class Circle extends Entity {
 	}
 
 	public constructor(center: point3d_t, radius: number, options: options_t) {
-		super('CIRCLE', 'AcDbCircle', options);
+		super({ type: 'CIRCLE', subclassMarker: 'AcDbCircle', options });
 		this._center = center;
 		this._radius = radius;
 	}

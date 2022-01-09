@@ -2,6 +2,7 @@ import GlobalState from './GlobalState';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
 import TagsManager, { point2d_t, point3d_t } from './Internals/TagsManager';
+import { bulge, rectangleOptions_t } from './Internals/Utils';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
@@ -12,7 +13,11 @@ import Ellipse from './Sections/Entities/Entities/Ellipse';
 import Face from './Sections/Entities/Entities/Face';
 import Image from './Sections/Entities/Entities/Image';
 import Line from './Sections/Entities/Entities/Line';
-import LWPolyline from './Sections/Entities/Entities/LWPolyline';
+import LWPolyline, {
+	lwPolylineFlags,
+	lwPolylineOptions_t,
+	lwPolylineVertex_t,
+} from './Sections/Entities/Entities/LWPolyline';
 import Point from './Sections/Entities/Entities/Point';
 import Polyline from './Sections/Entities/Entities/Polyline';
 import Spline from './Sections/Entities/Entities/Spline';
@@ -102,6 +107,14 @@ export default class DxfManager implements DxfInterface {
 		this.paperSpace.endBlk.softPointer = paperRecord.handle;
 	}
 
+	public setCurrentLayerName(name: string): void {
+		const layerRecord = this.tablesSection.layerTable.layerRecords.find(
+			(layer) => layer.name === name
+		);
+		if (layerRecord) GlobalState.currentLayerName = name;
+		else throw new Error(`The '${name} layer doesn't exist!'`);
+	}
+
 	private updateHandleSeed() {
 		this.headerSection.setVariable('$HANDSEED', { 5: Handle.nextHandle() });
 	}
@@ -173,8 +186,60 @@ export default class DxfManager implements DxfInterface {
 		return line;
 	}
 
-	public addPolyline(points: point2d_t[], flag: number, options: options_t) {
-		this.addEntity(new LWPolyline(points, flag, options));
+	public addLWPolyline(
+		points: lwPolylineVertex_t[],
+		options: lwPolylineOptions_t
+	) {
+		this.addEntity(new LWPolyline(points, options));
+	}
+
+	public addRectangle(
+		topLeft: point2d_t,
+		bottomRight: point2d_t,
+		options: rectangleOptions_t
+	) {
+		const vertices: lwPolylineVertex_t[] = [];
+		const tX = topLeft.x;
+		const tY = topLeft.y;
+		const bX = bottomRight.x;
+		const bY = bottomRight.y;
+
+		if (options.fillet !== undefined && options.chamfer !== undefined)
+			throw new Error('You cannot define both fillet and chamfer!');
+
+		if (options.fillet !== undefined) {
+			const f = options.fillet;
+			const b = bulge(f);
+			vertices.push({ x: tX, y: tY - f, bulge: b });
+			vertices.push({ x: tX + f, y: tY });
+			vertices.push({ x: bX - f, y: tY, bulge: b });
+			vertices.push({ x: bX, y: tY - f });
+			vertices.push({ x: bX, y: bY + f, bulge: b });
+			vertices.push({ x: bX - f, y: bY });
+			vertices.push({ x: tX + f, y: bY, bulge: b });
+			vertices.push({ x: tX, y: bY + f });
+		} else if (options.chamfer !== undefined) {
+			const f = options.chamfer.first;
+			const s: number = options.chamfer.second || f;
+			vertices.push({ x: tX, y: tY - f });
+			vertices.push({ x: tX + s, y: tY });
+			vertices.push({ x: bX - f, y: tY });
+			vertices.push({ x: bX, y: tY - s });
+			vertices.push({ x: bX, y: bY + f });
+			vertices.push({ x: bX - s, y: bY });
+			vertices.push({ x: tX + f, y: bY });
+			vertices.push({ x: tX, y: bY + s });
+		} else {
+			vertices.push({ x: tX, y: tY });
+			vertices.push({ x: bX, y: tY });
+			vertices.push({ x: bX, y: bY });
+			vertices.push({ x: tX, y: bY });
+		}
+
+		this.addLWPolyline(vertices, {
+			...options,
+			flags: lwPolylineFlags.closed,
+		});
 	}
 
 	public addPolyline3D(

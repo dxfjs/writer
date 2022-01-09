@@ -1,8 +1,13 @@
-import { point2d, point2d_t, point3d_t } from './Internals/TagsManager';
+import { point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfManager from './DxfManager';
 import { values_t } from './Sections/Header/DxfVariable';
 import GlobalState from './GlobalState';
 import { options_t } from './Sections/Entities/Entity';
+import {
+	lwPolylineOptions_t,
+	lwPolylineVertex_t,
+} from './Sections/Entities/Entities/LWPolyline';
+import { rectangleOptions_t } from './Internals/Utils';
 
 /**
  *
@@ -21,6 +26,7 @@ export default class DxfWriter {
 	/**
 	 * Add a header variable to the Dxf if not exist. \
 	 * If exist it will updates values.
+	 *
 	 * @example
 	 * ```js
 	 * const dxf = new DxfWriter();
@@ -28,9 +34,8 @@ export default class DxfWriter {
 	 * dxf.setVariable("$EXTMAX", {10: 500, 20: 500, 30: 0});
 	 * ```
 	 * @param name The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
-	 * @param values The values correspanding to the variable
-	 *
-	 * @returns return the current object of DxfWriter.
+	 * @param values The values correspanding to the variable.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public setVariable(name: string, values: values_t): this {
 		this._dxfManager.headerSection.setVariable(name, values);
@@ -40,11 +45,11 @@ export default class DxfWriter {
 	/**
 	 * Add a new LineType to the Dxf.
 	 *
-	 * @param name name of linetype.
-	 * @param descriptive the descriptive of the line ex: __ __ . __ __ .
-	 * @param elements an array of the pattern. 📝 need more explications 😭
+	 * @param name Name of the lineType.
+	 * @param descriptive The descriptive of the line ex: __ __ . __ __ .
+	 * @param elements An array of elements of the pattern. 📝 Need more explications 😭!
 	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLineType(
 		name: string,
@@ -58,11 +63,10 @@ export default class DxfWriter {
 	/**
 	 * Add a new Layer to the Dxf.
 	 *
-	 * @param name  the name of the layer.
-	 * @param color the color index.
-	 * @param lineType the lineType name.
-	 * @param flag the flag of the layer (0: is thawed, 1: is frozen).
-	 * @returns return the current object of DxfWriter.
+	 * @param name The name of the layer.
+	 * @param color The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
+	 * @param lineType The lineType name.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLayer(name: string, color: number, lineType: string): this {
 		this._dxfManager.tablesSection.addLayer(name, color, lineType);
@@ -70,40 +74,28 @@ export default class DxfWriter {
 	}
 
 	/**
-	 * Set the current layer of the Dxf.
-	 *
-	 * @param layerName the layer name.
-	 * @returns return the current object of DxfWriter.
+	 * Set the current layer name of the Dxf.
+	 * @throws
+	 * @param name the layer name.
+	 * @returns Return the current object of DxfWriter.
 	 */
-	public setCurrentLayer(layerName: string): this {
-		if (
-			this._dxfManager.tablesSection.layers.find(
-				(layer) => layer.name === layerName
-			)
-		) {
-			GlobalState.currentLayerName = layerName;
-		} else {
-			throw new Error(
-				`The layer ${layerName} doesn't exist in the LayerTable.`
-			);
-		}
+	public setCurrentLayerName(name: string): this {
+		this._dxfManager.setCurrentLayerName(name);
 		return this;
 	}
 
 	/**
 	 * Set the units of the Dxf.
 	 *
+	 * @throws
 	 * @param units use DXFWriter.units to set the unit.
-	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public setUnits(units: number): this {
 		if (Object.values(GlobalState.units).indexOf(units) > -1) {
-			//this.headerSection.units = unit;
+			GlobalState.units = units;
 		} else {
-			throw new Error(
-				`The ${units} is not a valid Units, please see DXFManager.units.`
-			);
+			throw new Error(`The ${units} is not a valid Units.`);
 		}
 		return this;
 	}
@@ -113,12 +105,12 @@ export default class DxfWriter {
 	 *
 	 * @param startPoint The start point of the line.
 	 * @param endPoint The end point of the line.
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLine(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addLine(startPoint, endPoint, options);
 		return this;
@@ -134,14 +126,13 @@ export default class DxfWriter {
 	 * @param points An array of points like: [[x1, y1], [x2, y2], ...].
 	 * @param flag An enteger number represent the Polyline flag.
 	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLWPolyline(
-		points: point3d_t[],
-		flag: number,
-		options: options_t
+		points: lwPolylineVertex_t[],
+		options: lwPolylineOptions_t = {}
 	): this {
-		this._dxfManager.addPolyline(points, flag, options);
+		this._dxfManager.addLWPolyline(points, options);
 		return this;
 	}
 
@@ -152,20 +143,25 @@ export default class DxfWriter {
 	 *
 	 * @param topLeft The topleft corner of the rectangle.
 	 * @param bottomRight The bottom right corner of the rectangle.
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
+	 */
+
+	/**
+	 * Add a Rectangle as closed lwpolyline entity to the Dxf.
+	 * In DXF Reference there is no entity called Rectangle or Polygon.
+	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
+	 *
+	 * @param topLeft The topleft corner of the rectangle.
+	 * @param bottomRight The bottom right corner of the rectangle.
+	 * @param options The options to apply to the rectangle.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addRectangle(
 		topLeft: point2d_t,
 		bottomRight: point2d_t,
-		options: options_t
+		options?: rectangleOptions_t
 	): this {
-		const corners = [
-			topLeft,
-			point2d(bottomRight.x, topLeft.y),
-			bottomRight,
-			point2d(topLeft.x, bottomRight.y),
-		];
-		this._dxfManager.addPolyline(corners, 1, options);
+		this._dxfManager.addRectangle(topLeft, bottomRight, options || {});
 		return this;
 	}
 
@@ -174,12 +170,12 @@ export default class DxfWriter {
 	 * @param points{number[][]} an array of points like: [[x1, y1, z1], [x2, y2, z2], ...].
 	 * @param flag
 	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addPolyline3D(
 		points: point3d_t[],
 		flag: number,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addPolyline3D(points, flag, options);
 		return this;
@@ -191,9 +187,14 @@ export default class DxfWriter {
 	 * @param  the Y coordinate of the point.
 	 * @param  the Z coordinate of the point.
 	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
-	public addPoint(x: number, y: number, z: number, options: options_t): this {
+	public addPoint(
+		x: number,
+		y: number,
+		z: number,
+		options: options_t = {}
+	): this {
 		this._dxfManager.addPoint(x, y, z, options);
 		return this;
 	}
@@ -202,12 +203,12 @@ export default class DxfWriter {
 	 * Add a Circle entity to the Dxf.
 	 * @param center The center point of the circle.
 	 * @param radius The radius of the circle.
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addCircle(
 		center: point3d_t,
 		radius: number,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addCircle(center, radius, options);
 		return this;
@@ -224,14 +225,14 @@ export default class DxfWriter {
 	 *
 	 * 📝 Angles always start from X-axis towards anticlockwise.
 	 *
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addArc(
 		center: point3d_t,
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addArc(center, radius, startAngle, endAngle, options);
 		return this;
@@ -263,7 +264,7 @@ export default class DxfWriter {
 		flag: number,
 		knots: number[],
 		weights: number[],
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addSpline(
 			controlPoints,
@@ -285,7 +286,7 @@ export default class DxfWriter {
 	 * @param ratioOfMinorAxisToMajorAxis The ratio of minor axis to major axis.
 	 * @param startParameter The start parameter (this value is 0.0 for a full ellipse).
 	 * @param endParameter The end parameter (this value is 2pi for a full ellipse).
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addEllipse(
 		center: point3d_t,
@@ -293,7 +294,7 @@ export default class DxfWriter {
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addEllipse(
 			center,
@@ -315,7 +316,7 @@ export default class DxfWriter {
 	 * dxf.addImage(
 	 *		'E:/folder/subfolder/test.png', // The absolute path of the image.
 	 *		'test', // The name of the image.
-	 *		createPoint3d(10, 10, 10), // The insertion point.
+	 *		point3d(10, 10, 0), // The insertion point.
 	 *		600, // The width of the image in pixels.
 	 *		600, //The height of the image in pixels.
 	 *		1, // The scale to be applied to the image.
@@ -329,7 +330,7 @@ export default class DxfWriter {
 	 * @param height The height of the image in pixels.
 	 * @param scale The scale to be applied to the image.
 	 * @param rotation The rotation angle (Degrees) to be applied to the image.
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addImage(
 		absolutePath: string,
@@ -339,7 +340,7 @@ export default class DxfWriter {
 		height: number,
 		scale: number,
 		rotation: number,
-		options: options_t
+		options: options_t = {}
 	) {
 		this._dxfManager.addImage(
 			absolutePath,
@@ -361,14 +362,14 @@ export default class DxfWriter {
 	 * @param secondCorner The first corner of the 3d face.
 	 * @param thirdCorner The first corner of the 3d face.
 	 * @param fourthCorner The first corner of the 3d face.
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public add3dFace(
 		firstCorner: point3d_t,
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.add3dFace(
 			firstCorner,
@@ -385,13 +386,13 @@ export default class DxfWriter {
 	 * @param firstAlignementPoint The first alignment point of the text.
 	 * @param height The text height.
 	 * @param value The default value (the string itself).
-	 * @returns return the current object of DxfWriter.
+	 * @returns Return the current object of DxfWriter.
 	 */
 	public addText(
 		firstAlignementPoint: point3d_t,
 		height: number,
 		value: string,
-		options: options_t
+		options: options_t = {}
 	): this {
 		this._dxfManager.addText(firstAlignementPoint, height, value, options);
 		return this;

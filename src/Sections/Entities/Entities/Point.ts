@@ -18,7 +18,7 @@ export default class Point extends Entity {
 	private readonly _z: number;
 
 	public constructor(x: number, y: number, z: number, options: options_t) {
-		super('POINT', 'AcDbPoint', options);
+		super({ type: 'POINT', subclassMarker: 'AcDbPoint', options });
 		this._x = x;
 		this._y = y;
 		this._z = z;

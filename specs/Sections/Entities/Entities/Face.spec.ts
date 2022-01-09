@@ -53,7 +53,7 @@ describe('Face', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\n3DFACE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbFace\n`;
+		let entityString = `  0\n3DFACE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbFace\n`;
 		entityString += `  10\n0\n  20\n0\n  30\n50\n  11\n3\n  21\n0\n  31\n0\n`;
 		entityString += `  12\n0\n  22\n2\n  32\n0\n  13\n90\n  23\n0\n  33\n0\n`;
 		expect(entity.stringify()).toBe(entityString);

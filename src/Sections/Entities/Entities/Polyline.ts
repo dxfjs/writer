@@ -1,5 +1,5 @@
 import Entity, { options_t } from '../Entity';
-import Vertex from './Vertex';
+import Vertex, { vertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
 import TagsManager, {
 	point3d,
@@ -11,28 +11,35 @@ export default class Polyline extends Entity {
 	get flag(): number {
 		return this._flag;
 	}
-	get points(): point3d_t[] {
-		return this._points;
+
+	get vertices(): point3d_t[] {
+		return this._vertices;
 	}
 
-	private readonly _points: point3d_t[];
+	private readonly _vertices: point3d_t[];
 	private readonly _flag: number;
 	private _vertexes: Vertex[] = [];
 	private readonly _seqEnd: SeqEnd = new SeqEnd({});
 
-	public constructor(points: point3d_t[], flag: number, options: options_t) {
-		super('POLYLINE', 'AcDb3dPolyline', options);
+	public constructor(
+		vertices: point3d_t[],
+		flag: number,
+		options: options_t
+	) {
+		super({ type: 'POLYLINE', subclassMarker: 'AcDb3dPolyline', options });
 
-		this._points = points;
+		this._vertices = vertices;
 		this._flag = flag;
 
-		this.points.forEach((point) => {
-			this._vertexes.push(new Vertex(point, 32, {}));
+		this.vertices.forEach((point) => {
+			this._vertexes.push(
+				new Vertex(point, { flags: vertexFlags.polyline3dVertex })
+			);
 		});
 	}
 
 	public boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox(this.points);
+		return BoundingBox.verticesBBox(this.vertices);
 	}
 
 	public get manager(): TagsManager {

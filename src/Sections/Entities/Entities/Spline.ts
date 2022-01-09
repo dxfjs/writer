@@ -43,7 +43,7 @@ export default class Spline extends Entity {
 		weights: number[],
 		options: options_t
 	) {
-		super('SPLINE', 'AcDbSpline', options);
+		super({ type: 'SPLINE', subclassMarker: 'AcDbSpline', options });
 
 		this._controlPoints = controlPoints;
 		this._degreeCurve = degreeCurve;

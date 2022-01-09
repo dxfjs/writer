@@ -19,7 +19,7 @@ export default class Line extends Entity {
 		endPoint: point3d_t,
 		options: options_t
 	) {
-		super('LINE', 'AcDbLine', options);
+		super({ type: 'LINE', subclassMarker: 'AcDbLine', options });
 		this._startPoint = startPoint;
 		this._endPoint = endPoint;
 	}

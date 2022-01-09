@@ -35,7 +35,7 @@ describe('Line', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  6\nByLayer\n  62\n256\n  48\n1\n  60\n0\n  100\nAcDbLine\n`;
+		let entityString = `  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbLine\n`;
 		entityString += `  10\n1.32\n  20\n1\n  30\n0.22\n  11\n135\n  21\n855.23\n  31\n0.336\n`;
 		expect(entity.stringify()).toBe(entityString);
 	});

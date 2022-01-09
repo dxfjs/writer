@@ -1,40 +1,101 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, {
-	point3d,
-	point2d_t,
-} from '../../../Internals/TagsManager';
+import TagsManager, { point3d } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Merge } from '../../../Internals/Utils';
+
+export const lwPolylineFlags = {
+	closed: 1,
+	plinegen: 128,
+} as const;
+
+export type lwPolylineOptions_t = Merge<
+	options_t,
+	{
+		flags: number;
+		constantWidth: number;
+		elevation: number;
+		thickness: number;
+	}
+>;
+
+export type lwPolylineVertex_t = {
+	x: number;
+	y: number;
+	startingWidth?: number;
+	endWidth?: number;
+	bulge?: number;
+};
 
 export default class LWPolyline extends Entity {
-	get flag(): number {
-		return this._flag;
-	}
-	get points(): point2d_t[] {
-		return this._points;
+	private readonly _vertices: lwPolylineVertex_t[];
+	private readonly _flags: number | undefined;
+	private readonly _constantWidth: number | undefined;
+	private readonly _elevation: number | undefined;
+	private readonly _thickness: number | undefined;
+
+	public get vertices(): lwPolylineVertex_t[] {
+		return this._vertices;
 	}
 
-	private readonly _points: point2d_t[];
-	private readonly _flag: number;
+	public get flags(): number | undefined {
+		return this._flags;
+	}
 
-	public constructor(points: point2d_t[], flag: number, options: options_t) {
-		super('LWPOLYLINE', 'AcDbPolyline', options);
-		this._points = points;
-		this._flag = flag;
+	public get constantWidth(): number | undefined {
+		return this._constantWidth;
+	}
+
+	public get elevation(): number | undefined {
+		return this._elevation;
+	}
+
+	public get thickness(): number | undefined {
+		return this._thickness;
+	}
+
+	public constructor(
+		vertices: lwPolylineVertex_t[],
+		options: lwPolylineOptions_t = {}
+	) {
+		super({ type: 'LWPOLYLINE', subclassMarker: 'AcDbPolyline', options });
+		this._vertices = vertices;
+		this._flags = options.flags;
+		this._constantWidth = options.constantWidth;
+		this._elevation = options.elevation;
+		this._thickness = options.thickness;
 	}
 
 	public boundingBox(): boundingBox_t {
 		return BoundingBox.verticesBBox(
-			this.points.map((p) => point3d(p.x, p.y, 0))
+			this.vertices.map((p) => point3d(p.x, p.y, 0))
 		);
 	}
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
-		manager.addTag(90, this.points.length);
-		manager.addTag(70, this.flag);
-		this.points.forEach((point) => {
-			manager.point2d(point);
+		manager.addTag(90, this.vertices.length);
+		manager.addTag(70, this.flags || 0);
+
+		if (
+			!this.vertices.find((vertex) => {
+				return (
+					vertex.startingWidth &&
+					vertex.startingWidth > 0 &&
+					vertex.endWidth &&
+					vertex.endWidth > 0
+				);
+			})
+		) {
+			manager.addTag(43, this.constantWidth);
+		}
+		manager.elevation(this.elevation);
+		manager.thickness(this.thickness);
+		this.vertices.forEach((vertex) => {
+			manager.point2d(vertex);
+			manager.addTag(40, vertex.startingWidth);
+			manager.addTag(41, vertex.endWidth);
+			manager.addTag(42, vertex.bulge);
 		});
 		return manager;
 	}

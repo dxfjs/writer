@@ -23,7 +23,7 @@ describe('Polyline3D', () => {
 		);
 		dataState.instancesCount++;
 		expect(entity.flag).toBe(0);
-		expect(entity.points).toEqual([
+		expect(entity.vertices).toEqual([
 			point3d(121.326, 0.4152, 8787),
 			point3d(120, 5544, 45),
 		]);

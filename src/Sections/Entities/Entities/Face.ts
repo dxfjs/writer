@@ -28,7 +28,7 @@ export default class Face extends Entity {
 		fourthCorner: point3d_t,
 		options: options_t
 	) {
-		super('3DFACE', 'AcDbFace', options);
+		super({ type: '3DFACE', subclassMarker: 'AcDbFace', options });
 		this._firstCorner = firstCorner;
 		this._secondCorner = secondCorner;
 		this._thirdCorner = thirdCorner;
