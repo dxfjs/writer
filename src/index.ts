@@ -15,7 +15,7 @@ import {
 } from './Internals/TagsManager';
 import { options_t } from './Sections/Entities/Entity';
 import { Colors, Units } from './GlobalState';
-import { Merge } from './DxfWriter';
+import { Merge } from './Internals/Utils';
 
 export {
 	DxfWriter as default,
