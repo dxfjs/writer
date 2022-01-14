@@ -8,7 +8,6 @@ A [Javascript](https://www.javascript.com/)  [dxf](https://en.wikipedia.org/wiki
 
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript)
 [![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
 ![npm](https://img.shields.io/npm/dw/@tarikjabiri/dxf)
 
