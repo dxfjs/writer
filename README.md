@@ -6,13 +6,11 @@
 
 A [Javascript](https://www.javascript.com/)  [dxf](https://en.wikipedia.org/wiki/AutoCAD_DXF) generator, written in [Typescript](https://www.typescriptlang.org/).
 
-[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/tarikjabiri/dxf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tarikjabiri/dxf/context:javascript)
-[![GitHub issues](https://img.shields.io/github/issues/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/issues)
 [![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
-[![GitHub license](https://img.shields.io/github/license/tarikjabiri/dxf)](https://github.com/tarikjabiri/dxf/blob/master/LICENSE.md)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_shield)
+![npm](https://img.shields.io/npm/dw/@tarikjabiri/dxf)
 
 <!--[Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.-->
 
@@ -42,7 +40,7 @@ const dxfString = dxf.stringify();
 For more informations, please refer to the [docs](https://github.com/tarikjabiri/dxf).
 ## License
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftarikjabiri%2Fdxf?ref=badge_large)
+![GitHub](https://img.shields.io/github/license/tarikjabiri/dxf?style=for-the-badge)
 
 ## Become a patron
 
