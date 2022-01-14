@@ -1,7 +1,7 @@
-import DxfHeader from '../../../src/Sections/Header/DxfHeader';
+import DxfHeaderSection from '../../../src/Sections/HeaderSection/DxfHeaderSection';
 
 describe('DxfHeader class', () => {
-	const header = new DxfHeader();
+	const header = DxfHeaderSection.getInstance();
 
 	it('Should have zero variable', () => {
 		expect(header.variables.length).toBe(0);

@@ -1,5 +1,5 @@
 import { point3d } from '../../../../src/Internals/TagsManager';
-import Face from '../../../../src/Sections/Entities/Entities/Face';
+import Face from '../../../../src/Sections/EntitiesSection/Entities/Face';
 
 describe('Face', () => {
 	const dataState = {

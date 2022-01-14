@@ -1,4 +1,4 @@
-import { lwPolylineOptions_t } from '../Sections/Entities/Entities/LWPolyline';
+import { lwPolylineOptions_t } from '../Sections/EntitiesSection/Entities/LWPolyline';
 
 export type Merge<T, U> = {
 	[k in keyof T | keyof U]+?: k extends keyof T

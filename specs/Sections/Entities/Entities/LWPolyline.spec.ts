@@ -1,5 +1,5 @@
 import { point2d } from '../../../../src/Internals/TagsManager';
-import LWPolyline from '../../../../src/Sections/Entities/Entities/LWPolyline';
+import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
 
 describe('Polyline', () => {
 	const dataState = {

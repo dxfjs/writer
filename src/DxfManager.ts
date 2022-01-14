@@ -3,24 +3,25 @@ import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
 import TagsManager, { point3d_t } from './Internals/TagsManager';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
-import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
-import DxfClasses from './Sections/Classes/DxfClasses';
-import Entities from './Sections/Entities/Entities';
-import Image from './Sections/Entities/Entities/Image';
-import { options_t } from './Sections/Entities/Entity';
-import DxfHeader from './Sections/Header/DxfHeader';
-import DxfObjects from './Sections/Objects/DxfObjects';
-import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
-import DxfImageDefReactor from './Sections/Objects/Objects/DxfImageDefReactor';
-import DxfTables from './Sections/Tables/DxfTables';
-import DxfViewPort from './Sections/Tables/Tables/Records/DxfViewPort';
+import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
+import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
+import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
+import Image from './Sections/EntitiesSection/Entities/Image';
+import { options_t } from './Sections/EntitiesSection/Entity';
+import DxfHeaderSection from './Sections/HeaderSection/DxfHeaderSection';
+import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
+import DxfImageDef from './Sections/ObjectsSection/Objects/DxfImageDef';
+import DxfImageDefReactor from './Sections/ObjectsSection/Objects/DxfImageDefReactor';
+import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
+import DxfViewPort from './Sections/TablesSection/Tables/Records/DxfViewPort';
 
 export default class DxfManager implements DxfInterface {
-	private readonly _headerSection: DxfHeader;
-	private readonly _classesSection: DxfClasses;
-	private readonly _tablesSection: DxfTables;
-	private readonly _blocksSection: DxfBlocks;
-	private readonly _entitiesSection: Entities;
+	private static _instance: DxfManager;
+	private readonly _headerSection: DxfHeaderSection;
+	private readonly _classesSection: DxfClassesSection;
+	private readonly _tablesSection: DxfTablesSection;
+	private readonly _blocksSection: DxfBlocksSection;
+	private readonly _entitiesSection: DxfEntitiesSection;
 	private readonly _objectsSection: DxfObjects;
 
 	private readonly _activeViewPort: DxfViewPort;
@@ -36,23 +37,23 @@ export default class DxfManager implements DxfInterface {
 		return this._paperSpace;
 	}
 
-	public get headerSection(): DxfHeader {
+	public get headerSection(): DxfHeaderSection {
 		return this._headerSection;
 	}
 
-	public get classesSection(): DxfClasses {
+	public get classesSection(): DxfClassesSection {
 		return this._classesSection;
 	}
 
-	public get tablesSection(): DxfTables {
+	public get tablesSection(): DxfTablesSection {
 		return this._tablesSection;
 	}
 
-	public get blocksSection(): DxfBlocks {
+	public get blocksSection(): DxfBlocksSection {
 		return this._blocksSection;
 	}
 
-	public get entitiesSection(): Entities {
+	public get entitiesSection(): DxfEntitiesSection {
 		return this._entitiesSection;
 	}
 
@@ -60,12 +61,13 @@ export default class DxfManager implements DxfInterface {
 		return this._objectsSection;
 	}
 
-	public constructor() {
-		this._headerSection = new DxfHeader();
-		this._classesSection = new DxfClasses();
-		this._tablesSection = new DxfTables();
-		this._blocksSection = new DxfBlocks();
-		this._objectsSection = new DxfObjects();
+	private constructor() {
+		this._headerSection = DxfHeaderSection.getInstance();
+		this._classesSection = DxfClassesSection.getInstance();
+		this._tablesSection = DxfTablesSection.getInstance();
+		this._blocksSection = DxfBlocksSection.getInstance();
+		this._entitiesSection = DxfEntitiesSection.getInstance();
+		this._objectsSection = DxfObjects.getInstance();
 
 		this.headerSection.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandleSeed();
@@ -80,19 +82,17 @@ export default class DxfManager implements DxfInterface {
 		this.tablesSection.addDimStyle('Standard');
 		this._activeViewPort = this.tablesSection.addViewPort('*Active');
 
-		this._modelSpace = this.addBlock('*Model_Space');
-		this._paperSpace = this.addBlock('*Paper_Space');
+		this._modelSpace = this.blocksSection.modelSpace;
+		this._paperSpace = this.blocksSection.paperSpace;
+	}
 
-		// After model sapce creation
-		this._entitiesSection = new Entities(this.modelSpace.softPointer);
+	public static getInstance(): DxfManager {
+		if (!this._instance) this._instance = new DxfManager();
+		return this._instance;
 	}
 
 	public addBlock(name: string) {
-		const blockRecord = this.tablesSection.addBlockRecord(name);
-		const block = this.blocksSection.addBlock(name);
-		block.softPointer = blockRecord.handle;
-		block.endBlk.softPointer = blockRecord.handle;
-		return block;
+		return this.blocksSection.addBlock(name);
 	}
 
 	public setCurrentLayerName(name: string): void {
@@ -144,7 +144,7 @@ export default class DxfManager implements DxfInterface {
 		);
 		const imageDefReactor = new DxfImageDefReactor(image.handle);
 		image.imageDefReactorId = imageDefReactor.handle;
-		this.entitiesSection.addEntity(image);
+		this.modelSpace.addEntity(image);
 		this.objectsSection.addObject(imageDef);
 		this.objectsSection.addObject(imageDefReactor);
 		const dictionary = this.objectsSection.createDictionary();
@@ -161,8 +161,8 @@ export default class DxfManager implements DxfInterface {
 
 	public stringify(): string {
 		this.updateHandleSeed();
-		this.setViewCenter(this.entitiesSection.centerView()); // fit in
-		this._activeViewPort.viewHeight = this.entitiesSection.viewHeight();
+		this.setViewCenter(this.modelSpace.centerView()); // fit in
+		this._activeViewPort.viewHeight = this.modelSpace.viewHeight();
 		return this.manager.stringify();
 	}
 

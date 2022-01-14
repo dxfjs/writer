@@ -1,12 +1,11 @@
-import Handle from '../../Internals/Handle';
 import TagsManager, { point3d_t, tag_t } from '../../Internals/TagsManager';
-import Entity from '../Entities/Entity';
+import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import EndBlk from './DxfEndBlk';
 
-export default class DxfBlock extends Handle {
-	private readonly _entities: Entity[] = [];
+export default class DxfBlock extends EntitiesManager {
 	private readonly _name: string;
 	private readonly _endBlk: EndBlk;
+	private _stringifyEntities: boolean = true;
 
 	private _blockTypeFlags: number = 0;
 	private _basePoint: point3d_t = {
@@ -16,16 +15,20 @@ export default class DxfBlock extends Handle {
 	};
 	private _xrefPathName: string = '';
 
-	public get entities(): Entity[] {
-		return this._entities;
-	}
-
 	public get name(): string {
 		return this._name;
 	}
 
 	public get endBlk(): EndBlk {
 		return this._endBlk;
+	}
+
+	public get stringifyEntities(): boolean {
+		return this._stringifyEntities;
+	}
+
+	public set stringifyEntities(value: boolean) {
+		this._stringifyEntities = value;
 	}
 
 	public get blockTypeFlags(): number {
@@ -58,11 +61,6 @@ export default class DxfBlock extends Handle {
 		this._endBlk = new EndBlk();
 	}
 
-	public addEntity(entity: Entity) {
-		entity.softPointer = this.softPointer;
-		this._entities.push(entity);
-	}
-
 	public tags(): tag_t[] {
 		const manager = new TagsManager();
 		manager.entityType('BLOCK');
@@ -76,9 +74,11 @@ export default class DxfBlock extends Handle {
 		manager.point3d(this.basePoint);
 		manager.name(this.name, 3);
 		manager.addTag(1, this.xrefPathName);
-		this.entities.forEach((entity) => {
-			manager.appendTags(entity);
-		});
+		if (this.stringifyEntities) {
+			this.entities.forEach((entity) => {
+				manager.appendTags(entity);
+			});
+		}
 		manager.appendTags(this._endBlk);
 		return manager.tags;
 	}

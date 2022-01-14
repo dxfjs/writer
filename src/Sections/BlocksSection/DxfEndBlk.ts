@@ -3,11 +3,11 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfEndBlk extends Handle implements DxfInterface {
-	stringify(): string {
+	public stringify(): string {
 		return this.manager.stringify();
 	}
 
-	get manager(): TagsManager {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType('ENDBLK');
 		manager.handle(this.handle);

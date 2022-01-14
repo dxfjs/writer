@@ -1,27 +1,22 @@
 import { point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfManager from './DxfManager';
-import { values_t } from './Sections/Header/DxfVariable';
+import { values_t } from './Sections/HeaderSection/DxfVariable';
 import GlobalState from './GlobalState';
-import { options_t } from './Sections/Entities/Entity';
+import { options_t } from './Sections/EntitiesSection/Entity';
 import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
-} from './Sections/Entities/Entities/LWPolyline';
+} from './Sections/EntitiesSection/Entities/LWPolyline';
 import { rectangleOptions_t } from './Internals/Utils';
 
 /**
  *
  */
 export default class DxfWriter {
-	/** @internal */
-	private _dxfManager: DxfManager;
-
 	/**
 	 * The base class for creating the Dxf content.
 	 */
-	public constructor() {
-		this._dxfManager = new DxfManager();
-	}
+	public constructor() {}
 
 	/**
 	 * Add a header variable to the Dxf if not exist. \
@@ -38,7 +33,7 @@ export default class DxfWriter {
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setVariable(name: string, values: values_t): this {
-		this._dxfManager.headerSection.setVariable(name, values);
+		DxfManager.getInstance().headerSection.setVariable(name, values);
 		return this;
 	}
 
@@ -56,7 +51,11 @@ export default class DxfWriter {
 		descriptive: string,
 		elements: number[]
 	): this {
-		this._dxfManager.tablesSection.addLineType(name, descriptive, elements);
+		DxfManager.getInstance().tablesSection.addLineType(
+			name,
+			descriptive,
+			elements
+		);
 		return this;
 	}
 
@@ -69,7 +68,7 @@ export default class DxfWriter {
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLayer(name: string, color: number, lineType: string): this {
-		this._dxfManager.tablesSection.addLayer(name, color, lineType);
+		DxfManager.getInstance().tablesSection.addLayer(name, color, lineType);
 		return this;
 	}
 
@@ -80,7 +79,7 @@ export default class DxfWriter {
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setCurrentLayerName(name: string): this {
-		this._dxfManager.setCurrentLayerName(name);
+		DxfManager.getInstance().setCurrentLayerName(name);
 		return this;
 	}
 
@@ -112,7 +111,11 @@ export default class DxfWriter {
 		endPoint: point3d_t,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addLine(startPoint, endPoint, options);
+		DxfManager.getInstance().modelSpace.addLine(
+			startPoint,
+			endPoint,
+			options
+		);
 		return this;
 	}
 
@@ -132,7 +135,7 @@ export default class DxfWriter {
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addLWPolyline(points, options);
+		DxfManager.getInstance().modelSpace.addLWPolyline(points, options);
 		return this;
 	}
 
@@ -161,7 +164,7 @@ export default class DxfWriter {
 		bottomRight: point2d_t,
 		options?: rectangleOptions_t
 	): this {
-		this._dxfManager.entitiesSection.addRectangle(
+		DxfManager.getInstance().modelSpace.addRectangle(
 			topLeft,
 			bottomRight,
 			options || {}
@@ -181,7 +184,11 @@ export default class DxfWriter {
 		flag: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addPolyline3D(points, flag, options);
+		DxfManager.getInstance().modelSpace.addPolyline3D(
+			points,
+			flag,
+			options
+		);
 		return this;
 	}
 
@@ -199,7 +206,7 @@ export default class DxfWriter {
 		z: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addPoint(x, y, z, options);
+		DxfManager.getInstance().modelSpace.addPoint(x, y, z, options);
 		return this;
 	}
 
@@ -214,7 +221,7 @@ export default class DxfWriter {
 		radius: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addCircle(center, radius, options);
+		DxfManager.getInstance().modelSpace.addCircle(center, radius, options);
 		return this;
 	}
 
@@ -238,7 +245,7 @@ export default class DxfWriter {
 		endAngle: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addArc(
+		DxfManager.getInstance().modelSpace.addArc(
 			center,
 			radius,
 			startAngle,
@@ -276,7 +283,7 @@ export default class DxfWriter {
 		weights: number[],
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addSpline(
+		DxfManager.getInstance().modelSpace.addSpline(
 			controlPoints,
 			fitPoints,
 			degreeCurve,
@@ -306,7 +313,7 @@ export default class DxfWriter {
 		endParameter: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addEllipse(
+		DxfManager.getInstance().modelSpace.addEllipse(
 			center,
 			endPointOfMajorAxis,
 			ratioOfMinorAxisToMajorAxis,
@@ -352,7 +359,7 @@ export default class DxfWriter {
 		rotation: number,
 		options: options_t = {}
 	) {
-		this._dxfManager.addImage(
+		DxfManager.getInstance().addImage(
 			absolutePath,
 			name,
 			insertionPoint,
@@ -381,7 +388,7 @@ export default class DxfWriter {
 		fourthCorner: point3d_t,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.add3dFace(
+		DxfManager.getInstance().modelSpace.add3dFace(
 			firstCorner,
 			secondCorner,
 			thirdCorner,
@@ -404,7 +411,7 @@ export default class DxfWriter {
 		value: string,
 		options: options_t = {}
 	): this {
-		this._dxfManager.entitiesSection.addText(
+		DxfManager.getInstance().modelSpace.addText(
 			firstAlignementPoint,
 			height,
 			value,
@@ -418,6 +425,6 @@ export default class DxfWriter {
 	 * @return Get the Dxf string.
 	 */
 	public stringify(): string {
-		return this._dxfManager.stringify();
+		return DxfManager.getInstance().stringify();
 	}
 }

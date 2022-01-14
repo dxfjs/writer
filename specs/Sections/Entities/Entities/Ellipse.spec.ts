@@ -1,4 +1,4 @@
-import Ellipse from '../../../../src/Sections/Entities/Entities/Ellipse';
+import Ellipse from '../../../../src/Sections/EntitiesSection/Entities/Ellipse';
 import { point3d } from '../../../../src/Internals/TagsManager';
 
 describe('Ellipse', () => {

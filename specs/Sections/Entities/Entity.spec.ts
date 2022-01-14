@@ -1,7 +1,7 @@
 import BoundingBox from '../../../src/Internals/BoundingBox';
 import GlobalState from '../../../src/GlobalState';
 import { boundingBox_t } from '../../../src/Internals/BoundingBox';
-import Entity from '../../../src/Sections/Entities/Entity';
+import Entity from '../../../src/Sections/EntitiesSection/Entity';
 
 class DummyEntity extends Entity {
 	public boundingBox(): boundingBox_t {

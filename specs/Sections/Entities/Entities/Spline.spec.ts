@@ -1,5 +1,5 @@
 import { point3d } from '../../../../src/Internals/TagsManager';
-import Spline from '../../../../src/Sections/Entities/Entities/Spline';
+import Spline from '../../../../src/Sections/EntitiesSection/Entities/Spline';
 
 describe('Spline', () => {
 	const dataState = {

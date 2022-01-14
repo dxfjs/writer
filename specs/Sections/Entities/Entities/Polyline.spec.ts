@@ -1,5 +1,5 @@
 import { point3d } from '../../../../src/Internals/TagsManager';
-import Polyline from '../../../../src/Sections/Entities/Entities/Polyline';
+import Polyline from '../../../../src/Sections/EntitiesSection/Entities/Polyline';
 
 describe('Polyline3D', () => {
 	const dataState = {

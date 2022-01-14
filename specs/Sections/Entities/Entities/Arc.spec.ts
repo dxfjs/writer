@@ -1,5 +1,5 @@
 import { point3d } from '../../../../src/Internals/TagsManager';
-import Arc from '../../../../src/Sections/Entities/Entities/Arc';
+import Arc from '../../../../src/Sections/EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {
 	const dataState = {

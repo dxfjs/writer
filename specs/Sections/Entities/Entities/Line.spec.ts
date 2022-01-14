@@ -1,5 +1,5 @@
 import { point3d } from '../../../../src/Internals/TagsManager';
-import Line from '../../../../src/Sections/Entities/Entities/Line';
+import Line from '../../../../src/Sections/EntitiesSection/Entities/Line';
 
 describe('Line', () => {
 	const dataState = {

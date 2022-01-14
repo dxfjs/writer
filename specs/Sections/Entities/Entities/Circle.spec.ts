@@ -1,4 +1,4 @@
-import Circle from '../../../../src/Sections/Entities/Entities/Circle';
+import Circle from '../../../../src/Sections/EntitiesSection/Entities/Circle';
 import { point3d } from '../../../../src/Internals/TagsManager';
 
 describe('Circle', () => {

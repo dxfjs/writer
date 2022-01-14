@@ -3,9 +3,9 @@ import DxfManager from '../src/DxfManager';
 jest.mock('../src/DxfManager');
 
 describe('DxfManager class', () => {
-	const d = new DxfManager();
+	const d = DxfManager.getInstance();
 
-	it('Should call handle constructor one time', () => {
-		expect(DxfManager).toHaveBeenCalledTimes(1);
+	it('Should call DxfManager constructor zero time', () => {
+		expect(DxfManager).toHaveBeenCalledTimes(0);
 	});
 });

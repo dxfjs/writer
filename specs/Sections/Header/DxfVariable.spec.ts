@@ -1,5 +1,5 @@
 import TagsManager from '../../../src/Internals/TagsManager';
-import DxfVariable from '../../../src/Sections/Header/DxfVariable';
+import DxfVariable from '../../../src/Sections/HeaderSection/DxfVariable';
 
 describe('DxfHeader class', () => {
 	const header = new DxfVariable('$ACADVER', { 1: 'AC1021' });

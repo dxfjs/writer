@@ -6,14 +6,14 @@
  * @preferred
  */
 import DxfWriter from './DxfWriter';
-import { values_t } from './Sections/Header/DxfVariable';
+import { values_t } from './Sections/HeaderSection/DxfVariable';
 import {
 	point2d,
 	point3d,
 	point2d_t,
 	point3d_t,
 } from './Internals/TagsManager';
-import { options_t } from './Sections/Entities/Entity';
+import { options_t } from './Sections/EntitiesSection/Entity';
 import { Colors, Units } from './GlobalState';
 import { Merge } from './Internals/Utils';
 

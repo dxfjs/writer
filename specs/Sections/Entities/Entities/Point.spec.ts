@@ -1,4 +1,4 @@
-import Point from '../../../../src/Sections/Entities/Entities/Point';
+import Point from '../../../../src/Sections/EntitiesSection/Entities/Point';
 
 describe('Point', () => {
 	const dataState = {
