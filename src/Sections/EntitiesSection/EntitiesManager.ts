@@ -18,7 +18,7 @@ import Face from './Entities/Face';
 import Text from './Entities/Text';
 import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
-import Insert from './Entities/Insert';
+import Insert, { insertOptions_t } from './Entities/Insert';
 
 export default abstract class EntitiesManager
 	extends Handle
@@ -200,8 +200,12 @@ export default abstract class EntitiesManager
 		this.addEntity(new Text(firstAlignementPoint, height, value, options));
 	}
 
-	public addInsert(blockName: string, insertionPoint: point3d_t) {
-		this.addEntity(new Insert(blockName, insertionPoint));
+	public addInsert(
+		blockName: string,
+		insertionPoint: point3d_t,
+		options: insertOptions_t
+	) {
+		this.addEntity(new Insert(blockName, insertionPoint, options));
 	}
 
 	public boundingBox(): boundingBox_t {

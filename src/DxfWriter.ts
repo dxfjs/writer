@@ -8,10 +8,9 @@ import {
 	lwPolylineVertex_t,
 } from './Sections/EntitiesSection/Entities/LWPolyline';
 import { rectangleOptions_t } from './Internals/Utils';
+import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
+import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 
-/**
- *
- */
 export default class DxfWriter {
 	/**
 	 * The base class for creating the Dxf content.
@@ -51,11 +50,7 @@ export default class DxfWriter {
 		descriptive: string,
 		elements: number[]
 	): this {
-		DxfManager.getInstance().tablesSection.addLineType(
-			name,
-			descriptive,
-			elements
-		);
+		DxfTablesSection.getInstance().addLineType(name, descriptive, elements);
 		return this;
 	}
 
@@ -68,7 +63,7 @@ export default class DxfWriter {
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLayer(name: string, color: number, lineType: string): this {
-		DxfManager.getInstance().tablesSection.addLayer(name, color, lineType);
+		DxfTablesSection.getInstance().addLayer(name, color, lineType);
 		return this;
 	}
 
@@ -426,10 +421,15 @@ export default class DxfWriter {
 	 * @param insertionPoint - The point where the block is to be inserted.
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public addInsert(blockName: string, insertionPoint: point3d_t): this {
+	public addInsert(
+		blockName: string,
+		insertionPoint: point3d_t,
+		options: insertOptions_t
+	): this {
 		DxfManager.getInstance().modelSpace.addInsert(
 			blockName,
-			insertionPoint
+			insertionPoint,
+			options
 		);
 		return this;
 	}
