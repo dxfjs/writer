@@ -11,12 +11,15 @@ export default class Arc extends Entity {
 	get endAngle(): number {
 		return this._endAngle;
 	}
+
 	get startAngle(): number {
 		return this._startAngle;
 	}
+
 	get radius(): number {
 		return this._radius;
 	}
+
 	get center(): point3d_t {
 		return this._center;
 	}

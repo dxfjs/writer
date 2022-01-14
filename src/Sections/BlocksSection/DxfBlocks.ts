@@ -11,7 +11,7 @@ export default class DxfBlocks implements DxfInterface {
 
 	public constructor() {}
 
-	public addBlock(name: string) {
+	public addBlock(name: string): DxfBlock {
 		const block = new DxfBlock(name);
 		this._blocks.push(block);
 		return block;

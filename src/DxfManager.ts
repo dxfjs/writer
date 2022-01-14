@@ -1,28 +1,13 @@
 import GlobalState from './GlobalState';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
-import TagsManager, { point2d_t, point3d_t } from './Internals/TagsManager';
-import { bulge, rectangleOptions_t } from './Internals/Utils';
+import TagsManager, { point3d_t } from './Internals/TagsManager';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocks from './Sections/BlocksSection/DxfBlocks';
 import DxfClasses from './Sections/Classes/DxfClasses';
 import Entities from './Sections/Entities/Entities';
-import Arc from './Sections/Entities/Entities/Arc';
-import Circle from './Sections/Entities/Entities/Circle';
-import Ellipse from './Sections/Entities/Entities/Ellipse';
-import Face from './Sections/Entities/Entities/Face';
 import Image from './Sections/Entities/Entities/Image';
-import Line from './Sections/Entities/Entities/Line';
-import LWPolyline, {
-	lwPolylineFlags,
-	lwPolylineOptions_t,
-	lwPolylineVertex_t,
-} from './Sections/Entities/Entities/LWPolyline';
-import Point from './Sections/Entities/Entities/Point';
-import Polyline from './Sections/Entities/Entities/Polyline';
-import Spline from './Sections/Entities/Entities/Spline';
-import Text from './Sections/Entities/Entities/Text';
-import Entity, { options_t } from './Sections/Entities/Entity';
+import { options_t } from './Sections/Entities/Entity';
 import DxfHeader from './Sections/Header/DxfHeader';
 import DxfObjects from './Sections/Objects/DxfObjects';
 import DxfImageDef from './Sections/Objects/Objects/DxfImageDef';
@@ -80,7 +65,6 @@ export default class DxfManager implements DxfInterface {
 		this._classesSection = new DxfClasses();
 		this._tablesSection = new DxfTables();
 		this._blocksSection = new DxfBlocks();
-		this._entitiesSection = new Entities();
 		this._objectsSection = new DxfObjects();
 
 		this.headerSection.setVariable('$ACADVER', { 1: 'AC1021' });
@@ -96,15 +80,19 @@ export default class DxfManager implements DxfInterface {
 		this.tablesSection.addDimStyle('Standard');
 		this._activeViewPort = this.tablesSection.addViewPort('*Active');
 
-		const modelRecord = this.tablesSection.addBlockRecord('*Model_Space');
-		const paperRecord = this.tablesSection.addBlockRecord('*Paper_Space');
+		this._modelSpace = this.addBlock('*Model_Space');
+		this._paperSpace = this.addBlock('*Paper_Space');
 
-		this._modelSpace = this.blocksSection.addBlock('*Model_Space');
-		this._paperSpace = this.blocksSection.addBlock('*Paper_Space');
-		this.modelSpace.softPointer = modelRecord.handle;
-		this.modelSpace.endBlk.softPointer = modelRecord.handle;
-		this.paperSpace.softPointer = paperRecord.handle;
-		this.paperSpace.endBlk.softPointer = paperRecord.handle;
+		// After model sapce creation
+		this._entitiesSection = new Entities(this.modelSpace.softPointer);
+	}
+
+	public addBlock(name: string) {
+		const blockRecord = this.tablesSection.addBlockRecord(name);
+		const block = this.blocksSection.addBlock(name);
+		block.softPointer = blockRecord.handle;
+		block.endBlk.softPointer = blockRecord.handle;
+		return block;
 	}
 
 	public setCurrentLayerName(name: string): void {
@@ -156,7 +144,7 @@ export default class DxfManager implements DxfInterface {
 		);
 		const imageDefReactor = new DxfImageDefReactor(image.handle);
 		image.imageDefReactorId = imageDefReactor.handle;
-		this.addEntity(image);
+		this.entitiesSection.addEntity(image);
 		this.objectsSection.addObject(imageDef);
 		this.objectsSection.addObject(imageDefReactor);
 		const dictionary = this.objectsSection.createDictionary();
@@ -171,175 +159,9 @@ export default class DxfManager implements DxfInterface {
 		imageDef.imageReactorId = imageDefReactor.handle;
 	}
 
-	public addEntity(entity: Entity) {
-		entity.softPointer = this.modelSpace.handle;
-		this.entitiesSection.entities.push(entity);
-	}
-
-	public addLine(
-		startPoint: point3d_t,
-		endPoint: point3d_t,
-		options: options_t
-	): Line {
-		const line = new Line(startPoint, endPoint, options);
-		this.addEntity(line);
-		return line;
-	}
-
-	public addLWPolyline(
-		points: lwPolylineVertex_t[],
-		options: lwPolylineOptions_t
-	) {
-		this.addEntity(new LWPolyline(points, options));
-	}
-
-	public addRectangle(
-		topLeft: point2d_t,
-		bottomRight: point2d_t,
-		options: rectangleOptions_t
-	) {
-		const vertices: lwPolylineVertex_t[] = [];
-		const tX = topLeft.x;
-		const tY = topLeft.y;
-		const bX = bottomRight.x;
-		const bY = bottomRight.y;
-
-		if (options.fillet !== undefined && options.chamfer !== undefined)
-			throw new Error('You cannot define both fillet and chamfer!');
-
-		if (options.fillet !== undefined) {
-			const f = options.fillet;
-			const b = bulge(f);
-			vertices.push({ x: tX, y: tY - f, bulge: b });
-			vertices.push({ x: tX + f, y: tY });
-			vertices.push({ x: bX - f, y: tY, bulge: b });
-			vertices.push({ x: bX, y: tY - f });
-			vertices.push({ x: bX, y: bY + f, bulge: b });
-			vertices.push({ x: bX - f, y: bY });
-			vertices.push({ x: tX + f, y: bY, bulge: b });
-			vertices.push({ x: tX, y: bY + f });
-		} else if (options.chamfer !== undefined) {
-			const f = options.chamfer.first;
-			const s: number = options.chamfer.second || f;
-			vertices.push({ x: tX, y: tY - f });
-			vertices.push({ x: tX + s, y: tY });
-			vertices.push({ x: bX - f, y: tY });
-			vertices.push({ x: bX, y: tY - s });
-			vertices.push({ x: bX, y: bY + f });
-			vertices.push({ x: bX - s, y: bY });
-			vertices.push({ x: tX + f, y: bY });
-			vertices.push({ x: tX, y: bY + s });
-		} else {
-			vertices.push({ x: tX, y: tY });
-			vertices.push({ x: bX, y: tY });
-			vertices.push({ x: bX, y: bY });
-			vertices.push({ x: tX, y: bY });
-		}
-
-		this.addLWPolyline(vertices, {
-			...options,
-			flags: lwPolylineFlags.closed,
-		});
-	}
-
-	public addPolyline3D(
-		points: point3d_t[],
-		flag: number,
-		options: options_t
-	) {
-		this.addEntity(new Polyline(points, flag, options));
-	}
-
-	public addPoint(x: number, y: number, z: number, options: options_t) {
-		this.addEntity(new Point(x, y, z, options));
-	}
-
-	public addCircle(center: point3d_t, radius: number, options: options_t) {
-		this.addEntity(new Circle(center, radius, options));
-	}
-
-	public addArc(
-		center: point3d_t,
-		radius: number,
-		startAngle: number,
-		endAngle: number,
-		options: options_t
-	) {
-		this.addEntity(new Arc(center, radius, startAngle, endAngle, options));
-	}
-
-	public addSpline(
-		controlPoints: point3d_t[],
-		fitPoints: point3d_t[],
-		degreeCurve: number,
-		flag: number,
-		knots: number[],
-		weights: number[],
-		options: options_t
-	) {
-		this.addEntity(
-			new Spline(
-				controlPoints,
-				fitPoints,
-				degreeCurve,
-				flag,
-				knots,
-				weights,
-				options
-			)
-		);
-	}
-
-	public addEllipse(
-		center: point3d_t,
-		endPointOfMajorAxis: point3d_t,
-		ratioOfMinorAxisToMajorAxis: number,
-		startParameter: number,
-		endParameter: number,
-		options: options_t
-	): Ellipse {
-		const ellipse = new Ellipse(
-			center,
-			endPointOfMajorAxis,
-			ratioOfMinorAxisToMajorAxis,
-			startParameter,
-			endParameter,
-			options
-		);
-		this.addEntity(ellipse);
-		return ellipse;
-	}
-
-	public add3dFace(
-		firstCorner: point3d_t,
-		secondCorner: point3d_t,
-		thirdCorner: point3d_t,
-		fourthCorner: point3d_t,
-		options: options_t
-	) {
-		this.addEntity(
-			new Face(
-				firstCorner,
-				secondCorner,
-				thirdCorner,
-				fourthCorner,
-				options
-			)
-		);
-	}
-
-	public addText(
-		firstAlignementPoint: point3d_t,
-		height: number,
-		value: string,
-		options: options_t
-	) {
-		this.addEntity(new Text(firstAlignementPoint, height, value, options));
-	}
-
 	public stringify(): string {
 		this.updateHandleSeed();
-		this.setViewCenter(this.entitiesSection.centerView());
+		this.setViewCenter(this.entitiesSection.centerView()); // fit in
 		this._activeViewPort.viewHeight = this.entitiesSection.viewHeight();
 		return this.manager.stringify();
 	}

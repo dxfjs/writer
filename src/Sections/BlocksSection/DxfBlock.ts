@@ -59,6 +59,7 @@ export default class DxfBlock extends Handle {
 	}
 
 	public addEntity(entity: Entity) {
+		entity.softPointer = this.softPointer;
 		this._entities.push(entity);
 	}
 

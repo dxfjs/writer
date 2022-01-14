@@ -112,7 +112,7 @@ export default class DxfWriter {
 		endPoint: point3d_t,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addLine(startPoint, endPoint, options);
+		this._dxfManager.entitiesSection.addLine(startPoint, endPoint, options);
 		return this;
 	}
 
@@ -132,7 +132,7 @@ export default class DxfWriter {
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t = {}
 	): this {
-		this._dxfManager.addLWPolyline(points, options);
+		this._dxfManager.entitiesSection.addLWPolyline(points, options);
 		return this;
 	}
 
@@ -161,7 +161,11 @@ export default class DxfWriter {
 		bottomRight: point2d_t,
 		options?: rectangleOptions_t
 	): this {
-		this._dxfManager.addRectangle(topLeft, bottomRight, options || {});
+		this._dxfManager.entitiesSection.addRectangle(
+			topLeft,
+			bottomRight,
+			options || {}
+		);
 		return this;
 	}
 
@@ -177,7 +181,7 @@ export default class DxfWriter {
 		flag: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addPolyline3D(points, flag, options);
+		this._dxfManager.entitiesSection.addPolyline3D(points, flag, options);
 		return this;
 	}
 
@@ -195,7 +199,7 @@ export default class DxfWriter {
 		z: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addPoint(x, y, z, options);
+		this._dxfManager.entitiesSection.addPoint(x, y, z, options);
 		return this;
 	}
 
@@ -210,7 +214,7 @@ export default class DxfWriter {
 		radius: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addCircle(center, radius, options);
+		this._dxfManager.entitiesSection.addCircle(center, radius, options);
 		return this;
 	}
 
@@ -234,7 +238,13 @@ export default class DxfWriter {
 		endAngle: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addArc(center, radius, startAngle, endAngle, options);
+		this._dxfManager.entitiesSection.addArc(
+			center,
+			radius,
+			startAngle,
+			endAngle,
+			options
+		);
 		return this;
 	}
 
@@ -266,7 +276,7 @@ export default class DxfWriter {
 		weights: number[],
 		options: options_t = {}
 	): this {
-		this._dxfManager.addSpline(
+		this._dxfManager.entitiesSection.addSpline(
 			controlPoints,
 			fitPoints,
 			degreeCurve,
@@ -296,7 +306,7 @@ export default class DxfWriter {
 		endParameter: number,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addEllipse(
+		this._dxfManager.entitiesSection.addEllipse(
 			center,
 			endPointOfMajorAxis,
 			ratioOfMinorAxisToMajorAxis,
@@ -371,7 +381,7 @@ export default class DxfWriter {
 		fourthCorner: point3d_t,
 		options: options_t = {}
 	): this {
-		this._dxfManager.add3dFace(
+		this._dxfManager.entitiesSection.add3dFace(
 			firstCorner,
 			secondCorner,
 			thirdCorner,
@@ -394,7 +404,12 @@ export default class DxfWriter {
 		value: string,
 		options: options_t = {}
 	): this {
-		this._dxfManager.addText(firstAlignementPoint, height, value, options);
+		this._dxfManager.entitiesSection.addText(
+			firstAlignementPoint,
+			height,
+			value,
+			options
+		);
 		return this;
 	}
 
