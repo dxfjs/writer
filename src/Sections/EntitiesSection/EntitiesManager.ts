@@ -18,6 +18,7 @@ import Face from './Entities/Face';
 import Text from './Entities/Text';
 import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
+import Insert from './Entities/Insert';
 
 export default abstract class EntitiesManager
 	extends Handle
@@ -58,7 +59,7 @@ export default abstract class EntitiesManager
 	public addRectangle(
 		topLeft: point2d_t,
 		bottomRight: point2d_t,
-		options: rectangleOptions_t
+		options: rectangleOptions_t = {}
 	) {
 		const vertices: lwPolylineVertex_t[] = [];
 		const tX = topLeft.x;
@@ -197,6 +198,10 @@ export default abstract class EntitiesManager
 		options: options_t
 	) {
 		this.addEntity(new Text(firstAlignementPoint, height, value, options));
+	}
+
+	public addInsert(blockName: string, insertionPoint: point3d_t) {
+		this.addEntity(new Insert(blockName, insertionPoint));
 	}
 
 	public boundingBox(): boundingBox_t {

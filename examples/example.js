@@ -1,6 +1,6 @@
-import DxfWriter from '../lib';
+import DxfWriter, { point2d, point3d } from '../lib';
 import * as fs from 'fs';
-import { point2d } from '../lib';
+import { createBlock } from '../lib';
 
 const dxf = new DxfWriter();
 
@@ -20,14 +20,23 @@ dxf.addLWPolyline(
 	360 - 359.74
 );*/
 
-dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]);
+/*dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]);
 
 dxf.addRectangle(point2d(400, 400), point2d(600, 200), {
 	elevation: 30,
 	constantWidth: 10,
 	lineType: 'AXES',
 	lineTypeScale: 10,
-});
+});*/
+
+const circleBlock = createBlock('circle');
+circleBlock.addCircle(point3d(0, 0, 0), 50);
+circleBlock.addRectangle(
+	point2d(-35.3553, 35.3553),
+	point2d(35.3553, -35.3553)
+);
+
+dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');

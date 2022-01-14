@@ -16,6 +16,7 @@ import {
 import { options_t } from './Sections/EntitiesSection/Entity';
 import { Colors, Units } from './GlobalState';
 import { Merge } from './Internals/Utils';
+import { createBlock } from './Factory';
 
 export {
 	DxfWriter as default,
@@ -28,4 +29,5 @@ export {
 	Colors,
 	Units,
 	Merge,
+	createBlock,
 };

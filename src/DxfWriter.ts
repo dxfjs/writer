@@ -421,6 +421,20 @@ export default class DxfWriter {
 	}
 
 	/**
+	 * Add an insert entity to the model space.
+	 * @param blockName - The name of the block to insert.
+	 * @param insertionPoint - The point where the block is to be inserted.
+	 * @returns Return the current object of DxfWriter.
+	 */
+	public addInsert(blockName: string, insertionPoint: point3d_t): this {
+		DxfManager.getInstance().modelSpace.addInsert(
+			blockName,
+			insertionPoint
+		);
+		return this;
+	}
+
+	/**
 	 * Get the content of the Dxf.
 	 * @return Get the Dxf string.
 	 */
