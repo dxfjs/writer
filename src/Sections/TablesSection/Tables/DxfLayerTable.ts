@@ -19,11 +19,26 @@ export default class DxfLayerTable extends DxfTable {
 		return this._instance;
 	}
 
-	public addLayer(name: string, color: number, lineType: string) {
-		const layerRecord = new DxfLayer(name, color, lineType);
+	public addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags: number
+	) {
+		if (this.exist(name))
+			throw new Error(`The ${name} Layer name already exist!`);
+		const layerRecord = new DxfLayer(name, color, lineType, flags);
 		layerRecord.softPointer = this.handle;
-		this._layerRecords.push(layerRecord);
+		this.layerRecords.push(layerRecord);
 		return layerRecord;
+	}
+
+	public exist(name: string) {
+		return (
+			this.layerRecords.find((layerRecord) => {
+				return layerRecord.name === name;
+			}) !== undefined
+		);
 	}
 
 	public get manager(): TagsManager {

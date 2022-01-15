@@ -60,10 +60,16 @@ export default class DxfWriter {
 	 * @param name The name of the layer.
 	 * @param color The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
 	 * @param lineType The lineType name.
+	 * @param flags Layer standard flags (bit-coded values).
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public addLayer(name: string, color: number, lineType: string): this {
-		DxfTablesSection.getInstance().addLayer(name, color, lineType);
+	public addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags: number = 0
+	): this {
+		DxfTablesSection.getInstance().addLayer(name, color, lineType, flags);
 		return this;
 	}
 

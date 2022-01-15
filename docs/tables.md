@@ -73,6 +73,10 @@ const axesLineType = addLineType('AXES', '____ _ ', [4, -1, 1, -1]); // Use this
 dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]); // Always choose unique names.
 ```
 
+> By default ```ByBlock```, ```ByLayer``` and ```Continuous``` line types are automatically added.
+
+**More predefined line types will be added in the future for convenient.**
+
 ### LTYPE pattern
 
 I found this hard to understand, but I will explain it and make it simple as I can:
@@ -104,8 +108,15 @@ Now for this descriptive ```'____ _ '```:
 
 ?> For the dot unit we always use 0. Ex: for ```'_ . '```, length is 1 so the array elements is ```[1, -1, 0, -1]```.
 
-You understand the principe.
+You understand the principle.
 
 Last thing is the length of the array sould equal the number of elements. Note that 4 underscores are treated one element.
 
 !> Note that this explanation is my personal thought, no guarantee to be correct, but it is working .
+
+## LAYER symbol table
+
+To add an ```LAYER``` symbol table entry, there is to ways to do so:
+
+- Using the convinient factory function ```addLayer()```.
+- Calling ```addLayer()``` method on ```DxfWriter``` object.

@@ -40,8 +40,10 @@ dxf.setVariable('$ATTMODE', { 70: 2 });
 dxf.setVariable('$PLIMMAX', {
     10: 20,
     20: 30
-}); // These variable accept tow group codes and tow values  
+}); // This variable accept tow group codes and tow values  
 ```
+
+?> The object passed as values is key value paired, the key is the group code and value associated with it.
 
 !> If you try to add a variable already added, his values will be updated.
 

@@ -76,7 +76,7 @@ export default class DxfManager implements DxfInterface {
 		this.tablesSection.addLineType('ByBlock', '', []);
 		this.tablesSection.addLineType('ByLayer', '', []);
 		this.tablesSection.addLineType('Continuous', 'Solid line', []);
-		this.tablesSection.addLayer('0', 7, 'Continuous');
+		this.tablesSection.addLayer('0', 7, 'Continuous', 0);
 		this.tablesSection.addStyle('Standard');
 		this.tablesSection.addAppId('ACAD', 0);
 		this.tablesSection.addDimStyle('Standard');

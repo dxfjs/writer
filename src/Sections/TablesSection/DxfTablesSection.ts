@@ -84,7 +84,7 @@ export default class DxfTablesSection implements DxfInterface {
 		return this._instance;
 	}
 
-	get manager(): TagsManager {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionBegin('TABLES');
 		manager.appendTags(this.dxfViewPortTable);
@@ -101,45 +101,48 @@ export default class DxfTablesSection implements DxfInterface {
 	}
 
 	public addLineType(name: string, descriptive: string, elements: number[]) {
-		return this._linetypeTable.addLineType(name, descriptive, elements);
+		return this.linetypeTable.addLineType(name, descriptive, elements);
 	}
 
 	public addBlockRecord(name: string) {
 		return this.blockRecordTable.addBlockRecord(name);
 	}
 
-	public addLayer(name: string, color: number, lineType: string) {
-		if (this._linetypeTable.exist(lineType)) {
-			return this._layerTable.addLayer(name, color, lineType);
+	public addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags: number
+	) {
+		if (this.linetypeTable.exist(lineType)) {
+			return this.layerTable.addLayer(name, color, lineType, flags);
 		} else {
-			throw new Error(
-				`The lineType ${lineType} doesn't exist in the LineTypeTable.`
-			);
+			throw new Error(`The lineType ${lineType} doesn't exist.`);
 		}
 	}
 
 	public addStyle(name: string) {
-		return this._styleTable.addStyle(name);
+		return this.styleTable.addStyle(name);
 	}
 
 	public addView(name: string) {
-		return this._viewTable.addView(name);
+		return this.viewTable.addView(name);
 	}
 
 	public addUcs(name: string) {
-		return this._ucsTable.addUcs(name);
+		return this.ucsTable.addUcs(name);
 	}
 
 	public addAppId(name: string, flags: number) {
-		return this._appIdTable.addAppId(name, flags);
+		return this.appIdTable.addAppId(name, flags);
 	}
 
 	public addDimStyle(name: string) {
-		return this._dimStyleTable.addDimStyle(name);
+		return this.dimStyleTable.addDimStyle(name);
 	}
 
 	public addViewPort(name: string) {
-		return this._dxfViewPortTable.addViewPort(name);
+		return this.dxfViewPortTable.addViewPort(name);
 	}
 
 	public stringify(): string {

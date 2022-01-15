@@ -1,11 +1,6 @@
 import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
-export const appIdFlags = {
-	dependentOnXref: 16,
-	xrefResolved: 32,
-};
-
 export default class DxfAppId extends DxfRecord {
 	private readonly _name: string;
 	private readonly _flags: number;

@@ -2,6 +2,29 @@ import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
+export const symbolEntryFlags = {
+	dependentOnXref: 16,
+	xrefResolved: 32,
+};
+
+export const layerEntryFlags = {
+	frozen: 1,
+	frozenInNewViewports: 2,
+	locked: 4,
+	...symbolEntryFlags,
+};
+
+export const styleEntryFlags = {
+	describeShape: 1,
+	verticalText: 4,
+	...symbolEntryFlags,
+};
+
+export const viewEntryFlags = {
+	paperSpace: 1,
+	...symbolEntryFlags,
+};
+
 export default class DxfRecord extends Handle implements DxfInterface {
 	private readonly _entityType: string;
 

@@ -25,3 +25,17 @@ export function addLineType(
 		elements
 	);
 }
+
+export function addLayer(
+	name: string,
+	color: number,
+	lineType: string,
+	flags: number = 0
+) {
+	return DxfTablesSection.getInstance().addLayer(
+		name,
+		color,
+		lineType,
+		flags
+	);
+}
