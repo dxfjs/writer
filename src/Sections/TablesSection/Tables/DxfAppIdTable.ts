@@ -19,8 +19,8 @@ export default class AppIdTable extends DxfTable {
 		return this._instance;
 	}
 
-	public addAppId(name: string) {
-		const appIdRecord = new DxfAppId(name);
+	public addAppId(name: string, flags: number) {
+		const appIdRecord = new DxfAppId(name, flags);
 		appIdRecord.softPointer = this.handle;
 		this._appIdRecords.push(appIdRecord);
 		return appIdRecord;

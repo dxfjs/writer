@@ -28,6 +28,11 @@ export default class DxfLineTypeTable extends DxfTable {
 	}
 
 	public addLineType(name: string, descriptive: string, elements: number[]) {
+		const foundLineTypeRecord = this._lineTypeRecords.find(
+			(lineTypeRecord) => lineTypeRecord.name === name
+		);
+		if (foundLineTypeRecord)
+			throw new Error(`The ${name} LineType name already exist!`);
 		const lineTypeRecord = new DxfLineType(name, descriptive, elements);
 		lineTypeRecord.softPointer = this.handle;
 		this._lineTypeRecords.push(lineTypeRecord);

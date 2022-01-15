@@ -130,8 +130,8 @@ export default class DxfTablesSection implements DxfInterface {
 		return this._ucsTable.addUcs(name);
 	}
 
-	public addAppId(name: string) {
-		return this._appIdTable.addAppId(name);
+	public addAppId(name: string, flags: number) {
+		return this._appIdTable.addAppId(name, flags);
 	}
 
 	public addDimStyle(name: string) {
