@@ -36,7 +36,7 @@ const dxfString = dxf.stringify();
 
 ## More informations
 
-For more informations, please refer to the [docs](https://github.com/tarikjabiri/dxf).
+For more informations, please refer to the [docs](https://tarikjabiri.github.io/dxf/).
 ## License
 
 ![GitHub](https://img.shields.io/github/license/tarikjabiri/dxf?style=for-the-badge)
