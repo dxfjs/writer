@@ -4,7 +4,7 @@
 
 </div>
 
-A [Javascript](https://www.javascript.com/)  [dxf](https://en.wikipedia.org/wiki/AutoCAD_DXF) generator, written in [Typescript](https://www.typescriptlang.org/).
+> A Javascript dxf generator, written in Typescript.
 
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)

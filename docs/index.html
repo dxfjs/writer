@@ -8,30 +8,33 @@
 		<meta name="description" content="Description" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
-		/>
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 		<link
 			rel="stylesheet"
-			href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"
-		/>
+			href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
 	</head>
 	<body>
-		<nav>
-			<a href="#/">Get started</a>
-			<a href="#/guide/">Guide</a>
-		</nav>
 		<div id="app"></div>
 		<script>
 			window.$docsify = {
 				search: 'auto', // default
-				name: 'Dxf',
+				name: 'dxf',
 				repo: 'https://github.com/tarikjabiri/dxf',
 				coverpage: true,
 				themeColor: '#6610f2',
 				loadSidebar: true,
+				alias: {
+					'/.*/_sidebar.md': '/_sidebar.md',
+				},
+				mergeNavbar: true,
+				maxLevel: 4,
+				subMaxLevel: 2,
 			};
 		</script>
 		<!-- Docsify v4 -->
 		<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+		<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
 	</body>
 </html>

@@ -4,7 +4,9 @@
 
 # Dxf <small>1.0.7</small>
 
-> A JavaScript interface to Dxf written in TypeScript.
+> A JavaScript dxf generator written in TypeScript.
+
+> This documentation is for the ```2.0.0-alpha``` version not for the current version ```1.0.7```.
 
 [GitHub](https://github.com/tarikjabiri/dxf)
-[Get Started](#Overview)
+[Get Started](quick-start.md)

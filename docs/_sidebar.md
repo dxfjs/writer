@@ -1,30 +1,11 @@
 <!-- docs/_sidebar.md -->
 
-- Getting started
+- [Getting started](quick-start.md)
 
-  - [Quick start](README.md)
-  - [Writing more pages](more-pages.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+- Guides
 
-- Customization
-
-  - [Configuration](configuration.md)
-  - [Themes](themes.md)
-  - [List of Plugins](plugins.md)
-  - [Write a Plugin](write-a-plugin.md)
-  - [Markdown configuration](markdown.md)
-  - [Language highlighting](language-highlight.md)
-
-- Guide
-
-  - [Deploy](deploy.md)
-  - [Helpers](helpers.md)
-  - [Vue compatibility](vue.md)
-  - [CDN](cdn.md)
-  - [Offline Mode (PWA)](pwa.md)
-  - [Server-Side Rendering (SSR)](ssr.md)
-  - [Embed Files](embed-files.md)
-
-- [Awesome docsify](awesome.md)
-- [Changelog](changelog.md)
+  - [Dxf variables](variables.md)
+  - [Dxf tables](tables.md)
+  - [Dxf blocks](blocks.md)
+  - [Dxf entities](entities.md)
+  - [Dxf objects](objects.md)
