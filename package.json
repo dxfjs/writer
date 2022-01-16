@@ -15,7 +15,8 @@
 		"example": "node --experimental-specifier-resolution=node examples/example.js"
 	},
 	"files": [
-		"lib/**/*"
+		"lib/**/*",
+		"docs/**/*"
 	],
 	"devDependencies": {
 		"@babel/core": "^7.15.8",
