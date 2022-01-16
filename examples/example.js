@@ -1,6 +1,6 @@
 import DxfWriter, { point2d, point3d } from '../lib';
 import * as fs from 'fs';
-import { createBlock } from '../lib';
+import { addBlock } from '../lib';
 
 const dxf = new DxfWriter();
 
@@ -29,7 +29,7 @@ dxf.addRectangle(point2d(400, 400), point2d(600, 200), {
 	lineTypeScale: 10,
 });*/
 
-const circleBlock = createBlock('circle');
+const circleBlock = addBlock('circle');
 circleBlock.addCircle(point3d(0, 0, 0), 50);
 circleBlock.addRectangle(
 	point2d(-35.3553, 35.3553),
