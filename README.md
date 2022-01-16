@@ -16,9 +16,9 @@
 ## Installation
 
 ```bash
-yarn add @tarikjabiri/dxf@2.0.0-alpha1
+yarn add @tarikjabiri/dxf@2.0.0-alpha
 # Or npm
-npm i @tarikjabiri/dxf@2.0.0-alpha1
+npm i @tarikjabiri/dxf@2.0.0-alpha
 ```
 
 ## Getting started
