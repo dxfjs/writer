@@ -32,7 +32,7 @@ export default abstract class Entity extends Handle implements DxfInterface {
 	}: {
 		type: string;
 		subclassMarker?: string;
-		options: options_t;
+		options?: options_t;
 	}) {
 		super();
 		if (options) this.options = options;

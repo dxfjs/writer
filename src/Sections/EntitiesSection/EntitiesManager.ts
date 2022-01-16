@@ -201,9 +201,9 @@ export default abstract class EntitiesManager
 	public addInsert(
 		blockName: string,
 		insertionPoint: point3d_t,
-		options: insertOptions_t
+		options?: insertOptions_t
 	) {
-		this.addEntity(new Insert(blockName, insertionPoint, options));
+		this.addEntity(new Insert(blockName, insertionPoint, options || {}));
 	}
 
 	public boundingBox(): boundingBox_t {

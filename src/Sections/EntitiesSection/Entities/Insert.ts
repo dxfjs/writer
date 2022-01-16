@@ -10,12 +10,12 @@ export type insertScaleFactor_t = {
 };
 
 export type insertOptions_t = options_t & {
-	scaleFactor: insertScaleFactor_t;
-	rotationAngle: number;
-	columnCount: number;
-	rowCount: number;
-	columnSpacing: number;
-	rowSpacing: number;
+	scaleFactor?: insertScaleFactor_t;
+	rotationAngle?: number;
+	columnCount?: number;
+	rowCount?: number;
+	columnSpacing?: number;
+	rowSpacing?: number;
 };
 
 export default class Insert extends Entity {
@@ -72,12 +72,12 @@ export default class Insert extends Entity {
 		});
 		this._blockName = blockName;
 		this._insertionPoint = insertionPoint;
-		this._scaleFactor = options.scaleFactor;
-		this._rotationAngle = options.rotationAngle;
-		this._columnCount = options.columnCount;
-		this._rowCount = options.rowCount;
-		this._columnSpacing = options.columnSpacing;
-		this._rowSpacing = options.rowSpacing;
+		this._scaleFactor = options?.scaleFactor;
+		this._rotationAngle = options?.rotationAngle;
+		this._columnCount = options?.columnCount;
+		this._rowCount = options?.rowCount;
+		this._columnSpacing = options?.columnSpacing;
+		this._rowSpacing = options?.rowSpacing;
 	}
 
 	public boundingBox(): boundingBox_t {

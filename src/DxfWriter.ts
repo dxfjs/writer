@@ -430,7 +430,7 @@ export default class DxfWriter {
 	public addInsert(
 		blockName: string,
 		insertionPoint: point3d_t,
-		options: insertOptions_t
+		options?: insertOptions_t
 	): this {
 		DxfManager.getInstance().modelSpace.addInsert(
 			blockName,

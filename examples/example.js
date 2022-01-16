@@ -36,12 +36,7 @@ circleBlock.addRectangle(
 	point2d(35.3553, -35.3553)
 );
 
-dxf.addInsert(circleBlock.name, point3d(0, 0, 0), {
-	scaleFactor: {
-		x: 2,
-		y: 2,
-	},
-});
+dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');
