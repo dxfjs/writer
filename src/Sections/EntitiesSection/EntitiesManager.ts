@@ -24,11 +24,7 @@ export default abstract class EntitiesManager
 	extends Handle
 	implements DxfInterface
 {
-	private readonly _entities: Entity[] = [];
-
-	public get entities(): Entity[] {
-		return this._entities;
-	}
+	readonly entities: Entity[] = [];
 
 	public constructor() {
 		super();
@@ -101,7 +97,7 @@ export default abstract class EntitiesManager
 
 		this.addLWPolyline(vertices, {
 			...options,
-			flags: lwPolylineFlags.closed,
+			flags: lwPolylineFlags.Closed,
 		});
 	}
 
@@ -135,19 +131,21 @@ export default abstract class EntitiesManager
 		controlPoints: point3d_t[],
 		fitPoints: point3d_t[],
 		degreeCurve: number,
-		flag: number,
+		flags: number,
 		knots: number[],
 		weights: number[],
 		options: options_t
 	) {
 		this.addEntity(
 			new Spline(
-				controlPoints,
-				fitPoints,
-				degreeCurve,
-				flag,
-				knots,
-				weights,
+				{
+					controlPoints,
+					fitPoints,
+					degreeCurve,
+					flags,
+					knots,
+					weights,
+				},
 				options
 			)
 		);

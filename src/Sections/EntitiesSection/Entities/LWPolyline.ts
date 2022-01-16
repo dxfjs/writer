@@ -1,22 +1,18 @@
 import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import { Merge } from '../../../Internals/Utils';
 
-export const lwPolylineFlags = {
-	closed: 1,
-	plinegen: 128,
-} as const;
+export enum lwPolylineFlags {
+	Closed = 1,
+	Plinegen = 128,
+}
 
-export type lwPolylineOptions_t = Merge<
-	options_t,
-	{
-		flags: number;
-		constantWidth: number;
-		elevation: number;
-		thickness: number;
-	}
->;
+export type lwPolylineOptions_t = options_t & {
+	flags?: number;
+	constantWidth?: number;
+	elevation?: number;
+	thickness?: number;
+};
 
 export type lwPolylineVertex_t = {
 	x: number;
@@ -55,7 +51,7 @@ export default class LWPolyline extends Entity {
 
 	public constructor(
 		vertices: lwPolylineVertex_t[],
-		options: lwPolylineOptions_t = {}
+		options: lwPolylineOptions_t
 	) {
 		super({ type: 'LWPOLYLINE', subclassMarker: 'AcDbPolyline', options });
 		this._vertices = vertices;
@@ -71,7 +67,7 @@ export default class LWPolyline extends Entity {
 		);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(90, this.vertices.length);

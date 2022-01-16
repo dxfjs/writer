@@ -3,7 +3,6 @@ import DxfViewTable from './Tables/DxfViewTable';
 import DxfLayerTable from './Tables/DxfLayerTable';
 import DxfStyleTable from './Tables/DxfStyleTable';
 import DxfAppIdTable from './Tables/DxfAppIdTable';
-import DxfLayer from './Tables/Records/DxfLayer';
 import DxfLineTypeTable from './Tables/DxfLineTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
@@ -12,76 +11,32 @@ import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfTablesSection implements DxfInterface {
-	private static _instance: DxfTablesSection;
-	private readonly _dxfViewPortTable: DxfViewPortTable;
-	private readonly _linetypeTable: DxfLineTypeTable;
-	private readonly _layerTable: DxfLayerTable;
-	private readonly _styleTable: DxfStyleTable;
-	private readonly _viewTable: DxfViewTable;
-	private readonly _ucsTable: DxfUcsTable;
-	private readonly _appIdTable: DxfAppIdTable;
-	private readonly _dimStyleTable: DxfDimStyleTable;
-	private readonly _blockRecordTable: DxfBlockRecordTable;
-
-	public get dxfViewPortTable() {
-		return this._dxfViewPortTable;
-	}
-
-	public get linetypeTable() {
-		return this._linetypeTable;
-	}
-
-	public get layerTable() {
-		return this._layerTable;
-	}
-
-	public get styleTable() {
-		return this._styleTable;
-	}
-
-	public get viewTable() {
-		return this._viewTable;
-	}
-
-	public get ucsTable() {
-		return this._ucsTable;
-	}
-
-	public get appIdTable() {
-		return this._appIdTable;
-	}
-
-	public get dimStyleTable() {
-		return this._dimStyleTable;
-	}
-
-	public get blockRecordTable() {
-		return this._blockRecordTable;
-	}
-
-	public get layers(): DxfLayer[] {
-		return this._layerTable.layerRecords;
-	}
-
-	public get blockRecords(): DxfBlockRecordTable {
-		return this._blockRecordTable;
-	}
+	static #instance: DxfTablesSection;
+	readonly dxfViewPortTable: DxfViewPortTable;
+	readonly linetypeTable: DxfLineTypeTable;
+	readonly layerTable: DxfLayerTable;
+	readonly styleTable: DxfStyleTable;
+	readonly viewTable: DxfViewTable;
+	readonly ucsTable: DxfUcsTable;
+	readonly appIdTable: DxfAppIdTable;
+	readonly dimStyleTable: DxfDimStyleTable;
+	readonly blockRecordTable: DxfBlockRecordTable;
 
 	private constructor() {
-		this._dxfViewPortTable = DxfViewPortTable.getInstance();
-		this._linetypeTable = DxfLineTypeTable.getInstance();
-		this._layerTable = DxfLayerTable.getInstance();
-		this._styleTable = DxfStyleTable.getInstance();
-		this._viewTable = DxfViewTable.getInstance();
-		this._ucsTable = DxfUcsTable.getInstance();
-		this._appIdTable = DxfAppIdTable.getInstance();
-		this._dimStyleTable = DxfDimStyleTable.getInstance();
-		this._blockRecordTable = DxfBlockRecordTable.getInstance();
+		this.dxfViewPortTable = DxfViewPortTable.getInstance();
+		this.linetypeTable = DxfLineTypeTable.getInstance();
+		this.layerTable = DxfLayerTable.getInstance();
+		this.styleTable = DxfStyleTable.getInstance();
+		this.viewTable = DxfViewTable.getInstance();
+		this.ucsTable = DxfUcsTable.getInstance();
+		this.appIdTable = DxfAppIdTable.getInstance();
+		this.dimStyleTable = DxfDimStyleTable.getInstance();
+		this.blockRecordTable = DxfBlockRecordTable.getInstance();
 	}
 
 	public static getInstance(): DxfTablesSection {
-		if (!this._instance) this._instance = new DxfTablesSection();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfTablesSection();
+		return this.#instance;
 	}
 
 	public get manager(): TagsManager {
@@ -100,8 +55,18 @@ export default class DxfTablesSection implements DxfInterface {
 		return manager;
 	}
 
-	public addLineType(name: string, descriptive: string, elements: number[]) {
-		return this.linetypeTable.addLineType(name, descriptive, elements);
+	public addLineType(
+		name: string,
+		descriptive: string,
+		elements: number[],
+		flags?: number
+	) {
+		return this.linetypeTable.addLineType(
+			name,
+			descriptive,
+			elements,
+			flags
+		);
 	}
 
 	public addBlockRecord(name: string) {
@@ -112,7 +77,7 @@ export default class DxfTablesSection implements DxfInterface {
 		name: string,
 		color: number,
 		lineType: string,
-		flags: number
+		flags?: number
 	) {
 		if (this.linetypeTable.exist(lineType)) {
 			return this.layerTable.addLayer(name, color, lineType, flags);
@@ -133,12 +98,12 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.ucsTable.addUcs(name);
 	}
 
-	public addAppId(name: string, flags: number) {
+	public addAppId(name: string, flags?: number) {
 		return this.appIdTable.addAppId(name, flags);
 	}
 
-	public addDimStyle(name: string) {
-		return this.dimStyleTable.addDimStyle(name);
+	public addDimStyle(name: string, flags?: number) {
+		return this.dimStyleTable.addDimStyle(name, flags);
 	}
 
 	public addViewPort(name: string) {

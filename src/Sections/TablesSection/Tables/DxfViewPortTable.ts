@@ -26,7 +26,7 @@ export default class DxfViewPortTable extends DxfTable {
 		return viewPortRecord;
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewPortRecords.length;
 		manager.pushTags(super.manager.tags);

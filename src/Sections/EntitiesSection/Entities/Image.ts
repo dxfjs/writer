@@ -17,62 +17,25 @@ export type ImageOptions = {
 };
 
 export default class Image extends Entity {
-	private readonly _width: number;
-	private readonly _height: number;
-	private readonly _scale: number;
-	private readonly _rotation: number;
-	private readonly _insertionPoint: point3d_t;
-	private readonly _imageDefId: string;
-	private _imageDefReactorId: string;
+	readonly width: number;
+	readonly height: number;
+	readonly scale: number;
+	readonly rotation: number;
+	readonly insertionPoint: point3d_t;
+	readonly imageDefId: string;
+	imageDefReactorId?: string;
 
-	private readonly _ratio: number;
-
-	public get width(): number {
-		return this._width;
-	}
-
-	public get height(): number {
-		return this._height;
-	}
-
-	public get scale(): number {
-		return this._scale;
-	}
-
-	public get rotation(): number {
-		return this._rotation;
-	}
-
-	public get insertionPoint(): point3d_t {
-		return this._insertionPoint;
-	}
-
-	public get imageDefId(): string {
-		return this._imageDefId;
-	}
-
-	public get imageDefReactorId(): string {
-		return this._imageDefReactorId;
-	}
-
-	public set imageDefReactorId(value: string) {
-		this._imageDefReactorId = value;
-	}
-
-	public get ratio(): number {
-		return this._ratio;
-	}
+	readonly ratio: number;
 
 	public constructor(imageOptions: ImageOptions, options: options_t) {
 		super({ type: 'IMAGE', subclassMarker: 'AcDbRasterImage', options });
-		this._width = imageOptions.width;
-		this._height = imageOptions.height;
-		this._scale = imageOptions.scale;
-		this._rotation = imageOptions.rotation;
-		this._insertionPoint = imageOptions.insertionPoint;
-		this._ratio = this.scale / this.width;
-		this._imageDefId = imageOptions.imageDefId;
-		this._imageDefReactorId = '0';
+		this.width = imageOptions.width;
+		this.height = imageOptions.height;
+		this.scale = imageOptions.scale;
+		this.rotation = imageOptions.rotation;
+		this.insertionPoint = imageOptions.insertionPoint;
+		this.ratio = this.scale / this.width;
+		this.imageDefId = imageOptions.imageDefId;
 	}
 
 	private _vector(): point2d_t {
@@ -98,7 +61,7 @@ export default class Image extends Entity {
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(90, 0);

@@ -3,23 +3,19 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfObject extends Handle implements DxfInterface {
-	private _type: string;
-
-	public get type(): string {
-		return this._type;
-	}
+	readonly type: string;
 
 	public constructor(type: string) {
 		super();
-		this._type = type;
+		this.type = type;
 		this.softPointer = '0';
 	}
 
-	stringify(): string {
+	public stringify(): string {
 		return this.manager.stringify();
 	}
 
-	get manager(): TagsManager {
+	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType(this.type);
 		manager.handle(this.handle);

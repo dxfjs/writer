@@ -19,13 +19,13 @@ export default class DxfStyleTable extends DxfTable {
 		return this._instance;
 	}
 
-	public addStyle(name: string) {
-		const styleRecord = new DxfStyle(name);
+	public addStyle(name: string, flags?: number) {
+		const styleRecord = new DxfStyle(name, flags);
 		styleRecord.softPointer = this.handle;
 		this._styleRecords.push(styleRecord);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.styleRecords.length;
 		manager.pushTags(super.manager.tags);

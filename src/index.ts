@@ -1,9 +1,5 @@
 /**
  * The public interface of the Dxf API.
- *
- * @packageDocumentation
- * @module DxfWriter
- * @preferred
  */
 import DxfWriter from './DxfWriter';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
@@ -15,32 +11,39 @@ import {
 } from './Internals/TagsManager';
 import { options_t } from './Sections/EntitiesSection/Entity';
 import { Colors, Units } from './GlobalState';
-import { Merge } from './Internals/Utils';
-import { createBlock, addAppId, addBlockRecord, addLineType } from './Factory';
 import {
-	symbolEntryFlags,
-	layerEntryFlags,
-	styleEntryFlags,
-	viewEntryFlags,
+	addBlock,
+	addAppId,
+	addBlockRecord,
+	addLineType,
+	addLayer,
+	addDimStyle,
+} from './Functions';
+import {
+	RecordFlags,
+	LayerFlags,
+	StyleFlags,
+	ViewFlags,
 } from './Sections/TablesSection/Tables/Records/DxfRecord';
 
 export {
 	DxfWriter as default,
-	values_t,
 	point3d,
 	point2d,
 	point2d_t,
 	point3d_t,
 	options_t,
-	Colors,
-	Units,
-	Merge,
-	createBlock,
+	values_t,
+	addBlock,
 	addAppId,
 	addBlockRecord,
+	addDimStyle,
 	addLineType,
-	symbolEntryFlags,
-	layerEntryFlags,
-	styleEntryFlags,
-	viewEntryFlags,
+	addLayer,
+	Colors,
+	Units,
+	RecordFlags,
+	LayerFlags,
+	StyleFlags,
+	ViewFlags,
 };

@@ -10,7 +10,7 @@ import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 export default class Polyline extends Entity {
 	private readonly _vertices: point3d_t[];
 	private readonly _flag: number;
-	private _vertexes: Vertex[] = [];
+	private readonly _vertexes: Vertex[] = [];
 	private readonly _seqEnd: SeqEnd = new SeqEnd({});
 
 	public get flag(): number {
@@ -33,7 +33,10 @@ export default class Polyline extends Entity {
 
 		this.vertices.forEach((point) => {
 			this._vertexes.push(
-				new Vertex(point, { flags: vertexFlags.polyline3dVertex })
+				new Vertex(point, {
+					flags: vertexFlags.Polyline3dVertex,
+					is3d: true,
+				})
 			);
 		});
 	}
@@ -42,7 +45,7 @@ export default class Polyline extends Entity {
 		return BoundingBox.verticesBBox(this.vertices);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(66, 1);

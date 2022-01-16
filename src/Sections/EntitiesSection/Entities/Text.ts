@@ -3,21 +3,9 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {
-	private readonly _position: point3d_t;
-	private readonly _height: number;
-	private readonly _value: string;
-
-	public get value(): string {
-		return this._value;
-	}
-
-	public get height(): number {
-		return this._height;
-	}
-
-	public get position(): point3d_t {
-		return this._position;
-	}
+	readonly position: point3d_t;
+	readonly height: number;
+	readonly value: string;
 
 	public constructor(
 		position: point3d_t,
@@ -26,9 +14,9 @@ export default class Text extends Entity {
 		options: options_t
 	) {
 		super({ type: 'TEXT', subclassMarker: 'AcDbText', options });
-		this._position = position;
-		this._height = height;
-		this._value = value;
+		this.position = position;
+		this.height = height;
+		this.value = value;
 	}
 
 	public boundingBox(): boundingBox_t {
@@ -36,7 +24,7 @@ export default class Text extends Entity {
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.position);

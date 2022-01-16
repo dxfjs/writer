@@ -3,20 +3,9 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default abstract class DxfTable extends Handle implements DxfInterface {
-	private _maxNumberEntries: number = 0;
+	maxNumberEntries: number = 0;
 
-	public get maxNumberEntries(): number {
-		return this._maxNumberEntries;
-	}
-	public set maxNumberEntries(value: number) {
-		this._maxNumberEntries = value;
-	}
-
-	public get name(): string {
-		return this._name;
-	}
-
-	public constructor(private _name: string) {
+	public constructor(public name: string) {
 		super();
 		this.softPointer = '0';
 	}

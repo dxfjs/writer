@@ -28,7 +28,7 @@ export default class Line extends Entity {
 		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.startPoint);

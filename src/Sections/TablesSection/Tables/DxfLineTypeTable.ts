@@ -27,16 +27,26 @@ export default class DxfLineTypeTable extends DxfTable {
 		);
 	}
 
-	public addLineType(name: string, descriptive: string, elements: number[]) {
+	public addLineType(
+		name: string,
+		descriptive: string,
+		elements: number[],
+		flags?: number
+	) {
 		if (this.exist(name))
-			throw new Error(`The ${name} LineType name already exist!`);
-		const lineTypeRecord = new DxfLineType(name, descriptive, elements);
+			throw new Error(`The ${name} LineType already exist!`);
+		const lineTypeRecord = new DxfLineType(
+			name,
+			descriptive,
+			elements,
+			flags
+		);
 		lineTypeRecord.softPointer = this.handle;
 		this._lineTypeRecords.push(lineTypeRecord);
 		return lineTypeRecord;
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.lineTypeRecords.length;
 		manager.pushTags(super.manager.tags);

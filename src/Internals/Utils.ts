@@ -1,17 +1,5 @@
 import { lwPolylineOptions_t } from '../Sections/EntitiesSection/Entities/LWPolyline';
 
-export type Merge<T, U> = {
-	[k in keyof T | keyof U]+?: k extends keyof T
-		? T[k]
-		: k extends keyof U
-		? U[k]
-		: never;
-};
-
-export function defined<T>(value: T): boolean {
-	return value !== undefined;
-}
-
 export function bulge(fillet: number): number {
 	const length = Math.sqrt(Math.pow(fillet, 2) + Math.pow(fillet, 2));
 	const b = length / 2;
@@ -26,11 +14,15 @@ export type chamfer_t = {
 	second?: number;
 };
 
-export type rectangleOptions_t = Merge<
-	lwPolylineOptions_t,
-	{
+export type rectangleOptions_t =
+	lwPolylineOptions_t & {
 		chamfer?: chamfer_t;
 		fillet?: number;
 		elevation?: number;
-	}
->;
+	};
+
+export type rgb_t = {
+	r: number;
+	g: number;
+	b: number;
+};

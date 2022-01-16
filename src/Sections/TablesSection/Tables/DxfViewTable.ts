@@ -3,29 +3,25 @@ import DxfView from './Records/DxfView';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewTable extends DxfTable {
-	private static _instance: DxfViewTable;
-	private _viewRecords: DxfView[] = [];
-
-	public get viewRecords(): DxfView[] {
-		return this._viewRecords;
-	}
+	static #instance: DxfViewTable;
+	readonly viewRecords: DxfView[] = [];
 
 	private constructor() {
 		super('VIEW');
 	}
 
 	public static getInstance(): DxfViewTable {
-		if (!this._instance) this._instance = new DxfViewTable();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfViewTable();
+		return this.#instance;
 	}
 
 	public addView(name: string) {
 		const viewRecord = new DxfView(name);
 		viewRecord.softPointer = this.handle;
-		this._viewRecords.push();
+		this.viewRecords.push(viewRecord);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewRecords.length;
 		manager.pushTags(super.manager.tags);

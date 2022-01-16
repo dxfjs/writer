@@ -2,49 +2,21 @@ import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfBlockRecord extends DxfRecord {
-	private readonly _name: string;
-	private _insertionUnits: number = 0;
-	private _explodability: number = 1;
-	private _scalability: number = 0;
-
-	public get name(): string {
-		return this._name;
-	}
-
-	public get insertionUnits(): number {
-		return this._insertionUnits;
-	}
-
-	public set insertionUnits(value: number) {
-		this._insertionUnits = value;
-	}
-
-	public get explodability(): number {
-		return this._explodability;
-	}
-
-	public set explodability(value: number) {
-		this._explodability = value;
-	}
-
-	public get scalability(): number {
-		return this._scalability;
-	}
-
-	public set scalability(value: number) {
-		this._scalability = value;
-	}
+	readonly name: string;
+	insertionUnits: number = 0;
+	explodability: number = 1;
+	scalability: number = 0;
 
 	public constructor(name: string) {
 		super('BLOCK_RECORD');
-		this._name = name;
+		this.name = name;
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbBlockTableRecord');
-		manager.name(this._name);
+		manager.name(this.name);
 		manager.pushTag(this.hardPointerTag());
 		manager.addTag(70, this.insertionUnits);
 		manager.addTag(280, this.explodability);

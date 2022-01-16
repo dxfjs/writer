@@ -13,13 +13,13 @@ export default class DxfAppId extends DxfRecord {
 		return this._flags;
 	}
 
-	public constructor(name: string, flags: number) {
+	public constructor(name: string, flags?: number) {
 		super('APPID');
 		this._name = name;
-		this._flags = flags;
+		this._flags = flags ?? 0;
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbRegAppTableRecord');

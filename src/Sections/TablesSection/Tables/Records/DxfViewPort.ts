@@ -2,38 +2,18 @@ import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfViewPort extends DxfRecord {
-	private readonly _name: string;
-	private _viewHeight: number;
-	private _viewCenter: [number, number];
-
-	public get name(): string {
-		return this._name;
-	}
-
-	public get viewHeight(): number {
-		return this._viewHeight;
-	}
-
-	public set viewHeight(value: number) {
-		this._viewHeight = value;
-	}
-
-	public get viewCenter(): [number, number] {
-		return this._viewCenter;
-	}
-
-	public set viewCenter(value: [number, number]) {
-		this._viewCenter = value;
-	}
+	readonly name: string;
+	viewHeight: number;
+	viewCenter: [number, number];
 
 	public constructor(name: string) {
 		super('VPORT');
-		this._name = name;
-		this._viewHeight = 200;
-		this._viewCenter = [0, 0];
+		this.name = name;
+		this.viewHeight = 200;
+		this.viewCenter = [0, 0];
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const [x, y] = this.viewCenter;
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);

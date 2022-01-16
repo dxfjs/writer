@@ -53,9 +53,8 @@ export default class TagsManager {
 		this.pushTags(dxfEntity.manager.tags);
 	}
 
-	public addTag(groupCode: number, value: number | string | undefined) {
-		if (value === undefined) return;
-		this.pushTag(tag(groupCode, value));
+	public addTag(groupCode: number, value?: number | string) {
+		if (value !== undefined) this.pushTag(tag(groupCode, value));
 	}
 
 	public pushTag(tag: tag_t | null) {

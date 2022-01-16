@@ -2,13 +2,13 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfClassesSection implements DxfInterface {
-	private static _instance: DxfClassesSection;
+	static #instance: DxfClassesSection;
 
 	private constructor() {}
 
 	public static getInstance(): DxfClassesSection {
-		if (!this._instance) this._instance = new DxfClassesSection();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfClassesSection();
+		return this.#instance;
 	}
 
 	public get manager(): TagsManager {

@@ -4,18 +4,10 @@ import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfObjects implements DxfInterface {
-	private static _instance: DxfObjects;
-	private _rootDictionary: DxfDictionary = new DxfDictionary();
+	static #instance: DxfObjects;
+	rootDictionary: DxfDictionary = new DxfDictionary();
 
-	private _objects: DxfObject[] = [];
-
-	public get rootDictionary(): DxfDictionary {
-		return this._rootDictionary;
-	}
-
-	public get objects(): DxfObject[] {
-		return this._objects;
-	}
+	objects: DxfObject[] = [];
 
 	private constructor() {
 		this.rootDictionary.duplicateRecordCloningFlag = 1;
@@ -25,12 +17,12 @@ export default class DxfObjects implements DxfInterface {
 	}
 
 	public static getInstance(): DxfObjects {
-		if (!this._instance) this._instance = new DxfObjects();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfObjects();
+		return this.#instance;
 	}
 
 	public addObject(object: DxfObject): void {
-		this._objects.push(object);
+		this.objects.push(object);
 	}
 
 	public createDictionary(): DxfDictionary {

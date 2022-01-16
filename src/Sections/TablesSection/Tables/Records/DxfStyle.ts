@@ -2,85 +2,28 @@ import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
-	private readonly _name: string;
-	private _fixedTextHeight: number = 0;
-	private _widthFactor: number = 1;
-	private _obliqueAngle: number = 0;
-	private _textGenerationFlag: number = 0;
-	private _lastHeightUsed: number = 1;
-	private _fontFileName: string = 'txt';
-	private _bigFontFileName: string = '';
+	readonly name: string;
+	fixedTextHeight: number = 0;
+	widthFactor: number = 1;
+	obliqueAngle: number = 0;
+	textGenerationFlag: number = 0;
+	lastHeightUsed: number = 1;
+	fontFileName: string = 'txt';
+	bigFontFileName: string = '';
+	flags: number;
 
-	public get name(): string {
-		return this._name;
-	}
-
-	public get fixedTextHeight(): number {
-		return this._fixedTextHeight;
-	}
-
-	public set fixedTextHeight(value: number) {
-		this._fixedTextHeight = value;
-	}
-
-	public get widthFactor(): number {
-		return this._widthFactor;
-	}
-
-	public set widthFactor(value: number) {
-		this._widthFactor = value;
-	}
-
-	public get obliqueAngle(): number {
-		return this._obliqueAngle;
-	}
-
-	public set obliqueAngle(value: number) {
-		this._obliqueAngle = value;
-	}
-
-	public get textGenerationFlag(): number {
-		return this._textGenerationFlag;
-	}
-
-	public set textGenerationFlag(value: number) {
-		this._textGenerationFlag = value;
-	}
-
-	public get lastHeightUsed(): number {
-		return this._lastHeightUsed;
-	}
-
-	public set lastHeightUsed(value: number) {
-		this._lastHeightUsed = value;
-	}
-
-	public get bigFontFileName(): string {
-		return this._bigFontFileName;
-	}
-
-	public set bigFontFileName(value: string) {
-		this._bigFontFileName = value;
-	}
-
-	public constructor(name: string) {
+	public constructor(name: string, flags?: number) {
 		super('STYLE');
-		this._name = name;
+		this.name = name;
+		this.flags = flags ?? 0;
 	}
 
-	public get fontFileName(): string {
-		return this._fontFileName;
-	}
-	public set fontFileName(value: string) {
-		this._fontFileName = value;
-	}
-
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbTextStyleTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, 0);
+		manager.addTag(70, this.flags);
 		manager.addTag(40, this.fixedTextHeight);
 		manager.addTag(41, this.widthFactor);
 		manager.addTag(50, this.obliqueAngle);

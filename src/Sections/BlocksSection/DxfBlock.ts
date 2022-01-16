@@ -3,62 +3,22 @@ import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import EndBlk from './DxfEndBlk';
 
 export default class DxfBlock extends EntitiesManager {
-	private readonly _name: string;
-	private readonly _endBlk: EndBlk;
-	private _stringifyEntities: boolean = true;
+	readonly name: string;
+	readonly endBlk: EndBlk;
+	stringifyEntities: boolean = true;
 
-	private _blockTypeFlags: number = 0;
-	private _basePoint: point3d_t = {
+	blockTypeFlags: number = 0;
+	basePoint: point3d_t = {
 		x: 0,
 		y: 0,
 		z: 0,
 	};
-	private _xrefPathName: string = '';
-
-	public get name(): string {
-		return this._name;
-	}
-
-	public get endBlk(): EndBlk {
-		return this._endBlk;
-	}
-
-	public get stringifyEntities(): boolean {
-		return this._stringifyEntities;
-	}
-
-	public set stringifyEntities(value: boolean) {
-		this._stringifyEntities = value;
-	}
-
-	public get blockTypeFlags(): number {
-		return this._blockTypeFlags;
-	}
-
-	public set blockTypeFlags(value: number) {
-		this._blockTypeFlags = value;
-	}
-
-	public get basePoint(): point3d_t {
-		return this._basePoint;
-	}
-
-	public set basePoint(value: point3d_t) {
-		this._basePoint = value;
-	}
-
-	public get xrefPathName(): string {
-		return this._xrefPathName;
-	}
-
-	public set xrefPathName(value: string) {
-		this._xrefPathName = value;
-	}
+	xrefPathName: string = '';
 
 	public constructor(name: string) {
 		super();
-		this._name = name;
-		this._endBlk = new EndBlk();
+		this.name = name;
+		this.endBlk = new EndBlk();
 	}
 
 	public tags(): tag_t[] {
@@ -79,7 +39,7 @@ export default class DxfBlock extends EntitiesManager {
 				manager.appendTags(entity);
 			});
 		}
-		manager.appendTags(this._endBlk);
+		manager.appendTags(this.endBlk);
 		return manager.tags;
 	}
 }

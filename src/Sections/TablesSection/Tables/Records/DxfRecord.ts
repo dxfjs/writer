@@ -2,39 +2,38 @@ import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
-export const symbolEntryFlags = {
-	dependentOnXref: 16,
-	xrefResolved: 32,
-};
+export enum RecordFlags {
+	DependentOnXref = 16,
+	XrefResolved = 32,
+}
 
-export const layerEntryFlags = {
-	frozen: 1,
-	frozenInNewViewports: 2,
-	locked: 4,
-	...symbolEntryFlags,
-};
+export enum LayerFlags {
+	Frozen = 1,
+	FrozenInNewViewports = 2,
+	Locked = 4,
+	DependentOnXref = 16,
+	XrefResolved = 32,
+}
 
-export const styleEntryFlags = {
-	describeShape: 1,
-	verticalText: 4,
-	...symbolEntryFlags,
-};
+export enum StyleFlags {
+	DescribeShape = 1,
+	VerticalText = 4,
+	DependentOnXref = 16,
+	XrefResolved = 32,
+}
 
-export const viewEntryFlags = {
-	paperSpace: 1,
-	...symbolEntryFlags,
-};
+export enum ViewFlags {
+	PaperSpace = 1,
+	DependentOnXref = 16,
+	XrefResolved = 32,
+}
 
 export default class DxfRecord extends Handle implements DxfInterface {
-	private readonly _entityType: string;
-
-	public get entityType(): string {
-		return this._entityType;
-	}
+	readonly entityType: string;
 
 	public constructor(type: string) {
 		super();
-		this._entityType = type;
+		this.entityType = type;
 	}
 
 	public stringify(): string {

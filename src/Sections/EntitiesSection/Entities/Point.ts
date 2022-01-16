@@ -30,7 +30,7 @@ export default class Point extends Entity {
 		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(point3d(this.x, this.y, this.z));

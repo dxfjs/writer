@@ -1,4 +1,4 @@
-import { Merge, point3d_t } from '../../../index';
+import { point3d_t } from '../../../index';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import TagsManager from '../../../Internals/TagsManager';
 import Entity, { options_t } from '../Entity';
@@ -9,17 +9,14 @@ export type insertScaleFactor_t = {
 	z?: number;
 };
 
-export type insertOptions_t = Merge<
-	options_t,
-	{
-		scaleFactor: insertScaleFactor_t;
-		rotationAngle: number;
-		columnCount: number;
-		rowCount: number;
-		columnSpacing: number;
-		rowSpacing: number;
-	}
->;
+export type insertOptions_t = options_t & {
+	scaleFactor: insertScaleFactor_t;
+	rotationAngle: number;
+	columnCount: number;
+	rowCount: number;
+	columnSpacing: number;
+	rowSpacing: number;
+};
 
 export default class Insert extends Entity {
 	private readonly _blockName: string;
@@ -87,7 +84,7 @@ export default class Insert extends Entity {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.name(this.blockName);

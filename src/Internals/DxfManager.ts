@@ -1,5 +1,3 @@
-import Tag, { makeArrayTags, makeTag } from './Tag';
-
 export default class DXFManager {
 	get handle(): string {
 		return this._handle;
@@ -108,87 +106,7 @@ export default class DXFManager {
 		return DXFManager.handleSeed.toString(16).toUpperCase();
 	};
 
-	tags(): Tag[] {
-		return [];
-	}
-
-	public stringify(): string {
-		return this.tags().reduce((str, tag) => {
-			if (this.isSupported(tag.version)) {
-				return `${str}${tag.stringify()}`;
-			}
-			return str;
-		}, '');
-	}
-
-	public colorTag = (index: number): Tag[] => {
-		return makeArrayTags(62, index);
-	};
-
-	public entityTypeTag = (name: string): Tag[] => {
-		return makeArrayTags(0, name);
-	};
-
-	public handleTag = (handle: string): Tag[] => {
-		return makeArrayTags(5, handle, 'AC1012');
-	};
-
-	public layerTag = (layer: string): Tag[] => {
-		return makeArrayTags(8, layer);
-	};
-
-	public lineTypeTag = (lineType: string): Tag[] => {
-		return makeArrayTags(6, lineType);
-	};
-
-	public nameTag = (name: string, groupCode: number = 2): Tag[] => {
-		return makeArrayTags(groupCode, name);
-	};
-
-	public pointTag = (
-		x: number,
-		y: number,
-		z: number = 0,
-		digit: number = 0
-	): Tag[] => {
-		return [
-			makeTag(parseInt(`1${digit}`), x),
-			makeTag(parseInt(`2${digit}`), y),
-			makeTag(parseInt(`3${digit}`), z),
-		];
-	};
-
-	public createTags = (tags: [number, number | string][]): Tag[] => {
-		return tags.map((tag) => {
-			const [groupCode, value] = tag;
-			return makeTag(groupCode, value);
-		});
-	};
-
-	public subclassMarkerTag = (subclass: string): Tag[] => {
-		return makeArrayTags(100, subclass);
-	};
-	public textStyleTag = (textStyleName: string): Tag[] => {
-		return makeArrayTags(7, textStyleName);
-	};
-
-	public thicknessTag = (thickness: number): Tag[] => {
-		return makeArrayTags(39, thickness);
-	};
-
-	public trueColorTag = (
-		red: number,
-		green: number,
-		blue: number,
-		digit: number = 0
-	): Tag[] => {
-		return makeArrayTags(
-			parseInt(`42${digit}`),
-			this.getACADTrueColor(red, green, blue)
-		);
-	};
-
-	private getACADTrueColor = (red: number, green: number, blue: number) =>
+	public getACADTrueColor = (red: number, green: number, blue: number) =>
 		parseInt(
 			'00' +
 				[red, green, blue]

@@ -1,6 +1,7 @@
 import DxfTable from '../DxfTable';
 import DxfLayer from './Records/DxfLayer';
 import TagsManager from '../../../Internals/TagsManager';
+import DxfLineTypeTable from './DxfLineTypeTable';
 
 export default class DxfLayerTable extends DxfTable {
 	private static _instance: DxfLayerTable;
@@ -23,10 +24,12 @@ export default class DxfLayerTable extends DxfTable {
 		name: string,
 		color: number,
 		lineType: string,
-		flags: number
+		flags?: number
 	) {
 		if (this.exist(name))
-			throw new Error(`The ${name} Layer name already exist!`);
+			throw new Error(`The ${name} Layer already exist!`);
+		if (!DxfLineTypeTable.getInstance().exist(lineType))
+			throw new Error(`The ${name} LineType doesn't exist!`);
 		const layerRecord = new DxfLayer(name, color, lineType, flags);
 		layerRecord.softPointer = this.handle;
 		this.layerRecords.push(layerRecord);
@@ -41,7 +44,7 @@ export default class DxfLayerTable extends DxfTable {
 		);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.layerRecords.length;
 		manager.pushTags(super.manager.tags);

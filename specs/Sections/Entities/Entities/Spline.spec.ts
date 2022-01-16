@@ -13,7 +13,7 @@ describe('Spline', () => {
 			point3d(30, 10, 0),
 			point3d(30, 0, 0),
 		];
-		const entity = new Spline(points, [], 3, 8, [], [], {});
+		const entity = new Spline({ controlPoints: points }, {});
 		dataState.instancesCount++;
 		expect(entity.subclassMarker).toBe('AcDbSpline');
 	});

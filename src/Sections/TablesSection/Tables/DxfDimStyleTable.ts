@@ -20,11 +20,7 @@ export default class DxfDimStyleTable extends DxfTable {
 		return this._instance;
 	}
 
-	public stringify(): string {
-		return this.manager.stringify();
-	}
-
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.dimStylesRecords.length;
 		manager.pushTags(super.manager.tags);
@@ -35,8 +31,8 @@ export default class DxfDimStyleTable extends DxfTable {
 		return manager;
 	}
 
-	public addDimStyle(name: string) {
-		const dimStyle = new DxfDimStyle(name);
+	public addDimStyle(name: string, flags?: number) {
+		const dimStyle = new DxfDimStyle(name, flags);
 		dimStyle.softPointer = this.handle;
 		this._dimStyleRecords.push(dimStyle);
 		return dimStyle;

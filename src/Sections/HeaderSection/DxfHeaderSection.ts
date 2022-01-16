@@ -3,18 +3,14 @@ import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfHeaderSection implements DxfInterface {
-	private static _instance: DxfHeaderSection;
-	private readonly _variables: DxfVariable[] = [];
-
-	public get variables(): DxfVariable[] {
-		return this._variables;
-	}
+	static #instance: DxfHeaderSection;
+	readonly variables: DxfVariable[] = [];
 
 	private constructor() {}
 
 	public static getInstance(): DxfHeaderSection {
-		if (!this._instance) this._instance = new DxfHeaderSection();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfHeaderSection();
+		return this.#instance;
 	}
 
 	public setVariable(name: string, values: values_t) {

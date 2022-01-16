@@ -4,20 +4,16 @@ import DxfBlock from '../BlocksSection/DxfBlock';
 import DxfBlocksSection from '../BlocksSection/DxfBlocksSection';
 
 export default class DxfEntitiesSection implements DxfInterface {
-	private static _instance: DxfEntitiesSection;
-	private readonly _modelSpace: DxfBlock;
-
-	public get modelSpace(): DxfBlock {
-		return this._modelSpace;
-	}
+	static #instance: DxfEntitiesSection;
+	readonly modelSpace: DxfBlock;
 
 	private constructor() {
-		this._modelSpace = DxfBlocksSection.getInstance().modelSpace;
+		this.modelSpace = DxfBlocksSection.getInstance().modelSpace;
 	}
 
 	public static getInstance(): DxfEntitiesSection {
-		if (!this._instance) this._instance = new DxfEntitiesSection();
-		return this._instance;
+		if (!this.#instance) this.#instance = new DxfEntitiesSection();
+		return this.#instance;
 	}
 
 	public get manager(): TagsManager {

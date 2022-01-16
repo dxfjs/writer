@@ -1,24 +1,25 @@
+# Tables
 
-## APPID symbol table
+## APPID record
 
-To add an ```APPID``` symbol table entry, use the convinient function ```addAppId()```:
+To add an ```APPID``` entry, use the convinient function ```addAppId()```:
 
 ```js
-import { addAppId, appIdFlags } from '@tarikjabiri/dxf';
+import { addAppId, RecordFlags } from '@tarikjabiri/dxf';
 
 const name1AppId = addAppId('name1'); // without flags, set to 0 automatically.
 // Or
-const name2AppId = addAppId('name2', appIdFlags.dependentOnXref); // Is externally dependent on an xref.
+const name2AppId = addAppId('name2', RecordFlags.dependentOnXref); // Is externally dependent on an xref.
 // Or
-const name3AppId = addAppId('name3', appIdFlags.dependentOnXref | appIdFlags.xrefResolved);
+const name3AppId = addAppId('name3', RecordFlags.dependentOnXref | RecordFlags.xrefResolved);
 //  If both flags are set, the externally dependent xref has been successfully resolved.
 ```
 
 > By default the ```ACAD``` entry is automatically added.
 
-## BLOCKRECORD symbol table
+## BLOCKRECORD record
 
-To add an ```BLOCKRECORD``` symbol table entry, use the convinient function ```addBlockRecord()```:
+To add an ```BLOCKRECORD``` entry, use the convinient function ```addBlockRecord()```:
 
 ```js
 import { addBlockRecord, Units } from '@tarikjabiri/dxf';
@@ -37,9 +38,9 @@ exampleBlockRecord.hardPointer = '1C'; // Hard-pointer ID/handle to associated L
 
 > By default the ```*Model_Space``` and ```*Paper_Space``` block records are automatically added.
 
-## DIMSTYLE symbol table
+## DIMSTYLE record
 
-To add an ```DIMSTYLE``` symbol table entry, use the convinient function ```addDimStyle()```:
+To add an ```DIMSTYLE``` entry, use the convinient function ```addDimStyle()```:
 
 ```js
 import { addDimStyle } from '@tarikjabiri/dxf';
@@ -48,17 +49,19 @@ const exampleDimStyle = addDimStyle('example');
 
 ```
 
+?> The ```DIMSTYLE``` entry accept same flags as ```APPID``` entry: ```RecordFlags```.
+
 > By default the ```Standard``` entry is automatically added.
 
 !> Note that ```DIMSTYLE``` entries are not customizable at this moment, and ```DIMENSION``` entity is not implemented so no need to create these entries.
 
-## LTYPE symbol table
+## LTYPE record
 
-### Adding LTYPE entry
+### Adding LTYPE record
 
-To add an ```LTYPE``` symbol table entry, there is to ways to do so:
+To add an ```LTYPE``` entry, there is to ways to do so:
 
-- Using the convinient factory function ```addLineType()```.
+- Using the convinient function ```addLineType()```.
 - Calling ```addLineType()``` method on ```DxfWriter``` object.
 
 !> Note that ```LTYPE``` is not fully customizable, only basics are implemented.
@@ -73,11 +76,13 @@ const axesLineType = addLineType('AXES', '____ _ ', [4, -1, 1, -1]); // Use this
 dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]); // Always choose unique names.
 ```
 
+?> The ```LTYPE``` entry accept same flags as ```APPID``` entry: ```RecordFlags```.
+
 > By default ```ByBlock```, ```ByLayer``` and ```Continuous``` line types are automatically added.
 
 **More predefined line types will be added in the future for convenient.**
 
-### LTYPE pattern
+### LineType pattern
 
 I found this hard to understand, but I will explain it and make it simple as I can:
 
@@ -110,13 +115,85 @@ Now for this descriptive ```'____ _ '```:
 
 You understand the principle.
 
-Last thing is the length of the array sould equal the number of elements. Note that 4 underscores are treated one element.
+Last thing is the length of the array should equal the number of elements. Note that 4 underscores are treated one element.
 
 !> Note that this explanation is my personal thought, no guarantee to be correct, but it is working .
 
-## LAYER symbol table
+## LAYER record
 
-To add an ```LAYER``` symbol table entry, there is to ways to do so:
+To add an ```LAYER``` entry, there is to ways to do so:
 
-- Using the convinient factory function ```addLayer()```.
+- Using the convinient function ```addLayer()```.
 - Calling ```addLayer()``` method on ```DxfWriter``` object.
+
+```js
+import DxfWriter, { addLayer, Colors, LayerFlags } from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+const exampleLayer = addLayer('example', Colors.Red, 'Continuous'); // Use this function if you want to store a refrence to layer object.
+// Or
+dxf.addLayer('example', Colors.Red, 'Continuous'); // Always choose unique names.
+// Continuous is the name of lineType it could be a lineType you define.
+
+// You can set some flags like this:
+const exampleLayer = addLayer('example', Colors.Red, 'Continuous', LayerFlags.Frozen | LayerFlags.Locked);
+// Or
+dxf.addLayer('example', Colors.Red, 'Continuous', LayerFlags.FrozenInNewViewports | LayerFlags.Locked);
+```
+
+?> If no flag is set, by default the flag is set to 0 which make the layer thawed.
+
+Possible values in ```LayerFlags```:
+
+- ```LayerFlags.Frozen```
+- ```LayerFlags.FrozenInNewViewports```
+- ```LayerFlags.Locked```
+- ```LayerFlags.DependentOnXref```
+- ```LayerFlags.XrefResolved```
+
+There are 8 colors predefined in ```Colors```:
+
+- ```Colors.Red```.
+- ```Colors.Green```.
+- ```Colors.Cyan```.
+- ```Colors.Blue```.
+- ```Colors.Magenta```.
+- ```Colors.White```.
+- ```Colors.Black```.
+- ```Colors.Yellow```.
+
+> More colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
+
+## STYLE record
+
+To add an ```STYLE``` entry, use the convinient function ```addStyle()```:
+
+```js
+import { addStyle } from '@tarikjabiri/dxf';
+
+const myStyle = addStyle('example'); 
+```
+
+Possible values in ```StyleFlags```:
+
+- ```StyleFlags.DescribeShape```
+- ```StyleFlags.VerticalText```
+- ```StyleFlags.DependentOnXref```
+- ```StyleFlags.XrefResolved```
+
+?>  You can customize these properties: ```fixedTextHeight```,```widthFactor```,```obliqueAngle```,```textGenerationFlag```,```lastHeightUsed```,```fontFileName```,```bigFontFileName``` and ```flags```.
+
+## UCS record
+
+!> Is not implemented 😔.
+
+## VIEW record
+
+!> Is not implemented 😔.
+
+## VPORT record
+
+!> Is not fully implemented 😔.
+
+> Internally ```*Active``` record is added automatically, with some options to make fit in view possible.

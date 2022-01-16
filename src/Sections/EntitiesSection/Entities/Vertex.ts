@@ -1,77 +1,50 @@
 import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import { Merge } from '../../../Internals/Utils';
 
-export const vertexFlags = {
-	extraVertex: 1,
-	curveFit: 2,
-	notUsed: 4,
-	splineVertex: 8,
-	splineFrame: 16,
-	polyline3dVertex: 32,
-	polygon3dMesh: 64,
-	polyfaceMeshVertex: 128,
+export enum vertexFlags {
+	ExtraVertex = 1,
+	CurveFit = 2,
+	NotUsed = 4,
+	SplineVertex = 8,
+	SplineFrame = 16,
+	Polyline3dVertex = 32,
+	Polygon3dMesh = 64,
+	PolyfaceMeshVertex = 128,
+}
+
+export type vertexOptions_t = options_t & {
+	is3d: boolean;
+	flags?: number;
+	startingWidth?: number;
+	endWidth?: number;
+	bulge?: number;
 };
 
-export type vertexOptions_t = Merge<
-	options_t,
-	{
-		is3d: boolean;
-		flags?: number;
-		startingWidth?: number;
-		endWidth?: number;
-		bulge?: number;
-	}
->;
-
 export default class Vertex extends Entity {
-	private readonly _vertex: point3d_t;
-	private readonly _is3d: boolean;
-	private readonly _flags: number;
-	private readonly _startingWidth: number | undefined;
-	private readonly _endWidth: number | undefined;
-	private readonly _bulge: number | undefined;
+	readonly vertex: point3d_t;
+	readonly is3d: boolean;
+	readonly flags: number;
+	readonly startingWidth?: number;
+	readonly endWidth?: number;
+	readonly bulge?: number;
 
-	public get vertex(): point3d_t {
-		return this._vertex;
-	}
-
-	public get is3d(): boolean {
-		return this._is3d;
-	}
-
-	public get flags(): number {
-		return this._flags;
-	}
-
-	public get startingWidth(): number | undefined {
-		return this._startingWidth;
-	}
-
-	public get endWidth(): number | undefined {
-		return this._endWidth;
-	}
-
-	public get bulge(): number | undefined {
-		return this._bulge;
-	}
-
-	public constructor(vertex: point3d_t, options: vertexOptions_t = {}) {
+	public constructor(vertex: point3d_t, options: vertexOptions_t) {
 		super({ type: 'VERTEX', subclassMarker: 'AcDbVertex', options });
-		this._vertex = vertex;
-		this._is3d = options.is3d || true;
-		this._flags = options.flags || 0;
-		this._startingWidth = options.startingWidth;
-		this._endWidth = options.endWidth;
-		this._bulge = options.bulge;
+		this.vertex = vertex;
+		this.is3d = options.is3d;
+		this.flags = options.flags ?? 0;
+		if ('startingWidth' in options)
+			this.startingWidth = options.startingWidth;
+		if ('endWidth' in options) this.endWidth = options.endWidth;
+		if ('bulge' in options) this.bulge = options.bulge;
 	}
 
 	public boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox(this.vertex);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker(

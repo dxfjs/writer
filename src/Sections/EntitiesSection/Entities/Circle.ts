@@ -3,28 +3,20 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Circle extends Entity {
-	private readonly _center: point3d_t;
-	private readonly _radius: number;
-
-	public get radius(): number {
-		return this._radius;
-	}
-
-	public get center(): point3d_t {
-		return this._center;
-	}
+	readonly center: point3d_t;
+	readonly radius: number;
 
 	public constructor(center: point3d_t, radius: number, options: options_t) {
 		super({ type: 'CIRCLE', subclassMarker: 'AcDbCircle', options });
-		this._center = center;
-		this._radius = radius;
+		this.center = center;
+		this.radius = radius;
 	}
 
 	public boundingBox(): boundingBox_t {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.center);

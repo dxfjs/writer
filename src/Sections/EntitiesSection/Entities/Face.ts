@@ -3,26 +3,10 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Face extends Entity {
-	private readonly _firstCorner: point3d_t;
-	private readonly _secondCorner: point3d_t;
-	private readonly _thirdCorner: point3d_t;
-	private readonly _fourthCorner: point3d_t;
-
-	public get fourthCorner(): point3d_t {
-		return this._fourthCorner;
-	}
-
-	public get thirdCorner(): point3d_t {
-		return this._thirdCorner;
-	}
-
-	public get secondCorner(): point3d_t {
-		return this._secondCorner;
-	}
-
-	public get firstCorner(): point3d_t {
-		return this._firstCorner;
-	}
+	readonly firstCorner: point3d_t;
+	readonly secondCorner: point3d_t;
+	readonly thirdCorner: point3d_t;
+	readonly fourthCorner: point3d_t;
 
 	public constructor(
 		firstCorner: point3d_t,
@@ -32,10 +16,10 @@ export default class Face extends Entity {
 		options: options_t
 	) {
 		super({ type: '3DFACE', subclassMarker: 'AcDbFace', options });
-		this._firstCorner = firstCorner;
-		this._secondCorner = secondCorner;
-		this._thirdCorner = thirdCorner;
-		this._fourthCorner = fourthCorner;
+		this.firstCorner = firstCorner;
+		this.secondCorner = secondCorner;
+		this.thirdCorner = thirdCorner;
+		this.fourthCorner = fourthCorner;
 	}
 
 	public boundingBox(): boundingBox_t {
@@ -47,7 +31,7 @@ export default class Face extends Entity {
 		]);
 	}
 
-	public get manager(): TagsManager {
+	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.firstCorner);

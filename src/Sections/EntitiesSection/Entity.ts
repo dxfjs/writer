@@ -14,26 +14,10 @@ export type options_t = {
 };
 
 export default abstract class Entity extends Handle implements DxfInterface {
-	protected readonly _type: string;
-	protected readonly _subclassMarker: string | undefined;
-	private readonly _layerName: string;
-	private readonly _options: options_t;
-
-	public get layerName(): string {
-		return this._layerName;
-	}
-
-	public get subclassMarker(): string | undefined {
-		return this._subclassMarker;
-	}
-
-	public get type(): string {
-		return this._type;
-	}
-
-	protected get options(): options_t {
-		return this._options;
-	}
+	readonly type: string;
+	readonly subclassMarker: string | undefined;
+	readonly layerName: string;
+	readonly options?: options_t;
 
 	/**
 	 * Entity class is the base class of all enities.
@@ -48,13 +32,13 @@ export default abstract class Entity extends Handle implements DxfInterface {
 	}: {
 		type: string;
 		subclassMarker?: string;
-		options?: options_t;
+		options: options_t;
 	}) {
 		super();
-		this._options = options || {};
-		this._type = type;
-		this._subclassMarker = subclassMarker;
-		this._layerName = GlobalState.currentLayerName;
+		if (options) this.options = options;
+		this.type = type;
+		this.subclassMarker = subclassMarker;
+		this.layerName = GlobalState.currentLayerName;
 	}
 
 	/**
@@ -70,16 +54,16 @@ export default abstract class Entity extends Handle implements DxfInterface {
 	 */
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.entityType(this._type);
+		manager.entityType(this.type);
 		manager.handle(this.handle);
 		manager.pushTag(this.softPointerTag());
 		manager.subclassMarker('AcDbEntity');
-		manager.addTag(420, this.options.trueColor);
-		manager.layerName(this.options.layerName || this.layerName);
-		manager.lineType(this.options.lineType);
-		manager.colorNumber(this.options.colorNumber);
-		manager.addTag(48, this.options.lineTypeScale);
-		manager.visibilty(this.options.visible);
+		manager.addTag(420, this.options?.trueColor);
+		manager.layerName(this.options?.layerName || this.layerName);
+		manager.lineType(this.options?.lineType);
+		manager.colorNumber(this.options?.colorNumber);
+		manager.addTag(48, this.options?.lineTypeScale);
+		manager.visibilty(this.options?.visible);
 		manager.subclassMarker(this.subclassMarker);
 		return manager;
 	}

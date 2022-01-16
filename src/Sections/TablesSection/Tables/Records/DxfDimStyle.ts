@@ -2,20 +2,18 @@ import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
-// TODO Refactor this class to be more dynamic
+// TODO: Refactor this class to be more dynamic
 export default class DxfDimStyle extends Handle implements DxfInterface {
-	private readonly _name: string;
+	readonly name: string;
+	readonly flags: number;
 
-	public get name(): string {
-		return this._name;
-	}
-
-	public constructor(name: string) {
+	public constructor(name: string, flags?: number) {
 		super();
-		this._name = name;
+		this.name = name;
+		this.flags = flags ?? 0;
 	}
 
-	stringify(): string {
+	public stringify(): string {
 		return this.manager.stringify();
 	}
 
@@ -28,7 +26,7 @@ export default class DxfDimStyle extends Handle implements DxfInterface {
 		manager.subclassMarker('AcDbSymbolTableRecord');
 		manager.addTag(100, 'AcDbDimStyleTableRecord');
 		manager.addTag(2, this.name);
-		manager.addTag(70, 0);
+		manager.addTag(70, this.flags);
 		manager.addTag(40, 1);
 		manager.addTag(41, 2.5);
 		manager.addTag(42, 0.625);
