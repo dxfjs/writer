@@ -38,5 +38,18 @@ circleBlock.addRectangle(
 
 dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
 
+const controlPoints = [
+	point3d(0, 0, 0),
+	point3d(10, 10, 0),
+	point3d(20, 10, 0),
+	point3d(30, 20, 0),
+];
+
+dxf.addSpline({
+	controlPoints,
+});
+
+dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
+
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');

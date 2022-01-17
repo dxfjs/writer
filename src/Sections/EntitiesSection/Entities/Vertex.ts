@@ -29,15 +29,17 @@ export default class Vertex extends Entity {
 	readonly endWidth?: number;
 	readonly bulge?: number;
 
-	public constructor(vertex: point3d_t, options: vertexOptions_t) {
-		super({ type: 'VERTEX', subclassMarker: 'AcDbVertex', options });
+	public constructor(vertex: point3d_t, options?: vertexOptions_t) {
+		super('VERTEX', 'AcDbVertex', options);
 		this.vertex = vertex;
-		this.is3d = options.is3d;
-		this.flags = options.flags ?? 0;
-		if ('startingWidth' in options)
-			this.startingWidth = options.startingWidth;
-		if ('endWidth' in options) this.endWidth = options.endWidth;
-		if ('bulge' in options) this.bulge = options.bulge;
+		this.is3d = options?.is3d || true;
+		this.flags = options?.flags ?? 0;
+		if (options) {
+			if ('startingWidth' in options)
+				this.startingWidth = options.startingWidth;
+			if ('endWidth' in options) this.endWidth = options.endWidth;
+			if ('bulge' in options) this.bulge = options.bulge;
+		}
 	}
 
 	public boundingBox(): boundingBox_t {

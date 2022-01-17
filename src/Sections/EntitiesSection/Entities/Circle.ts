@@ -6,8 +6,8 @@ export default class Circle extends Entity {
 	readonly center: point3d_t;
 	readonly radius: number;
 
-	public constructor(center: point3d_t, radius: number, options: options_t) {
-		super({ type: 'CIRCLE', subclassMarker: 'AcDbCircle', options });
+	public constructor(center: point3d_t, radius: number, options?: options_t) {
+		super('CIRCLE', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;
 	}

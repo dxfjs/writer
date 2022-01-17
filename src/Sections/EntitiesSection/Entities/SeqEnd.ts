@@ -1,10 +1,10 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import TagsManager, { point3d } from '../../../Internals/TagsManager';
-import Entity, { options_t } from '../Entity';
+import Entity from '../Entity';
 
 export default class SeqEnd extends Entity {
-	public constructor(options: options_t) {
-		super({ type: 'SEQEND', options });
+	public constructor() {
+		super('SEQEND');
 	}
 
 	public boundingBox(): boundingBox_t {

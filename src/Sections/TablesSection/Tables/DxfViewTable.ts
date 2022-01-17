@@ -15,10 +15,11 @@ export default class DxfViewTable extends DxfTable {
 		return this.#instance;
 	}
 
-	public addView(name: string) {
+	public addView(name: string): DxfView {
 		const viewRecord = new DxfView(name);
 		viewRecord.softPointer = this.handle;
 		this.viewRecords.push(viewRecord);
+		return viewRecord;
 	}
 
 	public override get manager(): TagsManager {

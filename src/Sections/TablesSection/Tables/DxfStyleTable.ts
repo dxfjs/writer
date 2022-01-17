@@ -19,10 +19,11 @@ export default class DxfStyleTable extends DxfTable {
 		return this._instance;
 	}
 
-	public addStyle(name: string, flags?: number) {
+	public addStyle(name: string, flags?: number): DxfStyle {
 		const styleRecord = new DxfStyle(name, flags);
 		styleRecord.softPointer = this.handle;
 		this._styleRecords.push(styleRecord);
+		return styleRecord;
 	}
 
 	public override get manager(): TagsManager {

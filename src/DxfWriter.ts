@@ -10,7 +10,11 @@ import {
 import { rectangleOptions_t } from './Internals/Utils';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
+import { SplineArgs } from './Sections/EntitiesSection/Entities/Spline';
 
+/**
+ * @public
+ */
 export default class DxfWriter {
 	/**
 	 * The base class for creating the Dxf content.
@@ -18,7 +22,7 @@ export default class DxfWriter {
 	public constructor() {}
 
 	/**
-	 * Add a header variable to the Dxf if not exist. \
+	 * Add a header variable to the Dxf if not exist.
 	 * If exist it will updates values.
 	 *
 	 * @example
@@ -27,8 +31,8 @@ export default class DxfWriter {
 	 * dxf.setVariable("$ANGDIR", {70: 1});
 	 * dxf.setVariable("$EXTMAX", {10: 500, 20: 500, 30: 0});
 	 * ```
-	 * @param name The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
-	 * @param values The values correspanding to the variable.
+	 * @param name - The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
+	 * @param values - The values correspanding to the variable.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setVariable(name: string, values: values_t): this {
@@ -39,9 +43,9 @@ export default class DxfWriter {
 	/**
 	 * Add a new LineType to the Dxf.
 	 *
-	 * @param name Name of the lineType.
-	 * @param descriptive The descriptive of the line ex: __ __ . __ __ .
-	 * @param elements An array of elements of the pattern. 📝 Need more explications 😭!
+	 * @param name - Name of the lineType.
+	 * @param descriptive - The descriptive of the line ex: __ __ . __ __ .
+	 * @param elements - An array of elements of the pattern. 📝 Need more explications 😭!
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
@@ -57,10 +61,10 @@ export default class DxfWriter {
 	/**
 	 * Add a new Layer to the Dxf.
 	 *
-	 * @param name The name of the layer.
-	 * @param color The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
-	 * @param lineType The lineType name.
-	 * @param flags Layer standard flags (bit-coded values).
+	 * @param name - The name of the layer.
+	 * @param color - The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
+	 * @param lineType - The lineType name.
+	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLayer(
@@ -76,7 +80,7 @@ export default class DxfWriter {
 	/**
 	 * Set the current layer name of the Dxf.
 	 * @throws
-	 * @param name the layer name.
+	 * @param name - the layer name.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setCurrentLayerName(name: string): this {
@@ -88,7 +92,7 @@ export default class DxfWriter {
 	 * Set the units of the Dxf.
 	 *
 	 * @throws
-	 * @param units use DXFWriter.units to set the unit.
+	 * @param units - use DXFWriter.units to set the unit.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setUnits(units: number): this {
@@ -103,14 +107,14 @@ export default class DxfWriter {
 	/**
 	 * Add a Line entity to the Dxf.
 	 *
-	 * @param startPoint The start point of the line.
-	 * @param endPoint The end point of the line.
+	 * @param startPoint - The start point of the line.
+	 * @param endPoint - The end point of the line.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLine(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addLine(
 			startPoint,
@@ -122,13 +126,14 @@ export default class DxfWriter {
 
 	/**
 	 * Add a Polyline entity to the Dxf.
-	 * @link http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3.
 	 *
-	 * The Polyline entity can represent the Rectangle and the Polygon \
+	 * [DXF Polyline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
+	 *
+	 * The Polyline entity can represent the Rectangle and the Polygon
 	 * just pass the array of points and PolylineFlags.Closed flag (flag = 1).
 	 *
-	 * @param points An array of points like: [[x1, y1], [x2, y2], ...].
-	 * @param flag An enteger number represent the Polyline flag.
+	 * @param points - An array of points like: [[x1, y1], [x2, y2], ...].
+	 * @param flag - An enteger number represent the Polyline flag.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
@@ -145,8 +150,8 @@ export default class DxfWriter {
 	 * In DXF Reference there is no entity called Rectangle or Polygon.
 	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
 	 *
-	 * @param topLeft The topleft corner of the rectangle.
-	 * @param bottomRight The bottom right corner of the rectangle.
+	 * @param topLeft - The topleft corner of the rectangle.
+	 * @param bottomRight - The bottom right corner of the rectangle.
 	 * @returns Return the current object of DxfWriter.
 	 */
 
@@ -155,9 +160,9 @@ export default class DxfWriter {
 	 * In DXF Reference there is no entity called Rectangle or Polygon.
 	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
 	 *
-	 * @param topLeft The topleft corner of the rectangle.
-	 * @param bottomRight The bottom right corner of the rectangle.
-	 * @param options The options to apply to the rectangle.
+	 * @param topLeft - The topleft corner of the rectangle.
+	 * @param bottomRight - The bottom right corner of the rectangle.
+	 * @param options - The options to apply to the rectangle.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addRectangle(
@@ -175,19 +180,19 @@ export default class DxfWriter {
 
 	/**
 	 * Add a 3D Polyline entity to the Dxf.
-	 * @param points{number[][]} an array of points like: [[x1, y1, z1], [x2, y2, z2], ...].
-	 * @param flag
+	 * @param points - An array of points.
+	 * @param flags - Polyline flags.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addPolyline3D(
 		points: point3d_t[],
-		flag: number,
-		options: options_t = {}
+		flags: number,
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addPolyline3D(
 			points,
-			flag,
+			flags,
 			options
 		);
 		return this;
@@ -195,9 +200,10 @@ export default class DxfWriter {
 
 	/**
 	 * Add a Point entity to the Dxf.
-	 * @param  the X coordinate of the point.
-	 * @param  the Y coordinate of the point.
-	 * @param  the Z coordinate of the point.
+	 *
+	 * @param x - The X coordinate of the point.
+	 * @param y - The Y coordinate of the point.
+	 * @param z - The Z coordinate of the point.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
@@ -205,7 +211,7 @@ export default class DxfWriter {
 		x: number,
 		y: number,
 		z: number,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addPoint(x, y, z, options);
 		return this;
@@ -213,14 +219,14 @@ export default class DxfWriter {
 
 	/**
 	 * Add a Circle entity to the Dxf.
-	 * @param center The center point of the circle.
-	 * @param radius The radius of the circle.
+	 * @param center - The center point of the circle.
+	 * @param radius - The radius of the circle.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addCircle(
 		center: point3d_t,
 		radius: number,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addCircle(center, radius, options);
 		return this;
@@ -229,11 +235,11 @@ export default class DxfWriter {
 	/**
 	 * Add an Arc entity to the Dxf.
 	 *
-	 * @param x_center     the X coordinate of the center of the arc.
-	 * @param y_center     the Y coordinate of the center of the arc.
-	 * @param radius       the radius of the arc.
-	 * @param startAngle  the start of the angle (begining of arc) in degrees Anticlockwise.
-	 * @param endAngle     the end of the angle (end of arc) in degrees Anticlockwise.
+	 * @param x_center -     the X coordinate of the center of the arc.
+	 * @param y_center -     the Y coordinate of the center of the arc.
+	 * @param radius -       the radius of the arc.
+	 * @param startAngle -  the start of the angle (begining of arc) in degrees Anticlockwise.
+	 * @param endAngle -     the end of the angle (end of arc) in degrees Anticlockwise.
 	 *
 	 * 📝 Angles always start from X-axis towards anticlockwise.
 	 *
@@ -244,7 +250,7 @@ export default class DxfWriter {
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addArc(
 			center,
@@ -264,46 +270,29 @@ export default class DxfWriter {
 	 * complex 3D organic free-form surface or solid. Because of their flexibility and accuracy,
 	 * NURBS models can be used in any process, from illustration and animation to manufacturing.
 	 *
-	 * For more informations see :
-	 * @link https://www.rhino3d.com/features/nurbs/.
-	 * @link http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74.
+	 * For more informations see : [NURBS](https://www.rhino3d.com/features/nurbs/) and
+	 * [DXF SPLINE](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74)
 	 *
-	 * @param controlPoints The control points of the spline.
-	 * @param fitPoints The fit points of the spline.
-	 * @param degreeCurve The degree curve of the spline, mostly 3.
-	 * @param flag An integer represent the flag of the spline.
-	 * @param knots The knots of th spline. If you don't know what is this set it to an empty array [].
-	 * @param weights The weights of th spline. If you don't know what is this set it to an empty array [].
+	 * @param controlPoints - The control points of the spline.
+	 * @param fitPoints - The fit points of the spline.
+	 * @param degreeCurve - The degree curve of the spline, mostly 3.
+	 * @param flag - An integer represent the flag of the spline.
+	 * @param knots - The knots of th spline. If you don't know what is this set it to an empty array [].
+	 * @param weights - The weights of th spline. If you don't know what is this set it to an empty array [].
 	 */
-	public addSpline(
-		controlPoints: point3d_t[],
-		fitPoints: point3d_t[],
-		degreeCurve: number,
-		flag: number,
-		knots: number[],
-		weights: number[],
-		options: options_t = {}
-	): this {
-		DxfManager.getInstance().modelSpace.addSpline(
-			controlPoints,
-			fitPoints,
-			degreeCurve,
-			flag,
-			knots,
-			weights,
-			options
-		);
+	public addSpline(splineArgs: SplineArgs, options?: options_t): this {
+		DxfManager.getInstance().modelSpace.addSpline(splineArgs, options);
 		return this;
 	}
 
 	/**
 	 * Add an Ellipse entity to the Dxf.
 	 *
-	 * @param center The center point of the ellipse.
-	 * @param endPointOfMajorAxis The end point of major axis, relative to the center of the ellipse.
-	 * @param ratioOfMinorAxisToMajorAxis The ratio of minor axis to major axis.
-	 * @param startParameter The start parameter (this value is 0.0 for a full ellipse).
-	 * @param endParameter The end parameter (this value is 2pi for a full ellipse).
+	 * @param center - The center point of the ellipse.
+	 * @param endPointOfMajorAxis - The end point of major axis, relative to the center of the ellipse.
+	 * @param ratioOfMinorAxisToMajorAxis - The ratio of minor axis to major axis.
+	 * @param startParameter - The start parameter (this value is 0.0 for a full ellipse).
+	 * @param endParameter - The end parameter (this value is 2pi for a full ellipse).
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addEllipse(
@@ -312,7 +301,7 @@ export default class DxfWriter {
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addEllipse(
 			center,
@@ -341,13 +330,13 @@ export default class DxfWriter {
 	 *		0 //The scale to be applied to the image.
 	 * );
 	 * ```
-	 * @param absolutePath The absolute path of the image.
-	 * @param name The name of the image.
-	 * @param insertionPoint The insertion point.
-	 * @param width The width of the image in pixels.
-	 * @param height The height of the image in pixels.
-	 * @param scale The scale to be applied to the image.
-	 * @param rotation The rotation angle (Degrees) to be applied to the image.
+	 * @param absolutePath - The absolute path of the image.
+	 * @param name - The name of the image.
+	 * @param insertionPoint - The insertion point.
+	 * @param width - The width of the image in pixels.
+	 * @param height - The height of the image in pixels.
+	 * @param scale - The scale to be applied to the image.
+	 * @param rotation - The rotation angle (Degrees) to be applied to the image.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addImage(
@@ -358,7 +347,7 @@ export default class DxfWriter {
 		height: number,
 		scale: number,
 		rotation: number,
-		options: options_t = {}
+		options?: options_t
 	) {
 		DxfManager.getInstance().addImage(
 			absolutePath,
@@ -376,10 +365,10 @@ export default class DxfWriter {
 	/**
 	 * Add a 3D Face entity to the Dxf.
 	 *
-	 * @param firstCorner The first corner of the 3d face.
-	 * @param secondCorner The first corner of the 3d face.
-	 * @param thirdCorner The first corner of the 3d face.
-	 * @param fourthCorner The first corner of the 3d face.
+	 * @param firstCorner - The first corner of the 3d face.
+	 * @param secondCorner - The first corner of the 3d face.
+	 * @param thirdCorner - The first corner of the 3d face.
+	 * @param fourthCorner - The first corner of the 3d face.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public add3dFace(
@@ -387,7 +376,7 @@ export default class DxfWriter {
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.add3dFace(
 			firstCorner,
@@ -401,16 +390,16 @@ export default class DxfWriter {
 
 	/**
 	 * Add a text entity to the Dxf.
-	 * @param firstAlignementPoint The first alignment point of the text.
-	 * @param height The text height.
-	 * @param value The default value (the string itself).
+	 * @param firstAlignementPoint - The first alignment point of the text.
+	 * @param height - The text height.
+	 * @param value - The default value (the string itself).
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addText(
 		firstAlignementPoint: point3d_t,
 		height: number,
 		value: string,
-		options: options_t = {}
+		options?: options_t
 	): this {
 		DxfManager.getInstance().modelSpace.addText(
 			firstAlignementPoint,
@@ -423,8 +412,8 @@ export default class DxfWriter {
 
 	/**
 	 * Add an insert entity to the model space.
-	 * @param blockName - The name of the block to insert.
-	 * @param insertionPoint - The point where the block is to be inserted.
+	 * @param blockName - - The name of the block to insert.
+	 * @param insertionPoint - - The point where the block is to be inserted.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addInsert(
@@ -442,7 +431,8 @@ export default class DxfWriter {
 
 	/**
 	 * Get the content of the Dxf.
-	 * @return Get the Dxf string.
+	 *
+	 * @returns Return the Dxf string.
 	 */
 	public stringify(): string {
 		return DxfManager.getInstance().stringify();

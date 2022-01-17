@@ -4,7 +4,7 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Line from './Entities/Line';
 import LWPolyline, {
-	lwPolylineFlags,
+	LWPolylineFlags,
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Entities/LWPolyline';
@@ -12,7 +12,7 @@ import { bulge, rectangleOptions_t } from '../../Internals/Utils';
 import Polyline from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
-import Spline from './Entities/Spline';
+import Spline, { SplineArgs } from './Entities/Spline';
 import Ellipse from './Entities/Ellipse';
 import Face from './Entities/Face';
 import Text from './Entities/Text';
@@ -30,26 +30,25 @@ export default abstract class EntitiesManager
 		super();
 	}
 
-	public addEntity(entity: Entity) {
-		entity.softPointer = this.softPointer;
+	public addEntity<T extends Entity>(entity: T): T {
+		if (this.softPointer) entity.softPointer = this.softPointer;
 		this.entities.push(entity);
+		return entity;
 	}
 
 	public addLine(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
-		options: options_t
+		options?: options_t
 	): Line {
-		const line = new Line(startPoint, endPoint, options);
-		this.addEntity(line);
-		return line;
+		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
 	public addLWPolyline(
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t
 	) {
-		this.addEntity(new LWPolyline(points, options));
+		return this.addEntity(new LWPolyline(points, options));
 	}
 
 	public addRectangle(
@@ -95,25 +94,25 @@ export default abstract class EntitiesManager
 			vertices.push({ x: tX, y: bY });
 		}
 
-		this.addLWPolyline(vertices, {
+		return this.addLWPolyline(vertices, {
 			...options,
-			flags: lwPolylineFlags.Closed,
+			flags: LWPolylineFlags.Closed,
 		});
 	}
 
 	public addPolyline3D(
 		points: point3d_t[],
 		flag: number,
-		options: options_t
+		options?: options_t
 	) {
 		this.addEntity(new Polyline(points, flag, options));
 	}
 
-	public addPoint(x: number, y: number, z: number, options: options_t) {
+	public addPoint(x: number, y: number, z: number, options?: options_t) {
 		this.addEntity(new Point(x, y, z, options));
 	}
 
-	public addCircle(center: point3d_t, radius: number, options: options_t) {
+	public addCircle(center: point3d_t, radius: number, options?: options_t) {
 		this.addEntity(new Circle(center, radius, options));
 	}
 
@@ -122,33 +121,15 @@ export default abstract class EntitiesManager
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options: options_t
-	) {
-		this.addEntity(new Arc(center, radius, startAngle, endAngle, options));
+		options?: options_t
+	): Arc {
+		return this.addEntity(
+			new Arc(center, radius, startAngle, endAngle, options)
+		);
 	}
 
-	public addSpline(
-		controlPoints: point3d_t[],
-		fitPoints: point3d_t[],
-		degreeCurve: number,
-		flags: number,
-		knots: number[],
-		weights: number[],
-		options: options_t
-	) {
-		this.addEntity(
-			new Spline(
-				{
-					controlPoints,
-					fitPoints,
-					degreeCurve,
-					flags,
-					knots,
-					weights,
-				},
-				options
-			)
-		);
+	public addSpline(splineArgs: SplineArgs, options?: options_t) {
+		this.addEntity(new Spline(splineArgs, options));
 	}
 
 	public addEllipse(
@@ -157,7 +138,7 @@ export default abstract class EntitiesManager
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options: options_t
+		options?: options_t
 	): Ellipse {
 		const ellipse = new Ellipse(
 			center,
@@ -176,7 +157,7 @@ export default abstract class EntitiesManager
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
-		options: options_t
+		options?: options_t
 	) {
 		this.addEntity(
 			new Face(
@@ -193,7 +174,7 @@ export default abstract class EntitiesManager
 		firstAlignementPoint: point3d_t,
 		height: number,
 		value: string,
-		options: options_t
+		options?: options_t
 	) {
 		this.addEntity(new Text(firstAlignementPoint, height, value, options));
 	}

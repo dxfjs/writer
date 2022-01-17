@@ -9,6 +9,12 @@ import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfViewPortTable from './Tables/DxfViewPortTable';
 import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import DxfStyle from './Tables/Records/DxfStyle';
+import DxfView from './Tables/Records/DxfView';
+import DxfUcs from './Tables/Records/DxfUcs';
+import DxfAppId from './Tables/Records/DxfAppId';
+import DxfDimStyle from './Tables/Records/DxfDimStyle';
+import DxfViewPort from './Tables/Records/DxfViewPort';
 
 export default class DxfTablesSection implements DxfInterface {
 	static #instance: DxfTablesSection;
@@ -86,27 +92,27 @@ export default class DxfTablesSection implements DxfInterface {
 		}
 	}
 
-	public addStyle(name: string) {
+	public addStyle(name: string): DxfStyle {
 		return this.styleTable.addStyle(name);
 	}
 
-	public addView(name: string) {
+	public addView(name: string): DxfView {
 		return this.viewTable.addView(name);
 	}
 
-	public addUcs(name: string) {
+	public addUcs(name: string): DxfUcs {
 		return this.ucsTable.addUcs(name);
 	}
 
-	public addAppId(name: string, flags?: number) {
+	public addAppId(name: string, flags?: number): DxfAppId {
 		return this.appIdTable.addAppId(name, flags);
 	}
 
-	public addDimStyle(name: string, flags?: number) {
+	public addDimStyle(name: string, flags?: number): DxfDimStyle {
 		return this.dimStyleTable.addDimStyle(name, flags);
 	}
 
-	public addViewPort(name: string) {
+	public addViewPort(name: string): DxfViewPort {
 		return this.dxfViewPortTable.addViewPort(name);
 	}
 

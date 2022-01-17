@@ -17,7 +17,7 @@ describe('Entity', () => {
 	let entity: DummyEntity;
 
 	beforeEach(() => {
-		entity = new DummyEntity({ type: 'LINE', subclassMarker: 'AcDbLine' });
+		entity = new DummyEntity('LINE', 'AcDbLine');
 	});
 
 	it('should return the subClassName given.', () => {

@@ -3,6 +3,10 @@ import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
 // TODO: Refactor this class to be more dynamic
+
+/**
+ * @public
+ */
 export default class DxfDimStyle extends Handle implements DxfInterface {
 	readonly name: string;
 	readonly flags: number;

@@ -94,7 +94,7 @@ export default class DxfManager implements DxfInterface {
 		height: number,
 		scale: number,
 		rotation: number,
-		options: options_t
+		options?: options_t
 	) {
 		const imageDef = new DxfImageDef(absolutePath);
 		const image = new Image(

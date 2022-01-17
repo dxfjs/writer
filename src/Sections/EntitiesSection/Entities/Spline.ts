@@ -2,6 +2,14 @@ import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
+export enum SplineFlags {
+	Closed = 1,
+	Periodic = 2,
+	Rational = 4,
+	Planar = 8,
+	Linear = 16,
+}
+
 export type SplineArgs = {
 	controlPoints: point3d_t[];
 	fitPoints?: point3d_t[];
@@ -12,45 +20,50 @@ export type SplineArgs = {
 };
 
 export default class Spline extends Entity {
-	readonly controlPoints: point3d_t[];
-	readonly degreeCurve: number;
-	readonly knots: number[];
-	readonly weights: number[];
-	readonly flags: number;
-	readonly fitPoints: point3d_t[];
+	controlPoints: point3d_t[];
+	degreeCurve: number;
+	knots: number[];
+	weights: number[];
+	flags: number;
+	fitPoints: point3d_t[];
 
-	public constructor(args: SplineArgs, options: options_t) {
-		super({ type: 'SPLINE', subclassMarker: 'AcDbSpline', options });
+	public constructor(args: SplineArgs, options?: options_t) {
+		super('SPLINE', 'AcDbSpline', options);
 
 		this.controlPoints = args.controlPoints;
 		this.degreeCurve = args.degreeCurve ?? 3;
-		this.flags = args.flags ?? 8;
-		this.knots = args.knots ?? [];
-		this.weights = args.weights ?? [];
-		this.fitPoints = args.fitPoints ?? [];
+		this.flags = args.flags ?? SplineFlags.Planar;
+		this.knots = args.knots || [];
+		this.weights = args.weights || [];
+		this.fitPoints = args.fitPoints || [];
 
-		const knotsLength = this.degreeCurve + this.controlPoints.length + 1;
+		const cpl = this.controlPoints.length;
+		const dc = this.degreeCurve;
+		const edc = dc + 1; // Expected number fo control points.
+		const fpl = this.fitPoints.length;
+
+		if (cpl < edc)
+			throw new Error(`Number of control points should be >= ${edc}.`);
+
+		if (fpl !== 0 && fpl < 2)
+			throw new Error(`Number of fit points should be >= 2.`);
+
+		const eknl = dc + cpl + 1; // Expected knots length.
 
 		if (this.knots.length === 0) {
-			for (let i = 0; i < this.degreeCurve + 1; i++) {
+			for (let i = 0; i < edc; i++) {
 				this.knots.push(0);
 			}
-			for (
-				let i = 1;
-				i < this.controlPoints.length - this.degreeCurve;
-				i++
-			) {
+			for (let i = 1; i < cpl - dc; i++) {
 				this.knots.push(i);
 			}
-			for (let i = 0; i < this.degreeCurve + 1; i++) {
-				this.knots.push(this.controlPoints.length - this.degreeCurve);
+			for (let i = 0; i < edc; i++) {
+				this.knots.push(cpl - dc);
 			}
 		}
 
-		if (this.knots.length !== knotsLength) {
-			throw new Error(
-				`Invalid knot vector length. Expected ${knotsLength} but received ${this.knots.length}.`
-			);
+		if (this.knots.length !== eknl) {
+			throw new Error(`Number of knots should be ${eknl}.`);
 		}
 	}
 

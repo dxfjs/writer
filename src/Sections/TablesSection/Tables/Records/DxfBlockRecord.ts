@@ -1,6 +1,9 @@
 import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
+/**
+ * @public
+ */
 export default class DxfBlockRecord extends DxfRecord {
 	readonly name: string;
 	insertionUnits: number = 0;

@@ -3,6 +3,9 @@ import TagsManager from '../../Internals/TagsManager';
 
 /**
  * This is the type for variable values.
+ *
+ * @public
+ *
  * @example
  * ```js
  * const values = {

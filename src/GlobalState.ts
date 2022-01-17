@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export enum Colors {
 	Red = 1,
 	Green = 3,
@@ -9,6 +12,9 @@ export enum Colors {
 	Yellow = 2,
 }
 
+/**
+ * @public
+ */
 export enum Units {
 	Unitless = 0,
 	Inches = 1,

@@ -27,8 +27,8 @@ export default class Image extends Entity {
 
 	readonly ratio: number;
 
-	public constructor(imageOptions: ImageOptions, options: options_t) {
-		super({ type: 'IMAGE', subclassMarker: 'AcDbRasterImage', options });
+	public constructor(imageOptions: ImageOptions, options?: options_t) {
+		super('IMAGE', 'AcDbRasterImage', options);
 		this.width = imageOptions.width;
 		this.height = imageOptions.height;
 		this.scale = imageOptions.scale;

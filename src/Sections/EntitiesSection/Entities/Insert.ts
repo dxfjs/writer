@@ -63,13 +63,9 @@ export default class Insert extends Entity {
 	public constructor(
 		blockName: string,
 		insertionPoint: point3d_t,
-		options: insertOptions_t
+		options?: insertOptions_t
 	) {
-		super({
-			type: 'INSERT',
-			subclassMarker: 'AcDbBlockReference',
-			options,
-		});
+		super('INSERT', 'AcDbBlockReference', options);
 		this._blockName = blockName;
 		this._insertionPoint = insertionPoint;
 		this._scaleFactor = options?.scaleFactor;

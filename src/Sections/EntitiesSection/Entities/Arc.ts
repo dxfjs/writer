@@ -13,9 +13,9 @@ export default class Arc extends Entity {
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options: options_t
+		options?: options_t
 	) {
-		super({ type: 'ARC', subclassMarker: 'AcDbCircle', options });
+		super('ARC', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;
 		this.startAngle = startAngle;

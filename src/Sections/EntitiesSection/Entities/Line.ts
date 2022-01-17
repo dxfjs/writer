@@ -17,9 +17,9 @@ export default class Line extends Entity {
 	public constructor(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
-		options: options_t
+		options?: options_t
 	) {
-		super({ type: 'LINE', subclassMarker: 'AcDbLine', options });
+		super('LINE', 'AcDbLine', options);
 		this._startPoint = startPoint;
 		this._endPoint = endPoint;
 	}

@@ -2,11 +2,17 @@ import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
-export enum lwPolylineFlags {
+/**
+ * @public
+ */
+export enum LWPolylineFlags {
 	Closed = 1,
 	Plinegen = 128,
 }
 
+/**
+ * @public
+ */
 export type lwPolylineOptions_t = options_t & {
 	flags?: number;
 	constantWidth?: number;
@@ -14,6 +20,9 @@ export type lwPolylineOptions_t = options_t & {
 	thickness?: number;
 };
 
+/**
+ * @public
+ */
 export type lwPolylineVertex_t = {
 	x: number;
 	y: number;
@@ -22,6 +31,9 @@ export type lwPolylineVertex_t = {
 	bulge?: number;
 };
 
+/**
+ * @public
+ */
 export default class LWPolyline extends Entity {
 	private readonly _vertices: lwPolylineVertex_t[];
 	private readonly _flags: number | undefined;
@@ -53,7 +65,7 @@ export default class LWPolyline extends Entity {
 		vertices: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t
 	) {
-		super({ type: 'LWPOLYLINE', subclassMarker: 'AcDbPolyline', options });
+		super('LWPOLYLINE', 'AcDbPolyline', options);
 		this._vertices = vertices;
 		this._flags = options.flags;
 		this._constantWidth = options.constantWidth;

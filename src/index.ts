@@ -1,5 +1,9 @@
+// Licensed under the MIT license.
+
 /**
- * The public interface of the Dxf API.
+ * A library for generating ```dxf``` files.
+ *
+ * @packageDocumentation
  */
 import DxfWriter from './DxfWriter';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
@@ -26,6 +30,20 @@ import {
 	ViewFlags,
 } from './Sections/TablesSection/Tables/Records/DxfRecord';
 
+import {
+	LWPolylineFlags,
+	lwPolylineOptions_t,
+	lwPolylineVertex_t,
+} from './Sections/EntitiesSection/Entities/LWPolyline';
+import { rectangleOptions_t } from './Internals/Utils';
+import { SplineArgs } from './Sections/EntitiesSection/Entities/Spline';
+import DxfBlock from './Sections/BlocksSection/DxfBlock';
+import DxfAppId from './Sections/TablesSection/Tables/Records/DxfAppId';
+import DxfBlockRecord from './Sections/TablesSection/Tables/Records/DxfBlockRecord';
+import DxfDimStyle from './Sections/TablesSection/Tables/Records/DxfDimStyle';
+import DxfLineType from './Sections/TablesSection/Tables/Records/DxfLineType';
+import DxfLayer from './Sections/TablesSection/Tables/Records/DxfLayer';
+
 export {
 	DxfWriter as default,
 	point3d,
@@ -34,16 +52,27 @@ export {
 	point3d_t,
 	options_t,
 	values_t,
+	lwPolylineOptions_t,
+	lwPolylineVertex_t,
+	rectangleOptions_t,
 	addBlock,
+	DxfBlock,
 	addAppId,
+	DxfAppId,
 	addBlockRecord,
+	DxfBlockRecord,
 	addDimStyle,
+	DxfDimStyle,
 	addLineType,
+	DxfLineType,
 	addLayer,
+	DxfLayer,
 	Colors,
 	Units,
 	RecordFlags,
 	LayerFlags,
 	StyleFlags,
 	ViewFlags,
+	LWPolylineFlags,
+	SplineArgs,
 };

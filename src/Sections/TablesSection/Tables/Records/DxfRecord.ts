@@ -2,11 +2,17 @@ import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
+/**
+ * @public
+ */
 export enum RecordFlags {
 	DependentOnXref = 16,
 	XrefResolved = 32,
 }
 
+/**
+ * @public
+ */
 export enum LayerFlags {
 	Frozen = 1,
 	FrozenInNewViewports = 2,
@@ -15,6 +21,9 @@ export enum LayerFlags {
 	XrefResolved = 32,
 }
 
+/**
+ * @public
+ */
 export enum StyleFlags {
 	DescribeShape = 1,
 	VerticalText = 4,
@@ -22,6 +31,9 @@ export enum StyleFlags {
 	XrefResolved = 32,
 }
 
+/**
+ * @public
+ */
 export enum ViewFlags {
 	PaperSpace = 1,
 	DependentOnXref = 16,

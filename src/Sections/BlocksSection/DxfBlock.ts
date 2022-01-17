@@ -2,6 +2,9 @@ import TagsManager, { point3d_t, tag_t } from '../../Internals/TagsManager';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import EndBlk from './DxfEndBlk';
 
+/**
+ * @public
+ */
 export default class DxfBlock extends EntitiesManager {
 	readonly name: string;
 	readonly endBlk: EndBlk;

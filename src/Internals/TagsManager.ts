@@ -5,21 +5,33 @@ export type tag_t = {
 	value: number | string;
 };
 
+/**
+ * @public
+ */
 export type point3d_t = {
 	x: number;
 	y: number;
 	z: number;
 };
 
+/**
+ * @public
+ */
 export type point2d_t = {
 	x: number;
 	y: number;
 };
 
+/**
+ * @public
+ */
 export function point3d(x: number, y: number, z: number): point3d_t {
 	return { x, y, z };
 }
 
+/**
+ * @public
+ */
 export function point2d(x: number, y: number): point2d_t {
 	return { x, y };
 }
@@ -43,11 +55,7 @@ export const createGroupCode = (
 };
 
 export default class TagsManager {
-	private _tags: tag_t[] = [];
-
-	public get tags(): tag_t[] {
-		return this._tags;
-	}
+	readonly tags: tag_t[] = [];
 
 	public appendTags(dxfEntity: DxfInterface) {
 		this.pushTags(dxfEntity.manager.tags);
@@ -58,11 +66,11 @@ export default class TagsManager {
 	}
 
 	public pushTag(tag: tag_t | null) {
-		if (tag) this._tags.push(tag);
+		if (tag) this.tags.push(tag);
 	}
 
 	public pushTags(tags: tag_t[]) {
-		this._tags.push(...tags);
+		this.tags.push(...tags);
 	}
 
 	public entityType(entityType: string) {

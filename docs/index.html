@@ -11,7 +11,13 @@
 			content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
 		<link
 			rel="stylesheet"
-			href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+			href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css" />
+
+		<style>
+			a {
+				text-decoration: none;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app"></div>
@@ -20,12 +26,13 @@
 				search: 'auto',
 				name: 'Dxf',
 				coverpage: true,
-				themeColor: '#6610f2',
+				//themeColor: '#6610f2',
 				loadSidebar: true,
 				alias: {
 					'/.*/_sidebar.md': '/_sidebar.md',
 				},
 				subMaxLevel: 3,
+				//relativePath: true,
 			};
 		</script>
 		<!-- Docsify v4 -->
@@ -33,5 +40,6 @@
 		<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
 		<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/prismjs@1.26.0/components/prism-typescript.min.js"></script>
 	</body>
 </html>

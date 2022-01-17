@@ -11,9 +11,9 @@ export default class Text extends Entity {
 		position: point3d_t,
 		height: number,
 		value: string,
-		options: options_t
+		options?: options_t
 	) {
-		super({ type: 'TEXT', subclassMarker: 'AcDbText', options });
+		super('TEXT', 'AcDbText', options);
 		this.position = position;
 		this.height = height;
 		this.value = value;

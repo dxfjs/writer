@@ -9,17 +9,22 @@ export function bulge(fillet: number): number {
 	return bulge;
 }
 
+/**
+ * @public
+ */
 export type chamfer_t = {
 	first: number;
 	second?: number;
 };
 
-export type rectangleOptions_t =
-	lwPolylineOptions_t & {
-		chamfer?: chamfer_t;
-		fillet?: number;
-		elevation?: number;
-	};
+/**
+ * @public
+ */
+export type rectangleOptions_t = lwPolylineOptions_t & {
+	chamfer?: chamfer_t;
+	fillet?: number;
+	elevation?: number;
+};
 
 export type rgb_t = {
 	r: number;

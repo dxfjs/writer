@@ -11,7 +11,7 @@ export default class Polyline extends Entity {
 	private readonly _vertices: point3d_t[];
 	private readonly _flag: number;
 	private readonly _vertexes: Vertex[] = [];
-	private readonly _seqEnd: SeqEnd = new SeqEnd({});
+	private readonly _seqEnd: SeqEnd = new SeqEnd();
 
 	public get flag(): number {
 		return this._flag;
@@ -24,9 +24,9 @@ export default class Polyline extends Entity {
 	public constructor(
 		vertices: point3d_t[],
 		flag: number,
-		options: options_t
+		options?: options_t
 	) {
-		super({ type: 'POLYLINE', subclassMarker: 'AcDb3dPolyline', options });
+		super('POLYLINE', 'AcDb3dPolyline', options);
 
 		this._vertices = vertices;
 		this._flag = flag;
