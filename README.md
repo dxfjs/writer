@@ -38,8 +38,6 @@ const dxfString = dxf.stringify();
 
 + [Documentation](https://tarikjabiri.github.io/dxf/)
 
-+ [API](https://tarikjabiri.github.io/dxf/api/)
-
 ## License
 
 ![GitHub](https://img.shields.io/github/license/tarikjabiri/dxf?style=for-the-badge)
