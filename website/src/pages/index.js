@@ -24,16 +24,15 @@ export default function Home() {
           <h1
             className="hero__title"
             style={{
-              display: 'flex',
               maxWidth: '1100px',
               color: 'white',
               gap: '20px',
             }}>
-            <span style={{fontSize: '60px'}}>
+            <img alt="dxf" src="_media/logo.svg" />
+            <span>
               A JavaScript <b style={{color: '#25C2A5'}}>dxf</b> generator
               written in TypeScript.
             </span>
-            <img alt="dxf" src="_media/logo.svg" />
           </h1>
           <div className={styles.buttons}>
             <Link

@@ -31,3 +31,39 @@
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
 }
+
+.hero__title {
+  display: flex;
+  font-size: 3rem;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 60px;
+}
+
+@media only screen and (max-width: 500px) {
+  .hero__title {
+    display: flex;
+    font-size: 3rem;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+  }
+
+  .hero__title img {
+    width: 64px;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 1000px) {
+  .hero__title {
+    display: flex;
+    font-size: 3rem;
+    flex-direction: column;
+    align-items: center;
+    font-size: 40px;
+  }
+
+  .hero__title img {
+    width: 80px;
+  }
+}
