@@ -14,7 +14,7 @@ const config = {
   title: 'dxf',
   tagline: 'A dxf generator',
   url: 'https://github.com/tarikjabiri/dxf',
-  baseUrl: '/',
+  baseUrl: '/dxf',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: '_media/favicon.svg',
