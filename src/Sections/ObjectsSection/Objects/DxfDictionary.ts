@@ -7,37 +7,18 @@ export type entryObject_t = {
 };
 
 export default class DxfDictionary extends DxfObject {
-	private _entries: entryObject_t[] = [];
+	readonly entries: entryObject_t[] = [];
 
-	private _hardOwnerFlag: number | null = null;
-	private _duplicateRecordCloningFlag: number = 0;
-
-	public get entries(): entryObject_t[] {
-		return this._entries;
-	}
-
-	public get hardOwnerFlag(): number | null {
-		return this._hardOwnerFlag;
-	}
-
-	public set hardOwnerFlag(value: number | null) {
-		this._hardOwnerFlag = value;
-	}
-
-	public get duplicateRecordCloningFlag(): number {
-		return this._duplicateRecordCloningFlag;
-	}
-
-	public set duplicateRecordCloningFlag(value: number) {
-		this._duplicateRecordCloningFlag = value;
-	}
+	hardOwnerFlag?: number;
+	duplicateRecordCloningFlag: number;
 
 	public constructor() {
 		super('DICTIONARY');
+		this.duplicateRecordCloningFlag = 0;
 	}
 
 	public addEntryObject(name: string, softOwner: string) {
-		this._entries.push({
+		this.entries.push({
 			name,
 			softOwner,
 		});

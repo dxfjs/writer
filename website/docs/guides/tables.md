@@ -4,33 +4,33 @@ sidebar_position: 2
 
 # Tables
 
-## APPID record
+## `APPID` record
 
-To add an `APPID` entry, use the convinient function `addAppId()`:
+To add an `APPID` record, use the convinient function `addAppId()`:
 
 ```js
 import {addAppId, RecordFlags} from '@tarikjabiri/dxf';
 
 const name1AppId = addAppId('name1'); // without flags, set to 0 automatically.
 // Or
-const name2AppId = addAppId('name2', RecordFlags.dependentOnXref); // Is externally dependent on an xref.
+const name2AppId = addAppId('name2', RecordFlags.DependentOnXref); // Is externally dependent on an xref.
 // Or
 const name3AppId = addAppId(
   'name3',
-  RecordFlags.dependentOnXref | RecordFlags.xrefResolved,
+  RecordFlags.DependentOnXref | RecordFlags.XrefResolved,
 );
 //  If both flags are set, the externally dependent xref has been successfully resolved.
 ```
 
 :::info
 
-By default the `ACAD` entry is automatically added.
+By default the `ACAD` record is automatically added.
 
 :::
 
-## BLOCKRECORD record
+## `BLOCKRECORD` record
 
-To add an `BLOCKRECORD` entry, use the convinient function `addBlockRecord()`:
+To add an `BLOCKRECORD` record, use the convinient function `addBlockRecord()`:
 
 ```js
 import {addBlockRecord, Units} from '@tarikjabiri/dxf';
@@ -53,9 +53,9 @@ By default the `*Model_Space` and `*Paper_Space` block records are automatically
 
 :::
 
-## DIMSTYLE record
+## `DIMSTYLE` record
 
-To add an `DIMSTYLE` entry, use the convinient function `addDimStyle()`:
+To add an `DIMSTYLE` record, use the convinient function `addDimStyle()`:
 
 ```js
 import {addDimStyle} from '@tarikjabiri/dxf';
@@ -65,13 +65,13 @@ const exampleDimStyle = addDimStyle('example');
 
 :::note
 
-The `DIMSTYLE` entry accept same flags as `APPID` entry: `RecordFlags`.
+The `DIMSTYLE` record accept same flags as `APPID` record: `RecordFlags`.
 
 :::
 
 :::info
 
-By default the `Standard` entry is automatically added.
+By default the `Standard` record is automatically added.
 
 :::
 
@@ -81,11 +81,11 @@ By default the `Standard` entry is automatically added.
 
 :::
 
-## LTYPE record
+## `LTYPE` record
 
 ### Adding LTYPE record
 
-To add an `LTYPE` entry, there is to ways to do so:
+To add an `LTYPE` record, there is to ways to do so:
 
 - Using the convinient function `addLineType()`.
 - Calling `addLineType()` method on `DxfWriter` object.
@@ -108,7 +108,7 @@ dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]); // Always choose unique name
 
 :::note
 
-The `LTYPE` entry accept same flags as `APPID` entry: `RecordFlags`.
+The `LTYPE` record accept same flags as `APPID` record: `RecordFlags`.
 
 :::
 
@@ -163,9 +163,9 @@ This explanation is my personal thought, no guarantee to be correct, but it is w
 
 :::
 
-## LAYER record
+## `LAYER` record
 
-To add an `LAYER` entry, there is to ways to do so:
+To add an `LAYER` record, there is to ways to do so:
 
 - Using the convinient function `addLayer()`.
 - Calling `addLayer()` method on `DxfWriter` object.
@@ -227,9 +227,9 @@ For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolo
 
 :::
 
-## STYLE record
+## `STYLE` record
 
-To add an `STYLE` entry, use the convinient function `addStyle()`:
+To add an `STYLE` record, use the convinient function `addStyle()`:
 
 ```js
 import {addStyle} from '@tarikjabiri/dxf';
@@ -246,7 +246,7 @@ Possible values in `StyleFlags`:
 
 ?> You can customize these properties: `fixedTextHeight`,`widthFactor`,`obliqueAngle`,`textGenerationFlag`,`lastHeightUsed`,`fontFileName`,`bigFontFileName` and `flags`.
 
-## UCS record
+## `UCS` record
 
 :::caution
 
@@ -254,7 +254,7 @@ Is not implemented 😔.
 
 :::
 
-## VIEW record
+## `VIEW` record
 
 :::caution
 
@@ -262,7 +262,7 @@ Is not implemented 😔.
 
 :::
 
-## VPORT record
+## `VPORT` record
 
 :::caution
 

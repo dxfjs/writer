@@ -67,3 +67,9 @@
     width: 80px;
   }
 }
+
+.theme-doc-markdown.markdown img {
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}

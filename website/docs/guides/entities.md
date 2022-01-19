@@ -4,9 +4,13 @@ sidebar_position: 4
 
 # Entities
 
-Entities are the graphical objects.
+Entities are the graphical objects in dxf.
 
-!> Note that all entities described here are added directly to the model space block.
+:::note
+
+All entities described here are added directly to the model space block.
+
+:::
 
 All Entities have some common options:
 
@@ -17,7 +21,7 @@ All Entities have some common options:
 - `lineType`
 - `lineTypeScale`
 
-## ARC entity
+## `ARC` entity
 
 An arc is a portion of the circumference of a circle.
 
@@ -30,3 +34,25 @@ dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
 // or
 const myArc = addArc(point3d(0, 0, 0), 10, 0, 45); // If you want a reference to the added arc.
 ```
+
+## `CIRCLE` entity
+
+## `ELLIPSE` entity
+
+## `3DFACE` entity
+
+## `IMAGE` entity
+
+## `INSERT` entity
+
+## `LINE` entity
+
+## `LWPOLYLINE` entity
+
+## `POINT` entity
+
+## `POLYLINE` entity
+
+## `SPLINE` entity
+
+## `TEXT` entity

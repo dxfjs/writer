@@ -3,6 +3,11 @@ import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
 import Arc from './Sections/EntitiesSection/Entities/Arc';
+import DxfObject from './Sections/ObjectsSection/DxfObject';
+import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
+import DxfDictionary from './Sections/ObjectsSection/Objects/DxfDictionary';
+import DxfImageDef from './Sections/ObjectsSection/Objects/DxfImageDef';
+import DxfImageDefReactor from './Sections/ObjectsSection/Objects/DxfImageDefReactor';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import DxfAppId from './Sections/TablesSection/Tables/Records/DxfAppId';
 import DxfBlockRecord from './Sections/TablesSection/Tables/Records/DxfBlockRecord';
@@ -131,4 +136,56 @@ export function addArc(
 		options
 	);
 }
+//#endregion
+
+//#region Objects
+
+/**
+ * Add an object to objects section.
+ * @public
+ * @param object
+ * @returns
+ */
+export function addObject<T extends DxfObject>(object: T): T {
+	return DxfObjects.getInstance().addObject(object);
+}
+
+/**
+ * @public
+ * @returns
+ */
+export function addDictionary(): DxfDictionary {
+	return DxfObjects.getInstance().addDictionary();
+}
+
+/**
+ * @public
+ * @param name
+ * @param softOwner
+ */
+export function addEntryToRootDictionary(
+	name: string,
+	softOwner: string
+): void {
+	DxfObjects.getInstance().rootDictionary.addEntryObject(name, softOwner);
+}
+
+/**
+ * @public
+ * @param path
+ * @returns
+ */
+export function addImageDef(path: string): DxfImageDef {
+	return addObject(new DxfImageDef(path));
+}
+
+/**
+ * @public
+ * @param dictionaryId
+ * @returns
+ */
+export function addImageDefReactor(dictionaryId: string) {
+	return addObject(new DxfImageDefReactor(dictionaryId));
+}
+
 //#endregion

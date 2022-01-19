@@ -14,7 +14,7 @@ By default two blocks are created: `*Model_Space` and `*Paper_Space`.
 
 :::
 
-## Creation of blocks
+## Adding blocks
 
 To add a block use the convinient function `addBlock()`, it is a factory function that create a block, store it and return a reference to it:
 
@@ -24,7 +24,7 @@ import {addBlock} from '@tarikjabiri/dxf';
 const myBlock = addBlock('myBlock');
 ```
 
-## Adding entities to block
+## Adding entities to the block
 
 To add entities to a block just call the convinient methods to do so:
 

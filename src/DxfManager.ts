@@ -96,6 +96,7 @@ export default class DxfManager implements DxfInterface {
 		rotation: number,
 		options?: options_t
 	) {
+		// TODO make sure there is no IMAGEDEF for this image!
 		const imageDef = new DxfImageDef(absolutePath);
 		const image = new Image(
 			{
@@ -113,7 +114,7 @@ export default class DxfManager implements DxfInterface {
 		this.modelSpace.addEntity(image);
 		this.objectsSection.addObject(imageDef);
 		this.objectsSection.addObject(imageDefReactor);
-		const dictionary = this.objectsSection.createDictionary();
+		const dictionary = this.objectsSection.addDictionary();
 
 		dictionary.addEntryObject(name, imageDef.handle);
 		imageDef.softPointer = dictionary.handle;
@@ -122,7 +123,7 @@ export default class DxfManager implements DxfInterface {
 			dictionary.handle
 		);
 		imageDef.acadImageDicId = dictionary.handle;
-		imageDef.imageReactorId = imageDefReactor.handle;
+		imageDef.addImageDefReactorId(imageDefReactor.handle);
 	}
 
 	public stringify(): string {

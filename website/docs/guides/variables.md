@@ -8,7 +8,7 @@ Variables contains settings associated with the drawing, defined in the `HEADER`
 
 :::info
 
-By default these below variables are set automatically:
+By default these variables are set automatically:
 
 - `$ACADVER` The AutoCAD drawing database version number: AC1027 = AutoCAD 2013.
 - `$HANDSEED` Next available handle.
@@ -21,7 +21,7 @@ By default these below variables are set automatically:
 
 Each variable is specified by a 9 group code giving the variable's name, followed by groups that supply the variable's value:
 
-```txt
+```dxf
   9
 $NAME // The name of the variable.
   10  // First group code

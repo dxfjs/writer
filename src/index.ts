@@ -22,6 +22,13 @@ import {
 	addLineType,
 	addLayer,
 	addDimStyle,
+	addArc,
+	addDictionary,
+	addObject,
+	addEntryToRootDictionary,
+	addImageDef,
+	addImageDefReactor,
+	addStyle,
 } from './Functions';
 import {
 	RecordFlags,
@@ -43,6 +50,7 @@ import DxfBlockRecord from './Sections/TablesSection/Tables/Records/DxfBlockReco
 import DxfDimStyle from './Sections/TablesSection/Tables/Records/DxfDimStyle';
 import DxfLineType from './Sections/TablesSection/Tables/Records/DxfLineType';
 import DxfLayer from './Sections/TablesSection/Tables/Records/DxfLayer';
+import { ImageDefResolutionUnits } from './Sections/ObjectsSection/Objects/DxfImageDef';
 
 export {
 	DxfWriter as default,
@@ -69,10 +77,18 @@ export {
 	DxfLayer,
 	Colors,
 	Units,
+	ImageDefResolutionUnits,
 	RecordFlags,
 	LayerFlags,
 	StyleFlags,
 	ViewFlags,
 	LWPolylineFlags,
 	SplineArgs,
+	addArc,
+	addDictionary,
+	addObject,
+	addEntryToRootDictionary,
+	addImageDef,
+	addImageDefReactor,
+	addStyle,
 };

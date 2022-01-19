@@ -11,7 +11,7 @@ export default class DxfObjects implements DxfInterface {
 
 	private constructor() {
 		this.rootDictionary.duplicateRecordCloningFlag = 1;
-		const dic = this.createDictionary();
+		const dic = this.addDictionary();
 
 		this.rootDictionary.addEntryObject('ACAD_GROUP', dic.handle);
 	}
@@ -21,11 +21,12 @@ export default class DxfObjects implements DxfInterface {
 		return this.#instance;
 	}
 
-	public addObject(object: DxfObject): void {
+	public addObject<T extends DxfObject>(object: T): T {
 		this.objects.push(object);
+		return object;
 	}
 
-	public createDictionary(): DxfDictionary {
+	public addDictionary(): DxfDictionary {
 		const dictionary = new DxfDictionary();
 		dictionary.softPointer = this.rootDictionary.handle;
 		this.addObject(dictionary);
