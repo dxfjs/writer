@@ -29,6 +29,9 @@ import {
 	addImageDef,
 	addImageDefReactor,
 	addStyle,
+	addCircle,
+	addEllipse,
+	add3dFace,
 } from './Functions';
 import {
 	RecordFlags,
@@ -43,7 +46,7 @@ import {
 	lwPolylineVertex_t,
 } from './Sections/EntitiesSection/Entities/LWPolyline';
 import { rectangleOptions_t } from './Internals/Utils';
-import { SplineArgs } from './Sections/EntitiesSection/Entities/Spline';
+import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfAppId from './Sections/TablesSection/Tables/Records/DxfAppId';
 import DxfBlockRecord from './Sections/TablesSection/Tables/Records/DxfBlockRecord';
@@ -51,6 +54,10 @@ import DxfDimStyle from './Sections/TablesSection/Tables/Records/DxfDimStyle';
 import DxfLineType from './Sections/TablesSection/Tables/Records/DxfLineType';
 import DxfLayer from './Sections/TablesSection/Tables/Records/DxfLayer';
 import { ImageDefResolutionUnits } from './Sections/ObjectsSection/Objects/DxfImageDef';
+import {
+	faceOptions_t,
+	InvisibleEdgeFlags,
+} from './Sections/EntitiesSection/Entities/Face';
 
 export {
 	DxfWriter as default,
@@ -63,6 +70,7 @@ export {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 	rectangleOptions_t,
+	faceOptions_t,
 	addBlock,
 	DxfBlock,
 	addAppId,
@@ -83,12 +91,16 @@ export {
 	StyleFlags,
 	ViewFlags,
 	LWPolylineFlags,
-	SplineArgs,
+	SplineArgs_t,
 	addArc,
+	addCircle,
+	addEllipse,
 	addDictionary,
 	addObject,
 	addEntryToRootDictionary,
 	addImageDef,
 	addImageDefReactor,
 	addStyle,
+	InvisibleEdgeFlags,
+	add3dFace,
 };

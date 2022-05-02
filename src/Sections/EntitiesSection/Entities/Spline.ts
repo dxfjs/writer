@@ -10,11 +10,11 @@ export enum SplineFlags {
 	Linear = 16,
 }
 
-export type SplineArgs = {
+export type SplineArgs_t = {
 	controlPoints: point3d_t[];
 	fitPoints?: point3d_t[];
 	degreeCurve?: number;
-	flags?: number;
+	flags?: SplineFlags;
 	knots?: number[];
 	weights?: number[];
 };
@@ -24,10 +24,10 @@ export default class Spline extends Entity {
 	degreeCurve: number;
 	knots: number[];
 	weights: number[];
-	flags: number;
+	flags: SplineFlags;
 	fitPoints: point3d_t[];
 
-	public constructor(args: SplineArgs, options?: options_t) {
+	public constructor(args: SplineArgs_t, options?: options_t) {
 		super('SPLINE', 'AcDbSpline', options);
 
 		this.controlPoints = args.controlPoints;

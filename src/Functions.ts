@@ -1,8 +1,10 @@
-import { options_t, point3d_t } from './index';
+import { faceOptions_t, options_t, point3d_t } from './index';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
 import Arc from './Sections/EntitiesSection/Entities/Arc';
+import Circle from './Sections/EntitiesSection/Entities/Circle';
+import Face from './Sections/EntitiesSection/Entities/Face';
 import DxfObject from './Sections/ObjectsSection/DxfObject';
 import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
 import DxfDictionary from './Sections/ObjectsSection/Objects/DxfDictionary';
@@ -133,6 +135,69 @@ export function addArc(
 		radius,
 		startAngle,
 		endAngle,
+		options
+	);
+}
+
+/**
+ *
+ * @param center
+ * @param radius
+ * @param options
+ * @returns
+ */
+export function addCircle(
+	center: point3d_t,
+	radius: number,
+	options?: options_t
+): Circle {
+	return DxfEntitiesSection.getInstance().modelSpace.addCircle(
+		center,
+		radius,
+		options
+	);
+}
+
+/**
+ *
+ * @param center
+ * @param endPointOfMajorAxis
+ * @param ratioOfMinorAxisToMajorAxis
+ * @param startParameter
+ * @param endParameter
+ * @param options
+ * @returns
+ */
+export function addEllipse(
+	center: point3d_t,
+	endPointOfMajorAxis: point3d_t,
+	ratioOfMinorAxisToMajorAxis: number,
+	startParameter: number,
+	endParameter: number,
+	options?: options_t
+) {
+	return DxfEntitiesSection.getInstance().modelSpace.addEllipse(
+		center,
+		endPointOfMajorAxis,
+		ratioOfMinorAxisToMajorAxis,
+		startParameter,
+		endParameter,
+		options
+	);
+}
+
+export function add3dFace(
+	firstCorner: point3d_t,
+	secondCorner: point3d_t,
+	thirdCorner: point3d_t,
+	fourthCorner: point3d_t,
+	options?: faceOptions_t
+): Face {
+	return DxfEntitiesSection.getInstance().modelSpace.add3dFace(
+		firstCorner,
+		secondCorner,
+		thirdCorner,
+		fourthCorner,
 		options
 	);
 }

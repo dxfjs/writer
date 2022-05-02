@@ -7,7 +7,24 @@ import TagsManager, {
 } from '../../../Internals/TagsManager';
 import Entity, { options_t } from '../Entity';
 
-export type ImageOptions = {
+export enum ImageDisplayFlags {
+	ShowImage = 1,
+	ShowImageWhenNotAlignedWithScreen = 2,
+	UseClippingBoundary = 4,
+	TransparencyIsOn = 8,
+}
+
+export enum ImageClippingStateFlags {
+	Off = 0,
+	On = 1,
+}
+
+export enum ImageClipModeFlags {
+	Outside = 0,
+	Inside = 1,
+}
+
+export type ImageArgs_t = {
 	width: number;
 	height: number;
 	scale: number;
@@ -16,26 +33,33 @@ export type ImageOptions = {
 	imageDefId: string;
 };
 
+export type ImageOptions_t = options_t & {
+	imageDisplayFlags: ImageDisplayFlags;
+	brightness: number;
+	contrast: number;
+	fade: number;
+};
+
 export default class Image extends Entity {
-	readonly width: number;
-	readonly height: number;
-	readonly scale: number;
-	readonly rotation: number;
-	readonly insertionPoint: point3d_t;
-	readonly imageDefId: string;
+	width: number;
+	height: number;
+	scale: number;
+	rotation: number;
+	insertionPoint: point3d_t;
+	imageDefId: string;
 	imageDefReactorId?: string;
 
-	readonly ratio: number;
+	ratio: number;
 
-	public constructor(imageOptions: ImageOptions, options?: options_t) {
+	public constructor(imageArgs: ImageArgs_t, options?: ImageOptions_t) {
 		super('IMAGE', 'AcDbRasterImage', options);
-		this.width = imageOptions.width;
-		this.height = imageOptions.height;
-		this.scale = imageOptions.scale;
-		this.rotation = imageOptions.rotation;
-		this.insertionPoint = imageOptions.insertionPoint;
+		this.width = imageArgs.width;
+		this.height = imageArgs.height;
+		this.scale = imageArgs.scale;
+		this.rotation = imageArgs.rotation;
+		this.insertionPoint = imageArgs.insertionPoint;
 		this.ratio = this.scale / this.width;
-		this.imageDefId = imageOptions.imageDefId;
+		this.imageDefId = imageArgs.imageDefId;
 	}
 
 	private _vector(): point2d_t {

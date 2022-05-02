@@ -10,7 +10,8 @@ import {
 import { rectangleOptions_t } from './Internals/Utils';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
-import { SplineArgs } from './Sections/EntitiesSection/Entities/Spline';
+import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
+import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 
 /**
  * @public
@@ -80,7 +81,7 @@ export default class DxfWriter {
 	/**
 	 * Set the current layer name of the Dxf.
 	 * @throws
-	 * @param name - the layer name.
+	 * @param name - The layer name.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setCurrentLayerName(name: string): this {
@@ -92,7 +93,7 @@ export default class DxfWriter {
 	 * Set the units of the Dxf.
 	 *
 	 * @throws
-	 * @param units - use DXFWriter.units to set the unit.
+	 * @param units - Use DXFWriter.units to set the unit.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public setUnits(units: number): this {
@@ -125,7 +126,7 @@ export default class DxfWriter {
 	}
 
 	/**
-	 * Add a Polyline entity to the Dxf.
+	 * Add a LWPolyline entity to the Dxf.
 	 *
 	 * [DXF Polyline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
 	 *
@@ -133,7 +134,7 @@ export default class DxfWriter {
 	 * just pass the array of points and PolylineFlags.Closed flag (flag = 1).
 	 *
 	 * @param points - An array of points like: [[x1, y1], [x2, y2], ...].
-	 * @param flag - An enteger number represent the Polyline flag.
+	 * @param options - The LWPolyline entity options.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
@@ -221,6 +222,7 @@ export default class DxfWriter {
 	 * Add a Circle entity to the Dxf.
 	 * @param center - The center point of the circle.
 	 * @param radius - The radius of the circle.
+	 * @param options - The Circle entity options;
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addCircle(
@@ -234,15 +236,12 @@ export default class DxfWriter {
 
 	/**
 	 * Add an Arc entity to the Dxf.
-	 *
-	 * @param x_center -     the X coordinate of the center of the arc.
-	 * @param y_center -     the Y coordinate of the center of the arc.
-	 * @param radius -       the radius of the arc.
-	 * @param startAngle -  the start of the angle (begining of arc) in degrees Anticlockwise.
-	 * @param endAngle -     the end of the angle (end of arc) in degrees Anticlockwise.
-	 *
-	 * 📝 Angles always start from X-axis towards anticlockwise.
-	 *
+	 * @param center - The center of the arc.
+	 * @param radius - The radius of the arc.
+	 * @param startAngle - The start of the angle (begining of arc) in degrees Anticlockwise.
+	 * @param endAngle - The end of the angle (end of arc) in degrees Anticlockwise. \
+	 * 					 Angles always start from X-axis towards anticlockwise.
+	 * @param options - Arc entity options.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addArc(
@@ -280,7 +279,14 @@ export default class DxfWriter {
 	 * @param knots - The knots of th spline. If you don't know what is this set it to an empty array [].
 	 * @param weights - The weights of th spline. If you don't know what is this set it to an empty array [].
 	 */
-	public addSpline(splineArgs: SplineArgs, options?: options_t): this {
+
+	/**
+	 *
+	 * @param splineArgs - The Spline arguments. See {@link SplineArgs}.
+	 * @param options
+	 * @returns
+	 */
+	public addSpline(splineArgs: SplineArgs_t, options?: options_t): this {
 		DxfManager.getInstance().modelSpace.addSpline(splineArgs, options);
 		return this;
 	}
@@ -315,7 +321,7 @@ export default class DxfWriter {
 	}
 
 	/**
-	 * Add an image entity to the Dxf.
+	 * Add an Image entity to the Dxf.
 	 *
 	 * @example
 	 * ```js
@@ -368,7 +374,9 @@ export default class DxfWriter {
 	 * @param firstCorner - The first corner of the 3d face.
 	 * @param secondCorner - The first corner of the 3d face.
 	 * @param thirdCorner - The first corner of the 3d face.
-	 * @param fourthCorner - The first corner of the 3d face.
+	 * @param fourthCorner - The first corner of the 3d face. \
+	 * If you want only three corners, make this is the same as the third corner
+	 * @param options - The options of the 3dFace antity.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public add3dFace(
@@ -376,7 +384,7 @@ export default class DxfWriter {
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
-		options?: options_t
+		options?: faceOptions_t
 	): this {
 		DxfManager.getInstance().modelSpace.add3dFace(
 			firstCorner,

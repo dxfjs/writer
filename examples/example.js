@@ -1,6 +1,12 @@
-import DxfWriter, { point2d, point3d } from '../lib';
+import DxfWriter, {
+	point2d,
+	point3d,
+	addBlock,
+	addEllipse,
+	add3dFace,
+	InvisibleEdgeFlags,
+} from '../lib';
 import * as fs from 'fs';
-import { addBlock } from '../lib';
 
 const dxf = new DxfWriter();
 
@@ -50,6 +56,24 @@ dxf.addSpline({
 });
 
 dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
+
+const e = addEllipse(
+	point3d(100, 100, 0),
+	point3d(50, 0, 0),
+	0.5,
+	0,
+	2 * Math.PI
+);
+
+const f = add3dFace(
+	point3d(0, 0, 0),
+	point3d(0, 100, 0),
+	point3d(100, 100, 0),
+	point3d(100, 0, 0),
+	{
+		invisibleEdges: InvisibleEdgeFlags.First | InvisibleEdgeFlags.Fourth,
+	}
+);
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');

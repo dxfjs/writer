@@ -12,9 +12,9 @@ import { bulge, rectangleOptions_t } from '../../Internals/Utils';
 import Polyline from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
-import Spline, { SplineArgs } from './Entities/Spline';
+import Spline, { SplineArgs_t } from './Entities/Spline';
 import Ellipse from './Entities/Ellipse';
-import Face from './Entities/Face';
+import Face, { faceOptions_t } from './Entities/Face';
 import Text from './Entities/Text';
 import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
@@ -104,16 +104,25 @@ export default abstract class EntitiesManager
 		points: point3d_t[],
 		flag: number,
 		options?: options_t
-	) {
+	): void {
 		this.addEntity(new Polyline(points, flag, options));
 	}
 
-	public addPoint(x: number, y: number, z: number, options?: options_t) {
-		this.addEntity(new Point(x, y, z, options));
+	public addPoint(
+		x: number,
+		y: number,
+		z: number,
+		options?: options_t
+	): Point {
+		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	public addCircle(center: point3d_t, radius: number, options?: options_t) {
-		this.addEntity(new Circle(center, radius, options));
+	public addCircle(
+		center: point3d_t,
+		radius: number,
+		options?: options_t
+	): Circle {
+		return this.addEntity(new Circle(center, radius, options));
 	}
 
 	public addArc(
@@ -128,8 +137,8 @@ export default abstract class EntitiesManager
 		);
 	}
 
-	public addSpline(splineArgs: SplineArgs, options?: options_t) {
-		this.addEntity(new Spline(splineArgs, options));
+	public addSpline(splineArgs: SplineArgs_t, options?: options_t): Spline {
+		return this.addEntity(new Spline(splineArgs, options));
 	}
 
 	public addEllipse(
@@ -157,9 +166,9 @@ export default abstract class EntitiesManager
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
-		options?: options_t
-	) {
-		this.addEntity(
+		options?: faceOptions_t
+	): Face {
+		return this.addEntity(
 			new Face(
 				firstCorner,
 				secondCorner,
@@ -175,16 +184,20 @@ export default abstract class EntitiesManager
 		height: number,
 		value: string,
 		options?: options_t
-	) {
-		this.addEntity(new Text(firstAlignementPoint, height, value, options));
+	): Text {
+		return this.addEntity(
+			new Text(firstAlignementPoint, height, value, options)
+		);
 	}
 
 	public addInsert(
 		blockName: string,
 		insertionPoint: point3d_t,
 		options?: insertOptions_t
-	) {
-		this.addEntity(new Insert(blockName, insertionPoint, options || {}));
+	): Insert {
+		return this.addEntity(
+			new Insert(blockName, insertionPoint, options || {})
+		);
 	}
 
 	public boundingBox(): boundingBox_t {

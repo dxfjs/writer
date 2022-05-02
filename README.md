@@ -4,7 +4,7 @@
 
 </div>
 
-> A Javascript dxf generator, written in Typescript.
+A Javascript dxf generator, written in Typescript.
 
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
 [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)

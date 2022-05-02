@@ -17,7 +17,7 @@ export default class DxfImageDef extends DxfObject {
 	widthPixelSize: number;
 	heightPixelSize: number;
 	loaded: boolean;
-	resolutionUnits: number;
+	resolutionUnits: ImageDefResolutionUnits;
 
 	public constructor(path: string) {
 		super('IMAGEDEF');

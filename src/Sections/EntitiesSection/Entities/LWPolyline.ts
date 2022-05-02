@@ -14,7 +14,7 @@ export enum LWPolylineFlags {
  * @public
  */
 export type lwPolylineOptions_t = options_t & {
-	flags?: number;
+	flags?: LWPolylineFlags;
 	constantWidth?: number;
 	elevation?: number;
 	thickness?: number;
@@ -36,7 +36,7 @@ export type lwPolylineVertex_t = {
  */
 export default class LWPolyline extends Entity {
 	private readonly _vertices: lwPolylineVertex_t[];
-	private readonly _flags: number | undefined;
+	private readonly _flags: LWPolylineFlags | undefined;
 	private readonly _constantWidth: number | undefined;
 	private readonly _elevation: number | undefined;
 	private readonly _thickness: number | undefined;
