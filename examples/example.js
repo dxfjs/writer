@@ -16,15 +16,15 @@ dxf.addLWPolyline(
 	129,
 	{}
 );*/
-/*dxf.addImage(
-	'E:/GitHub/dxf/examples/X_462419.04_Y_576568.45_S_433.54_R_359.74.png',
+dxf.addImage(
+	'.\\X_462419.04_Y_576568.45_S_433.54_R_359.74.png',
 	'X_462419.04_Y_576568.45_S_433.54_R_359.74',
 	point3d(462419.04, 576568.45, 0),
 	1792,
 	1280,
 	433.54,
 	360 - 359.74
-);*/
+);
 
 /*dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]);
 
@@ -35,7 +35,7 @@ dxf.addRectangle(point2d(400, 400), point2d(600, 200), {
 	lineTypeScale: 10,
 });*/
 
-const circleBlock = addBlock('circle');
+/*const circleBlock = addBlock('circle');
 circleBlock.addCircle(point3d(0, 0, 0), 50);
 circleBlock.addRectangle(
 	point2d(-35.3553, 35.3553),
@@ -73,7 +73,7 @@ const f = add3dFace(
 	{
 		invisibleEdges: InvisibleEdgeFlags.First | InvisibleEdgeFlags.Fourth,
 	}
-);
+);*/
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');

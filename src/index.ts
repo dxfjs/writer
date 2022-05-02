@@ -58,6 +58,14 @@ import {
 	faceOptions_t,
 	InvisibleEdgeFlags,
 } from './Sections/EntitiesSection/Entities/Face';
+import {
+	ImageArgs_t,
+	ImageClipModeFlag,
+	ImageClippingStateFlag,
+	ImageClippingType,
+	ImageDisplayFlags,
+	ImageOptions_t,
+} from './Sections/EntitiesSection/Entities/Image';
 
 export {
 	DxfWriter as default,
@@ -71,6 +79,8 @@ export {
 	lwPolylineVertex_t,
 	rectangleOptions_t,
 	faceOptions_t,
+	ImageArgs_t,
+	ImageOptions_t,
 	addBlock,
 	DxfBlock,
 	addAppId,
@@ -103,4 +113,8 @@ export {
 	addStyle,
 	InvisibleEdgeFlags,
 	add3dFace,
+	ImageDisplayFlags,
+	ImageClippingType,
+	ImageClippingStateFlag,
+	ImageClipModeFlag,
 };

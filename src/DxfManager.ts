@@ -6,8 +6,9 @@ import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
 import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
-import Image from './Sections/EntitiesSection/Entities/Image';
-import { options_t } from './Sections/EntitiesSection/Entity';
+import Image, {
+	ImageOptions_t,
+} from './Sections/EntitiesSection/Entities/Image';
 import DxfHeaderSection from './Sections/HeaderSection/DxfHeaderSection';
 import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
 import DxfImageDef from './Sections/ObjectsSection/Objects/DxfImageDef';
@@ -87,17 +88,19 @@ export default class DxfManager implements DxfInterface {
 	}
 
 	public addImage(
-		absolutePath: string,
+		imagePath: string,
 		name: string,
 		insertionPoint: point3d_t,
 		width: number,
 		height: number,
 		scale: number,
 		rotation: number,
-		options?: options_t
-	) {
+		options?: ImageOptions_t
+	): Image {
 		// TODO make sure there is no IMAGEDEF for this image!
-		const imageDef = new DxfImageDef(absolutePath);
+		const imageDef = new DxfImageDef(imagePath);
+		imageDef.width = width;
+		imageDef.height = height;
 		const image = new Image(
 			{
 				height,
@@ -124,6 +127,7 @@ export default class DxfManager implements DxfInterface {
 		);
 		imageDef.acadImageDicId = dictionary.handle;
 		imageDef.addImageDefReactorId(imageDefReactor.handle);
+		return image;
 	}
 
 	public stringify(): string {

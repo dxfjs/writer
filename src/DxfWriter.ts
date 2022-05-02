@@ -12,6 +12,7 @@ import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
+import { ImageOptions_t } from './index';
 
 /**
  * @public
@@ -322,21 +323,20 @@ export default class DxfWriter {
 
 	/**
 	 * Add an Image entity to the Dxf.
-	 *
 	 * @example
 	 * ```js
 	 * const dxf = new DxfWriter();
 	 * dxf.addImage(
-	 *		'E:/folder/subfolder/test.png', // The absolute path of the image.
-	 *		'test', // The name of the image.
-	 *		point3d(10, 10, 0), // The insertion point.
-	 *		600, // The width of the image in pixels.
-	 *		600, //The height of the image in pixels.
-	 *		1, // The scale to be applied to the image.
-	 *		0 //The scale to be applied to the image.
+	 * 	'.\\test.png',		 // Or the absolute path if not in the same folder.
+	 * 	'test',				// The name of the image.
+	 * 	point3d(10, 10, 0),	// The insertion point.
+	 * 	600,				   // The width of the image in pixels.
+	 * 	600, 				  //The height of the image in pixels.
+	 * 	1, 					// The scale to be applied to the image.
+	 * 	0 					 //The scale to be applied to the image.
 	 * );
 	 * ```
-	 * @param absolutePath - The absolute path of the image.
+	 * @param imagePath - The path of the image.
 	 * @param name - The name of the image.
 	 * @param insertionPoint - The insertion point.
 	 * @param width - The width of the image in pixels.
@@ -346,17 +346,17 @@ export default class DxfWriter {
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addImage(
-		absolutePath: string,
+		imagePath: string,
 		name: string,
 		insertionPoint: point3d_t,
 		width: number,
 		height: number,
 		scale: number,
 		rotation: number,
-		options?: options_t
+		options?: ImageOptions_t
 	) {
 		DxfManager.getInstance().addImage(
-			absolutePath,
+			imagePath,
 			name,
 			insertionPoint,
 			width,

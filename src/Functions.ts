@@ -1,10 +1,13 @@
-import { faceOptions_t, options_t, point3d_t } from './index';
+import DxfManager from './DxfManager';
+import { point3d_t } from './Internals/TagsManager';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
 import Arc from './Sections/EntitiesSection/Entities/Arc';
 import Circle from './Sections/EntitiesSection/Entities/Circle';
-import Face from './Sections/EntitiesSection/Entities/Face';
+import Face, { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
+import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
+import { options_t } from './Sections/EntitiesSection/Entity';
 import DxfObject from './Sections/ObjectsSection/DxfObject';
 import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
 import DxfDictionary from './Sections/ObjectsSection/Objects/DxfDictionary';
@@ -198,6 +201,28 @@ export function add3dFace(
 		secondCorner,
 		thirdCorner,
 		fourthCorner,
+		options
+	);
+}
+
+export function addImage(
+	absolutePath: string,
+	name: string,
+	insertionPoint: point3d_t,
+	width: number,
+	height: number,
+	scale: number,
+	rotation: number,
+	options?: ImageOptions_t
+) {
+	return DxfManager.getInstance().addImage(
+		absolutePath,
+		name,
+		insertionPoint,
+		width,
+		height,
+		scale,
+		rotation,
 		options
 	);
 }
