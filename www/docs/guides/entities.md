@@ -94,7 +94,7 @@ const my3dFace = add3dFace(
 	point3d(100, 0, 0)
 );
 ```
-You can contole the visibilty of the edges of the 3dFace by using the convinients methods:
+You can contole the visibilty of the edges of the 3d Face by using the convenience methods:
 
 ```js
 my3dFace.setFirstEdgeVisible(true);
@@ -133,15 +133,100 @@ To define a 3d face with only 3 corners, make the fourth same as the third corne
 
 ## `IMAGE` entity
 
+```js
+import DxfWriter, {point3d, addImage} from '@tarikjabiri/dxf';
 
+const dxf = new DxfWriter();
+
+dxf.addImage(
+	'.\\image-name.png', // Or the absolute path of the image if it isn't int the same folder.
+	'image-name',
+	point3d(462419.04, 576568.45, 0), // Insertion point of the bottomLeft corner of the image.
+	1792, // the width of the image
+	1280, // the height of the image
+	1, // Scale
+	0 // rotation
+);
+```
+If you want a reference to the added image use `addImage()`.
 
 ## `INSERT` entity
 
+It's convenient to create reusable blocks at once and use them all over the places you want.
+After defining your blocks, you can insert them with the `INSERT` entity. See example code below:
+
+```js
+import DxfWriter, {point3d, addInsert} from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+// Define your block
+const myBlock = addBlock('block1');
+myBlock.addCircle(point3d(0, 0, 0), 50);
+myBlock.addRectangle(
+	point2d(-35.3553, 35.3553),
+	point2d(35.3553, -35.3553)
+);
+
+// Insert it when and where ever you want.
+dxf.addInsert(myBlock.name, point3d(0, 0, 0));
+// Or if you want a reference to the added insert.
+const myInsert = addInsert(myBlock.name, point3d(0, 0, 0));
+```
+
 ## `LINE` entity
+
+```js
+import DxfWriter, {point3d, addLine} from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+// Or if you want a reference to the added line.
+const line = addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+```
 
 ## `LWPOLYLINE` entity
 
+```js
+import DxfWriter, {point3d, addLine} from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+const vertices = [
+	{
+		point: point2d(0, 0, 0),
+	},
+	{
+		point: point2d(100, 100, 0),
+	},
+	{
+		point: point2d(100, 200, 0),
+	},
+	{
+		point: point2d(0, 300, 0),
+	},
+];
+
+dxf.addLWPolyline(vertices, {
+	flags: LWPolylineFlags.Closed,
+});
+
+// Or if you want a reference to the added lwpolyline.
+const lwpolyline = addLWPolyline(vertices);
+```
+
 ## `POINT` entity
+
+```js
+import DxfWriter, {point3d, addPoint} from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+// Or if you want a reference to the added line.
+const line = addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+```
 
 ## `POLYLINE` entity
 

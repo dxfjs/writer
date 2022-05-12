@@ -3,16 +3,8 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Line extends Entity {
-	private readonly _startPoint: point3d_t;
-	private readonly _endPoint: point3d_t;
-
-	public get startPoint(): point3d_t {
-		return this._startPoint;
-	}
-
-	public get endPoint(): point3d_t {
-		return this._endPoint;
-	}
+	startPoint: point3d_t;
+	endPoint: point3d_t;
 
 	public constructor(
 		startPoint: point3d_t,
@@ -20,8 +12,8 @@ export default class Line extends Entity {
 		options?: options_t
 	) {
 		super('LINE', 'AcDbLine', options);
-		this._startPoint = startPoint;
-		this._endPoint = endPoint;
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
 	}
 
 	public boundingBox(): boundingBox_t {

@@ -8,18 +8,10 @@ import TagsManager, {
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Polyline extends Entity {
-	private readonly _vertices: point3d_t[];
-	private readonly _flag: number;
-	private readonly _vertexes: Vertex[] = [];
-	private readonly _seqEnd: SeqEnd = new SeqEnd();
-
-	public get flag(): number {
-		return this._flag;
-	}
-
-	public get vertices(): point3d_t[] {
-		return this._vertices;
-	}
+	vertices: point3d_t[];
+	flag: number;
+	vertexes: Vertex[] = [];
+	#seqEnd: SeqEnd = new SeqEnd();
 
 	public constructor(
 		vertices: point3d_t[],
@@ -28,11 +20,11 @@ export default class Polyline extends Entity {
 	) {
 		super('POLYLINE', 'AcDb3dPolyline', options);
 
-		this._vertices = vertices;
-		this._flag = flag;
+		this.vertices = vertices;
+		this.flag = flag;
 
 		this.vertices.forEach((point) => {
-			this._vertexes.push(
+			this.vertexes.push(
 				new Vertex(point, {
 					flags: vertexFlags.Polyline3dVertex,
 					is3d: true,
@@ -51,10 +43,10 @@ export default class Polyline extends Entity {
 		manager.addTag(66, 1);
 		manager.point3d(point3d(0, 0, 0));
 		manager.addTag(70, this.flag);
-		this._vertexes.forEach((vertex) => {
+		this.vertexes.forEach((vertex) => {
 			manager.appendTags(vertex);
 		});
-		manager.appendTags(this._seqEnd);
+		manager.appendTags(this.#seqEnd);
 		return manager;
 	}
 }

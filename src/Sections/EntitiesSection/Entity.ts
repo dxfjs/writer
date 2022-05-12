@@ -17,16 +17,17 @@ export type options_t = {
 };
 
 export default abstract class Entity extends Handle implements DxfInterface {
-	readonly type: string;
-	readonly subclassMarker: string | undefined;
-	readonly layerName: string;
-	readonly options: options_t;
+	type: string;
+	subclassMarker: string | undefined;
+	layerName: string;
+	options: options_t;
 
 	/**
 	 * Entity class is the base class of all enities.
 	 * [DXF Entities](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-7D07C886-FD1D-4A0C-A7AB-B4D21F18E484)
 	 * @param type - The type of the entity example : LINE, POLYLINE, ARC, CIRCLE ....
-	 * @param subclass -
+	 * @param subclassMarker - The subclass marker of the entity.
+	 * @param options - The common options of all entities.
 	 */
 	public constructor(
 		type: string,

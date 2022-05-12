@@ -20,13 +20,13 @@ Supported objects are:
 
 :::info
 
-Objects section have a root dictionary, you can get a reference to it by calling the convinient function `getRootDictionary()`.
+Objects section have a root dictionary, you can get a reference to it by calling the convenient function `getRootDictionary()`.
 
 The root dictionary is the first object appearing in the section, it can own objects appearing after, also can have multiple entries.
 
 :::
 
-To add an entry to the root dictionay use the convinient function `addEntryToRootDictionary()` and pass to it the name of the entry and a ID/Handle to owner:
+To add an entry to the root dictionay use the convenient function `addEntryToRootDictionary()` and pass to it the name of the entry and a ID/Handle to owner:
 
 ```js
 import {addEntryToRootDictionary} from '@tarikjabiri/dxf';
@@ -34,7 +34,7 @@ import {addEntryToRootDictionary} from '@tarikjabiri/dxf';
 addEntryToRootDictionary('ACAD_IMAGE_DICT', '1A');
 ```
 
-To add a dictionary use the convinient function `addDictionary()`:
+To add a dictionary use the convenient function `addDictionary()`:
 
 ```js
 import {addDictionary} from '@tarikjabiri/dxf';
@@ -48,7 +48,7 @@ dic.addEntry('example', '1B');
 
 This object can store a reference to an external image file, which can be placed by the `IMAGE` entity.
 
-To add an `IMAGEDEF` object use the convinient function `addImageDef()`:
+To add an `IMAGEDEF` object use the convenient function `addImageDef()`:
 
 ```js
 import {addImageDef, ImageDefResolutionUnits} from '@tarikjabiri/dxf';
@@ -82,7 +82,7 @@ For this to work properly in `AutoCAD` you need to add a [`DICTIONARY`](#diction
 
 ## `IMAGEDEF_REACTOR` object
 
-To add an `IMAGEDEF_REACTOR` object use the convinient function `addImageDefReactor()` and pass to it the ID/Handle of the `IMAGE` entity:
+To add an `IMAGEDEF_REACTOR` object use the convenient function `addImageDefReactor()` and pass to it the ID/Handle of the `IMAGE` entity:
 
 ```js
 import {addImageDefReactor} from '@tarikjabiri/dxf';

@@ -3,11 +3,11 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Ellipse extends Entity {
-	readonly center: point3d_t;
-	readonly endPointOfMajorAxis: point3d_t;
-	readonly ratioOfMinorAxisToMajorAxis: number;
-	readonly startParameter: number;
-	readonly endParameter: number;
+	center: point3d_t;
+	endPointOfMajorAxis: point3d_t;
+	ratioOfMinorAxisToMajorAxis: number;
+	startParameter: number;
+	endParameter: number;
 
 	public constructor(
 		center: point3d_t,

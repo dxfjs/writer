@@ -27,15 +27,15 @@ export default class Spline extends Entity {
 	flags: SplineFlags;
 	fitPoints: point3d_t[];
 
-	public constructor(args: SplineArgs_t, options?: options_t) {
+	public constructor(splineArgs: SplineArgs_t, options?: options_t) {
 		super('SPLINE', 'AcDbSpline', options);
 
-		this.controlPoints = args.controlPoints;
-		this.degreeCurve = args.degreeCurve ?? 3;
-		this.flags = args.flags ?? SplineFlags.Planar;
-		this.knots = args.knots || [];
-		this.weights = args.weights || [];
-		this.fitPoints = args.fitPoints || [];
+		this.controlPoints = splineArgs.controlPoints;
+		this.degreeCurve = splineArgs.degreeCurve ?? 3;
+		this.flags = splineArgs.flags ?? SplineFlags.Planar;
+		this.knots = splineArgs.knots || [];
+		this.weights = splineArgs.weights || [];
+		this.fitPoints = splineArgs.fitPoints || [];
 
 		const cpl = this.controlPoints.length;
 		const dc = this.degreeCurve;

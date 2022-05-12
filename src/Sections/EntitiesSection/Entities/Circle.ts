@@ -3,8 +3,8 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Circle extends Entity {
-	readonly center: point3d_t;
-	readonly radius: number;
+	center: point3d_t;
+	radius: number;
 
 	public constructor(center: point3d_t, radius: number, options?: options_t) {
 		super('CIRCLE', 'AcDbCircle', options);

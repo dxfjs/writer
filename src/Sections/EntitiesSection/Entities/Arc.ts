@@ -3,10 +3,10 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
 export default class Arc extends Entity {
-	readonly center: point3d_t;
-	readonly radius: number;
-	readonly startAngle: number;
-	readonly endAngle: number;
+	center: point3d_t;
+	radius: number;
+	startAngle: number;
+	endAngle: number;
 
 	public constructor(
 		center: point3d_t,

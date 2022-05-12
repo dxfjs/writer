@@ -3,9 +3,9 @@ import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {
-	readonly position: point3d_t;
-	readonly height: number;
-	readonly value: string;
+	position: point3d_t;
+	height: number;
+	value: string;
 
 	public constructor(
 		position: point3d_t,

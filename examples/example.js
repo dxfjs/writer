@@ -5,10 +5,30 @@ import DxfWriter, {
 	addEllipse,
 	add3dFace,
 	InvisibleEdgeFlags,
+	LWPolylineFlags,
 } from '../lib';
 import * as fs from 'fs';
 
 const dxf = new DxfWriter();
+
+const vertices = [
+	{
+		point: point2d(0, 0, 0),
+	},
+	{
+		point: point2d(100, 100, 0),
+	},
+	{
+		point: point2d(100, 200, 0),
+	},
+	{
+		point: point2d(0, 300, 0),
+	},
+];
+
+dxf.addLWPolyline(vertices, {
+	flags: LWPolylineFlags.Closed,
+});
 
 /*dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0), {});
 dxf.addLWPolyline(
@@ -16,7 +36,7 @@ dxf.addLWPolyline(
 	129,
 	{}
 );*/
-dxf.addImage(
+/*dxf.addImage(
 	'.\\X_462419.04_Y_576568.45_S_433.54_R_359.74.png',
 	'X_462419.04_Y_576568.45_S_433.54_R_359.74',
 	point3d(462419.04, 576568.45, 0),
@@ -24,7 +44,7 @@ dxf.addImage(
 	1280,
 	433.54,
 	360 - 359.74
-);
+);*/
 
 /*dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]);
 

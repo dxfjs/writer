@@ -1,5 +1,9 @@
 import Entity, { options_t } from './Entity';
-import TagsManager, { point2d_t, point3d_t } from '../../Internals/TagsManager';
+import TagsManager, {
+	point2d,
+	point2d_t,
+	point3d_t,
+} from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Line from './Entities/Line';
@@ -68,30 +72,30 @@ export default abstract class EntitiesManager
 		if (options.fillet !== undefined) {
 			const f = options.fillet;
 			const b = bulge(f);
-			vertices.push({ x: tX, y: tY - f, bulge: b });
-			vertices.push({ x: tX + f, y: tY });
-			vertices.push({ x: bX - f, y: tY, bulge: b });
-			vertices.push({ x: bX, y: tY - f });
-			vertices.push({ x: bX, y: bY + f, bulge: b });
-			vertices.push({ x: bX - f, y: bY });
-			vertices.push({ x: tX + f, y: bY, bulge: b });
-			vertices.push({ x: tX, y: bY + f });
+			vertices.push({ point: point2d(tX, tY - f), bulge: b });
+			vertices.push({ point: point2d(tX + f, tY) });
+			vertices.push({ point: point2d(bX - f, tY), bulge: b });
+			vertices.push({ point: point2d(bX, tY - f) });
+			vertices.push({ point: point2d(bX, bY + f), bulge: b });
+			vertices.push({ point: point2d(bX - f, bY) });
+			vertices.push({ point: point2d(tX + f, bY), bulge: b });
+			vertices.push({ point: point2d(tX, bY + f) });
 		} else if (options.chamfer !== undefined) {
 			const f = options.chamfer.first;
 			const s: number = options.chamfer.second || f;
-			vertices.push({ x: tX, y: tY - f });
-			vertices.push({ x: tX + s, y: tY });
-			vertices.push({ x: bX - f, y: tY });
-			vertices.push({ x: bX, y: tY - s });
-			vertices.push({ x: bX, y: bY + f });
-			vertices.push({ x: bX - s, y: bY });
-			vertices.push({ x: tX + f, y: bY });
-			vertices.push({ x: tX, y: bY + s });
+			vertices.push({ point: point2d(tX, tY - f) });
+			vertices.push({ point: point2d(tX + s, tY) });
+			vertices.push({ point: point2d(bX - f, tY) });
+			vertices.push({ point: point2d(bX, tY - s) });
+			vertices.push({ point: point2d(bX, bY + f) });
+			vertices.push({ point: point2d(bX - s, bY) });
+			vertices.push({ point: point2d(tX + f, bY) });
+			vertices.push({ point: point2d(tX, bY + s) });
 		} else {
-			vertices.push({ x: tX, y: tY });
-			vertices.push({ x: bX, y: tY });
-			vertices.push({ x: bX, y: bY });
-			vertices.push({ x: tX, y: bY });
+			vertices.push({ point: point2d(tX, tY) });
+			vertices.push({ point: point2d(bX, tY) });
+			vertices.push({ point: point2d(bX, bY) });
+			vertices.push({ point: point2d(tX, bY) });
 		}
 
 		return this.addLWPolyline(vertices, {

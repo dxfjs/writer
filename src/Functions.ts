@@ -7,6 +7,14 @@ import Arc from './Sections/EntitiesSection/Entities/Arc';
 import Circle from './Sections/EntitiesSection/Entities/Circle';
 import Face, { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
+import Insert, {
+	insertOptions_t,
+} from './Sections/EntitiesSection/Entities/Insert';
+import Line from './Sections/EntitiesSection/Entities/Line';
+import LWPolyline, {
+	lwPolylineOptions_t,
+	lwPolylineVertex_t,
+} from './Sections/EntitiesSection/Entities/LWPolyline';
 import { options_t } from './Sections/EntitiesSection/Entity';
 import DxfObject from './Sections/ObjectsSection/DxfObject';
 import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
@@ -189,6 +197,15 @@ export function addEllipse(
 	);
 }
 
+/**
+ *
+ * @param firstCorner
+ * @param secondCorner
+ * @param thirdCorner
+ * @param fourthCorner
+ * @param options
+ * @returns
+ */
 export function add3dFace(
 	firstCorner: point3d_t,
 	secondCorner: point3d_t,
@@ -205,6 +222,18 @@ export function add3dFace(
 	);
 }
 
+/**
+ *
+ * @param absolutePath
+ * @param name
+ * @param insertionPoint
+ * @param width
+ * @param height
+ * @param scale
+ * @param rotation
+ * @param options
+ * @returns
+ */
 export function addImage(
 	absolutePath: string,
 	name: string,
@@ -223,6 +252,61 @@ export function addImage(
 		height,
 		scale,
 		rotation,
+		options
+	);
+}
+
+/**
+ * Add an insert entity to the Dxf.
+ * @public
+ * @param blockName - The name of the block to insert.
+ * @param insertionPoint - The point where the block is to be inserted.
+ * @param options - The options of the Insert entity.
+ * @returns Return a reference to the added Insert entity.
+ */
+export function addInsert(
+	blockName: string,
+	insertionPoint: point3d_t,
+	options?: insertOptions_t
+): Insert {
+	return DxfEntitiesSection.getInstance().modelSpace.addInsert(
+		blockName,
+		insertionPoint,
+		options
+	);
+}
+
+/**
+ *
+ * @param startPoint
+ * @param endPoint
+ * @param options
+ * @returns
+ */
+export function addLine(
+	startPoint: point3d_t,
+	endPoint: point3d_t,
+	options?: options_t
+): Line {
+	return DxfEntitiesSection.getInstance().modelSpace.addLine(
+		startPoint,
+		endPoint,
+		options
+	);
+}
+
+/**
+ *
+ * @param points
+ * @param options
+ * @returns
+ */
+export function addLWPolyline(
+	points: lwPolylineVertex_t[],
+	options: lwPolylineOptions_t = {}
+): LWPolyline {
+	return DxfEntitiesSection.getInstance().modelSpace.addLWPolyline(
+		points,
 		options
 	);
 }

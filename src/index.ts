@@ -32,6 +32,9 @@ import {
 	addCircle,
 	addEllipse,
 	add3dFace,
+	addImage,
+	addInsert,
+	addLWPolyline,
 } from './Functions';
 import {
 	RecordFlags,
@@ -66,6 +69,7 @@ import {
 	ImageDisplayFlags,
 	ImageOptions_t,
 } from './Sections/EntitiesSection/Entities/Image';
+import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 
 export {
 	DxfWriter as default,
@@ -81,6 +85,7 @@ export {
 	faceOptions_t,
 	ImageArgs_t,
 	ImageOptions_t,
+	insertOptions_t,
 	addBlock,
 	DxfBlock,
 	addAppId,
@@ -117,4 +122,7 @@ export {
 	ImageClippingType,
 	ImageClippingStateFlag,
 	ImageClipModeFlag,
+	addImage,
+	addInsert,
+	addLWPolyline,
 };

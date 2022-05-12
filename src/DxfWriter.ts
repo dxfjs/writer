@@ -111,6 +111,7 @@ export default class DxfWriter {
 	 *
 	 * @param startPoint - The start point of the line.
 	 * @param endPoint - The end point of the line.
+	 * @param options - The options of the line entity.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addLine(
@@ -129,13 +130,13 @@ export default class DxfWriter {
 	/**
 	 * Add a LWPolyline entity to the Dxf.
 	 *
-	 * [DXF Polyline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
+	 * [Dxf Polyline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
 	 *
 	 * The Polyline entity can represent the Rectangle and the Polygon
-	 * just pass the array of points and PolylineFlags.Closed flag (flag = 1).
+	 * just pass the array of points and LWPolylineFlags.Closed flag.
 	 *
-	 * @param points - An array of points like: [[x1, y1], [x2, y2], ...].
-	 * @param options - The LWPolyline entity options.
+	 * @param points - An array of {@link lwPolylineVertex_t}.
+	 * @param options - The options of LWPolyline entity.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
@@ -146,16 +147,6 @@ export default class DxfWriter {
 		DxfManager.getInstance().modelSpace.addLWPolyline(points, options);
 		return this;
 	}
-
-	/**
-	 * Add a Rectangle as closed lwpolyline entity to the Dxf.
-	 * In DXF Reference there is no entity called Rectangle or Polygon.
-	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
-	 *
-	 * @param topLeft - The topleft corner of the rectangle.
-	 * @param bottomRight - The bottom right corner of the rectangle.
-	 * @returns Return the current object of DxfWriter.
-	 */
 
 	/**
 	 * Add a Rectangle as closed lwpolyline entity to the Dxf.
@@ -206,7 +197,7 @@ export default class DxfWriter {
 	 * @param x - The X coordinate of the point.
 	 * @param y - The Y coordinate of the point.
 	 * @param z - The Z coordinate of the point.
-	 *
+	 * @param options - The options of the point entity.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addPoint(
@@ -221,6 +212,7 @@ export default class DxfWriter {
 
 	/**
 	 * Add a Circle entity to the Dxf.
+	 *
 	 * @param center - The center point of the circle.
 	 * @param radius - The radius of the circle.
 	 * @param options - The Circle entity options;
@@ -237,6 +229,7 @@ export default class DxfWriter {
 
 	/**
 	 * Add an Arc entity to the Dxf.
+	 *
 	 * @param center - The center of the arc.
 	 * @param radius - The radius of the arc.
 	 * @param startAngle - The start of the angle (begining of arc) in degrees Anticlockwise.
@@ -271,20 +264,10 @@ export default class DxfWriter {
 	 * NURBS models can be used in any process, from illustration and animation to manufacturing.
 	 *
 	 * For more informations see : [NURBS](https://www.rhino3d.com/features/nurbs/) and
-	 * [DXF SPLINE](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74)
-	 *
-	 * @param controlPoints - The control points of the spline.
-	 * @param fitPoints - The fit points of the spline.
-	 * @param degreeCurve - The degree curve of the spline, mostly 3.
-	 * @param flag - An integer represent the flag of the spline.
-	 * @param knots - The knots of th spline. If you don't know what is this set it to an empty array [].
-	 * @param weights - The weights of th spline. If you don't know what is this set it to an empty array [].
-	 */
-
-	/**
+	 * [Dxf Spline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74)
 	 *
 	 * @param splineArgs - The Spline arguments. See {@link SplineArgs}.
-	 * @param options
+	 * @param options - The options of the spline entity.
 	 * @returns
 	 */
 	public addSpline(splineArgs: SplineArgs_t, options?: options_t): this {
@@ -419,9 +402,11 @@ export default class DxfWriter {
 	}
 
 	/**
-	 * Add an insert entity to the model space.
-	 * @param blockName - - The name of the block to insert.
-	 * @param insertionPoint - - The point where the block is to be inserted.
+	 * Add an insert entity to the Dxf.
+	 *
+	 * @param blockName - The name of the block to insert.
+	 * @param insertionPoint - The point where the block is to be inserted.
+	 * @param options - The options of the Insert entity.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addInsert(

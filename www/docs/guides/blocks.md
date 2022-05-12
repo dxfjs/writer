@@ -16,7 +16,7 @@ By default two blocks are created: `*Model_Space` and `*Paper_Space`.
 
 ## Adding blocks
 
-To add a block use the convinient function `addBlock()`, it is a factory function that create a block, store it and return a reference to it:
+To add a block use the convenient function `addBlock()`, it is a factory function that create a block, store it and return a reference to it:
 
 ```js
 import {addBlock} from '@tarikjabiri/dxf';
@@ -26,7 +26,7 @@ const myBlock = addBlock('myBlock');
 
 ## Adding entities to the block
 
-To add entities to a block just call the convinient methods to do so:
+To add entities to a block just call the convenient methods to do so:
 
 ```js
 import {addBlock, point3d} from '@tarikjabiri/dxf';
@@ -39,13 +39,13 @@ myBlock.addLine(point3d(0, 0, 0), point3d(0, 20, 0));
 
 :::info
 
-You can add all supported entities.
+You can add all supported entities except the `IMAGE` entity.
 
 :::
 
 ## Inserting blocks
 
-To insert a block in th drawing use the convinient methode `addInsert()`:
+To insert a block in the drawing use the convenient method `addInsert()`:
 
 ```js
 import DxfWriter, {point3d, addBlock} from '@tarikjabiri/dxf';

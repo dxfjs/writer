@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## `APPID` record
 
-To add an `APPID` record, use the convinient function `addAppId()`:
+To add an `APPID` record, use the convenient function `addAppId()`:
 
 ```js
 import {addAppId, RecordFlags} from '@tarikjabiri/dxf';
@@ -30,7 +30,7 @@ By default the `ACAD` record is automatically added.
 
 ## `BLOCKRECORD` record
 
-To add an `BLOCKRECORD` record, use the convinient function `addBlockRecord()`:
+To add an `BLOCKRECORD` record, use the convenient function `addBlockRecord()`:
 
 ```js
 import {addBlockRecord, Units} from '@tarikjabiri/dxf';
@@ -55,7 +55,7 @@ By default the `*Model_Space` and `*Paper_Space` block records are automatically
 
 ## `DIMSTYLE` record
 
-To add an `DIMSTYLE` record, use the convinient function `addDimStyle()`:
+To add an `DIMSTYLE` record, use the convenient function `addDimStyle()`:
 
 ```js
 import {addDimStyle} from '@tarikjabiri/dxf';
@@ -87,7 +87,7 @@ By default the `Standard` record is automatically added.
 
 To add an `LTYPE` record, there is to ways to do so:
 
-- Using the convinient function `addLineType()`.
+- Using the convenient function `addLineType()`.
 - Calling `addLineType()` method on `DxfWriter` object.
 
 :::note
@@ -167,7 +167,7 @@ This explanation is my personal thought, no guarantee to be correct, but it is w
 
 To add an `LAYER` record, there is to ways to do so:
 
-- Using the convinient function `addLayer()`.
+- Using the convenient function `addLayer()`.
 - Calling `addLayer()` method on `DxfWriter` object.
 
 ```js
@@ -229,7 +229,7 @@ For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolo
 
 ## `STYLE` record
 
-To add an `STYLE` record, use the convinient function `addStyle()`:
+To add an `STYLE` record, use the convenient function `addStyle()`:
 
 ```js
 import {addStyle} from '@tarikjabiri/dxf';

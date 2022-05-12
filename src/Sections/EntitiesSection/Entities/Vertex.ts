@@ -22,12 +22,12 @@ export type vertexOptions_t = options_t & {
 };
 
 export default class Vertex extends Entity {
-	readonly vertex: point3d_t;
-	readonly is3d: boolean;
-	readonly flags: number;
-	readonly startingWidth?: number;
-	readonly endWidth?: number;
-	readonly bulge?: number;
+	vertex: point3d_t;
+	is3d: boolean;
+	flags: number;
+	startingWidth?: number;
+	endWidth?: number;
+	bulge?: number;
 
 	public constructor(vertex: point3d_t, options?: vertexOptions_t) {
 		super('VERTEX', 'AcDbVertex', options);
