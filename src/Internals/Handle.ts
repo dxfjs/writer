@@ -3,19 +3,15 @@ import { createGroupCode, tag } from './TagsManager';
 export default class Handle {
 	static #seed: number = 0;
 
-	public static handleSeed(): string {
+	static next(): string {
 		return (++Handle.#seed).toString(16).toUpperCase();
 	}
 
-	/**
-	 * @returns The next handle without incrementing the seed.
-	 */
-	public static nextHandle() {
-		const seed = Handle.#seed + 1;
-		return seed.toString(16).toUpperCase();
+	static peek(): string {
+		return (Handle.#seed + 1).toString(16).toUpperCase();
 	}
 
-	readonly handle: string = Handle.handleSeed();
+	readonly handle: string = Handle.next();
 
 	softOwner?: string;
 	hardOwner?: string;

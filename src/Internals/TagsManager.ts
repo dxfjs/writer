@@ -70,7 +70,9 @@ export default class TagsManager {
 	}
 
 	public pushTags(tags: tag_t[]) {
-		this.tags.push(...tags);
+		for (let tag of tags) {
+			this.tags.push(tag);
+		}
 	}
 
 	public entityType(entityType: string) {

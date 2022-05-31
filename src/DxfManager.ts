@@ -37,7 +37,7 @@ export default class DxfManager implements DxfInterface {
 		this.objectsSection = DxfObjects.getInstance();
 
 		this.headerSection.setVariable('$ACADVER', { 1: 'AC1021' });
-		this.updateHandleSeed();
+		this.updateHandle();
 		this.headerSection.setVariable('$INSUNITS', { 70: GlobalState.units });
 
 		this.tablesSection.addLineType('ByBlock', '', []);
@@ -70,8 +70,8 @@ export default class DxfManager implements DxfInterface {
 		else throw new Error(`The '${name} layer doesn't exist!'`);
 	}
 
-	private updateHandleSeed() {
-		this.headerSection.setVariable('$HANDSEED', { 5: Handle.nextHandle() });
+	private updateHandle() {
+		this.headerSection.setVariable('$HANDSEED', { 5: Handle.peek() });
 	}
 
 	public setUnits(units: number) {
@@ -131,7 +131,7 @@ export default class DxfManager implements DxfInterface {
 	}
 
 	public stringify(): string {
-		this.updateHandleSeed();
+		this.updateHandle();
 		this.setViewCenter(this.modelSpace.centerView()); // fit in
 		this.activeViewPort.viewHeight = this.modelSpace.viewHeight();
 		return this.manager.stringify();
