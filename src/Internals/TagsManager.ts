@@ -70,7 +70,7 @@ export default class TagsManager {
 	}
 
 	public pushTags(tags: tag_t[]) {
-		for (let tag of tags) {
+		for (const tag of tags) {
 			this.tags.push(tag);
 		}
 	}
@@ -83,7 +83,7 @@ export default class TagsManager {
 		this.addTag(1, primaryText);
 	}
 
-	public name(name: string, groupCode: number = 2) {
+	public name(name: string, groupCode = 2) {
 		this.addTag(groupCode, name);
 	}
 
@@ -107,14 +107,14 @@ export default class TagsManager {
 		this.addTag(9, variableName);
 	}
 
-	public point2d(point: point2d_t, lastDigit: number = 0) {
+	public point2d(point: point2d_t, lastDigit = 0) {
 		this.pushTags([
 			tag(createGroupCode(1, lastDigit), point.x),
 			tag(createGroupCode(2, lastDigit), point.y),
 		]);
 	}
 
-	public point3d(point: point3d_t, lastDigit: number = 0) {
+	public point3d(point: point3d_t, lastDigit = 0) {
 		this.pushTags([
 			tag(createGroupCode(1, lastDigit), point.x),
 			tag(createGroupCode(2, lastDigit), point.y),
@@ -147,19 +147,19 @@ export default class TagsManager {
 		this.addTag(100, subclassMarker);
 	}
 
-	public softPointer(softPointer: string, lastDigit: number = 0) {
+	public softPointer(softPointer: string, lastDigit = 0) {
 		this.addTag(createGroupCode(33, lastDigit), softPointer);
 	}
 
-	public hardPointer(hardPointer: string, lastDigit: number = 0) {
+	public hardPointer(hardPointer: string, lastDigit = 0) {
 		this.addTag(createGroupCode(34, lastDigit), hardPointer);
 	}
 
-	public softOwner(softOwner: string, lastDigit: number = 0) {
+	public softOwner(softOwner: string, lastDigit = 0) {
 		this.addTag(createGroupCode(35, lastDigit), softOwner);
 	}
 
-	public hardOwner(hardOwner: string, lastDigit: number = 0) {
+	public hardOwner(hardOwner: string, lastDigit = 0) {
 		this.addTag(createGroupCode(36, lastDigit), hardOwner);
 	}
 

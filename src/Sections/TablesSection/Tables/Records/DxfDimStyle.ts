@@ -13,17 +13,17 @@ export default class DxfDimStyle implements DxfInterface {
 	readonly handle: string;
 	ownerObject?: string;
 
-	public constructor(name: string, flags?: number) {
+	constructor(name: string, flags?: number) {
 		this.name = name;
 		this.flags = flags ?? 0;
-		this.handle = Handle.next()
+		this.handle = Handle.next();
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.subclassMarker('AcDbDimStyleTable');
 		manager.entityType('DIMSTYLE');

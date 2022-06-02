@@ -6,15 +6,13 @@ export default class DxfHeaderSection implements DxfInterface {
 	static #instance: DxfHeaderSection;
 	readonly variables: DxfVariable[] = [];
 
-	private constructor() {}
-
 	public static getInstance(): DxfHeaderSection {
 		if (!this.#instance) this.#instance = new DxfHeaderSection();
 		return this.#instance;
 	}
 
 	public setVariable(name: string, values: values_t) {
-		let variable = this.variables.find((v) => v.name === name);
+		const variable = this.variables.find((v) => v.name === name);
 		if (variable) {
 			variable.values = values;
 		} else {

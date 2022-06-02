@@ -7,7 +7,7 @@ export default class TrueColor {
 		return this._color;
 	}
 
-	public trueColorTag(lastDigit: number = 0) {
+	public trueColorTag(lastDigit = 0) {
 		return tag(createGroupCode(42, lastDigit), this.color);
 	}
 

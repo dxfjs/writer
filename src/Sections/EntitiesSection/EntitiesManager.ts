@@ -24,8 +24,7 @@ import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
 
-export default abstract class EntitiesManager
-	implements DxfInterface {
+export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
 	readonly handle: string;
 

@@ -3,13 +3,13 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default abstract class DxfTable implements DxfInterface {
-	maxNumberEntries: number = 0;
-	readonly handle: string
-	ownerObject: string
+	maxNumberEntries = 0;
+	readonly handle: string;
+	ownerObject: string;
 
 	public constructor(public name: string) {
 		this.ownerObject = '0';
-		this.handle = Handle.next()
+		this.handle = Handle.next();
 	}
 
 	public stringify(): string {

@@ -15,14 +15,10 @@ import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 import { ImageOptions_t } from './index';
 
 /**
+ * The base class for creating the Dxf content.
  * @public
  */
 export default class DxfWriter {
-	/**
-	 * The base class for creating the Dxf content.
-	 */
-	public constructor() {}
-
 	/**
 	 * Add a header variable to the Dxf if not exist.
 	 * If exist it will updates values.
@@ -73,7 +69,7 @@ export default class DxfWriter {
 		name: string,
 		color: number,
 		lineType: string,
-		flags: number = 0
+		flags = 0
 	): this {
 		DxfTablesSection.getInstance().addLayer(name, color, lineType, flags);
 		return this;

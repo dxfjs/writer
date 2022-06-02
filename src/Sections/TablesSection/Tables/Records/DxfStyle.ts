@@ -3,22 +3,22 @@ import DxfRecord from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
 	readonly name: string;
-	fixedTextHeight: number = 0;
-	widthFactor: number = 1;
-	obliqueAngle: number = 0;
-	textGenerationFlag: number = 0;
-	lastHeightUsed: number = 1;
-	fontFileName: string = 'txt';
-	bigFontFileName: string = '';
+	fixedTextHeight = 0;
+	widthFactor = 1;
+	obliqueAngle = 0;
+	textGenerationFlag = 0;
+	lastHeightUsed = 1;
+	fontFileName = 'txt';
+	bigFontFileName = '';
 	flags: number;
 
-	public constructor(name: string, flags?: number) {
+	constructor(name: string, flags?: number) {
 		super('STYLE');
 		this.name = name;
 		this.flags = flags ?? 0;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbTextStyleTableRecord');

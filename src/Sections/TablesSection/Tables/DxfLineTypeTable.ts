@@ -3,23 +3,19 @@ import DxfLineType from './Records/DxfLineType';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfLineTypeTable extends DxfTable {
-	private static _instance: DxfLineTypeTable;
-	private readonly _lineTypeRecords: DxfLineType[] = [];
-
-	public get lineTypeRecords(): DxfLineType[] {
-		return this._lineTypeRecords;
-	}
+	static #instance: DxfLineTypeTable;
+	readonly lineTypeRecords: DxfLineType[] = [];
 
 	private constructor() {
 		super('LTYPE');
 	}
 
-	public static getInstance(): DxfLineTypeTable {
-		if (!this._instance) this._instance = new DxfLineTypeTable();
-		return this._instance;
+	static getInstance(): DxfLineTypeTable {
+		if (!this.#instance) this.#instance = new DxfLineTypeTable();
+		return this.#instance;
 	}
 
-	public exist(name: string): boolean {
+	exist(name: string): boolean {
 		return (
 			this.lineTypeRecords.find((lineTypeRecord) => {
 				return lineTypeRecord.name === name;
@@ -27,7 +23,7 @@ export default class DxfLineTypeTable extends DxfTable {
 		);
 	}
 
-	public addLineType(
+	addLineType(
 		name: string,
 		descriptive: string,
 		elements: number[],
@@ -42,11 +38,11 @@ export default class DxfLineTypeTable extends DxfTable {
 			flags
 		);
 		lineTypeRecord.ownerObject = this.handle;
-		this._lineTypeRecords.push(lineTypeRecord);
+		this.lineTypeRecords.push(lineTypeRecord);
 		return lineTypeRecord;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.lineTypeRecords.length;
 		manager.pushTags(super.manager.tags);

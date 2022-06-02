@@ -6,17 +6,17 @@ import DxfRecord from './DxfRecord';
  */
 export default class DxfBlockRecord extends DxfRecord {
 	readonly name: string;
-	insertionUnits: number = 0;
-	explodability: number = 1;
-	scalability: number = 0;
+	insertionUnits = 0;
+	explodability = 1;
+	scalability = 0;
 	layoutObject?: string;
 
-	public constructor(name: string) {
+	constructor(name: string) {
 		super('BLOCK_RECORD');
 		this.name = name;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbBlockTableRecord');

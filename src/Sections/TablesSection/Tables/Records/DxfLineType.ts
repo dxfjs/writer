@@ -10,7 +10,7 @@ export default class DxfLineType extends DxfRecord {
 	readonly elements: number[];
 	flags: number;
 
-	public constructor(
+	constructor(
 		name: string,
 		descriptive: string,
 		elements: number[],
@@ -23,7 +23,7 @@ export default class DxfLineType extends DxfRecord {
 		this.flags = flags ?? 0;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbLinetypeTableRecord');

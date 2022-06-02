@@ -40,7 +40,7 @@ export default abstract class Entity implements DxfInterface {
 		this.type = type;
 		this.subclassMarker = subclassMarker;
 		this.layerName = GlobalState.currentLayerName;
-		this.handle = Handle.next()
+		this.handle = Handle.next();
 	}
 
 	/**

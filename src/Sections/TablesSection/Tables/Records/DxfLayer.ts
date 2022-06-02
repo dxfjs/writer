@@ -9,14 +9,9 @@ export default class DxfLayer extends DxfRecord {
 	colorNumber: number;
 	lineType: string;
 	flags: number;
-	materialObject?: string
+	materialObject?: string;
 
-	public constructor(
-		name: string,
-		color: number,
-		lineType: string,
-		flags?: number
-	) {
+	constructor(name: string, color: number, lineType: string, flags?: number) {
 		super('LAYER');
 
 		this.name = name;
@@ -25,7 +20,7 @@ export default class DxfLayer extends DxfRecord {
 		this.flags = flags ?? 0;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbLayerTableRecord');

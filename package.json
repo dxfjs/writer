@@ -13,7 +13,11 @@
 		"watch": "tsc -w",
 		"build": "rollup -c",
 		"example": "node --experimental-specifier-resolution=node examples/example.js",
-		"docs": "cd www && yarn build --out-dir ../docs && cd .."
+		"docs": "cd www && yarn build --out-dir ../docs && cd ..",
+		"lint": "eslint src",
+		"lint:fix": "eslint src --fix",
+		"prettier:check": "prettier --check .",
+		"prettier:write": "prettier --write ."
 	},
 	"files": [
 		"lib/**/*"
@@ -25,8 +29,13 @@
 		"@types/bluebird": "^3.5.36",
 		"@types/jest": "^27.0.2",
 		"@types/node": "^17.0.7",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
 		"babel-jest": "^27.2.5",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.5.0",
 		"jest": "^27.2.5",
+		"prettier": "2.6.2",
 		"rollup": "^2.40.0",
 		"rollup-plugin-typescript2": "^0.31.1",
 		"ts-jest": "^27.0.5",

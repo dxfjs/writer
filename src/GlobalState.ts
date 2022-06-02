@@ -44,6 +44,6 @@ export enum Units {
 }
 
 export default class GlobalState {
-	public static currentLayerName: string = '0';
+	public static currentLayerName = '0';
 	public static units: number = Units.Unitless;
 }

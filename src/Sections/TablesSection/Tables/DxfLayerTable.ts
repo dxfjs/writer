@@ -4,28 +4,19 @@ import TagsManager from '../../../Internals/TagsManager';
 import DxfLineTypeTable from './DxfLineTypeTable';
 
 export default class DxfLayerTable extends DxfTable {
-	private static _instance: DxfLayerTable;
-	private readonly _layerRecords: DxfLayer[] = [];
-
-	public get layerRecords(): DxfLayer[] {
-		return this._layerRecords;
-	}
+	static #instance: DxfLayerTable;
+	readonly layerRecords: DxfLayer[] = [];
 
 	private constructor() {
 		super('LAYER');
 	}
 
-	public static getInstance(): DxfLayerTable {
-		if (!this._instance) this._instance = new DxfLayerTable();
-		return this._instance;
+	static getInstance(): DxfLayerTable {
+		if (!this.#instance) this.#instance = new DxfLayerTable();
+		return this.#instance;
 	}
 
-	public addLayer(
-		name: string,
-		color: number,
-		lineType: string,
-		flags?: number
-	) {
+	addLayer(name: string, color: number, lineType: string, flags?: number) {
 		if (this.exist(name))
 			throw new Error(`The ${name} Layer already exist!`);
 		if (!DxfLineTypeTable.getInstance().exist(lineType))
@@ -36,7 +27,7 @@ export default class DxfLayerTable extends DxfTable {
 		return layerRecord;
 	}
 
-	public exist(name: string) {
+	exist(name: string) {
 		return (
 			this.layerRecords.find((layerRecord) => {
 				return layerRecord.name === name;
@@ -44,7 +35,7 @@ export default class DxfLayerTable extends DxfTable {
 		);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.layerRecords.length;
 		manager.pushTags(super.manager.tags);

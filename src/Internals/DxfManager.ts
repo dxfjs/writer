@@ -7,7 +7,7 @@ export default class DXFManager {
 		this._handle = value;
 	}
 
-	static currentTrueColor: number = NaN;
+	static currentTrueColor = NaN;
 
 	static setTrueColorRGB = (red: number, green: number, blue: number) => {
 		DXFManager.setTrueColorHex(
@@ -77,9 +77,9 @@ export default class DXFManager {
 		USSurveyMile: 24,
 	};
 	static version: string;
-	static handleSeed: number = 0;
+	static handleSeed = 0;
 	private _handle: string;
-	static currentLayer: string = '0';
+	static currentLayer = '0';
 
 	public constructor() {
 		this._handle = this.handleSeed();

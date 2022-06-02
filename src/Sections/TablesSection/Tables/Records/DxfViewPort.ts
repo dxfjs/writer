@@ -6,14 +6,14 @@ export default class DxfViewPort extends DxfRecord {
 	viewHeight: number;
 	viewCenter: [number, number];
 
-	public constructor(name: string) {
+	constructor(name: string) {
 		super('VPORT');
 		this.name = name;
 		this.viewHeight = 200;
 		this.viewCenter = [0, 0];
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const [x, y] = this.viewCenter;
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);

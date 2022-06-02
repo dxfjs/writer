@@ -3,8 +3,8 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfEndBlk implements DxfInterface {
-	readonly handle: string
-	ownerObject?: string
+	readonly handle: string;
+	ownerObject?: string;
 
 	constructor() {
 		this.handle = Handle.next();

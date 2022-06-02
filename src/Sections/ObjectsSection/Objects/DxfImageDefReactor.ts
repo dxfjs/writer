@@ -3,7 +3,7 @@ import DxfObject from '../DxfObject';
 
 export default class DxfImageDefReactor extends DxfObject {
 	classVersion: number;
-	imageHandle: string
+	imageHandle: string;
 	public constructor(imageHandle: string) {
 		super('IMAGEDEF_REACTOR');
 		this.imageHandle = imageHandle;

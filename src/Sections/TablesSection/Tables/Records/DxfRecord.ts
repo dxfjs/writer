@@ -43,18 +43,18 @@ export enum ViewFlags {
 export default class DxfRecord implements DxfInterface {
 	readonly entityType: string;
 	readonly handle: string;
-	ownerObject?: string
+	ownerObject?: string;
 
-	public constructor(type: string) {
+	constructor(type: string) {
 		this.entityType = type;
-		this.handle = Handle.next()
+		this.handle = Handle.next();
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType(this.entityType);
 		manager.handle(this.handle);

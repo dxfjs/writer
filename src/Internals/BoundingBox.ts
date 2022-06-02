@@ -16,8 +16,6 @@ export const createBoundingBox = (
 };
 
 export default class BoundingBox {
-	public constructor() {}
-
 	public static centerRadiusBBox(center: point3d_t, radius: number) {
 		return createBoundingBox(
 			point3d(center.x - radius, center.y + radius, 0),

@@ -8,16 +8,16 @@ import EndBlk from './DxfEndBlk';
 export default class DxfBlock extends EntitiesManager {
 	readonly name: string;
 	readonly endBlk: EndBlk;
-	stringifyEntities: boolean = true;
+	stringifyEntities = true;
 	ownerObject?: string;
 
-	blockTypeFlags: number = 0;
+	blockTypeFlags = 0;
 	basePoint: point3d_t = {
 		x: 0,
 		y: 0,
 		z: 0,
 	};
-	xrefPathName: string = '';
+	xrefPathName = '';
 
 	public constructor(name: string) {
 		super();

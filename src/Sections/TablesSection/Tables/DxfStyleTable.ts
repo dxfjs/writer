@@ -3,30 +3,26 @@ import DxfStyle from './Records/DxfStyle';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfStyleTable extends DxfTable {
-	private static _instance: DxfStyleTable;
-	private _styleRecords: DxfStyle[] = [];
-
-	public get styleRecords(): DxfStyle[] {
-		return this._styleRecords;
-	}
+	static #instance: DxfStyleTable;
+	styleRecords: DxfStyle[] = [];
 
 	private constructor() {
 		super('STYLE');
 	}
 
-	public static getInstance(): DxfStyleTable {
-		if (!this._instance) this._instance = new DxfStyleTable();
-		return this._instance;
+	static getInstance(): DxfStyleTable {
+		if (!this.#instance) this.#instance = new DxfStyleTable();
+		return this.#instance;
 	}
 
-	public addStyle(name: string, flags?: number): DxfStyle {
+	addStyle(name: string, flags?: number): DxfStyle {
 		const styleRecord = new DxfStyle(name, flags);
 		styleRecord.ownerObject = this.handle;
-		this._styleRecords.push(styleRecord);
+		this.styleRecords.push(styleRecord);
 		return styleRecord;
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.styleRecords.length;
 		manager.pushTags(super.manager.tags);

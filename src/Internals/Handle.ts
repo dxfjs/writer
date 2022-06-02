@@ -1,5 +1,5 @@
 export default class Handle {
-	static #seed: number = 0;
+	static #seed = 0;
 
 	static next(): string {
 		return (++Handle.#seed).toString(16).toUpperCase();
