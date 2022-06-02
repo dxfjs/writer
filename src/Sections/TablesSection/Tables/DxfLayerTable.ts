@@ -31,7 +31,7 @@ export default class DxfLayerTable extends DxfTable {
 		if (!DxfLineTypeTable.getInstance().exist(lineType))
 			throw new Error(`The ${name} LineType doesn't exist!`);
 		const layerRecord = new DxfLayer(name, color, lineType, flags);
-		layerRecord.softPointer = this.handle;
+		layerRecord.ownerObject = this.handle;
 		this.layerRecords.push(layerRecord);
 		return layerRecord;
 	}

@@ -120,7 +120,7 @@ export default class DxfManager implements DxfInterface {
 		const dictionary = this.objectsSection.addDictionary();
 
 		dictionary.addEntryObject(name, imageDef.handle);
-		imageDef.softPointer = dictionary.handle;
+		imageDef.ownerObject = dictionary.handle;
 		this.objectsSection.rootDictionary.addEntryObject(
 			'ACAD_IMAGE_DICT',
 			dictionary.handle

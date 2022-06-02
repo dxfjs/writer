@@ -9,6 +9,7 @@ export default class DxfBlockRecord extends DxfRecord {
 	insertionUnits: number = 0;
 	explodability: number = 1;
 	scalability: number = 0;
+	layoutObject?: string;
 
 	public constructor(name: string) {
 		super('BLOCK_RECORD');
@@ -20,7 +21,7 @@ export default class DxfBlockRecord extends DxfRecord {
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbBlockTableRecord');
 		manager.name(this.name);
-		manager.pushTag(this.hardPointerTag());
+		manager.addTag(340, this.layoutObject);
 		manager.addTag(70, this.insertionUnits);
 		manager.addTag(280, this.explodability);
 		manager.addTag(280, this.scalability);

@@ -2,13 +2,15 @@ import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
-export default class DxfObject extends Handle implements DxfInterface {
+export default class DxfObject implements DxfInterface {
 	readonly type: string;
+	readonly handle: string
+	ownerObject: string
 
 	public constructor(type: string) {
-		super();
 		this.type = type;
-		this.softPointer = '0';
+		this.ownerObject = '0';
+		this.handle = Handle.next()
 	}
 
 	public stringify(): string {
@@ -19,7 +21,7 @@ export default class DxfObject extends Handle implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this.type);
 		manager.handle(this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerObject);
 		return manager;
 	}
 }

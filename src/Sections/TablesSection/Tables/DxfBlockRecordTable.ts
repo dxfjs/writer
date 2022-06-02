@@ -22,7 +22,7 @@ export default class DxfBlockRecordTable extends DxfTable {
 
 	public addBlockRecord(name: string) {
 		const blockRecord = new DxfBlockRecord(name);
-		blockRecord.softPointer = this.handle;
+		blockRecord.ownerObject = this.handle;
 		this._blockRecords.push(blockRecord);
 		return blockRecord;
 	}

@@ -12,7 +12,7 @@ export default class DxfDimStyleTable extends DxfTable {
 
 	private constructor() {
 		super('DIMSTYLE');
-		this.softPointer = '0';
+		this.ownerObject = '0';
 	}
 
 	public static getInstance(): DxfDimStyleTable {
@@ -33,7 +33,7 @@ export default class DxfDimStyleTable extends DxfTable {
 
 	public addDimStyle(name: string, flags?: number) {
 		const dimStyle = new DxfDimStyle(name, flags);
-		dimStyle.softPointer = this.handle;
+		dimStyle.ownerObject = this.handle;
 		this._dimStyleRecords.push(dimStyle);
 		return dimStyle;
 	}

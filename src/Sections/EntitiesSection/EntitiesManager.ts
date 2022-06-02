@@ -25,17 +25,16 @@ import Handle from '../../Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
 
 export default abstract class EntitiesManager
-	extends Handle
-	implements DxfInterface
-{
+	implements DxfInterface {
 	readonly entities: Entity[] = [];
+	readonly handle: string;
 
 	public constructor() {
-		super();
+		this.handle = Handle.next();
 	}
 
 	public addEntity<T extends Entity>(entity: T): T {
-		if (this.softPointer) entity.softPointer = this.softPointer;
+		entity.ownerBlockRecord = this.handle;
 		this.entities.push(entity);
 		return entity;
 	}

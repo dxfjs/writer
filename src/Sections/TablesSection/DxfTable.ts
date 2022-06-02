@@ -2,12 +2,14 @@ import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../Internals/TagsManager';
 
-export default abstract class DxfTable extends Handle implements DxfInterface {
+export default abstract class DxfTable implements DxfInterface {
 	maxNumberEntries: number = 0;
+	readonly handle: string
+	ownerObject: string
 
 	public constructor(public name: string) {
-		super();
-		this.softPointer = '0';
+		this.ownerObject = '0';
+		this.handle = Handle.next()
 	}
 
 	public stringify(): string {
@@ -19,7 +21,7 @@ export default abstract class DxfTable extends Handle implements DxfInterface {
 		manager.entityType('TABLE');
 		manager.name(this.name);
 		manager.handle(this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerObject);
 		manager.subclassMarker('AcDbSymbolTable');
 		manager.addTag(70, this.maxNumberEntries);
 		return manager;

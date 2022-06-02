@@ -3,9 +3,10 @@ import DxfObject from '../DxfObject';
 
 export default class DxfImageDefReactor extends DxfObject {
 	classVersion: number;
-	public constructor(imageId: string) {
+	imageHandle: string
+	public constructor(imageHandle: string) {
 		super('IMAGEDEF_REACTOR');
-		this.softPointer = imageId;
+		this.imageHandle = imageHandle;
 		this.classVersion = 2;
 	}
 
@@ -14,7 +15,7 @@ export default class DxfImageDefReactor extends DxfObject {
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbRasterImageDefReactor');
 		manager.addTag(90, this.classVersion);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.imageHandle);
 		return manager;
 	}
 }

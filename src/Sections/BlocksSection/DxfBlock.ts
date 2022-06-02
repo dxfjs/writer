@@ -9,6 +9,7 @@ export default class DxfBlock extends EntitiesManager {
 	readonly name: string;
 	readonly endBlk: EndBlk;
 	stringifyEntities: boolean = true;
+	ownerObject?: string;
 
 	blockTypeFlags: number = 0;
 	basePoint: point3d_t = {
@@ -28,7 +29,7 @@ export default class DxfBlock extends EntitiesManager {
 		const manager = new TagsManager();
 		manager.entityType('BLOCK');
 		manager.handle(this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerObject);
 		manager.subclassMarker('AcDbEntity');
 		manager.layerName('0'); // TODO make this dynamic
 		manager.subclassMarker('AcDbBlockBegin');

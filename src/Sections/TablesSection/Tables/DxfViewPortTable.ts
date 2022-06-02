@@ -21,7 +21,7 @@ export default class DxfViewPortTable extends DxfTable {
 
 	public addViewPort(name: string) {
 		const viewPortRecord = new DxfViewPort(name);
-		viewPortRecord.softPointer = this.handle;
+		viewPortRecord.ownerObject = this.handle;
 		this._viewPortRecords.push(viewPortRecord);
 		return viewPortRecord;
 	}

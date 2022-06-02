@@ -16,11 +16,13 @@ export type options_t = {
 	lineTypeScale?: number;
 };
 
-export default abstract class Entity extends Handle implements DxfInterface {
+export default abstract class Entity implements DxfInterface {
 	type: string;
 	subclassMarker: string | undefined;
 	layerName: string;
 	options: options_t;
+	ownerBlockRecord?: string;
+	readonly handle: string;
 
 	/**
 	 * Entity class is the base class of all enities.
@@ -34,11 +36,11 @@ export default abstract class Entity extends Handle implements DxfInterface {
 		subclassMarker?: string,
 		options?: options_t
 	) {
-		super();
 		this.options = options || {};
 		this.type = type;
 		this.subclassMarker = subclassMarker;
 		this.layerName = GlobalState.currentLayerName;
+		this.handle = Handle.next()
 	}
 
 	/**
@@ -57,7 +59,7 @@ export default abstract class Entity extends Handle implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this.type);
 		manager.handle(this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerBlockRecord);
 		manager.subclassMarker('AcDbEntity');
 		manager.addTag(420, this.options.trueColor);
 		manager.layerName(this.options.layerName || this.layerName);

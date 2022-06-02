@@ -7,14 +7,16 @@ import TagsManager from '../../../../Internals/TagsManager';
 /**
  * @public
  */
-export default class DxfDimStyle extends Handle implements DxfInterface {
+export default class DxfDimStyle implements DxfInterface {
 	readonly name: string;
 	readonly flags: number;
+	readonly handle: string;
+	ownerObject?: string;
 
 	public constructor(name: string, flags?: number) {
-		super();
 		this.name = name;
 		this.flags = flags ?? 0;
+		this.handle = Handle.next()
 	}
 
 	public stringify(): string {
@@ -26,7 +28,7 @@ export default class DxfDimStyle extends Handle implements DxfInterface {
 		manager.subclassMarker('AcDbDimStyleTable');
 		manager.entityType('DIMSTYLE');
 		manager.addTag(105, this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerObject);
 		manager.subclassMarker('AcDbSymbolTableRecord');
 		manager.addTag(100, 'AcDbDimStyleTableRecord');
 		manager.addTag(2, this.name);

@@ -23,7 +23,7 @@ export default class DxfBlocksSection implements DxfInterface {
 	public addBlock(name: string): DxfBlock {
 		const blockRecord = DxfTablesSection.getInstance().addBlockRecord(name);
 		const block = new DxfBlock(name);
-		block.softPointer = blockRecord.handle;
+		block.ownerObject = blockRecord.handle;
 		this.blocks.push(block);
 		return block;
 	}

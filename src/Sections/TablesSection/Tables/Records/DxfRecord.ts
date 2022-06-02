@@ -40,12 +40,14 @@ export enum ViewFlags {
 	XrefResolved = 32,
 }
 
-export default class DxfRecord extends Handle implements DxfInterface {
+export default class DxfRecord implements DxfInterface {
 	readonly entityType: string;
+	readonly handle: string;
+	ownerObject?: string
 
 	public constructor(type: string) {
-		super();
 		this.entityType = type;
+		this.handle = Handle.next()
 	}
 
 	public stringify(): string {
@@ -56,7 +58,7 @@ export default class DxfRecord extends Handle implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this.entityType);
 		manager.handle(this.handle);
-		manager.pushTag(this.softPointerTag());
+		manager.addTag(330, this.ownerObject);
 		manager.subclassMarker('AcDbSymbolTableRecord');
 		return manager;
 	}

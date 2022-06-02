@@ -28,7 +28,7 @@ export default class DxfObjects implements DxfInterface {
 
 	public addDictionary(): DxfDictionary {
 		const dictionary = new DxfDictionary();
-		dictionary.softPointer = this.rootDictionary.handle;
+		dictionary.ownerObject = this.rootDictionary.handle;
 		this.addObject(dictionary);
 		return dictionary;
 	}

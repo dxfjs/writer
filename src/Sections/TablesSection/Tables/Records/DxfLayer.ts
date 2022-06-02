@@ -9,6 +9,7 @@ export default class DxfLayer extends DxfRecord {
 	colorNumber: number;
 	lineType: string;
 	flags: number;
+	materialObject?: string
 
 	public constructor(
 		name: string,
@@ -34,7 +35,7 @@ export default class DxfLayer extends DxfRecord {
 		manager.lineType(this.lineType);
 		manager.addTag(370, 0); // TODO Refactor this to be dynamic
 		manager.addTag(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
-		manager.pushTag(this.hardPointerTag(7));
+		manager.addTag(347, this.materialObject);
 		return manager;
 	}
 }

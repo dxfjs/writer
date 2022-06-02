@@ -41,7 +41,7 @@ export default class DxfLineTypeTable extends DxfTable {
 			elements,
 			flags
 		);
-		lineTypeRecord.softPointer = this.handle;
+		lineTypeRecord.ownerObject = this.handle;
 		this._lineTypeRecords.push(lineTypeRecord);
 		return lineTypeRecord;
 	}
