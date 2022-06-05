@@ -68,7 +68,7 @@ export default class Image extends Entity {
 	ratio: number;
 	classVersion: number;
 
-	public constructor(imageArgs: ImageArgs_t, options?: ImageOptions_t) {
+	constructor(imageArgs: ImageArgs_t, options?: ImageOptions_t) {
 		super('IMAGE', 'AcDbRasterImage', options);
 		this.width = imageArgs.width;
 		this.height = imageArgs.height;
@@ -80,7 +80,7 @@ export default class Image extends Entity {
 		this.imageDisplayFlags =
 			options?.imageDisplayFlags ||
 			ImageDisplayFlags.ShowImage |
-				ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
+			ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
 		this.clippingStateFlag =
 			options?.clippingStateFlag || ImageClippingStateFlag.On;
 		this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside;
@@ -148,14 +148,14 @@ export default class Image extends Entity {
 		return point3d(v.y, v.x, 0);
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		const width = this.scale;
 		const height = (this.width / this.height) * this.scale;
 		const diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(90, this.classVersion);

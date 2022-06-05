@@ -27,7 +27,7 @@ export default class Face extends Entity {
 	fourthCorner: point3d_t;
 	invisibleEdges: InvisibleEdgeFlags;
 
-	public constructor(
+	constructor(
 		firstCorner: point3d_t,
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
@@ -79,7 +79,7 @@ export default class Face extends Entity {
 		}
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.verticesBBox([
 			this.firstCorner,
 			this.secondCorner,
@@ -88,7 +88,7 @@ export default class Face extends Entity {
 		]);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.firstCorner);

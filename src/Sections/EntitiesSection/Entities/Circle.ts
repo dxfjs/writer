@@ -6,17 +6,17 @@ export default class Circle extends Entity {
 	center: point3d_t;
 	radius: number;
 
-	public constructor(center: point3d_t, radius: number, options?: options_t) {
+	constructor(center: point3d_t, radius: number, options?: options_t) {
 		super('CIRCLE', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.center);

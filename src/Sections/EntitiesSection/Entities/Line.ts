@@ -6,7 +6,7 @@ export default class Line extends Entity {
 	startPoint: point3d_t;
 	endPoint: point3d_t;
 
-	public constructor(
+	constructor(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
 		options?: options_t
@@ -16,11 +16,11 @@ export default class Line extends Entity {
 		this.endPoint = endPoint;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.startPoint);

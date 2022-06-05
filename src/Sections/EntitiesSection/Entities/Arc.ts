@@ -8,7 +8,7 @@ export default class Arc extends Entity {
 	startAngle: number;
 	endAngle: number;
 
-	public constructor(
+	constructor(
 		center: point3d_t,
 		radius: number,
 		startAngle: number,
@@ -22,11 +22,11 @@ export default class Arc extends Entity {
 		this.endAngle = endAngle;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.center);

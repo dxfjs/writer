@@ -44,7 +44,7 @@ export default class LWPolyline extends Entity {
 	elevation: number;
 	thickness: number;
 
-	public constructor(
+	constructor(
 		vertices: lwPolylineVertex_t[],
 		options?: lwPolylineOptions_t
 	) {
@@ -56,7 +56,7 @@ export default class LWPolyline extends Entity {
 		this.thickness = options?.thickness || 0;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.verticesBBox(
 			this.vertices.map((vertex) =>
 				point3d(vertex.point.x, vertex.point.y, 0)
@@ -64,7 +64,7 @@ export default class LWPolyline extends Entity {
 		);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(90, this.vertices.length);

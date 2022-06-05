@@ -27,7 +27,7 @@ export default class Spline extends Entity {
 	flags: SplineFlags;
 	fitPoints: point3d_t[];
 
-	public constructor(splineArgs: SplineArgs_t, options?: options_t) {
+	constructor(splineArgs: SplineArgs_t, options?: options_t) {
 		super('SPLINE', 'AcDbSpline', options);
 
 		this.controlPoints = splineArgs.controlPoints;
@@ -67,14 +67,14 @@ export default class Spline extends Entity {
 		}
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.verticesBBox([
 			...this.controlPoints,
 			...this.fitPoints,
 		]);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.addTag(70, this.flags);

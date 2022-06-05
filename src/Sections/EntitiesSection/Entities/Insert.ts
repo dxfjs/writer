@@ -22,7 +22,7 @@ export default class Insert extends Entity {
 	columnSpacing: number;
 	rowSpacing: number;
 
-	public constructor(
+	constructor(
 		blockName: string,
 		insertionPoint: point3d_t,
 		options?: insertOptions_t
@@ -38,11 +38,11 @@ export default class Insert extends Entity {
 		this.rowSpacing = options?.rowSpacing || 0;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.name(this.blockName);

@@ -7,18 +7,18 @@ export default class Point extends Entity {
 	y: number;
 	z: number;
 
-	public constructor(x: number, y: number, z: number, options?: options_t) {
+	constructor(x: number, y: number, z: number, options?: options_t) {
 		super('POINT', 'AcDbPoint', options);
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(point3d(this.x, this.y, this.z));
