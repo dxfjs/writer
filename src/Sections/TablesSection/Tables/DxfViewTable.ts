@@ -1,5 +1,5 @@
 import DxfTable from '../DxfTable';
-import DxfView from './Records/DxfView';
+import DxfView, { ViewArgs } from './Records/DxfView';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewTable extends DxfTable {
@@ -15,8 +15,8 @@ export default class DxfViewTable extends DxfTable {
 		return this.#instance;
 	}
 
-	public addView(name: string): DxfView {
-		const viewRecord = new DxfView(name);
+	public addView(args: ViewArgs): DxfView {
+		const viewRecord = new DxfView(args);
 		viewRecord.ownerObject = this.handle;
 		this.viewRecords.push(viewRecord);
 		return viewRecord;

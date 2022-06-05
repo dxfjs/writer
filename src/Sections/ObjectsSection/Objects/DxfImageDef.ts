@@ -19,7 +19,7 @@ export default class DxfImageDef extends DxfObject {
 	loaded: boolean;
 	resolutionUnits: ImageDefResolutionUnits;
 
-	public constructor(path: string) {
+	constructor(path: string) {
 		super('IMAGEDEF');
 		this.path = path;
 		this.acadImageDicId = '';
@@ -36,7 +36,7 @@ export default class DxfImageDef extends DxfObject {
 		this.imageReactorIds.push(id);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		// TODO Need a dynamic way
 		const definedApp = new DxfDefinedApplication('ACAD_REACTORS');
 		definedApp.addTag(330, this.acadImageDicId);

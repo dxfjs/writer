@@ -6,8 +6,9 @@ export default class Text extends Entity {
 	position: point3d_t;
 	height: number;
 	value: string;
+	textStyle: string;
 
-	public constructor(
+	constructor(
 		position: point3d_t,
 		height: number,
 		value: string,
@@ -17,19 +18,21 @@ export default class Text extends Entity {
 		this.position = position;
 		this.height = height;
 		this.value = value;
+		this.textStyle = 'STANDARD';
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		// I have no idea how to get boundingBox of TEXT :(
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.point3d(this.position);
 		manager.addTag(40, this.height);
-		manager.addTag(1, this.value);
+		manager.primaryText(this.value);
+		manager.textStyle(this.textStyle);
 		manager.subclassMarker('AcDbText');
 		return manager;
 	}

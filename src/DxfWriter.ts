@@ -13,6 +13,7 @@ import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 import { ImageOptions_t } from './index';
+import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 
 /**
  * The base class for creating the Dxf content.
@@ -169,21 +170,17 @@ export default class DxfWriter {
 
 	/**
 	 * Add a 3D Polyline entity to the Dxf.
+	 *
 	 * @param points - An array of points.
-	 * @param flags - Polyline flags.
+	 * @param options - The options to apply to the polyline.
 	 *
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addPolyline3D(
-		points: point3d_t[],
-		flags: number,
-		options?: options_t
+		points: (point3d_t | point2d_t)[],
+		options?: polylineOptions_t
 	): this {
-		DxfManager.getInstance().modelSpace.addPolyline3D(
-			points,
-			flags,
-			options
-		);
+		DxfManager.getInstance().modelSpace.addPolyline3D(points, options);
 		return this;
 	}
 
@@ -193,7 +190,7 @@ export default class DxfWriter {
 	 * @param x - The X coordinate of the point.
 	 * @param y - The Y coordinate of the point.
 	 * @param z - The Z coordinate of the point.
-	 * @param options - The options of the point entity.
+	 * @param options - The options to apply to the point.
 	 * @returns Return the current object of DxfWriter.
 	 */
 	public addPoint(

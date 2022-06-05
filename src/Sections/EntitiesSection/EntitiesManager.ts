@@ -13,7 +13,7 @@ import LWPolyline, {
 	lwPolylineVertex_t,
 } from './Entities/LWPolyline';
 import { bulge, rectangleOptions_t } from '../../Internals/Utils';
-import Polyline from './Entities/Polyline';
+import Polyline, { polylineOptions_t } from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
 import Spline, { SplineArgs_t } from './Entities/Spline';
@@ -103,11 +103,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	public addPolyline3D(
-		points: point3d_t[],
-		flag: number,
-		options?: options_t
+		points: (point3d_t | point2d_t)[],
+		options?: polylineOptions_t
 	): void {
-		this.addEntity(new Polyline(points, flag, options));
+		this.addEntity(new Polyline(points, options));
 	}
 
 	public addPoint(

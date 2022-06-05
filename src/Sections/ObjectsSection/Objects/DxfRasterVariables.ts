@@ -2,11 +2,11 @@ import TagsManager from '../../../Internals/TagsManager';
 import DxfObject from '../DxfObject';
 
 export default class DxfRasterVariables extends DxfObject {
-	public constructor() {
+	constructor() {
 		super('RASTERVARIABLES');
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker('AcDbRasterVariables');

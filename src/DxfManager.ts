@@ -53,16 +53,16 @@ export default class DxfManager implements DxfInterface {
 		this.paperSpace = this.blocksSection.paperSpace;
 	}
 
-	public static getInstance(): DxfManager {
+	static getInstance(): DxfManager {
 		if (!this.#instance) this.#instance = new DxfManager();
 		return this.#instance;
 	}
 
-	public addBlock(name: string) {
+	addBlock(name: string) {
 		return this.blocksSection.addBlock(name);
 	}
 
-	public setCurrentLayerName(name: string): void {
+	setCurrentLayerName(name: string): void {
 		const layerRecord = this.tablesSection.layerTable.layerRecords.find(
 			(layer) => layer.name === name
 		);
@@ -74,12 +74,12 @@ export default class DxfManager implements DxfInterface {
 		this.headerSection.setVariable('$HANDSEED', { 5: Handle.peek() });
 	}
 
-	public setUnits(units: number) {
+	setUnits(units: number) {
 		GlobalState.units = units;
 		this.headerSection.setVariable('$INSUNITS', { 70: GlobalState.units });
 	}
 
-	public setViewCenter(center: point3d_t) {
+	setViewCenter(center: point3d_t) {
 		this.headerSection.setVariable('$VIEWCTR', {
 			10: center.x,
 			20: center.y,
@@ -87,7 +87,7 @@ export default class DxfManager implements DxfInterface {
 		this.activeViewPort.viewCenter = [center.x, center.y];
 	}
 
-	public addImage(
+	addImage(
 		imagePath: string,
 		name: string,
 		insertionPoint: point3d_t,
@@ -108,12 +108,12 @@ export default class DxfManager implements DxfInterface {
 				scale,
 				rotation,
 				insertionPoint,
-				imageDefId: imageDef.handle,
+				imageDefHandle: imageDef.handle,
 			},
 			options
 		);
 		const imageDefReactor = new DxfImageDefReactor(image.handle);
-		image.imageDefReactorId = imageDefReactor.handle;
+		image.imageDefReactorHandle = imageDefReactor.handle;
 		this.modelSpace.addEntity(image);
 		this.objectsSection.addObject(imageDef);
 		this.objectsSection.addObject(imageDefReactor);
@@ -130,14 +130,14 @@ export default class DxfManager implements DxfInterface {
 		return image;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		this.updateHandle();
 		this.setViewCenter(this.modelSpace.centerView()); // fit in
 		this.activeViewPort.viewHeight = this.modelSpace.viewHeight();
 		return this.manager.stringify();
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.appendTags(this.headerSection);
 		manager.appendTags(this.classesSection);

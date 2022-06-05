@@ -11,7 +11,7 @@ export default class DxfClassesSection implements DxfInterface {
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.sectionBegin('CLASSES');
+		manager.sectionStart('CLASSES');
 		manager.sectionEnd();
 		return manager;
 	}

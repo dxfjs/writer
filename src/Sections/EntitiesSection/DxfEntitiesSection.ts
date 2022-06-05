@@ -18,7 +18,7 @@ export default class DxfEntitiesSection implements DxfInterface {
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.sectionBegin('ENTITIES');
+		manager.sectionStart('ENTITIES');
 		this.modelSpace.entities.forEach((entity) => {
 			manager.appendTags(entity);
 		});

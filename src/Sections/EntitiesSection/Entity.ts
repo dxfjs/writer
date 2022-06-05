@@ -1,8 +1,8 @@
 import GlobalState from '../../GlobalState';
-import { boundingBox_t } from '../../Internals/BoundingBox';
+import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../Internals/TagsManager';
+import TagsManager, { point3d } from '../../Internals/TagsManager';
 
 /**
  * @public
@@ -48,7 +48,9 @@ export default abstract class Entity implements DxfInterface {
 	 *
 	 * @returns The boundingBox of an entity.
 	 */
-	public abstract boundingBox(): boundingBox_t;
+	public boundingBox(): boundingBox_t {
+		return BoundingBox.pointBBox(point3d(0, 0, 0));
+	}
 
 	/**
 	 * Get the array tags of the entity.

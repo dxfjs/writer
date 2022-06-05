@@ -10,7 +10,7 @@ import DxfViewPortTable from './Tables/DxfViewPortTable';
 import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfStyle from './Tables/Records/DxfStyle';
-import DxfView from './Tables/Records/DxfView';
+import DxfView, { ViewArgs } from './Tables/Records/DxfView';
 import DxfUcs from './Tables/Records/DxfUcs';
 import DxfAppId from './Tables/Records/DxfAppId';
 import DxfDimStyle from './Tables/Records/DxfDimStyle';
@@ -47,7 +47,7 @@ export default class DxfTablesSection implements DxfInterface {
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.sectionBegin('TABLES');
+		manager.sectionStart('TABLES');
 		manager.appendTags(this.dxfViewPortTable);
 		manager.appendTags(this.linetypeTable);
 		manager.appendTags(this.layerTable);
@@ -96,8 +96,8 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.styleTable.addStyle(name);
 	}
 
-	public addView(name: string): DxfView {
-		return this.viewTable.addView(name);
+	public addView(args: ViewArgs): DxfView {
+		return this.viewTable.addView(args);
 	}
 
 	public addUcs(name: string): DxfUcs {

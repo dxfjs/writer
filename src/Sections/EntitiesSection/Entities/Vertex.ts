@@ -2,7 +2,7 @@ import Entity, { options_t } from '../Entity';
 import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 
-export enum vertexFlags {
+export enum VertexFlags {
 	ExtraVertex = 1,
 	CurveFit = 2,
 	NotUsed = 4,
@@ -14,7 +14,7 @@ export enum vertexFlags {
 }
 
 export type vertexOptions_t = options_t & {
-	is3d: boolean;
+	is3d?: boolean;
 	flags?: number;
 	startingWidth?: number;
 	endWidth?: number;
@@ -29,11 +29,18 @@ export default class Vertex extends Entity {
 	endWidth?: number;
 	bulge?: number;
 
-	public constructor(vertex: point3d_t, options?: vertexOptions_t) {
+	constructor(vertex: point3d_t, options?: vertexOptions_t) {
 		super('VERTEX', 'AcDbVertex', options);
+		/*if ("z" in vertex)
+			this.vertex = vertex;
+		else
+			this.vertex = {
+				...vertex,
+				z: 0
+			};*/
 		this.vertex = vertex;
 		this.is3d = options?.is3d || true;
-		this.flags = options?.flags ?? 0;
+		this.flags = options?.flags ?? VertexFlags.NotUsed;
 		if (options) {
 			if ('startingWidth' in options)
 				this.startingWidth = options.startingWidth;
@@ -42,11 +49,11 @@ export default class Vertex extends Entity {
 		}
 	}
 
-	public boundingBox(): boundingBox_t {
+	override boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox(this.vertex);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);
 		manager.subclassMarker(

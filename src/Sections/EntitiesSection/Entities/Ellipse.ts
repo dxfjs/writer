@@ -9,7 +9,7 @@ export default class Ellipse extends Entity {
 	startParameter: number;
 	endParameter: number;
 
-	public constructor(
+	constructor(
 		center: point3d_t,
 		endPointOfMajorAxis: point3d_t,
 		ratioOfMinorAxisToMajorAxis: number,
@@ -25,7 +25,7 @@ export default class Ellipse extends Entity {
 		this.endParameter = endParameter;
 	}
 
-	public boundingBox(): boundingBox_t {
+	boundingBox(): boundingBox_t {
 		const x = this.center.x;
 		const y = this.center.y;
 		const xEndPointOfMajorAxis = this.endPointOfMajorAxis.x;
@@ -38,7 +38,7 @@ export default class Ellipse extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
 
-	public override get manager(): TagsManager {
+	override get manager(): TagsManager {
 		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
 		const manager = new TagsManager();
 		manager.pushTags(super.manager.tags);

@@ -6,12 +6,12 @@ export default class DxfHeaderSection implements DxfInterface {
 	static #instance: DxfHeaderSection;
 	readonly variables: DxfVariable[] = [];
 
-	public static getInstance(): DxfHeaderSection {
+	static getInstance(): DxfHeaderSection {
 		if (!this.#instance) this.#instance = new DxfHeaderSection();
 		return this.#instance;
 	}
 
-	public setVariable(name: string, values: values_t) {
+	setVariable(name: string, values: values_t) {
 		const variable = this.variables.find((v) => v.name === name);
 		if (variable) {
 			variable.values = values;
@@ -20,9 +20,9 @@ export default class DxfHeaderSection implements DxfInterface {
 		}
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.sectionBegin('HEADER');
+		manager.sectionStart('HEADER');
 		this.variables.forEach((variable) => {
 			manager.pushTags(variable.manager.tags);
 		});
@@ -30,7 +30,7 @@ export default class DxfHeaderSection implements DxfInterface {
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

@@ -8,5 +8,11 @@ describe('Classes', () => {
 				'  0\nSECTION\n  2\nCLASSES\n  0\nENDSEC\n'
 			);
 		});
+
+		it('should return the same instance.', () => {
+			const instance1 = DxfClassesSection.getInstance();
+			const instance2 = DxfClassesSection.getInstance();
+			expect(instance1).toEqual(instance2);
+		});
 	});
 });

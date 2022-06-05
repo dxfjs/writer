@@ -30,7 +30,7 @@ export default class DxfBlocksSection implements DxfInterface {
 
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.sectionBegin('BLOCKS');
+		manager.sectionStart('BLOCKS');
 		manager.pushTags(
 			this.blocks.reduce((tags: tag_t[], block) => {
 				return [...tags, ...block.tags()];

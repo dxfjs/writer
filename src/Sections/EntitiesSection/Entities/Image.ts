@@ -35,7 +35,7 @@ export type ImageArgs_t = {
 	scale: number;
 	rotation: number;
 	insertionPoint: point3d_t;
-	imageDefId: string;
+	imageDefHandle: string;
 };
 
 export type ImageOptions_t = options_t & {
@@ -55,8 +55,8 @@ export default class Image extends Entity {
 	scale: number;
 	rotation: number;
 	insertionPoint: point3d_t;
-	imageDefId: string;
-	imageDefReactorId?: string;
+	imageDefHandle: string;
+	imageDefReactorHandle?: string;
 	imageDisplayFlags: ImageDisplayFlags;
 	clippingStateFlag: ImageClippingStateFlag;
 	clipModeFlag: ImageClipModeFlag;
@@ -76,7 +76,7 @@ export default class Image extends Entity {
 		this.rotation = imageArgs.rotation;
 		this.insertionPoint = imageArgs.insertionPoint;
 		this.ratio = this.scale / this.width;
-		this.imageDefId = imageArgs.imageDefId;
+		this.imageDefHandle = imageArgs.imageDefHandle;
 		this.imageDisplayFlags =
 			options?.imageDisplayFlags ||
 			ImageDisplayFlags.ShowImage |
@@ -164,13 +164,13 @@ export default class Image extends Entity {
 		manager.point3d(this._vVector(), 2);
 		manager.addTag(13, this.width);
 		manager.addTag(23, this.height);
-		manager.addTag(340, this.imageDefId);
+		manager.addTag(340, this.imageDefHandle);
 		manager.addTag(70, this.imageDisplayFlags);
 		manager.addTag(280, this.clippingStateFlag);
 		manager.addTag(281, this.brightness);
 		manager.addTag(282, this.contrast);
 		manager.addTag(283, this.fade);
-		manager.addTag(360, this.imageDefReactorId);
+		manager.addTag(360, this.imageDefReactorHandle);
 		manager.addTag(71, this.clippingType);
 		manager.addTag(91, this.#clipBoundaryVertices.length);
 		this.#clipBoundaryVertices.forEach((vertex) => {
