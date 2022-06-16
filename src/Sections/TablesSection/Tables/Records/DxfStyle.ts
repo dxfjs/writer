@@ -20,17 +20,17 @@ export default class DxfStyle extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbTextStyleTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, this.flags);
-		manager.addTag(40, this.fixedTextHeight);
-		manager.addTag(41, this.widthFactor);
-		manager.addTag(50, this.obliqueAngle);
-		manager.addTag(71, this.textGenerationFlag);
-		manager.addTag(42, this.lastHeightUsed);
-		manager.addTag(3, this.fontFileName);
-		manager.addTag(4, this.bigFontFileName);
+		manager.add(70, this.flags);
+		manager.add(40, this.fixedTextHeight);
+		manager.add(41, this.widthFactor);
+		manager.add(50, this.obliqueAngle);
+		manager.add(71, this.textGenerationFlag);
+		manager.add(42, this.lastHeightUsed);
+		manager.add(3, this.fontFileName);
+		manager.add(4, this.bigFontFileName);
 		return manager;
 	}
 }

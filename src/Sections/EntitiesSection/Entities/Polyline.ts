@@ -101,22 +101,22 @@ export default class Polyline extends Entity {
 
 	public override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
-		manager.addTag(66, 1);
+		manager.push(super.manager.tags);
+		manager.add(66, 1);
 		manager.point3d(point3d(0, 0, this.elevation));
-		manager.addTag(39, this.thickness);
-		manager.addTag(70, this.flags);
-		manager.addTag(40, this.defaultStartWidth);
-		manager.addTag(41, this.defaultEndWidth);
-		manager.addTag(71, this.polygonMeshM);
-		manager.addTag(72, this.polygonMeshN);
-		manager.addTag(73, this.smoothSurfaceM);
-		manager.addTag(74, this.smoothSurfaceN);
-		manager.addTag(75, this.surfaceType);
+		manager.add(39, this.thickness);
+		manager.add(70, this.flags);
+		manager.add(40, this.defaultStartWidth);
+		manager.add(41, this.defaultEndWidth);
+		manager.add(71, this.polygonMeshM);
+		manager.add(72, this.polygonMeshN);
+		manager.add(73, this.smoothSurfaceM);
+		manager.add(74, this.smoothSurfaceN);
+		manager.add(75, this.surfaceType);
 		this.vertexes.forEach((vertex) => {
-			manager.appendTags(vertex);
+			manager.append(vertex);
 		});
-		manager.appendTags(this.#seqEnd);
+		manager.append(this.#seqEnd);
 		return manager;
 	}
 }

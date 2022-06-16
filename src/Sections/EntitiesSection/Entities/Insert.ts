@@ -44,17 +44,17 @@ export default class Insert extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.name(this.blockName);
 		manager.point3d(this.insertionPoint);
-		manager.addTag(41, this.scaleFactor.x || 1);
-		manager.addTag(42, this.scaleFactor.y || 1);
-		manager.addTag(43, this.scaleFactor.z || 1);
-		manager.addTag(50, this.rotationAngle);
-		manager.addTag(70, this.columnCount);
-		manager.addTag(71, this.rowCount);
-		manager.addTag(44, this.columnSpacing);
-		manager.addTag(45, this.rowSpacing);
+		manager.add(41, this.scaleFactor.x || 1);
+		manager.add(42, this.scaleFactor.y || 1);
+		manager.add(43, this.scaleFactor.z || 1);
+		manager.add(50, this.rotationAngle);
+		manager.add(70, this.columnCount);
+		manager.add(71, this.rowCount);
+		manager.add(44, this.columnSpacing);
+		manager.add(45, this.rowSpacing);
 		return manager;
 	}
 }

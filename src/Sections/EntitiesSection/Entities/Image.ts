@@ -80,7 +80,7 @@ export default class Image extends Entity {
 		this.imageDisplayFlags =
 			options?.imageDisplayFlags ||
 			ImageDisplayFlags.ShowImage |
-			ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
+				ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
 		this.clippingStateFlag =
 			options?.clippingStateFlag || ImageClippingStateFlag.On;
 		this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside;
@@ -157,27 +157,27 @@ export default class Image extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
-		manager.addTag(90, this.classVersion);
+		manager.push(super.manager.tags);
+		manager.add(90, this.classVersion);
 		manager.point3d(this.insertionPoint);
 		manager.point3d(this._uVector(), 1);
 		manager.point3d(this._vVector(), 2);
-		manager.addTag(13, this.width);
-		manager.addTag(23, this.height);
-		manager.addTag(340, this.imageDefHandle);
-		manager.addTag(70, this.imageDisplayFlags);
-		manager.addTag(280, this.clippingStateFlag);
-		manager.addTag(281, this.brightness);
-		manager.addTag(282, this.contrast);
-		manager.addTag(283, this.fade);
-		manager.addTag(360, this.imageDefReactorHandle);
-		manager.addTag(71, this.clippingType);
-		manager.addTag(91, this.#clipBoundaryVertices.length);
+		manager.add(13, this.width);
+		manager.add(23, this.height);
+		manager.add(340, this.imageDefHandle);
+		manager.add(70, this.imageDisplayFlags);
+		manager.add(280, this.clippingStateFlag);
+		manager.add(281, this.brightness);
+		manager.add(282, this.contrast);
+		manager.add(283, this.fade);
+		manager.add(360, this.imageDefReactorHandle);
+		manager.add(71, this.clippingType);
+		manager.add(91, this.#clipBoundaryVertices.length);
 		this.#clipBoundaryVertices.forEach((vertex) => {
-			manager.addTag(14, vertex.x);
-			manager.addTag(24, vertex.y);
+			manager.add(14, vertex.x);
+			manager.add(24, vertex.y);
 		});
-		manager.addTag(290, this.clipModeFlag);
+		manager.add(290, this.clipModeFlag);
 		return manager;
 	}
 }

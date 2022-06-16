@@ -22,7 +22,7 @@ export default class Line extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(this.startPoint);
 		manager.point3d(this.endPoint, 1);
 		return manager;

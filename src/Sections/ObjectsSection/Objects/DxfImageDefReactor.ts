@@ -13,10 +13,10 @@ export default class DxfImageDefReactor extends DxfObject {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbRasterImageDefReactor');
-		manager.addTag(90, this.classVersion);
-		manager.addTag(330, this.imageHandle);
+		manager.add(90, this.classVersion);
+		manager.add(330, this.imageHandle);
 		return manager;
 	}
 }

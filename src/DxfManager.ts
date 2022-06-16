@@ -120,7 +120,7 @@ export default class DxfManager implements DxfInterface {
 		const dictionary = this.objectsSection.addDictionary();
 
 		dictionary.addEntryObject(name, imageDef.handle);
-		imageDef.ownerObject = dictionary.handle;
+		imageDef.ownerObjecthandle = dictionary.handle;
 		this.objectsSection.rootDictionary.addEntryObject(
 			'ACAD_IMAGE_DICT',
 			dictionary.handle
@@ -139,12 +139,12 @@ export default class DxfManager implements DxfInterface {
 
 	get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.appendTags(this.headerSection);
-		manager.appendTags(this.classesSection);
-		manager.appendTags(this.tablesSection);
-		manager.appendTags(this.blocksSection);
-		manager.appendTags(this.entitiesSection);
-		manager.appendTags(this.objectsSection);
+		manager.append(this.headerSection);
+		manager.append(this.classesSection);
+		manager.append(this.tablesSection);
+		manager.append(this.blocksSection);
+		manager.append(this.entitiesSection);
+		manager.append(this.objectsSection);
 		return manager;
 	}
 }

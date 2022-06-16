@@ -218,7 +218,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.entities.forEach((entity) => {
-			manager.appendTags(entity);
+			manager.append(entity);
 		});
 		return manager;
 	}

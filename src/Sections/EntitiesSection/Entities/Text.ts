@@ -28,9 +28,9 @@ export default class Text extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(this.position);
-		manager.addTag(40, this.height);
+		manager.add(40, this.height);
 		manager.primaryText(this.value);
 		manager.textStyle(this.textStyle);
 		manager.subclassMarker('AcDbText');

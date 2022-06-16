@@ -25,9 +25,9 @@ export default class DxfStyleTable extends DxfTable {
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.styleRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.styleRecords.forEach((styleRecord) => {
-			manager.appendTags(styleRecord);
+			manager.append(styleRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;

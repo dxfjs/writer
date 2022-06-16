@@ -44,10 +44,7 @@ export default class LWPolyline extends Entity {
 	elevation: number;
 	thickness: number;
 
-	constructor(
-		vertices: lwPolylineVertex_t[],
-		options?: lwPolylineOptions_t
-	) {
+	constructor(vertices: lwPolylineVertex_t[], options?: lwPolylineOptions_t) {
 		super('LWPOLYLINE', 'AcDbPolyline', options);
 		this.vertices = vertices;
 		this.flags = options?.flags || LWPolylineFlags.None;
@@ -66,9 +63,9 @@ export default class LWPolyline extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
-		manager.addTag(90, this.vertices.length);
-		manager.addTag(70, this.flags || 0);
+		manager.push(super.manager.tags);
+		manager.add(90, this.vertices.length);
+		manager.add(70, this.flags || 0);
 
 		if (
 			!this.vertices.find((vertex) => {
@@ -80,15 +77,15 @@ export default class LWPolyline extends Entity {
 				);
 			})
 		) {
-			manager.addTag(43, this.constantWidth);
+			manager.add(43, this.constantWidth);
 		}
 		manager.elevation(this.elevation);
 		manager.thickness(this.thickness);
 		this.vertices.forEach((vertex) => {
 			manager.point2d(vertex.point);
-			manager.addTag(40, vertex.startingWidth);
-			manager.addTag(41, vertex.endWidth);
-			manager.addTag(42, vertex.bulge);
+			manager.add(40, vertex.startingWidth);
+			manager.add(41, vertex.endWidth);
+			manager.add(42, vertex.bulge);
 		});
 		return manager;
 	}

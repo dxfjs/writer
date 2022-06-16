@@ -25,21 +25,21 @@ export default class DxfLineType extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbLinetypeTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, this.flags);
-		manager.addTag(3, this.descriptive);
-		manager.addTag(72, 65);
-		manager.addTag(73, this.elements.length);
+		manager.add(70, this.flags);
+		manager.add(3, this.descriptive);
+		manager.add(72, 65);
+		manager.add(73, this.elements.length);
 
 		const sum = this.elements.reduce((sum, element) => {
 			return sum + Math.abs(element);
 		}, 0);
-		manager.addTag(40, sum);
+		manager.add(40, sum);
 		this.elements.forEach((element) => {
-			manager.addTag(49, element);
-			manager.addTag(74, 0);
+			manager.add(49, element);
+			manager.add(74, 0);
 		});
 		return manager;
 	}

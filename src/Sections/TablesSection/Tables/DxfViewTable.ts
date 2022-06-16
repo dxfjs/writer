@@ -25,9 +25,9 @@ export default class DxfViewTable extends DxfTable {
 	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.viewRecords.forEach((viewRecord) => {
-			manager.appendTags(viewRecord);
+			manager.append(viewRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;

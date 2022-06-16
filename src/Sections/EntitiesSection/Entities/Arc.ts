@@ -28,12 +28,12 @@ export default class Arc extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(this.center);
-		manager.addTag(40, this.radius);
+		manager.add(40, this.radius);
 		manager.subclassMarker('AcDbArc');
-		manager.addTag(50, this.startAngle);
-		manager.addTag(51, this.endAngle);
+		manager.add(50, this.startAngle);
+		manager.add(51, this.endAngle);
 		return manager;
 	}
 }

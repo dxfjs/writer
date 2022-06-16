@@ -39,20 +39,20 @@ export default class DxfImageDef extends DxfObject {
 	override get manager(): TagsManager {
 		// TODO Need a dynamic way
 		const definedApp = new DxfDefinedApplication('ACAD_REACTORS');
-		definedApp.addTag(330, this.acadImageDicId);
+		definedApp.add(330, this.acadImageDicId);
 		this.imageReactorIds.forEach((id) => {
-			definedApp.addTag(330, id);
+			definedApp.add(330, id);
 		});
 
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
-		manager.appendTags(definedApp);
+		manager.push(super.manager.tags);
+		manager.append(definedApp);
 		manager.subclassMarker('AcDbRasterImageDef');
-		manager.addTag(1, this.path);
+		manager.add(1, this.path);
 		manager.point2d(point2d(this.width, this.height));
 		manager.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
-		manager.addTag(280, Number(this.loaded));
-		manager.addTag(281, this.resolutionUnits);
+		manager.add(280, Number(this.loaded));
+		manager.add(281, this.resolutionUnits);
 		return manager;
 	}
 }

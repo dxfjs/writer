@@ -16,10 +16,10 @@ export default class DxfAppId extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbRegAppTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, this.flags);
+		manager.add(70, this.flags);
 		return manager;
 	}
 }
