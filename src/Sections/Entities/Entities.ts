@@ -8,7 +8,7 @@ import Circle from './Entities/Circle';
 import Spline from './Entities/Spline';
 import Ellipse from './Entities/Ellipse';
 import Tag from '../../Internals/Tag';
-import Polyline from './Entities/Polyline';
+import Polyline, { PolylineOptions } from './Entities/Polyline';
 import Polyline3D from './Entities/Polyline3D';
 import DXFManager from '../../Internals/DXFManager';
 
@@ -72,9 +72,10 @@ export default class Entities extends DXFManager {
 
     public addPolyline(
         points: number[][],
-        flag: PolylineFlags = PolylineFlags.Default
+        flag: PolylineFlags = PolylineFlags.Default,
+        options: PolylineOptions = {}
     ) {
-        this._polylines.push(new Polyline(points, flag));
+        this._polylines.push(new Polyline(points, flag, options));
     }
 
     public addPolyline3D(points: number[][], flag: number) {

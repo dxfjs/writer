@@ -6,6 +6,7 @@ import Classes from './Sections/Classes/Classes';
 import Objects from './Sections/Objects/Objects';
 import Entities from './Sections/Entities/Entities';
 import { PolylineFlags, SplineFlags } from './Sections/Entities/Entity';
+import { PolylineOptions } from './Sections/Entities/Entities/Polyline';
 
 export default class DXFWriter extends DXFManager {
     private header: Header;
@@ -170,8 +171,8 @@ export default class DXFWriter extends DXFManager {
      *
      * @returns {DXFWriter} return the instance of DXFWriter.
      */
-    public addPolyline(points: number[][], flag: PolylineFlags): DXFWriter {
-        this.entities.addPolyline(points, flag);
+    public addPolyline(points: number[][], flag: PolylineFlags, options?: PolylineOptions): DXFWriter {
+        this.entities.addPolyline(points, flag, options);
         return this;
     }
 
