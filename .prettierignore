@@ -10,3 +10,4 @@ lib
 .github
 .circleci
 docs
+pnpm-lock.yaml
