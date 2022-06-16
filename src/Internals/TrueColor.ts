@@ -1,5 +1,4 @@
 export default class TrueColor {
-
 	static fromHex(hex: string) {
 		if (hex.startsWith('#')) hex = hex.replace('#', '');
 		return parseInt(hex, 16);
