@@ -1,26 +1,15 @@
-import { createGroupCode, tag } from './TagsManager';
-
 export default class TrueColor {
-	private _color: number;
 
-	public get color(): number {
-		return this._color;
+	static fromHex(hex: string) {
+		if (hex.startsWith('#')) hex = hex.replace('#', '');
+		return parseInt(hex, 16);
 	}
 
-	public trueColorTag(lastDigit = 0) {
-		return tag(createGroupCode(42, lastDigit), this.color);
-	}
-
-	public constructor(hexColor: string) {
-		this._color = parseInt(`00${hexColor.replace('#', '')}`, 16);
-	}
-
-	static rgbToHex(r: number, g: number, b: number) {
-		return [r, g, b]
-			.map((component) => {
-				const hex = component.toString(16);
-				return hex.length === 1 ? `0${hex}` : hex;
-			})
-			.join('');
+	static fromRGB(r: number, g: number, b: number) {
+		const hex = [r, g, b].reduce((acc, c) => {
+			const h = c.toString(16);
+			return `${acc}${h.length === 1 ? '0' + h : h}`;
+		}, '0x00');
+		return TrueColor.fromHex(hex);
 	}
 }
