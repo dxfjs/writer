@@ -23,22 +23,37 @@ import Text from './Entities/Text';
 import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
+import Hatch, {
+	HatchBoundaryPath,
+	HatchOptions_t,
+	HatchPredefinedPatterns,
+} from './Entities/Hatch';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
 	readonly handle: string;
 
-	public constructor() {
+	constructor() {
 		this.handle = Handle.next();
 	}
 
-	public addEntity<T extends Entity>(entity: T): T {
+	addHatch(
+		patternName: HatchPredefinedPatterns,
+		boundaryPath: HatchBoundaryPath,
+		options?: HatchOptions_t
+	) {
+		const hatch = new Hatch(patternName, options);
+		hatch.boundaryPath = boundaryPath;
+		return this.addEntity(hatch);
+	}
+
+	addEntity<T extends Entity>(entity: T): T {
 		entity.ownerBlockRecord = this.handle;
 		this.entities.push(entity);
 		return entity;
 	}
 
-	public addLine(
+	addLine(
 		startPoint: point3d_t,
 		endPoint: point3d_t,
 		options?: options_t
@@ -46,14 +61,14 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
-	public addLWPolyline(
+	addLWPolyline(
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t
 	) {
 		return this.addEntity(new LWPolyline(points, options));
 	}
 
-	public addRectangle(
+	addRectangle(
 		topLeft: point2d_t,
 		bottomRight: point2d_t,
 		options: rectangleOptions_t = {}
@@ -102,14 +117,14 @@ export default abstract class EntitiesManager implements DxfInterface {
 		});
 	}
 
-	public addPolyline3D(
+	addPolyline3D(
 		points: (point3d_t | point2d_t)[],
 		options?: polylineOptions_t
 	): void {
 		this.addEntity(new Polyline(points, options));
 	}
 
-	public addPoint(
+	addPoint(
 		x: number,
 		y: number,
 		z: number,
@@ -118,7 +133,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	public addCircle(
+	addCircle(
 		center: point3d_t,
 		radius: number,
 		options?: options_t
@@ -126,7 +141,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
-	public addArc(
+	addArc(
 		center: point3d_t,
 		radius: number,
 		startAngle: number,
@@ -138,11 +153,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 		);
 	}
 
-	public addSpline(splineArgs: SplineArgs_t, options?: options_t): Spline {
+	addSpline(splineArgs: SplineArgs_t, options?: options_t): Spline {
 		return this.addEntity(new Spline(splineArgs, options));
 	}
 
-	public addEllipse(
+	addEllipse(
 		center: point3d_t,
 		endPointOfMajorAxis: point3d_t,
 		ratioOfMinorAxisToMajorAxis: number,
@@ -162,7 +177,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return ellipse;
 	}
 
-	public add3dFace(
+	add3dFace(
 		firstCorner: point3d_t,
 		secondCorner: point3d_t,
 		thirdCorner: point3d_t,
@@ -180,7 +195,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		);
 	}
 
-	public addText(
+	addText(
 		firstAlignementPoint: point3d_t,
 		height: number,
 		value: string,
@@ -191,7 +206,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		);
 	}
 
-	public addInsert(
+	addInsert(
 		blockName: string,
 		insertionPoint: point3d_t,
 		options?: insertOptions_t
@@ -201,21 +216,21 @@ export default abstract class EntitiesManager implements DxfInterface {
 		);
 	}
 
-	public boundingBox(): boundingBox_t {
+	boundingBox(): boundingBox_t {
 		return BoundingBox.boundingBox(
 			this.entities.map((enity) => enity.boundingBox())
 		);
 	}
 
-	public centerView(): point3d_t {
+	centerView(): point3d_t {
 		return BoundingBox.boundingBoxCenter(this.boundingBox());
 	}
 
-	public viewHeight(): number {
+	viewHeight(): number {
 		return BoundingBox.boundingBoxHeight(this.boundingBox());
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.entities.forEach((entity) => {
 			manager.append(entity);
@@ -223,7 +238,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }
