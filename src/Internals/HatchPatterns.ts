@@ -15,6 +15,10 @@ export class HatchPattern implements DxfInterface {
 	patternsData: HatchPatternData_t[];
 	scale: number;
 
+	set angle(angle: number) {
+		this.patternsData.forEach(p => p.lineAngle = angle)
+	}
+
 	constructor(name: string) {
 		this.name = name;
 		this.patternsData = [];
@@ -31,6 +35,7 @@ export class HatchPattern implements DxfInterface {
 
 	get manager(): TagsManager {
 		const manager = new TagsManager();
+		manager.add(78, this.patternsData.length)
 		this.patternsData.forEach((p) => {
 			manager.add(53, p.lineAngle);
 			manager.add(43, p.x);
