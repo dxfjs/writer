@@ -14,8 +14,9 @@ import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 import {
 	HatchBoundaryPath,
+	HatchGradientOptions_t,
 	HatchOptions_t,
-	HatchPredefinedPatterns,
+	HatchPatternOptions_t,
 } from './Sections/EntitiesSection/Entities/Hatch';
 import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
@@ -64,13 +65,13 @@ export default class DxfWriter {
 	}
 
 	public addHatch(
-		patternName: HatchPredefinedPatterns,
 		boundaryPath: HatchBoundaryPath,
+		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
 	) {
 		DxfEntitiesSection.getInstance().modelSpace.addHatch(
-			patternName,
 			boundaryPath,
+			fill,
 			options
 		);
 	}

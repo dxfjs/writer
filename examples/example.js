@@ -1,7 +1,7 @@
 import DxfWriter, {
-	HatchPredefinedPatterns,
 	HatchBoundaryPath,
 	HatchPolylineBoundary,
+	GradientType,
 } from '../lib';
 import * as fs from 'fs';
 
@@ -26,9 +26,17 @@ polylineBoundary.add({
 	y: 0,
 });
 boundary.setPolylineBoundary(polylineBoundary);
-dxf.addHatch(HatchPredefinedPatterns.ACAD_ISO02W100, boundary, {
-	scale: 120,
-});
+dxf.addHatch(
+	boundary,
+	{
+		firstColor: 5,
+		secondColor: 7,
+		type: GradientType.CYLINDER,
+	},
+	{
+		scale: 120,
+	}
+);
 
 fs.writeFileSync('examples/example.dxf', dxf.stringify());
 console.log('Exec!!');

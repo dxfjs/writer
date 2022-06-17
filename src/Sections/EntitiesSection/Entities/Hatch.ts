@@ -1,10 +1,12 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { aciHex } from '../../../Internals/Colors';
 import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
 import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TagsManager, {
     point2d_t,
     point3d,
 } from '../../../Internals/TagsManager';
+import TrueColor from '../../../Internals/TrueColor';
 import Entity, { options_t } from '../Entity';
 
 export enum HatchPredefinedPatterns {
@@ -93,37 +95,11 @@ export enum HatchPredefinedPatterns {
     ZIGZAG = 'ZIGZAG',
 }
 
-export enum SolidFillFlag {
-    SolidFill = 1,
-    PatternFill = 0,
-}
-
-export enum AssociativityFlag {
-    NonAssociative = 0,
-    Associative = 1,
-}
-
-export enum HatchStyle {
-    Normal = 0,
-    Outer = 1,
-    Ignore = 2,
-}
-
 export enum HatchPatternType {
     UserDefined = 0,
     Predifined = 1,
     Custom = 2,
 }
-
-export type HatchOptions_t = options_t & {
-    elevation?: number;
-    fillFlag?: SolidFillFlag;
-    associativityFlag?: AssociativityFlag;
-    hatchStyle?: HatchStyle;
-    patternType?: HatchPatternType;
-    angle?: number
-    scale?: number;
-};
 
 export type HatchPolylineVertex_t = {
     x: number;
@@ -204,7 +180,7 @@ export class HatchBoundaryPath implements DxfInterface {
 
     get manager(): TagsManager {
         const manager = new TagsManager();
-        manager.add(92, this.pathTypeFlag)
+        manager.add(92, this.pathTypeFlag);
         if (
             this.polylineBoundary &&
             (this.pathTypeFlag & PathTypeFlag.Polyline) == PathTypeFlag.Polyline
@@ -219,7 +195,7 @@ export class HatchBoundaryPath implements DxfInterface {
         } else {
             throw new Error('The boundary path is empty!');
         }
-        manager.add(97, 0)
+        manager.add(97, 0);
         return manager;
     }
 }
@@ -321,32 +297,117 @@ export class HatchEdgesTypeData implements DxfInterface {
     }
 }
 
+export enum SolidFillFlag {
+    SolidFill = 1,
+    PatternFill = 0,
+}
+
+export enum AssociativityFlag {
+    NonAssociative = 0,
+    Associative = 1,
+}
+
+export enum HatchStyle {
+    Normal = 0,
+    Outer = 1,
+    Ignore = 2,
+}
+
+export type HatchPatternOptions_t = {
+    name: HatchPredefinedPatterns;
+    angle?: number;
+    scale?: number;
+    double?: boolean;
+};
+
+export enum GradientType {
+    LINEAR = 'LINEAR',
+    CYLINDER = 'CYLINDER',
+    INVCYLINDER = 'INVCYLINDER',
+    SPHERICAL = 'SPHERICAL',
+    HEMISPHERICAL = 'HEMISPHERICAL',
+    CURVED = 'CURVED',
+    INVSPHERICAL = 'SPHERICAL',
+    INVHEMISPHERICAL = 'INVHEMISPHERICAL',
+    INVCURVED = 'INVCURVED',
+}
+
+export type HatchGradientOptions_t = {
+    firstColor: number;
+    secondColor?: number;
+    angle?: number;
+    definition?: number;
+    tint?: number;
+    type?: GradientType;
+};
+
+export type HatchOptions_t = options_t & {
+    elevation?: number;
+};
+
 export default class Hatch extends Entity {
-    patternName: HatchPredefinedPatterns;
+    fill: HatchPatternOptions_t | HatchGradientOptions_t;
     elevation: number;
-    fillFlag: SolidFillFlag;
-    associativityFlag: AssociativityFlag;
-    hatchStyle: HatchStyle;
-    patternType: HatchPatternType;
-    scale: number;
-    boundaryPath: HatchBoundaryPath;
-    angle: number
+    readonly boundaryPath: HatchBoundaryPath;
 
     constructor(
-        patternName: HatchPredefinedPatterns,
+        boundaryPath: HatchBoundaryPath,
+        fill: HatchPatternOptions_t | HatchGradientOptions_t,
         options?: HatchOptions_t
     ) {
         super('HATCH', 'AcDbHatch', options);
-        this.patternName = patternName;
+        this.fill = fill;
         this.elevation = options?.elevation || 0;
-        this.fillFlag = options?.fillFlag || SolidFillFlag.PatternFill;
-        this.associativityFlag =
-            options?.associativityFlag || AssociativityFlag.Associative;
-        this.hatchStyle = options?.hatchStyle || HatchStyle.Outer;
-        this.patternType = HatchPatternType.Predifined;
-        this.scale = options?.scale || 1;
-        this.boundaryPath = new HatchBoundaryPath();
-        this.angle = options?.angle || 0
+        this.boundaryPath = boundaryPath;
+    }
+
+    private pattern(fill: HatchPatternOptions_t) {
+        const name = fill.name;
+        const angle = fill.angle ?? 0;
+        const scale = fill.scale || 1;
+        const double = fill.double || false;
+        const manager = new TagsManager();
+        manager.add(52, angle);
+        manager.add(41, scale);
+        manager.add(77, Number(double));
+        const pattern = PredefinedHatchPatterns.get(name);
+        if (pattern) {
+            pattern.scale = scale;
+            if (angle !== 0) pattern.angle = angle;
+            manager.append(pattern);
+        }
+        return manager;
+    }
+
+    private gradient(fill: HatchGradientOptions_t) {
+        const firstColor = fill.firstColor;
+        const secondColor = fill.secondColor ?? 7;
+        const angle = fill.angle ?? 0;
+        const definition = fill.definition || 0;
+        const tint = fill.tint ?? 1;
+        const type = fill.type || GradientType.LINEAR;
+        const manager = new TagsManager();
+        manager.add(450, 1);
+        manager.add(451, 0);
+        manager.add(460, angle);
+        manager.add(461, definition);
+        manager.add(452, fill.secondColor ? 0 : 1);
+        manager.add(462, tint);
+        manager.add(453, 2);
+        manager.add(463, 0);
+        manager.add(63, firstColor);
+        manager.add(421, TrueColor.fromHex(aciHex(firstColor)))
+        manager.add(463, 1);
+        manager.add(63, secondColor);
+        manager.add(421, TrueColor.fromHex(aciHex(secondColor)))
+        manager.add(470, type);
+        return manager;
+    }
+
+    private isPattern(
+        fill: HatchPatternOptions_t | HatchGradientOptions_t
+    ): fill is HatchPatternOptions_t {
+        return Object.hasOwn(fill, 'name');
     }
 
     override boundingBox(): boundingBox_t {
@@ -357,27 +418,29 @@ export default class Hatch extends Entity {
         const manager = new TagsManager();
         manager.push(super.manager.tags);
         manager.point3d(point3d(0, 0, this.elevation));
-        manager.add(210, 0)
-        manager.add(220, 0)
-        manager.add(230, 1)
-        manager.name(this.patternName);
-        manager.add(70, this.fillFlag);
-        manager.add(71, this.associativityFlag);
-        manager.add(91, 1) // TODO
+        manager.add(210, 0);
+        manager.add(220, 0);
+        manager.add(230, 1);
+        manager.name(HatchPredefinedPatterns.SOLID);
+        manager.add(
+            70,
+            this.isPattern(this.fill)
+                ? SolidFillFlag.PatternFill
+                : SolidFillFlag.SolidFill
+        );
+        manager.add(71, AssociativityFlag.NonAssociative);
+        manager.add(91, 1); // TODO
         manager.append(this.boundaryPath);
-        manager.add(75, this.hatchStyle);
-        manager.add(76, this.patternType);
-        manager.add(52, this.angle);
-        manager.add(41, this.scale);
-        manager.add(77, 0)
-        const pattern = PredefinedHatchPatterns.get(this.patternName)
-        if (pattern) {
-            pattern.scale = this.scale
-            if (this.angle !== 0) pattern.angle = this.angle
-            manager.append(pattern)
-        }
-        manager.add(47, 20)
-        manager.add(98, 0)
+        manager.add(75, HatchStyle.Outer);
+        manager.add(76, HatchPatternType.Predifined);
+        manager.add(47, 20);
+        manager.add(98, 0);
+        if (this.isPattern(this.fill))
+            manager.push(this.pattern(this.fill).tags);
+        else manager.push(this.gradient(this.fill).tags);
+
+
+
         return manager;
     }
 }

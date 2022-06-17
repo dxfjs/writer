@@ -25,8 +25,9 @@ import Handle from '../../Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
 import Hatch, {
 	HatchBoundaryPath,
+	HatchGradientOptions_t,
 	HatchOptions_t,
-	HatchPredefinedPatterns,
+	HatchPatternOptions_t,
 } from './Entities/Hatch';
 
 export default abstract class EntitiesManager implements DxfInterface {
@@ -38,12 +39,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	addHatch(
-		patternName: HatchPredefinedPatterns,
 		boundaryPath: HatchBoundaryPath,
+		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
 	) {
-		const hatch = new Hatch(patternName, options);
-		hatch.boundaryPath = boundaryPath;
+		const hatch = new Hatch(boundaryPath, fill, options);
 		return this.addEntity(hatch);
 	}
 
