@@ -61,10 +61,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
-	addLWPolyline(
-		points: lwPolylineVertex_t[],
-		options: lwPolylineOptions_t
-	) {
+	addLWPolyline(points: lwPolylineVertex_t[], options: lwPolylineOptions_t) {
 		return this.addEntity(new LWPolyline(points, options));
 	}
 
@@ -124,20 +121,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 		this.addEntity(new Polyline(points, options));
 	}
 
-	addPoint(
-		x: number,
-		y: number,
-		z: number,
-		options?: options_t
-	): Point {
+	addPoint(x: number, y: number, z: number, options?: options_t): Point {
 		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	addCircle(
-		center: point3d_t,
-		radius: number,
-		options?: options_t
-	): Circle {
+	addCircle(center: point3d_t, radius: number, options?: options_t): Circle {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
