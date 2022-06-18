@@ -1,6 +1,6 @@
 {
 	"name": "@tarikjabiri/dxf",
-	"version": "2.0.0-alpha3",
+	"version": "2.0.0-rc",
 	"description": "A JavaScript interface to Dxf written in TypeScript.",
 	"main": "lib/index.js",
 	"typings": "lib/index.d.ts",
@@ -14,10 +14,8 @@
 		"build": "rollup -c",
 		"example": "node --experimental-specifier-resolution=node examples/example.js",
 		"docs": "cd www && pnpm build --out-dir ../docs && cd ..",
-		"lint": "eslint src",
-		"lint:fix": "eslint src --fix",
-		"prettier:check": "prettier --check .",
-		"prettier:write": "prettier --write ."
+		"lint": "eslint src --fix",
+		"prettier": "prettier --write ."
 	},
 	"files": [
 		"lib/**/*"
