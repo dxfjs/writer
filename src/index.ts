@@ -21,8 +21,8 @@ export * from './Sections/EntitiesSection/Entities/Face';
 export * from './Sections/EntitiesSection/Entities/Image';
 export * from './Sections/EntitiesSection/Entities/Insert';
 export * from './Functions';
-export * from './Internals/HatchPatterns'
-export * from './Sections/EntitiesSection/Entities/Hatch'
+export * from './Internals/HatchPatterns';
+export * from './Sections/EntitiesSection/Entities/Hatch';
 
 export { DxfTablesSection };
 export default DxfWriter;
