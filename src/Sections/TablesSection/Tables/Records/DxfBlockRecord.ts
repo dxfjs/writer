@@ -24,7 +24,7 @@ export default class DxfBlockRecord extends DxfRecord {
 		manager.add(340, this.layoutObject);
 		manager.add(70, this.insertionUnits);
 		manager.add(280, this.explodability);
-		manager.add(280, this.scalability);
+		manager.add(281, this.scalability);
 		return manager;
 	}
 }
