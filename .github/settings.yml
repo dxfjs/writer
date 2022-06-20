@@ -1,2 +1,3 @@
 # Select the right one from: https://github.com/habx/devops-repo-shared-configs/tree/dev/github-settings
+# last_update: 2022-06-08
 _extends: devops-repo-shared-configs:github-settings/global.yml
