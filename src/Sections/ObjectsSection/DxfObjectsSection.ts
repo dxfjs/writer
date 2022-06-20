@@ -4,24 +4,19 @@ import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfObjects implements DxfInterface {
-	static #instance: DxfObjects;
 	rootDictionary: DxfDictionary = new DxfDictionary();
 
 	objects: DxfObject[] = [];
 
-	private constructor() {
+	constructor() {
 		this.rootDictionary.duplicateRecordCloningFlag = 1;
 		const dic = this.addDictionary();
 
 		this.rootDictionary.addEntryObject('ACAD_GROUP', dic.handle);
 	}
 
-	static getInstance(): DxfObjects {
-		if (!this.#instance) this.#instance = new DxfObjects();
-		return this.#instance;
-	}
 
-	addObject<T extends DxfObject>(object: T): T {
+	public addObject<T extends DxfObject>(object: T): T {
 		this.objects.push(object);
 		return object;
 	}

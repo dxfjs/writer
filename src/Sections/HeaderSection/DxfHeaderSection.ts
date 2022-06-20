@@ -3,13 +3,7 @@ import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 
 export default class DxfHeaderSection implements DxfInterface {
-	static #instance: DxfHeaderSection;
 	readonly variables: DxfVariable[] = [];
-
-	static getInstance(): DxfHeaderSection {
-		if (!this.#instance) this.#instance = new DxfHeaderSection();
-		return this.#instance;
-	}
 
 	setVariable(name: string, values: values_t) {
 		const variable = this.variables.find((v) => v.name === name);

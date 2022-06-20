@@ -3,20 +3,14 @@ import DxfAppId from './Records/DxfAppId';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class AppIdTable extends DxfTable {
-	static #instance: AppIdTable;
 	readonly _appIdRecords: DxfAppId[] = [];
 
 	get appIdRecords(): DxfAppId[] {
 		return this._appIdRecords;
 	}
 
-	private constructor() {
+	constructor() {
 		super('APPID');
-	}
-
-	static getInstance(): AppIdTable {
-		if (!this.#instance) this.#instance = new AppIdTable();
-		return this.#instance;
 	}
 
 	addAppId(name: string, flags?: number) {

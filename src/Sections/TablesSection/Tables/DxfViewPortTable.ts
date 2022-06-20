@@ -3,20 +3,14 @@ import DxfViewPort from './Records/DxfViewPort';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewPortTable extends DxfTable {
-	private static _instance: DxfViewPortTable;
 	private readonly _viewPortRecords: DxfViewPort[] = [];
 
 	public get viewPortRecords(): DxfViewPort[] {
 		return this._viewPortRecords;
 	}
 
-	private constructor() {
+	constructor() {
 		super('VPORT');
-	}
-
-	public static getInstance(): DxfViewPortTable {
-		if (!this._instance) this._instance = new DxfViewPortTable();
-		return this._instance;
 	}
 
 	public addViewPort(name: string) {

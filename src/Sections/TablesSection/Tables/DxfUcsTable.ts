@@ -3,16 +3,10 @@ import DxfUcs from './Records/DxfUcs';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfUcsTable extends DxfTable {
-	static #instance: DxfUcsTable;
 	ucsRecords: DxfUcs[] = [];
 
-	private constructor() {
+	constructor() {
 		super('UCS');
-	}
-
-	public static getInstance(): DxfUcsTable {
-		if (!this.#instance) this.#instance = new DxfUcsTable();
-		return this.#instance;
 	}
 
 	public addUcs(name: string) {

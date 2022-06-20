@@ -3,16 +3,10 @@ import DxfLineType from './Records/DxfLineType';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfLineTypeTable extends DxfTable {
-	static #instance: DxfLineTypeTable;
 	readonly lineTypeRecords: DxfLineType[] = [];
 
-	private constructor() {
+	constructor() {
 		super('LTYPE');
-	}
-
-	static getInstance(): DxfLineTypeTable {
-		if (!this.#instance) this.#instance = new DxfLineTypeTable();
-		return this.#instance;
 	}
 
 	exist(name: string): boolean {

@@ -3,17 +3,11 @@ import TagsManager from '../../../Internals/TagsManager';
 import DxfTable from '../DxfTable';
 
 export default class DxfDimStyleTable extends DxfTable {
-	static #instance: DxfDimStyleTable;
 	readonly dimStyleRecords: DxfDimStyle[] = [];
 
-	private constructor() {
+	constructor() {
 		super('DIMSTYLE');
 		this.ownerObject = '0';
-	}
-
-	static getInstance(): DxfDimStyleTable {
-		if (!this.#instance) this.#instance = new DxfDimStyleTable();
-		return this.#instance;
 	}
 
 	override get manager(): TagsManager {

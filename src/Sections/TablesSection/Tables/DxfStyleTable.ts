@@ -3,16 +3,10 @@ import DxfStyle from './Records/DxfStyle';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfStyleTable extends DxfTable {
-	static #instance: DxfStyleTable;
 	styleRecords: DxfStyle[] = [];
 
-	private constructor() {
+	constructor() {
 		super('STYLE');
-	}
-
-	static getInstance(): DxfStyleTable {
-		if (!this.#instance) this.#instance = new DxfStyleTable();
-		return this.#instance;
 	}
 
 	addStyle(name: string, flags?: number): DxfStyle {
