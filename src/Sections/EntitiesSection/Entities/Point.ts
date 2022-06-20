@@ -20,7 +20,7 @@ export default class Point extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(point3d(this.x, this.y, this.z));
 		return manager;
 	}

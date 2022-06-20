@@ -76,18 +76,18 @@ export default class Spline extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
-		manager.addTag(70, this.flags);
-		manager.addTag(71, this.degreeCurve);
-		manager.addTag(72, this.knots.length);
-		manager.addTag(73, this.controlPoints.length);
-		manager.addTag(74, this.fitPoints.length);
-		manager.addTag(42, '0.0000001');
-		manager.addTag(43, '0.0000001');
-		manager.addTag(42, '0.0000000001');
+		manager.push(super.manager.tags);
+		manager.add(70, this.flags);
+		manager.add(71, this.degreeCurve);
+		manager.add(72, this.knots.length);
+		manager.add(73, this.controlPoints.length);
+		manager.add(74, this.fitPoints.length);
+		manager.add(42, '0.0000001');
+		manager.add(43, '0.0000001');
+		manager.add(42, '0.0000000001');
 
 		this.knots.forEach((knot) => {
-			manager.addTag(40, knot);
+			manager.add(40, knot);
 		});
 		this.controlPoints.forEach((point) => {
 			manager.point3d(point);

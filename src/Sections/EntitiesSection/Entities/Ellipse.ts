@@ -33,7 +33,7 @@ export default class Ellipse extends Entity {
 
 		const bigRadius = Math.sqrt(
 			Math.pow(x - (x + xEndPointOfMajorAxis), 2) +
-			Math.pow(y - (y + yEndPointOfMajorAxis), 2)
+				Math.pow(y - (y + yEndPointOfMajorAxis), 2)
 		);
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
@@ -41,12 +41,12 @@ export default class Ellipse extends Entity {
 	override get manager(): TagsManager {
 		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d({ x, y, z });
 		manager.point3d(this.endPointOfMajorAxis, 1);
-		manager.addTag(40, this.ratioOfMinorAxisToMajorAxis);
-		manager.addTag(41, this.startParameter);
-		manager.addTag(42, this.endParameter);
+		manager.add(40, this.ratioOfMinorAxisToMajorAxis);
+		manager.add(41, this.startParameter);
+		manager.add(42, this.endParameter);
 		return manager;
 	}
 }

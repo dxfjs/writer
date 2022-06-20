@@ -29,21 +29,21 @@ export default class DxfBlock extends EntitiesManager {
 		const manager = new TagsManager();
 		manager.entityType('BLOCK');
 		manager.handle(this.handle);
-		manager.addTag(330, this.ownerObject);
+		manager.add(330, this.ownerObject);
 		manager.subclassMarker('AcDbEntity');
 		manager.layerName('0'); // TODO make this dynamic
 		manager.subclassMarker('AcDbBlockBegin');
 		manager.name(this.name);
-		manager.addTag(70, this.blockTypeFlags);
+		manager.add(70, this.blockTypeFlags);
 		manager.point3d(this.basePoint);
 		manager.name(this.name, 3);
-		manager.addTag(1, this.xrefPathName);
+		manager.add(1, this.xrefPathName);
 		if (this.stringifyEntities) {
 			this.entities.forEach((entity) => {
-				manager.appendTags(entity);
+				manager.append(entity);
 			});
 		}
-		manager.appendTags(this.endBlk);
+		manager.append(this.endBlk);
 		return manager.tags;
 	}
 }

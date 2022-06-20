@@ -45,9 +45,9 @@ export default class DxfLineTypeTable extends DxfTable {
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.lineTypeRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.lineTypeRecords.forEach((lineTypeRecord) => {
-			manager.appendTags(lineTypeRecord);
+			manager.append(lineTypeRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;

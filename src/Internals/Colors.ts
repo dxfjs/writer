@@ -1,6 +1,4 @@
-import { rgb_t } from './Utils';
-
-export const colors: [
+const acicolors: [
 	[string, string, string],
 	number,
 	[string, string, string]
@@ -263,28 +261,17 @@ export const colors: [
 	[['FF', 'FF', 'FF'], 255, ['255', '255', '255']],
 ];
 
-export function cc() {
-	colors.map((color) => {
-		const [hex, index, rgb] = color;
-
-		let [hexR, hexG, hexB] = hex;
-		hexR = hexR.length === 1 ? `0${hexR}` : hexR;
-		hexG = hexG.length === 1 ? `0${hexG}` : hexG;
-		hexB = hexB.length === 1 ? `0${hexB}` : hexB;
-		const finalHex = `#${hexR}${hexG}${hexB}`;
-
-		const [r, g, b] = rgb;
-
-		const finalRGB: rgb_t = {
-			r: Number(r),
-			g: Number(g),
-			b: Number(b),
-		};
-
-		return {
-			hex: finalHex,
-			index,
-			rgb: finalRGB,
-		};
+export function aciHex(aci: number) {
+	let color = '';
+	const c = acicolors.find((l) => {
+		const [, _aci] = l;
+		return _aci === aci;
 	});
+	if (c) {
+		const [h] = c;
+		const [f, s, t] = h;
+		color = `${f}${s}${t}`;
+	}
+
+	return color;
 }

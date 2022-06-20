@@ -12,8 +12,15 @@ import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
-import { ImageOptions_t } from './index';
+import {
+	HatchBoundaryPath,
+	HatchGradientOptions_t,
+	HatchOptions_t,
+	HatchPatternOptions_t,
+} from './Sections/EntitiesSection/Entities/Hatch';
+import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
+import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
 
 /**
  * The base class for creating the Dxf content.
@@ -55,6 +62,18 @@ export default class DxfWriter {
 	): this {
 		DxfTablesSection.getInstance().addLineType(name, descriptive, elements);
 		return this;
+	}
+
+	public addHatch(
+		boundaryPath: HatchBoundaryPath,
+		fill: HatchPatternOptions_t | HatchGradientOptions_t,
+		options?: HatchOptions_t
+	) {
+		DxfEntitiesSection.getInstance().modelSpace.addHatch(
+			boundaryPath,
+			fill,
+			options
+		);
 	}
 
 	/**

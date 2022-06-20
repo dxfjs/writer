@@ -2,23 +2,16 @@ import DxfInterface from './Interfaces/DxfInterface';
 import TagsManager, { tag, tag_t } from './TagsManager';
 
 export default class DxfDefinedApplication implements DxfInterface {
-	private readonly _name: string;
-	private readonly _tags: tag_t[] = [];
+	readonly name: string;
+	readonly tags: tag_t[];
 
-	public get name(): string {
-		return this._name;
+	constructor(name: string) {
+		this.name = name;
+		this.tags = [];
 	}
 
-	public get tags(): tag_t[] {
-		return this._tags;
-	}
-
-	public constructor(name: string) {
-		this._name = name;
-	}
-
-	public addTag(groupCode: number, value: string) {
-		this._tags.push(tag(groupCode, value));
+	add(groupCode: number, value: string) {
+		this.tags.push(tag(groupCode, value));
 	}
 
 	stringify(): string {
@@ -27,11 +20,11 @@ export default class DxfDefinedApplication implements DxfInterface {
 
 	get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.addTag(102, `{${this.name}`);
+		manager.add(102, `{${this.name}`);
 		this.tags.forEach((tag) => {
-			manager.pushTag(tag);
+			manager.push(tag);
 		});
-		manager.addTag(102, '}');
+		manager.add(102, '}');
 		return manager;
 	}
 }

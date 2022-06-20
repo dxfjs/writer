@@ -1,4 +1,10 @@
 import DxfManager from './DxfManager';
+import {
+	HatchBoundaryPath,
+	HatchGradientOptions_t,
+	HatchOptions_t,
+	HatchPatternOptions_t,
+} from './Sections/EntitiesSection/Entities/Hatch';
 import { point3d_t } from './Internals/TagsManager';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
@@ -310,6 +316,26 @@ export function addLWPolyline(
 		options
 	);
 }
+
+/**
+ *
+ * @param boundaryPath
+ * @param fill
+ * @param options
+ * @returns
+ */
+export function addHatch(
+	boundaryPath: HatchBoundaryPath,
+	fill: HatchPatternOptions_t | HatchGradientOptions_t,
+	options?: HatchOptions_t
+) {
+	return DxfEntitiesSection.getInstance().modelSpace.addHatch(
+		boundaryPath,
+		fill,
+		options
+	);
+}
+
 //#endregion
 
 //#region Objects

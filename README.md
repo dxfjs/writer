@@ -16,9 +16,11 @@ A Javascript dxf generator, written in Typescript.
 ## Installation
 
 ```bash
-yarn add @tarikjabiri/dxf@2.0.0-alpha
+yarn add @tarikjabiri/dxf@next
 # Or npm
-npm i @tarikjabiri/dxf@2.0.0-alpha
+npm i @tarikjabiri/dxf@next
+# Or pnpm
+pnpm add @tarikjabiri/dxf@next
 ```
 
 ## Getting started

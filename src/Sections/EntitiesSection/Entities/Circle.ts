@@ -18,9 +18,9 @@ export default class Circle extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(this.center);
-		manager.addTag(40, this.radius);
+		manager.add(40, this.radius);
 		return manager;
 	}
 }

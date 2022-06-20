@@ -4,19 +4,19 @@ import TagsManager from '../../Internals/TagsManager';
 export default class DxfClassesSection implements DxfInterface {
 	static #instance: DxfClassesSection;
 
-	public static getInstance(): DxfClassesSection {
+	static getInstance(): DxfClassesSection {
 		if (!this.#instance) this.#instance = new DxfClassesSection();
 		return this.#instance;
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('CLASSES');
 		manager.sectionEnd();
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

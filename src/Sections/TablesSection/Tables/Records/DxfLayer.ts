@@ -22,15 +22,15 @@ export default class DxfLayer extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbLayerTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, this.flags);
+		manager.add(70, this.flags);
 		manager.colorNumber(this.colorNumber);
 		manager.lineType(this.lineType);
-		manager.addTag(370, 0); // TODO Refactor this to be dynamic
-		manager.addTag(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
-		manager.addTag(347, this.materialObject);
+		manager.add(370, 0); // TODO Refactor this to be dynamic
+		manager.add(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
+		manager.add(347, this.materialObject);
 		return manager;
 	}
 }

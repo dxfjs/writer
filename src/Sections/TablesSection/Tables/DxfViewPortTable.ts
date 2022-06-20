@@ -29,9 +29,9 @@ export default class DxfViewPortTable extends DxfTable {
 	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewPortRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.viewPortRecords.forEach((viewPortRecord) => {
-			manager.appendTags(viewPortRecord);
+			manager.append(viewPortRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;

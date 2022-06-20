@@ -48,15 +48,15 @@ export default class DxfTablesSection implements DxfInterface {
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('TABLES');
-		manager.appendTags(this.dxfViewPortTable);
-		manager.appendTags(this.linetypeTable);
-		manager.appendTags(this.layerTable);
-		manager.appendTags(this.styleTable);
-		manager.appendTags(this.viewTable);
-		manager.appendTags(this.ucsTable);
-		manager.appendTags(this.appIdTable);
-		manager.appendTags(this.dimStyleTable);
-		manager.appendTags(this.blockRecordTable);
+		manager.append(this.dxfViewPortTable);
+		manager.append(this.linetypeTable);
+		manager.append(this.layerTable);
+		manager.append(this.styleTable);
+		manager.append(this.viewTable);
+		manager.append(this.ucsTable);
+		manager.append(this.appIdTable);
+		manager.append(this.dimStyleTable);
+		manager.append(this.blockRecordTable);
 		manager.sectionEnd();
 		return manager;
 	}

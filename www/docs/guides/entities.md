@@ -131,6 +131,97 @@ To define a 3d face with only 3 corners, make the fourth same as the third corne
 
 :::
 
+## `HATCH` entity
+
+The HATCH entity fills an enclosed area defined by one or more boundary paths with a hatch pattern : solid or gradient.
+
+To create a hatch you need to define :
+- A boundary path or multiple.
+	- Polyline path is the simple way
+	- Edges path is the flexible way
+- A hatch pattern solid or gradient.
+
+Define a polyline path :
+```js
+import { HatchPolylineBoundary, vertex } from '@tarikjabiri/dxf'
+
+const polyline = new HatchPolylineBoundary();
+polyline.add(vertex(0, 0));
+polyline.add(vertex(0, 10000));
+polyline.add(vertex(10000, 10000));
+polyline.add(vertex(10000, 0));
+// You can define a bulge for the vertex also
+polyline.add(vertex(10000, 0, 10));
+
+```
+Define a edges path :
+```js
+import { HatchEdgesTypeData, point2d } from '@tarikjabiri/dxf'
+
+const edges = new HatchEdgesTypeData();
+edges.addLineEdgeData(point2d(0, 0), point2d(0, 10000));
+edges.addLineEdgeData(point2d(0, 10000), point2d(10000, 10000));
+edges.addLineEdgeData(point2d(10000, 10000), point2d(10000, 0));
+edges.addLineEdgeData(point2d(10000, 0), point2d(0, 0));
+// For now LineEdge and ArcEdge are supported
+```
+Create a `HatchBoundaryPath` instance :
+```js
+import { HatchBoundaryPath } from '@tarikjabiri/dxf'
+
+const boundary = new HatchBoundaryPath();
+
+// Add the defined path
+boundary.addPolylineBoundary(polyline); // You can add multiple
+// Or
+boundary.addEdgesTypeData(edges); // You can add multiple
+```
+:::caution
+You can define one type of paths `HatchPolylineBoundary` or `HatchEdgesTypeData`, not both at same time.
+:::
+
+Next you define the fill pattern solid or gradient :
+```js
+import { pattern, gradient, GradientType } from '@tarikjabiri/dxf'
+// Solid
+const mysolid = pattern({
+	name: HatchPredefinedPatterns.STEEL,
+	// Other properties you can define optionally
+	// angle?: number;
+	// scale?: number;
+	// double?: boolean;
+})
+
+// Gradient
+const mygradient = gradient({
+	firstColor: 5,
+	type: GradientType.CYLINDER
+	// Other properties you can define optionally
+	// secondColor?: number;
+    // angle?: number;
+    // definition?: number;
+    // tint?: number;
+})
+
+```
+
+Now you have a boundary path and a fill pattern, you can add the hatch :
+```js
+import DxfWriter, { addHatch } from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+
+// You can call addHatch from dxf object
+dxf.addHatch(boundary, mygradient);
+
+// Or call directly addHatch to store a reference to the hatch object
+const hatch = addHatch(boundary, mygradient);
+
+```
+:::info
+This way you can add only non-associative hatches.
+:::
+
 ## `IMAGE` entity
 
 ```js

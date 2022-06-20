@@ -58,7 +58,7 @@ export default class DxfRecord implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this.entityType);
 		manager.handle(this.handle);
-		manager.addTag(330, this.ownerObject);
+		manager.add(330, this.ownerObject);
 		manager.subclassMarker('AcDbSymbolTableRecord');
 		return manager;
 	}

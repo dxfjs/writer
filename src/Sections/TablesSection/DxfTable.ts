@@ -21,9 +21,9 @@ export default abstract class DxfTable implements DxfInterface {
 		manager.entityType('TABLE');
 		manager.name(this.name);
 		manager.handle(this.handle);
-		manager.addTag(330, this.ownerObject);
+		manager.add(330, this.ownerObject);
 		manager.subclassMarker('AcDbSymbolTable');
-		manager.addTag(70, this.maxNumberEntries);
+		manager.add(70, this.maxNumberEntries);
 		return manager;
 	}
 }
