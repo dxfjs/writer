@@ -1,3 +1,4 @@
+import { describe, expect, it, beforeEach } from 'vitest';
 import { point3d } from '../../../../src/Internals/TagsManager';
 import Arc from '../../../../src/Sections/EntitiesSection/Entities/Arc';
 

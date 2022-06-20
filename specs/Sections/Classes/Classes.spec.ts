@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import DxfClassesSection from '../../../src/Sections/ClassesSection/DxfClassesSection';
 
 describe('Classes', () => {

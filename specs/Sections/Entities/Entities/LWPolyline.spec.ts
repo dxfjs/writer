@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { point2d } from '../../../../src/Internals/TagsManager';
 import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
 

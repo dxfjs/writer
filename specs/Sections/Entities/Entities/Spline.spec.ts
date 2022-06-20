@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { point3d } from '../../../../src/Internals/TagsManager';
 import Spline from '../../../../src/Sections/EntitiesSection/Entities/Spline';
 

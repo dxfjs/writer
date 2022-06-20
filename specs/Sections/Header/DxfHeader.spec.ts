@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import DxfHeaderSection from '../../../src/Sections/HeaderSection/DxfHeaderSection';
 
 describe('DxfHeader class', () => {

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import Point from '../../../../src/Sections/EntitiesSection/Entities/Point';
 
 describe('Point', () => {

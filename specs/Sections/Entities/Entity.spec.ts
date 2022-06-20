@@ -1,3 +1,4 @@
+import { describe, expect, it, beforeEach } from 'vitest';
 import BoundingBox from '../../../src/Internals/BoundingBox';
 import GlobalState from '../../../src/GlobalState';
 import { boundingBox_t } from '../../../src/Internals/BoundingBox';

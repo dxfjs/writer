@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import TagsManager from '../../../src/Internals/TagsManager';
 import DxfVariable from '../../../src/Sections/HeaderSection/DxfVariable';
 

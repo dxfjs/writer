@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import Ellipse from '../../../../src/Sections/EntitiesSection/Entities/Ellipse';
 import { point3d } from '../../../../src/Internals/TagsManager';
 

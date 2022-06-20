@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import Handle from '../../src/Internals/Handle';
 
 describe('Handle class', () => {

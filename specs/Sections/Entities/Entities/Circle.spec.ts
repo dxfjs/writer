@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import Circle from '../../../../src/Sections/EntitiesSection/Entities/Circle';
 import { point3d } from '../../../../src/Internals/TagsManager';
 

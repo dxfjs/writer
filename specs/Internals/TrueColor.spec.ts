@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import TrueColor from '../../src/Internals/TrueColor';
 
 describe('TrueColor class', () => {
