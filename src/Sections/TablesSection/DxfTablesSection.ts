@@ -17,7 +17,6 @@ import DxfDimStyle from './Tables/Records/DxfDimStyle';
 import DxfViewPort from './Tables/Records/DxfViewPort';
 
 export default class DxfTablesSection implements DxfInterface {
-	static #instance: DxfTablesSection;
 	readonly dxfViewPortTable: DxfViewPortTable;
 	readonly linetypeTable: DxfLineTypeTable;
 	readonly layerTable: DxfLayerTable;
@@ -28,21 +27,16 @@ export default class DxfTablesSection implements DxfInterface {
 	readonly dimStyleTable: DxfDimStyleTable;
 	readonly blockRecordTable: DxfBlockRecordTable;
 
-	private constructor() {
-		this.dxfViewPortTable = DxfViewPortTable.getInstance();
-		this.linetypeTable = DxfLineTypeTable.getInstance();
-		this.layerTable = DxfLayerTable.getInstance();
-		this.styleTable = DxfStyleTable.getInstance();
-		this.viewTable = DxfViewTable.getInstance();
-		this.ucsTable = DxfUcsTable.getInstance();
-		this.appIdTable = DxfAppIdTable.getInstance();
-		this.dimStyleTable = DxfDimStyleTable.getInstance();
-		this.blockRecordTable = DxfBlockRecordTable.getInstance();
-	}
-
-	public static getInstance(): DxfTablesSection {
-		if (!this.#instance) this.#instance = new DxfTablesSection();
-		return this.#instance;
+	constructor() {
+		this.dxfViewPortTable = new DxfViewPortTable();
+		this.linetypeTable = new DxfLineTypeTable();
+		this.layerTable = new DxfLayerTable(this.linetypeTable);
+		this.styleTable = new DxfStyleTable();
+		this.viewTable = new DxfViewTable();
+		this.ucsTable = new DxfUcsTable();
+		this.appIdTable = new DxfAppIdTable();
+		this.dimStyleTable = new DxfDimStyleTable();
+		this.blockRecordTable = new DxfBlockRecordTable();
 	}
 
 	public get manager(): TagsManager {

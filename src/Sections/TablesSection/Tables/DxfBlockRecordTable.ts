@@ -4,16 +4,10 @@ import DxfBlockRecord from './Records/DxfBlockRecord';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfBlockRecordTable extends DxfTable {
-	static #instance: DxfBlockRecordTable;
 	readonly blockRecords: BlockRecord[] = [];
 
-	private constructor() {
+	constructor() {
 		super('BLOCK_RECORD');
-	}
-
-	static getInstance(): DxfBlockRecordTable {
-		if (!this.#instance) this.#instance = new DxfBlockRecordTable();
-		return this.#instance;
 	}
 
 	addBlockRecord(name: string) {

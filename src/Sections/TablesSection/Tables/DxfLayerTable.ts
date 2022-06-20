@@ -4,22 +4,18 @@ import TagsManager from '../../../Internals/TagsManager';
 import DxfLineTypeTable from './DxfLineTypeTable';
 
 export default class DxfLayerTable extends DxfTable {
-	static #instance: DxfLayerTable;
 	readonly layerRecords: DxfLayer[] = [];
+	readonly lineTypeTable: DxfLineTypeTable
 
-	private constructor() {
+	constructor(lineTypeTable: DxfLineTypeTable) {
 		super('LAYER');
-	}
-
-	static getInstance(): DxfLayerTable {
-		if (!this.#instance) this.#instance = new DxfLayerTable();
-		return this.#instance;
+		this.lineTypeTable = lineTypeTable
 	}
 
 	addLayer(name: string, color: number, lineType: string, flags?: number) {
 		if (this.exist(name))
 			throw new Error(`The ${name} Layer already exist!`);
-		if (!DxfLineTypeTable.getInstance().exist(lineType))
+		if (!this.lineTypeTable.exist(lineType))
 			throw new Error(`The ${name} LineType doesn't exist!`);
 		const layerRecord = new DxfLayer(name, color, lineType, flags);
 		layerRecord.ownerObject = this.handle;

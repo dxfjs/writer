@@ -17,7 +17,6 @@ import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import DxfViewPort from './Sections/TablesSection/Tables/Records/DxfViewPort';
 
 export default class DxfManager implements DxfInterface {
-	static #instance: DxfManager;
 	readonly headerSection: DxfHeaderSection;
 	readonly classesSection: DxfClassesSection;
 	readonly tablesSection: DxfTablesSection;
@@ -28,13 +27,13 @@ export default class DxfManager implements DxfInterface {
 	readonly modelSpace: DxfBlock;
 	readonly paperSpace: DxfBlock;
 
-	private constructor() {
-		this.headerSection = DxfHeaderSection.getInstance();
-		this.classesSection = DxfClassesSection.getInstance();
-		this.tablesSection = DxfTablesSection.getInstance();
-		this.blocksSection = DxfBlocksSection.getInstance();
-		this.entitiesSection = DxfEntitiesSection.getInstance();
-		this.objectsSection = DxfObjects.getInstance();
+	constructor() {
+		this.headerSection = new DxfHeaderSection();
+		this.classesSection = new DxfClassesSection();
+		this.tablesSection = new DxfTablesSection();
+		this.blocksSection = new DxfBlocksSection(this.tablesSection);
+		this.entitiesSection = new DxfEntitiesSection(this.blocksSection.modelSpace);
+		this.objectsSection = new DxfObjects();
 
 		this.headerSection.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.updateHandle();
@@ -51,11 +50,6 @@ export default class DxfManager implements DxfInterface {
 
 		this.modelSpace = this.blocksSection.modelSpace;
 		this.paperSpace = this.blocksSection.paperSpace;
-	}
-
-	static getInstance(): DxfManager {
-		if (!this.#instance) this.#instance = new DxfManager();
-		return this.#instance;
 	}
 
 	addBlock(name: string) {

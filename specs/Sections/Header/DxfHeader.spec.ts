@@ -1,7 +1,7 @@
 import DxfHeaderSection from '../../../src/Sections/HeaderSection/DxfHeaderSection';
 
 describe('DxfHeader class', () => {
-	const header = DxfHeaderSection.getInstance();
+	const header = new DxfHeaderSection();
 
 	it('Should have zero variable', () => {
 		expect(header.variables.length).toBe(0);
@@ -52,11 +52,5 @@ describe('DxfHeader class', () => {
 		const expected =
 			'  0\nSECTION\n  2\nHEADER\n  9\n$ACADVER\n  1\nAC1027\n  9\n$EXTMAX\n  10\n10\n  20\n20\n  30\n31\n  0\nENDSEC\n';
 		expect(dxfStr).toBe(expected);
-	});
-
-	it('should return the same instance.', () => {
-		const instance1 = DxfHeaderSection.getInstance();
-		const instance2 = DxfHeaderSection.getInstance();
-		expect(instance1).toEqual(instance2);
 	});
 });

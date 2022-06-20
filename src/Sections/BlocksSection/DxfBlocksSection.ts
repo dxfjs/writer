@@ -4,24 +4,20 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfTablesSection from '../TablesSection/DxfTablesSection';
 
 export default class DxfBlocksSection implements DxfInterface {
-	static #instance: DxfBlocksSection;
 	readonly blocks: DxfBlock[] = [];
 	readonly modelSpace: DxfBlock;
 	readonly paperSpace: DxfBlock;
+	readonly tableSection: DxfTablesSection
 
-	private constructor() {
+	constructor(tableSection: DxfTablesSection) {
+		this.tableSection = tableSection;
 		this.modelSpace = this.addBlock('*Model_Space');
 		this.paperSpace = this.addBlock('*Paper_Space');
 		this.modelSpace.stringifyEntities = false;
 	}
 
-	public static getInstance(): DxfBlocksSection {
-		if (!this.#instance) this.#instance = new DxfBlocksSection();
-		return this.#instance;
-	}
-
 	public addBlock(name: string): DxfBlock {
-		const blockRecord = DxfTablesSection.getInstance().addBlockRecord(name);
+		const blockRecord = this.tableSection.addBlockRecord(name);
 		const block = new DxfBlock(name);
 		block.ownerObject = blockRecord.handle;
 		this.blocks.push(block);

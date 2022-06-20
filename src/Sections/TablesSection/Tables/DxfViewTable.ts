@@ -3,16 +3,10 @@ import DxfView, { ViewArgs } from './Records/DxfView';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfViewTable extends DxfTable {
-	static #instance: DxfViewTable;
 	readonly viewRecords: DxfView[] = [];
 
-	private constructor() {
+	constructor() {
 		super('VIEW');
-	}
-
-	public static getInstance(): DxfViewTable {
-		if (!this.#instance) this.#instance = new DxfViewTable();
-		return this.#instance;
 	}
 
 	public addView(args: ViewArgs): DxfView {

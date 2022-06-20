@@ -5,7 +5,6 @@ import DxfWriter, {
 	addEllipse,
 	add3dFace,
 	LWPolylineFlags,
-	DxfTablesSection,
 } from '../lib';
 import * as fs from 'fs';
 
@@ -108,7 +107,7 @@ dxf.addImage(
 	360 - 359.74
 );
 
-DxfTablesSection.getInstance().addView({
+dxf.addView({
 	name: 'testview',
 	backClipping: 0,
 	frontClipping: 0,
