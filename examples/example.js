@@ -2,7 +2,7 @@ import DxfWriter, {
 	HatchBoundaryPath,
 	HatchPolylineBoundary,
 	GradientType,
-} from '../lib';
+} from '../lib/esm/';
 import * as fs from 'fs';
 
 const dxf = new DxfWriter();
@@ -25,7 +25,7 @@ polylineBoundary.add({
 	x: 10000,
 	y: 0,
 });
-boundary.setPolylineBoundary(polylineBoundary);
+boundary.addPolylineBoundary(polylineBoundary);
 dxf.addHatch(
 	boundary,
 	{
