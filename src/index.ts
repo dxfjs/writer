@@ -20,6 +20,8 @@ export * from './Sections/ObjectsSection/Objects/DxfImageDef';
 export * from './Sections/EntitiesSection/Entities/Face';
 export * from './Sections/EntitiesSection/Entities/Image';
 export * from './Sections/EntitiesSection/Entities/Insert';
+export * from './Internals/HatchPatterns';
+export * from './Sections/EntitiesSection/Entities/Hatch';
 
 export { DxfTablesSection };
 export default DxfWriter;

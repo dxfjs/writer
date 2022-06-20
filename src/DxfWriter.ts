@@ -11,7 +11,13 @@ import { rectangleOptions_t } from './Internals/Utils';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
-import { ImageOptions_t } from './index';
+import {
+	HatchBoundaryPath,
+	HatchGradientOptions_t,
+	HatchOptions_t,
+	HatchPatternOptions_t,
+} from './Sections/EntitiesSection/Entities/Hatch';
+import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 
 /**
@@ -59,6 +65,18 @@ export default class DxfWriter {
 	): this {
 		this.manager.tablesSection.addLineType(name, descriptive, elements);
 		return this;
+	}
+
+	public addHatch(
+		boundaryPath: HatchBoundaryPath,
+		fill: HatchPatternOptions_t | HatchGradientOptions_t,
+		options?: HatchOptions_t
+	) {
+		this.manager.modelSpace.addHatch(
+			boundaryPath,
+			fill,
+			options
+		);
 	}
 
 	/**

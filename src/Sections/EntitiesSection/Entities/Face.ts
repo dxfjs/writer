@@ -90,12 +90,12 @@ export default class Face extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.point3d(this.firstCorner);
 		manager.point3d(this.secondCorner, 1);
 		manager.point3d(this.thirdCorner, 2);
 		manager.point3d(this.fourthCorner, 3);
-		manager.addTag(70, this.invisibleEdges);
+		manager.add(70, this.invisibleEdges);
 		return manager;
 	}
 }

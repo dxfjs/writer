@@ -9,7 +9,7 @@ export default class DxfClassesSection implements DxfInterface {
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

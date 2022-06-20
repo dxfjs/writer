@@ -18,7 +18,7 @@ export default class DxfEndBlk implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType('ENDBLK');
 		manager.handle(this.handle);
-		manager.addTag(330, this.ownerObject);
+		manager.add(330, this.ownerObject);
 		manager.subclassMarker('AcDbEntity');
 		manager.layerName('0'); // TODO make this dynamic
 		manager.subclassMarker('AcDbBlockEnd');

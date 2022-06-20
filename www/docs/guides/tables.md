@@ -256,11 +256,23 @@ Is not implemented 😔.
 
 ## `VIEW` record
 
-:::caution
-
-Is not implemented 😔.
-
-:::
+```js
+DxfTablesSection.getInstance().addView({
+	name: 'testview',
+	backClipping: 0,
+	frontClipping: 0,
+	isUCSAssociated: false,
+	lensLength: 50.0,
+	renderMode: 0,
+	targetPoint: point3d(0, 0, 0),
+	twistAngle: 0,
+	viewCenter: point2d(40.36, 15.86),
+	viewDirection: point3d(0, 0, 1),
+	viewHeight: 17.91,
+	viewMode: 0,
+	viewWidth: 20.01,
+});
+```
 
 ## `VPORT` record
 

@@ -18,13 +18,13 @@ export default class DxfBlockRecord extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbBlockTableRecord');
 		manager.name(this.name);
-		manager.addTag(340, this.layoutObject);
-		manager.addTag(70, this.insertionUnits);
-		manager.addTag(280, this.explodability);
-		manager.addTag(280, this.scalability);
+		manager.add(340, this.layoutObject);
+		manager.add(70, this.insertionUnits);
+		manager.add(280, this.explodability);
+		manager.add(281, this.scalability);
 		return manager;
 	}
 }

@@ -61,13 +61,13 @@ export default abstract class Entity implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType(this.type);
 		manager.handle(this.handle);
-		manager.addTag(330, this.ownerBlockRecord);
+		manager.add(330, this.ownerBlockRecord);
 		manager.subclassMarker('AcDbEntity');
-		manager.addTag(420, this.options.trueColor);
+		manager.add(420, this.options.trueColor);
 		manager.layerName(this.options.layerName || this.layerName);
 		manager.lineType(this.options.lineType);
 		manager.colorNumber(this.options.colorNumber);
-		manager.addTag(48, this.options.lineTypeScale);
+		manager.add(48, this.options.lineTypeScale);
 		manager.visibilty(this.options.visible);
 		manager.subclassMarker(this.subclassMarker);
 		return manager;

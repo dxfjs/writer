@@ -4,7 +4,8 @@
 /.idea/
 yarn.lock
 package-lock.json
+pnpm-lock.yaml
 examples/example.dxf
 coverage
-
 temp
+www/.pnpm-debug.log

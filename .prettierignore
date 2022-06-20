@@ -10,3 +10,5 @@ lib
 .github
 .circleci
 docs
+dist
+pnpm-lock.yaml

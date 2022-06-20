@@ -15,35 +15,36 @@ export default class DxfObjects implements DxfInterface {
 		this.rootDictionary.addEntryObject('ACAD_GROUP', dic.handle);
 	}
 
+
 	public addObject<T extends DxfObject>(object: T): T {
 		this.objects.push(object);
 		return object;
 	}
 
-	public addDictionary(): DxfDictionary {
+	addDictionary(): DxfDictionary {
 		const dictionary = new DxfDictionary();
-		dictionary.ownerObject = this.rootDictionary.handle;
+		dictionary.ownerObjecthandle = this.rootDictionary.handle;
 		this.addObject(dictionary);
 		return dictionary;
 	}
 
-	public addEntryToRootDictionary(name: string, softOwner: string): void {
+	addEntryToRootDictionary(name: string, softOwner: string): void {
 		this.rootDictionary.addEntryObject(name, softOwner);
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('OBJECTS');
-		manager.appendTags(this.rootDictionary);
+		manager.append(this.rootDictionary);
 		this.objects.forEach((object) => {
-			manager.appendTags(object);
+			manager.append(object);
 		});
 		manager.sectionEnd();
 		manager.entityType('EOF');
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

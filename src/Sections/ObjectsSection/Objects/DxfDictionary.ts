@@ -26,13 +26,13 @@ export default class DxfDictionary extends DxfObject {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbDictionary');
-		manager.addTag(280, this.hardOwnerFlag);
-		manager.addTag(281, this.duplicateRecordCloningFlag);
+		manager.add(280, this.hardOwnerFlag);
+		manager.add(281, this.duplicateRecordCloningFlag);
 		this.entries.forEach((entry) => {
-			manager.addTag(3, entry.name);
-			manager.addTag(350, entry.entryObjectHandle);
+			manager.add(3, entry.name);
+			manager.add(350, entry.entryObjectHandle);
 		});
 		return manager;
 	}

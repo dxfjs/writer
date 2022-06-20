@@ -23,9 +23,9 @@ export default class AppIdTable extends DxfTable {
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.appIdRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.appIdRecords.forEach((appIdRecord) => {
-			manager.appendTags(appIdRecord);
+			manager.append(appIdRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;

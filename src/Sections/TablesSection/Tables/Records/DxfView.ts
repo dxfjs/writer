@@ -69,26 +69,26 @@ export default class DxfView extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbViewTableRecord');
 		manager.name(this.name);
-		manager.addTag(70, 1);
-		manager.addTag(40, this.viewHeight);
+		manager.add(70, 1);
+		manager.add(40, this.viewHeight);
 		manager.point2d(this.viewCenter);
-		manager.addTag(41, this.viewWidth);
+		manager.add(41, this.viewWidth);
 		manager.point3d(this.viewDirection, 1);
 		manager.point3d(this.targetPoint, 2);
-		manager.addTag(42, this.lensLength);
-		manager.addTag(43, this.frontClipping);
-		manager.addTag(44, this.backClipping);
-		manager.addTag(50, this.twistAngle);
-		manager.addTag(71, this.viewMode);
-		manager.addTag(281, this.renderMode);
-		manager.addTag(72, this.isUCSAssociated ? 1 : 0);
-		manager.addTag(73, this.isCameraPlottable ? 1 : undefined);
-		manager.addTag(332, this.backgroundObjectHandle);
-		manager.addTag(334, this.liveSectionObjectHandle);
-		manager.addTag(348, this.visualStyleObjectHandle);
+		manager.add(42, this.lensLength);
+		manager.add(43, this.frontClipping);
+		manager.add(44, this.backClipping);
+		manager.add(50, this.twistAngle);
+		manager.add(71, this.viewMode);
+		manager.add(281, this.renderMode);
+		manager.add(72, this.isUCSAssociated ? 1 : 0);
+		manager.add(73, this.isCameraPlottable ? 1 : undefined);
+		manager.add(332, this.backgroundObjectHandle);
+		manager.add(334, this.liveSectionObjectHandle);
+		manager.add(348, this.visualStyleObjectHandle);
 
 		return manager;
 	}

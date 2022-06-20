@@ -55,15 +55,15 @@ export default class Vertex extends Entity {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		manager.subclassMarker(
 			this.is3d ? 'AcDb3dPolylineVertex' : 'AcDb2dVertex'
 		);
 		manager.point3d(this.vertex);
-		manager.addTag(40, this.startingWidth);
-		manager.addTag(41, this.endWidth);
-		manager.addTag(42, this.bulge);
-		manager.addTag(70, this.flags);
+		manager.add(40, this.startingWidth);
+		manager.add(41, this.endWidth);
+		manager.add(42, this.bulge);
+		manager.add(70, this.flags);
 		return manager;
 	}
 }

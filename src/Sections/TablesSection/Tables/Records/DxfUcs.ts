@@ -11,7 +11,7 @@ export default class DxfUcs extends DxfRecord {
 
 	override get manager(): TagsManager {
 		const manager = new TagsManager();
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		return manager;
 	}
 }

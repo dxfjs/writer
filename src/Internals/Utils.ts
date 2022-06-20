@@ -17,7 +17,6 @@ export type chamfer_t = {
 export type rectangleOptions_t = lwPolylineOptions_t & {
 	chamfer?: chamfer_t;
 	fillet?: number;
-	elevation?: number;
 };
 
 export type rgb_t = {

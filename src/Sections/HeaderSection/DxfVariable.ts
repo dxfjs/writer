@@ -40,7 +40,7 @@ export default class DxfVariable implements DxfInterface {
 		manager.variableName(this.name);
 		Object.entries(this.values).forEach((entry) => {
 			const [groupCode, value] = entry;
-			manager.addTag(parseInt(groupCode), value);
+			manager.add(parseInt(groupCode), value);
 		});
 
 		return manager;

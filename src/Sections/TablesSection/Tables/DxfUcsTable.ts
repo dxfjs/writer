@@ -19,9 +19,9 @@ export default class DxfUcsTable extends DxfTable {
 	public override get manager(): TagsManager {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.ucsRecords.length;
-		manager.pushTags(super.manager.tags);
+		manager.push(super.manager.tags);
 		this.ucsRecords.forEach((ucsRecord) => {
-			manager.appendTags(ucsRecord);
+			manager.append(ucsRecord);
 		});
 		manager.entityType('ENDTAB');
 		return manager;
