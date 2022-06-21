@@ -24,7 +24,7 @@ import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline'
  * The base class for creating the dxf content.
  * @public
  */
-export default class DxfWriter {
+export class DxfWriter {
 	private readonly document: DxfDocument;
 
 	get header() {
