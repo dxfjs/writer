@@ -1,5 +1,5 @@
 import { point2d_t, point3d_t } from './Internals/TagsManager';
-import DxfManager from './DxfManager';
+import DxfDocument from './DxfDocument';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
 import GlobalState from './GlobalState';
 import { options_t } from './Sections/EntitiesSection/Entity';
@@ -12,7 +12,7 @@ import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
 import {
-	HatchBoundaryPath,
+	HatchBoundaryPaths,
 	HatchGradientOptions_t,
 	HatchOptions_t,
 	HatchPatternOptions_t,
@@ -21,17 +21,43 @@ import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 
 /**
- * The base class for creating the Dxf content.
+ * The base class for creating the dxf content.
  * @public
  */
 export default class DxfWriter {
-	private readonly manager: DxfManager
+	private readonly document: DxfDocument;
+
+	get header() {
+		return this.document.header;
+	}
+
+	get tables() {
+		return this.document.tables;
+	}
+
+	get blocks() {
+		return this.document.blocks;
+	}
+
+	get entities() {
+		return this.document.entities;
+	}
+
 	constructor() {
-		this.manager = new DxfManager()
+		this.document = new DxfDocument();
 	}
 
 	/**
-	 * Add a header variable to the Dxf if not exist.
+	 * Add a block to the blocks tables.
+	 * @param name - The block name.
+	 * @returns The added block.
+	 */
+	addBlock(name: string) {
+		return this.document.blocks.addBlock(name);
+	}
+
+	/**
+	 * Add a header variable to the dxf if not exist.
 	 * If exist it will updates values.
 	 *
 	 * @example
@@ -42,45 +68,41 @@ export default class DxfWriter {
 	 * ```
 	 * @param name - The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
 	 * @param values - The values correspanding to the variable.
-	 * @returns Return the current object of DxfWriter.
 	 */
-	public setVariable(name: string, values: values_t): this {
-		this.manager.headerSection.setVariable(name, values);
-		return this;
+	public setVariable(name: string, values: values_t) {
+		this.document.header.setVariable(name, values);
 	}
 
 	/**
-	 * Add a new LineType to the Dxf.
+	 * Add a new LineType to the dxf.
 	 *
 	 * @param name - Name of the lineType.
 	 * @param descriptive - The descriptive of the line ex: __ __ . __ __ .
 	 * @param elements - An array of elements of the pattern. 📝 Need more explications 😭!
 	 *
-	 * @returns Return the current object of DxfWriter.
 	 */
-	public addLineType(
-		name: string,
-		descriptive: string,
-		elements: number[]
-	): this {
-		this.manager.tablesSection.addLineType(name, descriptive, elements);
-		return this;
-	}
-
-	public addHatch(
-		boundaryPath: HatchBoundaryPath,
-		fill: HatchPatternOptions_t | HatchGradientOptions_t,
-		options?: HatchOptions_t
-	) {
-		this.manager.modelSpace.addHatch(
-			boundaryPath,
-			fill,
-			options
-		);
+	public addLType(name: string, descriptive: string, elements: number[]) {
+		return this.document.tables.addLType(name, descriptive, elements);
 	}
 
 	/**
-	 * Add a new Layer to the Dxf.
+	 * Add a Hatch entity to the dxf.
+	 *
+	 * @param boundaryPath - The boundary paths.
+	 * @param fill - The fill aka solid or gradient.
+	 * @param options - The options of the hatch entity.
+	 * @returns The added hatch entity.
+	 */
+	public addHatch(
+		boundaryPath: HatchBoundaryPaths,
+		fill: HatchPatternOptions_t | HatchGradientOptions_t,
+		options?: HatchOptions_t
+	) {
+		return this.document.modelSpace.addHatch(boundaryPath, fill, options);
+	}
+
+	/**
+	 * Add a new Layer to the dxf.
 	 *
 	 * @param name - The name of the layer.
 	 * @param color - The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
@@ -88,45 +110,37 @@ export default class DxfWriter {
 	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public addLayer(
-		name: string,
-		color: number,
-		lineType: string,
-		flags = 0
-	): this {
-		this.manager.tablesSection.addLayer(name, color, lineType, flags);
-		return this;
+	public addLayer(name: string, color: number, lineType: string, flags = 0) {
+		return this.document.tables.addLayer(name, color, lineType, flags);
 	}
 
 	/**
-	 * Set the current layer name of the Dxf.
+	 * Set the current layer name of the dxf.
 	 * @throws
 	 * @param name - The layer name.
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public setCurrentLayerName(name: string): this {
-		this.manager.setCurrentLayerName(name);
-		return this;
+	public setCurrentLayerName(name: string) {
+		this.document.setCurrentLayerName(name);
 	}
 
 	/**
-	 * Set the units of the Dxf.
+	 * Set the units of the dxf.
 	 *
 	 * @throws
 	 * @param units - Use DXFWriter.units to set the unit.
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public setUnits(units: number): this {
+	public setUnits(units: number) {
 		if (Object.values(GlobalState.units).indexOf(units) > -1) {
 			GlobalState.units = units;
 		} else {
 			throw new Error(`The ${units} is not a valid Units.`);
 		}
-		return this;
 	}
 
 	/**
-	 * Add a Line entity to the Dxf.
+	 * Add a Line entity to the dxf.
 	 *
 	 * @param startPoint - The start point of the line.
 	 * @param endPoint - The end point of the line.
@@ -137,17 +151,12 @@ export default class DxfWriter {
 		startPoint: point3d_t,
 		endPoint: point3d_t,
 		options?: options_t
-	): this {
-		this.manager.modelSpace.addLine(
-			startPoint,
-			endPoint,
-			options
-		);
-		return this;
+	) {
+		return this.document.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
 	/**
-	 * Add a LWPolyline entity to the Dxf.
+	 * Add a LWPolyline entity to the dxf.
 	 *
 	 * [Dxf Polyline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3)
 	 *
@@ -162,13 +171,12 @@ export default class DxfWriter {
 	public addLWPolyline(
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t = {}
-	): this {
-		this.manager.modelSpace.addLWPolyline(points, options);
-		return this;
+	) {
+		return this.document.modelSpace.addLWPolyline(points, options);
 	}
 
 	/**
-	 * Add a Rectangle as closed lwpolyline entity to the Dxf.
+	 * Add a Rectangle as closed lwpolyline entity to the dxf.
 	 * In DXF Reference there is no entity called Rectangle or Polygon.
 	 * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
 	 *
@@ -181,17 +189,16 @@ export default class DxfWriter {
 		topLeft: point2d_t,
 		bottomRight: point2d_t,
 		options?: rectangleOptions_t
-	): this {
-		this.manager.modelSpace.addRectangle(
+	) {
+		return this.document.modelSpace.addRectangle(
 			topLeft,
 			bottomRight,
 			options || {}
 		);
-		return this;
 	}
 
 	/**
-	 * Add a 3D Polyline entity to the Dxf.
+	 * Add a 3D Polyline entity to the dxf.
 	 *
 	 * @param points - An array of points.
 	 * @param options - The options to apply to the polyline.
@@ -201,13 +208,12 @@ export default class DxfWriter {
 	public addPolyline3D(
 		points: (point3d_t | point2d_t)[],
 		options?: polylineOptions_t
-	): this {
-		this.manager.modelSpace.addPolyline3D(points, options);
-		return this;
+	) {
+		return this.document.modelSpace.addPolyline3D(points, options);
 	}
 
 	/**
-	 * Add a Point entity to the Dxf.
+	 * Add a Point entity to the dxf.
 	 *
 	 * @param x - The X coordinate of the point.
 	 * @param y - The Y coordinate of the point.
@@ -215,35 +221,24 @@ export default class DxfWriter {
 	 * @param options - The options to apply to the point.
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public addPoint(
-		x: number,
-		y: number,
-		z: number,
-		options?: options_t
-	): this {
-		this.manager.modelSpace.addPoint(x, y, z, options);
-		return this;
+	public addPoint(x: number, y: number, z: number, options?: options_t) {
+		return this.document.modelSpace.addPoint(x, y, z, options);
 	}
 
 	/**
-	 * Add a Circle entity to the Dxf.
+	 * Add a Circle entity to the dxf.
 	 *
 	 * @param center - The center point of the circle.
 	 * @param radius - The radius of the circle.
 	 * @param options - The Circle entity options;
 	 * @returns Return the current object of DxfWriter.
 	 */
-	public addCircle(
-		center: point3d_t,
-		radius: number,
-		options?: options_t
-	): this {
-		this.manager.modelSpace.addCircle(center, radius, options);
-		return this;
+	public addCircle(center: point3d_t, radius: number, options?: options_t) {
+		return this.document.modelSpace.addCircle(center, radius, options);
 	}
 
 	/**
-	 * Add an Arc entity to the Dxf.
+	 * Add an Arc entity to the dxf.
 	 *
 	 * @param center - The center of the arc.
 	 * @param radius - The radius of the arc.
@@ -259,19 +254,18 @@ export default class DxfWriter {
 		startAngle: number,
 		endAngle: number,
 		options?: options_t
-	): this {
-		this.manager.modelSpace.addArc(
+	) {
+		return this.document.modelSpace.addArc(
 			center,
 			radius,
 			startAngle,
 			endAngle,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Add a Spline entity to the Dxf. It's a NURBS.
+	 * Add a Spline entity to the dxf. It's a NURBS.
 	 *
 	 * NURBS, Non-Uniform Rational B-Splines, are mathematical representations of 3D geometry that
 	 * can accurately describe any shape from a simple 2D line, circle, arc, or curve to the most
@@ -285,13 +279,12 @@ export default class DxfWriter {
 	 * @param options - The options of the spline entity.
 	 * @returns
 	 */
-	public addSpline(splineArgs: SplineArgs_t, options?: options_t): this {
-		this.manager.modelSpace.addSpline(splineArgs, options);
-		return this;
+	public addSpline(splineArgs: SplineArgs_t, options?: options_t) {
+		return this.document.modelSpace.addSpline(splineArgs, options);
 	}
 
 	/**
-	 * Add an Ellipse entity to the Dxf.
+	 * Add an Ellipse entity to the dxf.
 	 *
 	 * @param center - The center point of the ellipse.
 	 * @param endPointOfMajorAxis - The end point of major axis, relative to the center of the ellipse.
@@ -307,8 +300,8 @@ export default class DxfWriter {
 		startParameter: number,
 		endParameter: number,
 		options?: options_t
-	): this {
-		this.manager.modelSpace.addEllipse(
+	) {
+		return this.document.modelSpace.addEllipse(
 			center,
 			endPointOfMajorAxis,
 			ratioOfMinorAxisToMajorAxis,
@@ -316,11 +309,10 @@ export default class DxfWriter {
 			endParameter,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Add an Image entity to the Dxf.
+	 * Add an Image entity to the dxf.
 	 * @example
 	 * ```js
 	 * const dxf = new DxfWriter();
@@ -353,7 +345,7 @@ export default class DxfWriter {
 		rotation: number,
 		options?: ImageOptions_t
 	) {
-		this.manager.addImage(
+		return this.document.addImage(
 			imagePath,
 			name,
 			insertionPoint,
@@ -363,11 +355,10 @@ export default class DxfWriter {
 			rotation,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Add a 3D Face entity to the Dxf.
+	 * Add a 3D Face entity to the dxf.
 	 *
 	 * @param firstCorner - The first corner of the 3d face.
 	 * @param secondCorner - The first corner of the 3d face.
@@ -383,19 +374,18 @@ export default class DxfWriter {
 		thirdCorner: point3d_t,
 		fourthCorner: point3d_t,
 		options?: faceOptions_t
-	): this {
-		this.manager.modelSpace.add3dFace(
+	) {
+		return this.document.modelSpace.add3dFace(
 			firstCorner,
 			secondCorner,
 			thirdCorner,
 			fourthCorner,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Add a text entity to the Dxf.
+	 * Add a text entity to the dxf.
 	 * @param firstAlignementPoint - The first alignment point of the text.
 	 * @param height - The text height.
 	 * @param value - The default value (the string itself).
@@ -406,18 +396,17 @@ export default class DxfWriter {
 		height: number,
 		value: string,
 		options?: options_t
-	): this {
-		this.manager.modelSpace.addText(
+	) {
+		return this.document.modelSpace.addText(
 			firstAlignementPoint,
 			height,
 			value,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Add an insert entity to the Dxf.
+	 * Add an insert entity to the dxf.
 	 *
 	 * @param blockName - The name of the block to insert.
 	 * @param insertionPoint - The point where the block is to be inserted.
@@ -428,22 +417,20 @@ export default class DxfWriter {
 		blockName: string,
 		insertionPoint: point3d_t,
 		options?: insertOptions_t
-	): this {
-		this.manager.modelSpace.addInsert(
+	) {
+		return this.document.modelSpace.addInsert(
 			blockName,
 			insertionPoint,
 			options
 		);
-		return this;
 	}
 
 	/**
-	 * Get the content of the Dxf.
+	 * Get the content of the dxf.
 	 *
-	 * @returns Return the Dxf string.
+	 * @returns Return the dxf string.
 	 */
 	public stringify(): string {
-		return this.manager.stringify();
+		return this.document.stringify();
 	}
-
 }

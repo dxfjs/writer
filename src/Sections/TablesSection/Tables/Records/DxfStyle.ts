@@ -1,5 +1,5 @@
 import TagsManager from '../../../../Internals/TagsManager';
-import DxfRecord from './DxfRecord';
+import DxfRecord, { StyleFlags } from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
 	readonly name: string;
@@ -10,12 +10,12 @@ export default class DxfStyle extends DxfRecord {
 	lastHeightUsed = 1;
 	fontFileName = 'txt';
 	bigFontFileName = '';
-	flags: number;
+	flags: StyleFlags;
 
-	constructor(name: string, flags?: number) {
+	constructor(name: string, flags?: StyleFlags) {
 		super('STYLE');
 		this.name = name;
-		this.flags = flags ?? 0;
+		this.flags = flags ?? StyleFlags.None;
 	}
 
 	override get manager(): TagsManager {

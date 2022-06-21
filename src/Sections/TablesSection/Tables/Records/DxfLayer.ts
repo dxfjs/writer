@@ -1,23 +1,25 @@
 import TagsManager from '../../../../Internals/TagsManager';
-import DxfRecord from './DxfRecord';
+import DxfRecord, { LayerFlags } from './DxfRecord';
 
-/**
- * @public
- */
 export default class DxfLayer extends DxfRecord {
 	readonly name: string;
 	colorNumber: number;
 	lineType: string;
-	flags: number;
+	flags: LayerFlags;
 	materialObject?: string;
 
-	constructor(name: string, color: number, lineType: string, flags?: number) {
+	constructor(
+		name: string,
+		color: number,
+		lineType: string,
+		flags?: LayerFlags
+	) {
 		super('LAYER');
 
 		this.name = name;
 		this.colorNumber = color;
 		this.lineType = lineType;
-		this.flags = flags ?? 0;
+		this.flags = flags ?? LayerFlags.None;
 	}
 
 	override get manager(): TagsManager {

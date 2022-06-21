@@ -7,24 +7,24 @@ export default class DxfBlocksSection implements DxfInterface {
 	readonly blocks: DxfBlock[] = [];
 	readonly modelSpace: DxfBlock;
 	readonly paperSpace: DxfBlock;
-	readonly tableSection: DxfTablesSection
+	readonly tables: DxfTablesSection;
 
 	constructor(tableSection: DxfTablesSection) {
-		this.tableSection = tableSection;
+		this.tables = tableSection;
 		this.modelSpace = this.addBlock('*Model_Space');
 		this.paperSpace = this.addBlock('*Paper_Space');
 		this.modelSpace.stringifyEntities = false;
 	}
 
-	public addBlock(name: string): DxfBlock {
-		const blockRecord = this.tableSection.addBlockRecord(name);
+	addBlock(name: string): DxfBlock {
+		const blockRecord = this.tables.addBlockRecord(name);
 		const block = new DxfBlock(name);
-		block.ownerObject = blockRecord.handle;
+		block.ownerObjectHandle = blockRecord.handle;
 		this.blocks.push(block);
 		return block;
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('BLOCKS');
 		manager.push(
@@ -36,7 +36,7 @@ export default class DxfBlocksSection implements DxfInterface {
 		return manager;
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

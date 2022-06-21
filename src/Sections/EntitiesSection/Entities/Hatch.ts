@@ -161,7 +161,7 @@ export enum PathTypeFlag {
 	Outermost = 16,
 }
 
-export class HatchBoundaryPath implements DxfInterface {
+export class HatchBoundaryPaths implements DxfInterface {
 	pathTypeFlag: PathTypeFlag;
 	polylineBoundaries: HatchPolylineBoundary[];
 	edgesTypeDatas: HatchEdgesTypeData[];
@@ -399,10 +399,10 @@ export default class Hatch extends Entity {
 	fill: HatchPatternOptions_t | HatchGradientOptions_t;
 	elevation: number;
 	extrusion: point3d_t;
-	readonly boundaryPath: HatchBoundaryPath;
+	readonly boundaryPath: HatchBoundaryPaths;
 
 	constructor(
-		boundaryPath: HatchBoundaryPath,
+		boundaryPath: HatchBoundaryPaths,
 		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
 	) {

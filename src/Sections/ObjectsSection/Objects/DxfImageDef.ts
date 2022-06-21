@@ -10,8 +10,8 @@ export enum ImageDefResolutionUnits {
 
 export default class DxfImageDef extends DxfObject {
 	readonly path: string;
-	acadImageDicId: string;
-	readonly imageReactorIds: string[];
+	acadImageDictHandle: string;
+	readonly imageReactorHandles: string[];
 	width: number;
 	height: number;
 	widthPixelSize: number;
@@ -22,8 +22,8 @@ export default class DxfImageDef extends DxfObject {
 	constructor(path: string) {
 		super('IMAGEDEF');
 		this.path = path;
-		this.acadImageDicId = '';
-		this.imageReactorIds = [];
+		this.acadImageDictHandle = '';
+		this.imageReactorHandles = [];
 		this.width = 1;
 		this.height = 1;
 		this.widthPixelSize = 1;
@@ -32,15 +32,15 @@ export default class DxfImageDef extends DxfObject {
 		this.resolutionUnits = ImageDefResolutionUnits.NoUnits;
 	}
 
-	addImageDefReactorId(id: string) {
-		this.imageReactorIds.push(id);
+	addImageDefReactorHandle(id: string) {
+		this.imageReactorHandles.push(id);
 	}
 
 	override get manager(): TagsManager {
 		// TODO Need a dynamic way
 		const definedApp = new DxfDefinedApplication('ACAD_REACTORS');
-		definedApp.add(330, this.acadImageDicId);
-		this.imageReactorIds.forEach((id) => {
+		definedApp.add(330, this.acadImageDictHandle);
+		this.imageReactorHandles.forEach((id) => {
 			definedApp.add(330, id);
 		});
 

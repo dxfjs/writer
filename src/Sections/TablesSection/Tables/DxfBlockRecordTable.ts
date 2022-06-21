@@ -12,7 +12,7 @@ export default class DxfBlockRecordTable extends DxfTable {
 
 	addBlockRecord(name: string) {
 		const blockRecord = new DxfBlockRecord(name);
-		blockRecord.ownerObject = this.handle;
+		blockRecord.ownerObjectHandle = this.handle;
 		this.blockRecords.push(blockRecord);
 		return blockRecord;
 	}

@@ -2,10 +2,11 @@ import TagsManager, {
 	point2d_t,
 	point3d_t,
 } from '../../../../Internals/TagsManager';
-import DxfRecord from './DxfRecord';
+import DxfRecord, { ViewFlags } from './DxfRecord';
 
 export type ViewArgs = {
 	name: string;
+	flags?: ViewFlags;
 	viewHeight: number;
 	viewCenter: point2d_t;
 	viewWidth: number;
@@ -26,6 +27,7 @@ export type ViewArgs = {
 
 export default class DxfView extends DxfRecord {
 	name: string;
+	flags: ViewFlags;
 	viewHeight: number;
 	viewCenter: point2d_t;
 	viewWidth: number;
@@ -46,6 +48,7 @@ export default class DxfView extends DxfRecord {
 	constructor(args: ViewArgs) {
 		super('VIEW');
 		this.name = args.name;
+		this.flags = args.flags ?? ViewFlags.None;
 		this.viewHeight = args.viewHeight;
 		this.viewCenter = args.viewCenter;
 		this.viewWidth = args.viewWidth;
@@ -59,12 +62,13 @@ export default class DxfView extends DxfRecord {
 		this.renderMode = args.renderMode;
 		this.isUCSAssociated = args.isUCSAssociated;
 		this.isCameraPlottable = args.isCameraPlottable || false;
-		if ('backgroundObjectHandle' in args)
-			this.backgroundObjectHandle = args.backgroundObjectHandle;
-		if ('liveSectionObjectHandle' in args)
-			this.liveSectionObjectHandle = args.liveSectionObjectHandle;
-		if ('visualStyleObjectHandle' in args)
-			this.visualStyleObjectHandle = args.visualStyleObjectHandle;
+
+		args.backgroundObjectHandle &&
+			(this.backgroundObjectHandle = args.backgroundObjectHandle);
+		args.liveSectionObjectHandle &&
+			(this.liveSectionObjectHandle = args.liveSectionObjectHandle);
+		args.visualStyleObjectHandle &&
+			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
 	override get manager(): TagsManager {
@@ -72,7 +76,7 @@ export default class DxfView extends DxfRecord {
 		manager.push(super.manager.tags);
 		manager.subclassMarker('AcDbViewTableRecord');
 		manager.name(this.name);
-		manager.add(70, 1);
+		manager.add(70, this.flags);
 		manager.add(40, this.viewHeight);
 		manager.point2d(this.viewCenter);
 		manager.add(41, this.viewWidth);

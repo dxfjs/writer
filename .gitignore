@@ -9,3 +9,4 @@ examples/example.dxf
 coverage
 temp
 www/.pnpm-debug.log
+docs/.vitepress/dist

@@ -1,19 +1,19 @@
 import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
-/**
- * @public
- */
 export default class DxfBlockRecord extends DxfRecord {
 	readonly name: string;
-	insertionUnits = 0;
-	explodability = 1;
-	scalability = 0;
+	insertionUnits: number;
+	explodability: number;
+	scalability: number;
 	layoutObject?: string;
 
 	constructor(name: string) {
 		super('BLOCK_RECORD');
 		this.name = name;
+		this.insertionUnits = 0;
+		this.explodability = 1;
+		this.scalability = 0;
 	}
 
 	override get manager(): TagsManager {

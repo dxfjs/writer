@@ -4,7 +4,7 @@ import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfEndBlk implements DxfInterface {
 	readonly handle: string;
-	ownerObject?: string;
+	ownerObjectHandle?: string;
 
 	constructor() {
 		this.handle = Handle.next();
@@ -18,7 +18,7 @@ export default class DxfEndBlk implements DxfInterface {
 		const manager = new TagsManager();
 		manager.entityType('ENDBLK');
 		manager.handle(this.handle);
-		manager.add(330, this.ownerObject);
+		manager.add(330, this.ownerObjectHandle);
 		manager.subclassMarker('AcDbEntity');
 		manager.layerName('0'); // TODO make this dynamic
 		manager.subclassMarker('AcDbBlockEnd');

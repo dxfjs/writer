@@ -1,40 +1,52 @@
-import TagsManager, { point3d_t, tag_t } from '../../Internals/TagsManager';
+import TagsManager, {
+	point3d,
+	point3d_t,
+	tag_t,
+} from '../../Internals/TagsManager';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import EndBlk from './DxfEndBlk';
 
-/**
- * @public
- */
+export enum BlockFlags {
+	None = 0,
+	AnonymousBlock = 1,
+	HasNonConstantAttribute = 2,
+	XRef = 4,
+	XRefOverlay = 8,
+	ExternallyDependent = 16,
+	ResolvedXRef = 32,
+	ReferencedXRef = 64,
+}
+
 export default class DxfBlock extends EntitiesManager {
 	readonly name: string;
 	readonly endBlk: EndBlk;
 	stringifyEntities = true;
-	ownerObject?: string;
+	ownerObjectHandle?: string;
+	flags: BlockFlags;
+	basePoint: point3d_t;
+	xrefPathName: string;
+	layerName: string;
 
-	blockTypeFlags = 0;
-	basePoint: point3d_t = {
-		x: 0,
-		y: 0,
-		z: 0,
-	};
-	xrefPathName = '';
-
-	public constructor(name: string) {
+	constructor(name: string) {
 		super();
 		this.name = name;
+		this.flags = BlockFlags.None;
 		this.endBlk = new EndBlk();
+		this.basePoint = point3d(0, 0, 0);
+		this.xrefPathName = '';
+		this.layerName = '0';
 	}
 
-	public tags(): tag_t[] {
+	tags(): tag_t[] {
 		const manager = new TagsManager();
 		manager.entityType('BLOCK');
 		manager.handle(this.handle);
-		manager.add(330, this.ownerObject);
+		manager.add(330, this.ownerObjectHandle);
 		manager.subclassMarker('AcDbEntity');
-		manager.layerName('0'); // TODO make this dynamic
+		manager.layerName(this.layerName);
 		manager.subclassMarker('AcDbBlockBegin');
 		manager.name(this.name);
-		manager.add(70, this.blockTypeFlags);
+		manager.add(70, this.flags);
 		manager.point3d(this.basePoint);
 		manager.name(this.name, 3);
 		manager.add(1, this.xrefPathName);

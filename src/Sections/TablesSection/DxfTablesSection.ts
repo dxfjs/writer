@@ -3,22 +3,23 @@ import DxfViewTable from './Tables/DxfViewTable';
 import DxfLayerTable from './Tables/DxfLayerTable';
 import DxfStyleTable from './Tables/DxfStyleTable';
 import DxfAppIdTable from './Tables/DxfAppIdTable';
-import DxfLineTypeTable from './Tables/DxfLineTypeTable';
+import DxfLTypeTable from './Tables/DxfLTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
-import DxfViewPortTable from './Tables/DxfViewPortTable';
+import DxfVPortTable from './Tables/DxfVPortTable';
 import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfStyle from './Tables/Records/DxfStyle';
 import DxfView, { ViewArgs } from './Tables/Records/DxfView';
 import DxfUcs from './Tables/Records/DxfUcs';
-import DxfAppId from './Tables/Records/DxfAppId';
+import DxfAppId, { AppIdFlags } from './Tables/Records/DxfAppId';
 import DxfDimStyle from './Tables/Records/DxfDimStyle';
-import DxfViewPort from './Tables/Records/DxfViewPort';
+import DxfVPort from './Tables/Records/DxfVPort';
+import { LayerFlags } from './Tables/Records/DxfRecord';
 
 export default class DxfTablesSection implements DxfInterface {
-	readonly dxfViewPortTable: DxfViewPortTable;
-	readonly linetypeTable: DxfLineTypeTable;
+	readonly vPortTable: DxfVPortTable;
+	readonly ltypeTable: DxfLTypeTable;
 	readonly layerTable: DxfLayerTable;
 	readonly styleTable: DxfStyleTable;
 	readonly viewTable: DxfViewTable;
@@ -28,9 +29,9 @@ export default class DxfTablesSection implements DxfInterface {
 	readonly blockRecordTable: DxfBlockRecordTable;
 
 	constructor() {
-		this.dxfViewPortTable = new DxfViewPortTable();
-		this.linetypeTable = new DxfLineTypeTable();
-		this.layerTable = new DxfLayerTable(this.linetypeTable);
+		this.vPortTable = new DxfVPortTable();
+		this.ltypeTable = new DxfLTypeTable();
+		this.layerTable = new DxfLayerTable(this.ltypeTable);
 		this.styleTable = new DxfStyleTable();
 		this.viewTable = new DxfViewTable();
 		this.ucsTable = new DxfUcsTable();
@@ -39,11 +40,11 @@ export default class DxfTablesSection implements DxfInterface {
 		this.blockRecordTable = new DxfBlockRecordTable();
 	}
 
-	public get manager(): TagsManager {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('TABLES');
-		manager.append(this.dxfViewPortTable);
-		manager.append(this.linetypeTable);
+		manager.append(this.vPortTable);
+		manager.append(this.ltypeTable);
 		manager.append(this.layerTable);
 		manager.append(this.styleTable);
 		manager.append(this.viewTable);
@@ -55,62 +56,55 @@ export default class DxfTablesSection implements DxfInterface {
 		return manager;
 	}
 
-	public addLineType(
+	addLType(
 		name: string,
 		descriptive: string,
 		elements: number[],
 		flags?: number
 	) {
-		return this.linetypeTable.addLineType(
-			name,
-			descriptive,
-			elements,
-			flags
-		);
+		return this.ltypeTable.addLType(name, descriptive, elements, flags);
 	}
 
-	public addBlockRecord(name: string) {
+	addBlockRecord(name: string) {
 		return this.blockRecordTable.addBlockRecord(name);
 	}
 
-	public addLayer(
+	addLayer(
 		name: string,
 		color: number,
 		lineType: string,
-		flags?: number
+		flags?: LayerFlags
 	) {
-		if (this.linetypeTable.exist(lineType)) {
+		if (this.ltypeTable.exist(lineType))
 			return this.layerTable.addLayer(name, color, lineType, flags);
-		} else {
-			throw new Error(`The lineType ${lineType} doesn't exist.`);
-		}
+		throw new Error(`The lineType ${lineType} doesn't exist.`);
 	}
 
-	public addStyle(name: string): DxfStyle {
+	addStyle(name: string): DxfStyle {
 		return this.styleTable.addStyle(name);
 	}
 
-	public addView(args: ViewArgs): DxfView {
+	addView(args: ViewArgs): DxfView {
 		return this.viewTable.addView(args);
 	}
 
-	public addUcs(name: string): DxfUcs {
+	addUcs(name: string): DxfUcs {
 		return this.ucsTable.addUcs(name);
 	}
 
-	public addAppId(name: string, flags?: number): DxfAppId {
+	addAppId(name: string, flags?: AppIdFlags): DxfAppId {
 		return this.appIdTable.addAppId(name, flags);
 	}
 
-	public addDimStyle(name: string, flags?: number): DxfDimStyle {
+	addDimStyle(name: string, flags?: number): DxfDimStyle {
 		return this.dimStyleTable.addDimStyle(name, flags);
 	}
 
-	public addViewPort(name: string): DxfViewPort {
-		return this.dxfViewPortTable.addViewPort(name);
+	addVPort(name: string): DxfVPort {
+		return this.vPortTable.addViewPort(name);
 	}
 
-	public stringify(): string {
+	stringify(): string {
 		return this.manager.stringify();
 	}
 }

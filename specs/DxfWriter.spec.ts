@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-	LWPolylineFlags,
-	lwPolylineVertex_t,
-	point2d,
-	point3d,
-} from '../src';
+import { LWPolylineFlags, lwPolylineVertex_t, point2d, point3d } from '../src';
 import DxfWriter from '../src/DxfWriter';
 
 describe('DxfWriter class', () => {
@@ -33,7 +28,7 @@ describe('DxfWriter class', () => {
 		});
 		dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 
-		dxf.addLineType('AXES', '____ _ ', [4, -1, 1, -1]);
+		dxf.addLType('AXES', '____ _ ', [4, -1, 1, -1]);
 
 		dxf.addRectangle(point2d(400, 400), point2d(600, 200), {
 			elevation: 30,
@@ -78,20 +73,19 @@ describe('DxfWriter class', () => {
 			2 * Math.PI
 		);
 
-		// TODO: test this again
-		// const face = dxf.add3dFace(
-		// 	point3d(0, 0, 50),
-		// 	point3d(0, 100, 50),
-		// 	point3d(100, 100, 50),
-		// 	point3d(100, 0, 50)
-		// );
-		// face.setEdgesVisible(true);
-		// face.setFirstEdgeVisible(false);
-		// face.setSecondEdgeVisible(true);
-		// face.setSecondEdgeVisible(false);
-		// face.setThirdEdgeVisible(false);
-		// face.setFourthEdgeVisible(false);
-		// face.setEdgesVisible(false);
+		const face = dxf.add3dFace(
+			point3d(0, 0, 50),
+			point3d(0, 100, 50),
+			point3d(100, 100, 50),
+			point3d(100, 0, 50)
+		);
+		face.setEdgesVisible(true);
+		face.setFirstEdgeVisible(false);
+		face.setSecondEdgeVisible(true);
+		face.setSecondEdgeVisible(false);
+		face.setThirdEdgeVisible(false);
+		face.setFourthEdgeVisible(false);
+		face.setEdgesVisible(false);
 
 		dxf.addCircle(point3d(0, 0, 0), 50);
 
@@ -113,8 +107,7 @@ describe('DxfWriter class', () => {
 			360 - 359.74
 		);
 
-		// @ts-ignore
-		dxf.manager.tablesSection.addView({
+		dxf.tables.addView({
 			name: 'testview',
 			backClipping: 0,
 			frontClipping: 0,
@@ -129,7 +122,6 @@ describe('DxfWriter class', () => {
 			viewMode: 0,
 			viewWidth: 20.01,
 		});
-		//xfTablesSection.getInstance().addUcs('testucs')
 
 		dxf.addText(point3d(0, 0, 0), 5, 'test');
 

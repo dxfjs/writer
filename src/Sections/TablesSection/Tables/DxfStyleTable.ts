@@ -3,7 +3,7 @@ import DxfStyle from './Records/DxfStyle';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class DxfStyleTable extends DxfTable {
-	styleRecords: DxfStyle[] = [];
+	readonly styleRecords: DxfStyle[] = [];
 
 	constructor() {
 		super('STYLE');
@@ -11,7 +11,7 @@ export default class DxfStyleTable extends DxfTable {
 
 	addStyle(name: string, flags?: number): DxfStyle {
 		const styleRecord = new DxfStyle(name, flags);
-		styleRecord.ownerObject = this.handle;
+		styleRecord.ownerObjectHandle = this.handle;
 		this.styleRecords.push(styleRecord);
 		return styleRecord;
 	}

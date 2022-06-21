@@ -1,7 +1,7 @@
 import TagsManager from '../../../../Internals/TagsManager';
 import DxfRecord from './DxfRecord';
 
-export default class DxfViewPort extends DxfRecord {
+export default class DxfVPort extends DxfRecord {
 	readonly name: string;
 	viewHeight: number;
 	viewCenter: [number, number];

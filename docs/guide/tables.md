@@ -6,18 +6,16 @@ layout: doc
 
 ## `APPID` record
 
-To add an `APPID` record, use the convenient function `addAppId()`:
-
 ```js
-import { addAppId, RecordFlags } from "@tarikjabiri/dxf";
-
-const name1AppId = addAppId("name1"); // without flags, set to 0 automatically.
+import DxfWriter, { RecordFlags } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const name1AppId = dxf.tables.addAppId("name1"); // without flags, set to 0 automatically.
 // Or
-const name2AppId = addAppId("name2", RecordFlags.DependentOnXref); // Is externally dependent on an xref.
+const name2AppId = dxf.tables.addAppId("name2", RecordFlags.XRefDependent); // Is externally dependent on an xref.
 // Or
-const name3AppId = addAppId(
+const name3AppId = dxf.tables.addAppId(
   "name3",
-  RecordFlags.DependentOnXref | RecordFlags.XrefResolved
+  RecordFlags.XRefDependent | RecordFlags.XRefResolved
 );
 //  If both flags are set, the externally dependent xref has been successfully resolved.
 ```
@@ -30,18 +28,16 @@ By default the `ACAD` record is automatically added.
 
 ## `BLOCKRECORD` record
 
-To add an `BLOCKRECORD` record, use the convenient function `addBlockRecord()`:
-
 ```js
-import { addBlockRecord, Units } from "@tarikjabiri/dxf";
-
-const exampleBlockRecord = addBlockRecord("example");
+import DxfWriter, { Units } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const exampleBlockRecord = dxf.tables.addBlockRecord("example");
 
 // You can customize the blockRecord
 exampleBlockRecord.insertionUnits = Units.Unitless;
 exampleBlockRecord.explodability = 1;
 exampleBlockRecord.scalability = 0;
-exampleBlockRecord.hardPointer = "1C"; // Hard-pointer ID/handle to associated LAYOUT object.
+exampleBlockRecord.layoutObject = "1C"; // Hard-pointer ID/handle to associated LAYOUT object.
 // '1C' is an arbitrary value, please use a correct value.
 // Internally this value is not set. Until LAYOUT implemented you can set it.
 // For now it is working fine without it
@@ -55,12 +51,10 @@ By default the `*Model_Space` and `*Paper_Space` block records are automatically
 
 ## `DIMSTYLE` record
 
-To add an `DIMSTYLE` record, use the convenient function `addDimStyle()`:
-
 ```js
-import { addDimStyle } from "@tarikjabiri/dxf";
-
-const exampleDimStyle = addDimStyle("example");
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const exampleDimStyle = dxf.tables.addDimStyle("example");
 ```
 
 :::info
@@ -81,11 +75,6 @@ By default the `Standard` record is automatically added.
 
 ### Adding LTYPE record
 
-To add an `LTYPE` record, there is to ways to do so:
-
-- Using the convenient function `addLineType()`.
-- Calling `addLineType()` method on `DxfWriter` object.
-
 :::info
 
 Note that `LTYPE` is not fully customizable, only basics are implemented.
@@ -93,13 +82,11 @@ Note that `LTYPE` is not fully customizable, only basics are implemented.
 :::
 
 ```js
-import DxfWriter, { addLineType } from "@tarikjabiri/dxf";
-
+import DxfWriter from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-
-const axesLineType = addLineType("AXES", "____ _ ", [4, -1, 1, -1]); // Use this function if you want to store a refrence to line type object.
+const axesLType = dxf.addLType("AXES", "____ _ ", [4, -1, 1, -1]); // Use this function if you want to store a refrence to line type object.
 // Or
-dxf.addLineType("AXES", "____ _ ", [4, -1, 1, -1]); // Always choose unique names.
+dxf.addLType("AXES", "____ _ ", [4, -1, 1, -1]); // Always choose unique names.
 ```
 
 :::info
@@ -157,34 +144,19 @@ This explanation is my personal thought, no guarantee to be correct, but it is w
 
 ## `LAYER` record
 
-To add an `LAYER` record, there is to ways to do so:
-
-- Using the convenient function `addLayer()`.
-- Calling `addLayer()` method on `DxfWriter` object.
-
 ```js
-import DxfWriter, { addLayer, Colors, LayerFlags } from "@tarikjabiri/dxf";
-
+import DxfWriter, { Colors, LayerFlags } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-
-const exampleLayer = addLayer("example", Colors.Red, "Continuous"); // Use this function if you want to store a refrence to layer object.
+const exampleLayer = dxf.addLayer("example", Colors.Red, "Continuous"); // Use this function if you want to store a refrence to layer object.
 // Or
 dxf.addLayer("example", Colors.Red, "Continuous"); // Always choose unique names.
 // Continuous is the name of lineType it could be a lineType you define.
-
 // You can set some flags like this:
-const exampleLayer = addLayer(
+const exampleLayer = dxf.addLayer(
   "example",
   Colors.Red,
   "Continuous",
   LayerFlags.Frozen | LayerFlags.Locked
-);
-// Or
-dxf.addLayer(
-  "example",
-  Colors.Red,
-  "Continuous",
-  LayerFlags.FrozenInNewViewports | LayerFlags.Locked
 );
 ```
 
@@ -196,11 +168,12 @@ If no flag is set, by default the flag is set to 0 which make the layer thawed.
 
 Possible values in `LayerFlags`:
 
+- `LayerFlags.None`
 - `LayerFlags.Frozen`
 - `LayerFlags.FrozenInNewViewports`
 - `LayerFlags.Locked`
-- `LayerFlags.DependentOnXref`
-- `LayerFlags.XrefResolved`
+- `LayerFlags.XRefDependent`
+- `LayerFlags.XRefResolved`
 
 There are 8 colors predefined in `Colors`:
 
@@ -221,20 +194,18 @@ For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolo
 
 ## `STYLE` record
 
-To add an `STYLE` record, use the convenient function `addStyle()`:
-
 ```js
-import { addStyle } from "@tarikjabiri/dxf";
-
-const myStyle = addStyle("example");
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const myStyle = dxf.tables.addStyle("example");
 ```
 
 Possible values in `StyleFlags`:
-
+- `StyleFlags.None`
 - `StyleFlags.DescribeShape`
 - `StyleFlags.VerticalText`
-- `StyleFlags.DependentOnXref`
-- `StyleFlags.XrefResolved`
+- `StyleFlags.XRefDependent`
+- `StyleFlags.XRefResolved`
 
 ?> You can customize these properties: `fixedTextHeight`,`widthFactor`,`obliqueAngle`,`textGenerationFlag`,`lastHeightUsed`,`fontFileName`,`bigFontFileName` and `flags`.
 
@@ -249,7 +220,9 @@ Is not implemented 😔.
 ## `VIEW` record
 
 ```js
-DxfTablesSection.getInstance().addView({
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+dxf.tables.addView({
   name: "testview",
   backClipping: 0,
   frontClipping: 0,

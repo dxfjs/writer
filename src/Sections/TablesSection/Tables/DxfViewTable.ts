@@ -11,7 +11,7 @@ export default class DxfViewTable extends DxfTable {
 
 	public addView(args: ViewArgs): DxfView {
 		const viewRecord = new DxfView(args);
-		viewRecord.ownerObject = this.handle;
+		viewRecord.ownerObjectHandle = this.handle;
 		this.viewRecords.push(viewRecord);
 		return viewRecord;
 	}

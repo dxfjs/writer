@@ -1,24 +1,30 @@
 import DxfTable from '../DxfTable';
 import DxfLayer from './Records/DxfLayer';
 import TagsManager from '../../../Internals/TagsManager';
-import DxfLineTypeTable from './DxfLineTypeTable';
+import DxfLTypeTable from './DxfLTypeTable';
+import { LayerFlags } from './Records/DxfRecord';
 
 export default class DxfLayerTable extends DxfTable {
 	readonly layerRecords: DxfLayer[] = [];
-	readonly lineTypeTable: DxfLineTypeTable
+	readonly lTypeTable: DxfLTypeTable;
 
-	constructor(lineTypeTable: DxfLineTypeTable) {
+	constructor(lineTypeTable: DxfLTypeTable) {
 		super('LAYER');
-		this.lineTypeTable = lineTypeTable
+		this.lTypeTable = lineTypeTable;
 	}
 
-	addLayer(name: string, color: number, lineType: string, flags?: number) {
+	addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags?: LayerFlags
+	) {
 		if (this.exist(name))
 			throw new Error(`The ${name} Layer already exist!`);
-		if (!this.lineTypeTable.exist(lineType))
+		if (!this.lTypeTable.exist(lineType))
 			throw new Error(`The ${name} LineType doesn't exist!`);
 		const layerRecord = new DxfLayer(name, color, lineType, flags);
-		layerRecord.ownerObject = this.handle;
+		layerRecord.ownerObjectHandle = this.handle;
 		this.layerRecords.push(layerRecord);
 		return layerRecord;
 	}

@@ -1,22 +1,18 @@
 import DxfTable from '../DxfTable';
-import DxfAppId from './Records/DxfAppId';
+import DxfAppId, { AppIdFlags } from './Records/DxfAppId';
 import TagsManager from '../../../Internals/TagsManager';
 
 export default class AppIdTable extends DxfTable {
-	readonly _appIdRecords: DxfAppId[] = [];
-
-	get appIdRecords(): DxfAppId[] {
-		return this._appIdRecords;
-	}
+	readonly appIdRecords: DxfAppId[] = [];
 
 	constructor() {
 		super('APPID');
 	}
 
-	addAppId(name: string, flags?: number) {
+	addAppId(name: string, flags?: AppIdFlags) {
 		const appIdRecord = new DxfAppId(name, flags);
-		appIdRecord.ownerObject = this.handle;
-		this._appIdRecords.push(appIdRecord);
+		appIdRecord.ownerObjectHandle = this.handle;
+		this.appIdRecords.push(appIdRecord);
 		return appIdRecord;
 	}
 

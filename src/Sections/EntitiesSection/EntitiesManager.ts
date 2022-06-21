@@ -24,7 +24,7 @@ import Arc from './Entities/Arc';
 import Handle from '../../Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
 import Hatch, {
-	HatchBoundaryPath,
+	HatchBoundaryPaths,
 	HatchGradientOptions_t,
 	HatchOptions_t,
 	HatchPatternOptions_t,
@@ -39,7 +39,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	addHatch(
-		boundaryPath: HatchBoundaryPath,
+		boundaryPath: HatchBoundaryPaths,
 		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
 	) {

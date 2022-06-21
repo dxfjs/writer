@@ -5,10 +5,10 @@ import TagsManager from '../../Internals/TagsManager';
 export default abstract class DxfTable implements DxfInterface {
 	maxNumberEntries = 0;
 	readonly handle: string;
-	ownerObject: string;
+	ownerObjectHandle: string;
 
 	public constructor(public name: string) {
-		this.ownerObject = '0';
+		this.ownerObjectHandle = '0';
 		this.handle = Handle.next();
 	}
 
@@ -21,7 +21,7 @@ export default abstract class DxfTable implements DxfInterface {
 		manager.entityType('TABLE');
 		manager.name(this.name);
 		manager.handle(this.handle);
-		manager.add(330, this.ownerObject);
+		manager.add(330, this.ownerObjectHandle);
 		manager.subclassMarker('AcDbSymbolTable');
 		manager.add(70, this.maxNumberEntries);
 		return manager;

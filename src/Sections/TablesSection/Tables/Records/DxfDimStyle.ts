@@ -2,20 +2,22 @@ import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
 import TagsManager from '../../../../Internals/TagsManager';
 
-// TODO: Refactor this class to be more dynamic
+export enum DimStyleFlags {
+	None = 0,
+	XRefDependent = 16,
+	XRefRefesolved = 32,
+}
 
-/**
- * @public
- */
+// TODO: Refactor this class to be more dynamic
 export default class DxfDimStyle implements DxfInterface {
 	readonly name: string;
-	readonly flags: number;
+	readonly flags: DimStyleFlags;
 	readonly handle: string;
-	ownerObject?: string;
+	ownerObjectHandle?: string;
 
-	constructor(name: string, flags?: number) {
+	constructor(name: string, flags?: DimStyleFlags) {
 		this.name = name;
-		this.flags = flags ?? 0;
+		this.flags = flags ?? DimStyleFlags.None;
 		this.handle = Handle.next();
 	}
 
@@ -28,7 +30,7 @@ export default class DxfDimStyle implements DxfInterface {
 		manager.subclassMarker('AcDbDimStyleTable');
 		manager.entityType('DIMSTYLE');
 		manager.add(105, this.handle);
-		manager.add(330, this.ownerObject);
+		manager.add(330, this.ownerObjectHandle);
 		manager.subclassMarker('AcDbSymbolTableRecord');
 		manager.add(100, 'AcDbDimStyleTableRecord');
 		manager.add(2, this.name);

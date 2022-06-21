@@ -6,7 +6,7 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     logo: "/logo.svg",
-    nav: [{ text: "Guide", link: "/guide/" }],
+    nav: [{ text: "Get Started", link: "/guide/" }],
     socialLinks: [
       { icon: "github", link: "https://github.com/tarikjabiri/dxf" },
     ],
@@ -34,6 +34,11 @@ export default defineConfig({
     footer: {
       message: "Released under the MIT License.",
       copyright: "Copyright © 2022 Tarik EL JABIRI",
+    },
+    editLink: {
+
+      pattern: 'https://github.com/tarikjabiri/dxf/edit/dev/docs/:path',
+      text: 'Edit this page on GitHub'
     },
   },
 });

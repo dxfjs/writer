@@ -18,28 +18,28 @@ Supported objects are:
 
 ## `DICTIONARY` object
 
-:::info
-
-Objects section have a root dictionary, you can get a reference to it by calling the convenient function `getRootDictionary()`.
+Objects section have a root dictionary, you can get a reference to it like this:
+```js
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const root = dxf.objects.root
+```
 
 The root dictionary is the first object appearing in the section, it can own objects appearing after, also can have multiple entries.
 
-:::
-
-To add an entry to the root dictionay use the convenient function `addEntryToRootDictionary()` and pass to it the name of the entry and a ID/Handle to owner:
 
 ```js
-import { addEntryToRootDictionary } from "@tarikjabiri/dxf";
-
-addEntryToRootDictionary("ACAD_IMAGE_DICT", "1A");
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+dxf.objects.addEntryToRoot("ACAD_IMAGE_DICT", "1A");
 ```
 
 To add a dictionary use the convenient function `addDictionary()`:
 
 ```js
-import { addDictionary } from "@tarikjabiri/dxf";
-
-const dic = addDictionary();
+import DxfWriter from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const dic = dxf.objects.addDictionary();
 // Add an entry to it
 dic.addEntry("example", "1B");
 ```
@@ -48,16 +48,12 @@ dic.addEntry("example", "1B");
 
 This object can store a reference to an external image file, which can be placed by the `IMAGE` entity.
 
-To add an `IMAGEDEF` object use the convenient function `addImageDef()`:
-
 ```js
-import { addImageDef, ImageDefResolutionUnits } from "@tarikjabiri/dxf";
-
-const imgDef = addImageDef("path/to/image");
-
+import { DxfImageDef, ImageDefResolutionUnits } from "@tarikjabiri/dxf";
+const imgDef = new DxfImageDef("path/to/image");
 // You can customize it with these properties:
-imgDef.acadImageDicId = ""; // Soft-pointer ID/handle to the ACAD_IMAGE_DICT dictionary.
-imgDef.addImageDefReactorId("ID"); // Soft-pointer ID/handle to IMAGEDEF_REACTOR object (multiple entries; one for each instance).
+imgDef.acadImageDictHandle = ""; // Soft-pointer ID/handle to the ACAD_IMAGE_DICT dictionary.
+imgDef.addImageDefReactorHandle("handle"); // Soft-pointer ID/handle to IMAGEDEF_REACTOR object (multiple entries; one for each instance).
 imgDef.width = 1; // Image width in pixels.
 imgDef.height = 1; // Image height in pixels.
 imgDef.widthPixelSize = 1; // Default width of one pixel in AutoCAD units.
@@ -68,9 +64,9 @@ imgDef.resolutionUnits = ImageDefResolutionUnits.NoUnits; // Resolution units.
 
 The possible values of `ImageDefResolutionUnits`:
 
-- `ImageDefResolution.UnitsNoUnits` = 0;
-- `ImageDefResolution.UnitsCentimeters` = 2;
-- `ImageDefResolution.UnitsInch` = 5;
+- `ImageDefResolutionUnits.NoUnits` = 0;
+- `ImageDefResolutionUnits.Centimeters` = 2;
+- `ImageDefResolutionUnits.Inch` = 5;
 
 :::tip
 
@@ -82,10 +78,7 @@ For this to work properly in `AutoCAD` you need to add a [`DICTIONARY`](#diction
 
 ## `IMAGEDEF_REACTOR` object
 
-To add an `IMAGEDEF_REACTOR` object use the convenient function `addImageDefReactor()` and pass to it the ID/Handle of the `IMAGE` entity:
-
 ```js
-import { addImageDefReactor } from "@tarikjabiri/dxf";
-
-const imgDefReactor = addImageDefReactor("2F"); // Object ID for associated image entity.
+import { DxfImageDefReactor } from "@tarikjabiri/dxf";
+const imgDefReactor = new DxfImageDefReactor("2F"); // Object ID for associated image entity.
 ```

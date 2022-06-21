@@ -7,7 +7,7 @@ export default class DxfDimStyleTable extends DxfTable {
 
 	constructor() {
 		super('DIMSTYLE');
-		this.ownerObject = '0';
+		this.ownerObjectHandle = '0';
 	}
 
 	override get manager(): TagsManager {
@@ -23,7 +23,7 @@ export default class DxfDimStyleTable extends DxfTable {
 
 	addDimStyle(name: string, flags?: number) {
 		const dimStyle = new DxfDimStyle(name, flags);
-		dimStyle.ownerObject = this.handle;
+		dimStyle.ownerObjectHandle = this.handle;
 		this.dimStyleRecords.push(dimStyle);
 		return dimStyle;
 	}

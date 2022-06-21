@@ -38,7 +38,7 @@ const dxfString = dxf.stringify();
 
 ## More informations
 
-+ [Documentation](https://dxf-docs.vercel.app/)
++ [Documentation](https://dxf.vercel.app/)
 
 ## License
 
