@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+coverage
+*/**/*.md
+*.md
+tsconfig.json
+node_modules
+www
+lib
+.github
+.circleci
+docs
+dist
+pnpm-lock.yaml
