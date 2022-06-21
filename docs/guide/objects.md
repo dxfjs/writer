@@ -49,8 +49,9 @@ dic.addEntry("example", "1B");
 This object can store a reference to an external image file, which can be placed by the `IMAGE` entity.
 
 ```js
-import { DxfImageDef, ImageDefResolutionUnits } from "@tarikjabiri/dxf";
-const imgDef = new DxfImageDef("path/to/image");
+import { DxfWriter, ImageDefResolutionUnits } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const imgDef = dxf.addImageDef("path/to/image");
 // You can customize it with these properties:
 imgDef.acadImageDictHandle = ""; // Soft-pointer ID/handle to the ACAD_IMAGE_DICT dictionary.
 imgDef.addImageDefReactorHandle("handle"); // Soft-pointer ID/handle to IMAGEDEF_REACTOR object (multiple entries; one for each instance).
@@ -79,6 +80,7 @@ For this to work properly in `AutoCAD` you need to add a [`DICTIONARY`](#diction
 ## `IMAGEDEF_REACTOR` object
 
 ```js
-import { DxfImageDefReactor } from "@tarikjabiri/dxf";
-const imgDefReactor = new DxfImageDefReactor("2F"); // Object ID for associated image entity.
+import { DxfWriter } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const imgDefReactor = dxf.addImageDefReactor("2F"); // Object ID for associated image entity.
 ```
