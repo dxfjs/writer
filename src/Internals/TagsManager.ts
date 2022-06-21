@@ -62,7 +62,8 @@ export default class TagsManager {
 	}
 
 	add(groupCode: number, value?: number | string) {
-		value && this.push(tag(groupCode, value));
+		if (value !== undefined && value !== null)
+			this.push(tag(groupCode, value));
 	}
 
 	push(tags: tag_t | tag_t[] | null) {
@@ -115,7 +116,7 @@ export default class TagsManager {
 	}
 
 	point3d(point: point3d_t, lastDigit = 0) {
-		this.point2d(point2d(point.x, point.y), lastDigit)
+		this.point2d(point2d(point.x, point.y), lastDigit);
 		this.add(createGroupCode(3, lastDigit), point.z);
 	}
 
