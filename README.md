@@ -16,17 +16,17 @@ A Javascript dxf generator, written in Typescript.
 ## Installation
 
 ```bash
-yarn add @tarikjabiri/dxf@next
+yarn add @tarikjabiri/dxf
 # Or npm
-npm i @tarikjabiri/dxf@next
+npm i @tarikjabiri/dxf
 # Or pnpm
-pnpm add @tarikjabiri/dxf@next
+pnpm add @tarikjabiri/dxf
 ```
 
 ## Getting started
 
 ```javascript
-import DxfWriter, { point3d } from '@tarikjabiri/dxf';
+import { DxfWriter, point3d } from '@tarikjabiri/dxf';
 
 const dxf = new DxfWriter();
 
