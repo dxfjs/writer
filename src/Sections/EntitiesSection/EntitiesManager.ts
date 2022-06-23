@@ -29,13 +29,19 @@ import Hatch, {
 	HatchOptions_t,
 	HatchPatternOptions_t,
 } from './Entities/Hatch';
+import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
+import Image, { ImageOptions_t } from './Entities/Image';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
 	readonly handle: string;
+	private readonly objects: DxfObjectsSection;
+	layerName: string;
 
-	constructor() {
+	constructor(objects: DxfObjectsSection, layerName: string) {
 		this.handle = Handle.next();
+		this.objects = objects;
+		this.layerName = layerName;
 	}
 
 	addHatch(
@@ -49,6 +55,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 
 	addEntity<T extends Entity>(entity: T): T {
 		entity.ownerBlockRecord = this.handle;
+		entity.layerName = this.layerName;
 		this.entities.push(entity);
 		return entity;
 	}
@@ -112,6 +119,46 @@ export default abstract class EntitiesManager implements DxfInterface {
 			...options,
 			flags: LWPolylineFlags.Closed,
 		});
+	}
+
+	addImage(
+		imagePath: string,
+		name: string,
+		insertionPoint: point3d_t,
+		width: number,
+		height: number,
+		scale: number,
+		rotation: number,
+		options?: ImageOptions_t
+	): Image {
+		// TODO make sure there is no IMAGEDEF for this image!
+		const imageDef = this.objects.addImageDef(imagePath);
+		imageDef.width = width;
+		imageDef.height = height;
+		const image = new Image(
+			{
+				height,
+				width,
+				scale,
+				rotation,
+				insertionPoint,
+				imageDefHandle: imageDef.handle,
+			},
+			options
+		);
+		const imageDefReactor = this.objects.addImageDefReactor(image.handle);
+		image.imageDefReactorHandle = imageDefReactor.handle;
+		this.addEntity(image);
+		this.objects.addObject(imageDef);
+		this.objects.addObject(imageDefReactor);
+		const dictionary = this.objects.addDictionary();
+
+		dictionary.addEntryObject(name, imageDef.handle);
+		imageDef.ownerObjecthandle = dictionary.handle;
+		this.objects.root.addEntryObject('ACAD_IMAGE_DICT', dictionary.handle);
+		imageDef.acadImageDictHandle = dictionary.handle;
+		imageDef.addImageDefReactorHandle(imageDefReactor.handle);
+		return image;
 	}
 
 	addPolyline3D(

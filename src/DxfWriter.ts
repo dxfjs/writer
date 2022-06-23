@@ -1,7 +1,6 @@
 import { point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfDocument from './DxfDocument';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
-import GlobalState from './GlobalState';
 import { options_t } from './Sections/EntitiesSection/Entity';
 import {
 	lwPolylineOptions_t,
@@ -19,10 +18,10 @@ import {
 } from './Sections/EntitiesSection/Entities/Hatch';
 import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
+import { Units } from './Internals/Enums';
 
 /**
  * The base class for creating the dxf content.
- * @public
  */
 export class DxfWriter {
 	private readonly document: DxfDocument;
@@ -43,6 +42,14 @@ export class DxfWriter {
 		return this.document.entities;
 	}
 
+	get currentLayer() {
+		return this.document.currentLayerName;
+	}
+
+	get units() {
+		return this.document.currentUnits;
+	}
+
 	constructor() {
 		this.document = new DxfDocument();
 	}
@@ -53,7 +60,7 @@ export class DxfWriter {
 	 * @returns The added block.
 	 */
 	addBlock(name: string) {
-		return this.document.blocks.addBlock(name);
+		return this.document.blocks.addBlock(name, this.document.objects);
 	}
 
 	/**
@@ -79,7 +86,6 @@ export class DxfWriter {
 	 * @param name - Name of the lineType.
 	 * @param descriptive - The descriptive of the line ex: __ __ . __ __ .
 	 * @param elements - An array of elements of the pattern. 📝 Need more explications 😭!
-	 *
 	 */
 	public addLType(name: string, descriptive: string, elements: number[]) {
 		return this.document.tables.addLType(name, descriptive, elements);
@@ -108,7 +114,7 @@ export class DxfWriter {
 	 * @param color - The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
 	 * @param lineType - The lineType name.
 	 * @param flags - Layer standard flags (bit-coded values).
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added layer.
 	 */
 	public addLayer(name: string, color: number, lineType: string, flags = 0) {
 		return this.document.tables.addLayer(name, color, lineType, flags);
@@ -118,7 +124,6 @@ export class DxfWriter {
 	 * Set the current layer name of the dxf.
 	 * @throws
 	 * @param name - The layer name.
-	 * @returns Return the current object of DxfWriter.
 	 */
 	public setCurrentLayerName(name: string) {
 		this.document.setCurrentLayerName(name);
@@ -127,16 +132,10 @@ export class DxfWriter {
 	/**
 	 * Set the units of the dxf.
 	 *
-	 * @throws
-	 * @param units - Use DXFWriter.units to set the unit.
-	 * @returns Return the current object of DxfWriter.
+	 * @param units - The units for AutoCAD DesignCenter blocks.
 	 */
-	public setUnits(units: number) {
-		if (Object.values(GlobalState.units).indexOf(units) > -1) {
-			GlobalState.units = units;
-		} else {
-			throw new Error(`The ${units} is not a valid Units.`);
-		}
+	public setUnits(units: Units) {
+		this.document.setUnits(units);
 	}
 
 	/**
@@ -145,7 +144,7 @@ export class DxfWriter {
 	 * @param startPoint - The start point of the line.
 	 * @param endPoint - The end point of the line.
 	 * @param options - The options of the line entity.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the added line.
 	 */
 	public addLine(
 		startPoint: point3d_t,
@@ -166,7 +165,7 @@ export class DxfWriter {
 	 * @param points - An array of {@link lwPolylineVertex_t}.
 	 * @param options - The options of LWPolyline entity.
 	 *
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added lwpolyline.
 	 */
 	public addLWPolyline(
 		points: lwPolylineVertex_t[],
@@ -183,7 +182,7 @@ export class DxfWriter {
 	 * @param topLeft - The topleft corner of the rectangle.
 	 * @param bottomRight - The bottom right corner of the rectangle.
 	 * @param options - The options to apply to the rectangle.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added lwpolyline.
 	 */
 	public addRectangle(
 		topLeft: point2d_t,
@@ -203,7 +202,7 @@ export class DxfWriter {
 	 * @param points - An array of points.
 	 * @param options - The options to apply to the polyline.
 	 *
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added polyline.
 	 */
 	public addPolyline3D(
 		points: (point3d_t | point2d_t)[],
@@ -219,7 +218,7 @@ export class DxfWriter {
 	 * @param y - The Y coordinate of the point.
 	 * @param z - The Z coordinate of the point.
 	 * @param options - The options to apply to the point.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added point.
 	 */
 	public addPoint(x: number, y: number, z: number, options?: options_t) {
 		return this.document.modelSpace.addPoint(x, y, z, options);
@@ -231,7 +230,7 @@ export class DxfWriter {
 	 * @param center - The center point of the circle.
 	 * @param radius - The radius of the circle.
 	 * @param options - The Circle entity options;
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added circle.
 	 */
 	public addCircle(center: point3d_t, radius: number, options?: options_t) {
 		return this.document.modelSpace.addCircle(center, radius, options);
@@ -246,7 +245,7 @@ export class DxfWriter {
 	 * @param endAngle - The end of the angle (end of arc) in degrees Anticlockwise. \
 	 * 					 Angles always start from X-axis towards anticlockwise.
 	 * @param options - Arc entity options.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added arc.
 	 */
 	public addArc(
 		center: point3d_t,
@@ -277,7 +276,7 @@ export class DxfWriter {
 	 *
 	 * @param splineArgs - The Spline arguments. See {@link SplineArgs}.
 	 * @param options - The options of the spline entity.
-	 * @returns
+	 * @returns Return the the added spline.
 	 */
 	public addSpline(splineArgs: SplineArgs_t, options?: options_t) {
 		return this.document.modelSpace.addSpline(splineArgs, options);
@@ -291,7 +290,7 @@ export class DxfWriter {
 	 * @param ratioOfMinorAxisToMajorAxis - The ratio of minor axis to major axis.
 	 * @param startParameter - The start parameter (this value is 0.0 for a full ellipse).
 	 * @param endParameter - The end parameter (this value is 2pi for a full ellipse).
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added ellipse.
 	 */
 	public addEllipse(
 		center: point3d_t,
@@ -333,7 +332,7 @@ export class DxfWriter {
 	 * @param height - The height of the image in pixels.
 	 * @param scale - The scale to be applied to the image.
 	 * @param rotation - The rotation angle (Degrees) to be applied to the image.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added image.
 	 */
 	public addImage(
 		imagePath: string,
@@ -345,7 +344,7 @@ export class DxfWriter {
 		rotation: number,
 		options?: ImageOptions_t
 	) {
-		return this.document.addImage(
+		return this.document.modelSpace.addImage(
 			imagePath,
 			name,
 			insertionPoint,
@@ -366,7 +365,7 @@ export class DxfWriter {
 	 * @param fourthCorner - The first corner of the 3d face. \
 	 * If you want only three corners, make this is the same as the third corner
 	 * @param options - The options of the 3dFace antity.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added face.
 	 */
 	public add3dFace(
 		firstCorner: point3d_t,
@@ -389,7 +388,7 @@ export class DxfWriter {
 	 * @param firstAlignementPoint - The first alignment point of the text.
 	 * @param height - The text height.
 	 * @param value - The default value (the string itself).
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added text.
 	 */
 	public addText(
 		firstAlignementPoint: point3d_t,
@@ -411,7 +410,7 @@ export class DxfWriter {
 	 * @param blockName - The name of the block to insert.
 	 * @param insertionPoint - The point where the block is to be inserted.
 	 * @param options - The options of the Insert entity.
-	 * @returns Return the current object of DxfWriter.
+	 * @returns Return the the added insert.
 	 */
 	public addInsert(
 		blockName: string,

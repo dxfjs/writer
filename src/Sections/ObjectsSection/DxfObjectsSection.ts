@@ -5,7 +5,7 @@ import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfImageDef from './Objects/DxfImageDef';
 import DxfImageDefReactor from './Objects/DxfImageDefReactor';
 
-export default class DxfObjects implements DxfInterface {
+export default class DxfObjectsSection implements DxfInterface {
 	root: DxfDictionary = new DxfDictionary();
 
 	readonly objects: DxfObject[] = [];
