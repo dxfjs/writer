@@ -15,22 +15,20 @@ export default defineConfig({
       apiKey: "4345b5f1dbb67455c34bc9422850e920",
       indexName: "dxf",
     },
-    sidebar: {
-      "/guide/": [
-        {
-          text: "Guide",
-          collapsible: true,
-          items: [
-            { text: "Introduction", link: "/guide/" },
-            { text: "Variables", link: "/guide/variables" },
-            { text: "Tables", link: "/guide/tables" },
-            { text: "Blocks", link: "/guide/blocks" },
-            { text: "Entities", link: "/guide/entities" },
-            { text: "Objects", link: "/guide/objects" },
-          ],
-        },
-      ],
-    },
+    sidebar: [
+      {
+        text: "Guide",
+        collapsible: true,
+        items: [
+          { text: "Introduction", link: "/guide/" },
+          { text: "Variables", link: "/guide/variables" },
+          { text: "Tables", link: "/guide/tables" },
+          { text: "Blocks", link: "/guide/blocks" },
+          { text: "Entities", link: "/guide/entities" },
+          { text: "Objects", link: "/guide/objects" },
+        ],
+      },
+    ],
     footer: {
       message: "Released under the MIT License.",
       copyright: "Copyright © 2022 Tarik EL JABIRI",
