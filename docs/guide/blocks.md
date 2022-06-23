@@ -41,12 +41,6 @@ myBlock.addLine(point3d(0, 0, 0), point3d(0, 20, 0));
 // and so on ...
 ```
 
-:::info
-
-You can add all supported entities except the `IMAGE` entity.
-
-:::
-
 ## Inserting blocks
 
 To insert a block in the drawing use the convenient method `addInsert()`:
