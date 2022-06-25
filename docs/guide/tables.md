@@ -207,7 +207,7 @@ Possible values in `StyleFlags`:
 - `StyleFlags.XRefDependent`
 - `StyleFlags.XRefResolved`
 
-?> You can customize these properties: `fixedTextHeight`,`widthFactor`,`obliqueAngle`,`textGenerationFlag`,`lastHeightUsed`,`fontFileName`,`bigFontFileName` and `flags`.
+> You can customize these properties: `fixedTextHeight`,`widthFactor`,`obliqueAngle`,`textGenerationFlag`,`lastHeightUsed`,`fontFileName`,`bigFontFileName` and `flags`.
 
 ## `UCS` record
 
