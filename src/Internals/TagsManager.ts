@@ -62,7 +62,8 @@ export default class TagsManager {
 	}
 
 	add(groupCode: number, value?: number | string) {
-		if (value !== undefined) this.push(tag(groupCode, value));
+		if (value !== undefined && value !== null)
+			this.push(tag(groupCode, value));
 	}
 
 	push(tags: tag_t | tag_t[] | null) {
@@ -110,18 +111,13 @@ export default class TagsManager {
 	}
 
 	point2d(point: point2d_t, lastDigit = 0) {
-		this.push([
-			tag(createGroupCode(1, lastDigit), point.x),
-			tag(createGroupCode(2, lastDigit), point.y),
-		]);
+		this.add(createGroupCode(1, lastDigit), point.x);
+		this.add(createGroupCode(2, lastDigit), point.y);
 	}
 
 	point3d(point: point3d_t, lastDigit = 0) {
-		this.push([
-			tag(createGroupCode(1, lastDigit), point.x),
-			tag(createGroupCode(2, lastDigit), point.y),
-			tag(createGroupCode(3, lastDigit), point.z),
-		]);
+		this.point2d(point2d(point.x, point.y), lastDigit);
+		this.add(createGroupCode(3, lastDigit), point.z);
 	}
 
 	elevation(elevation: number | undefined) {

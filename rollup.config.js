@@ -24,7 +24,6 @@ export default [
 				file: 'lib/index.js',
 				name: 'DxfWriter CommonJS',
 				format: 'cjs',
-				exports: 'named',
 			},
 		],
 		plugins: [

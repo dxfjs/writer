@@ -4,6 +4,7 @@ import TagsManager, {
 	tag_t,
 } from '../../Internals/TagsManager';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
+import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import EndBlk from './DxfEndBlk';
 
 export enum BlockFlags {
@@ -25,16 +26,18 @@ export default class DxfBlock extends EntitiesManager {
 	flags: BlockFlags;
 	basePoint: point3d_t;
 	xrefPathName: string;
-	layerName: string;
 
-	constructor(name: string) {
-		super();
+	constructor(name: string, objects: DxfObjectsSection) {
+		super(objects, '0');
 		this.name = name;
 		this.flags = BlockFlags.None;
 		this.endBlk = new EndBlk();
 		this.basePoint = point3d(0, 0, 0);
 		this.xrefPathName = '';
-		this.layerName = '0';
+	}
+
+	setlayerName(layerName: string) {
+		this.layerName = layerName;
 	}
 
 	tags(): tag_t[] {

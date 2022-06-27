@@ -1,4 +1,3 @@
-import GlobalState from '../../GlobalState';
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
@@ -39,7 +38,7 @@ export default abstract class Entity implements DxfInterface {
 		this.options = options || {};
 		this.type = type;
 		this.subclassMarker = subclassMarker;
-		this.layerName = GlobalState.currentLayerName;
+		this.layerName = options?.layerName || '0';
 		this.handle = Handle.next();
 	}
 

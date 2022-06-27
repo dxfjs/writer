@@ -36,8 +36,3 @@ export enum Units {
 	USSurveyYard = 23,
 	USSurveyMile = 24,
 }
-
-export default class GlobalState {
-	public static currentLayerName = '0';
-	public static units: number = Units.Unitless;
-}

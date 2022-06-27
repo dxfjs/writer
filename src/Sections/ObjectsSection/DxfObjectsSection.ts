@@ -2,8 +2,10 @@ import DxfDictionary from './Objects/DxfDictionary';
 import DxfObject from './DxfObject';
 import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import DxfImageDef from './Objects/DxfImageDef';
+import DxfImageDefReactor from './Objects/DxfImageDefReactor';
 
-export default class DxfObjects implements DxfInterface {
+export default class DxfObjectsSection implements DxfInterface {
 	root: DxfDictionary = new DxfDictionary();
 
 	readonly objects: DxfObject[] = [];
@@ -18,6 +20,14 @@ export default class DxfObjects implements DxfInterface {
 	public addObject<T extends DxfObject>(object: T): T {
 		this.objects.push(object);
 		return object;
+	}
+
+	addImageDef(path: string) {
+		return this.addObject(new DxfImageDef(path));
+	}
+
+	addImageDefReactor(imageHandle: string) {
+		return this.addObject(new DxfImageDefReactor(imageHandle));
 	}
 
 	addDictionary(): DxfDictionary {

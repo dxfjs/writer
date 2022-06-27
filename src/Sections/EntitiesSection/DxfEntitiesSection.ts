@@ -9,6 +9,10 @@ export default class DxfEntitiesSection implements DxfInterface {
 		this.modelSpace = modelSpace;
 	}
 
+	setLayerName(layerName: string) {
+		this.modelSpace.setlayerName(layerName);
+	}
+
 	public get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('ENTITIES');

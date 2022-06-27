@@ -44,7 +44,7 @@ export default class DxfDimStyle implements DxfInterface {
 		manager.add(46, 0);
 		manager.add(47, 0);
 		manager.add(48, 0);
-		manager.add(49, 1);
+		// manager.add(49, 1); // Not exist in the DXF Spec
 		manager.add(140, 2.5);
 		manager.add(141, 0.09);
 		manager.add(142, 2.5);

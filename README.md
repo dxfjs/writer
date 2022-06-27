@@ -7,7 +7,6 @@
 A Javascript dxf generator, written in Typescript.
 
 [![CircleCI>](https://circleci.com/gh/tarikjabiri/dxf.svg?style=svg)](https://circleci.com/github/tarikjabiri/dxf)
-[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 [![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
 ![npm](https://img.shields.io/npm/dw/@tarikjabiri/dxf)
 
@@ -16,17 +15,17 @@ A Javascript dxf generator, written in Typescript.
 ## Installation
 
 ```bash
-yarn add @tarikjabiri/dxf@next
+yarn add @tarikjabiri/dxf
 # Or npm
-npm i @tarikjabiri/dxf@next
+npm i @tarikjabiri/dxf
 # Or pnpm
-pnpm add @tarikjabiri/dxf@next
+pnpm add @tarikjabiri/dxf
 ```
 
 ## Getting started
 
 ```javascript
-import DxfWriter, { point3d } from '@tarikjabiri/dxf';
+import { DxfWriter, point3d } from '@tarikjabiri/dxf';
 
 const dxf = new DxfWriter();
 

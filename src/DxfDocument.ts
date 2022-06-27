@@ -1,4 +1,4 @@
-import GlobalState from './GlobalState';
+import { Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
 import TagsManager, { point3d_t } from './Internals/TagsManager';
@@ -6,13 +6,8 @@ import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
 import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
-import Image, {
-	ImageOptions_t,
-} from './Sections/EntitiesSection/Entities/Image';
 import DxfHeaderSection from './Sections/HeaderSection/DxfHeaderSection';
-import DxfObjects from './Sections/ObjectsSection/DxfObjectsSection';
-import DxfImageDef from './Sections/ObjectsSection/Objects/DxfImageDef';
-import DxfImageDefReactor from './Sections/ObjectsSection/Objects/DxfImageDefReactor';
+import DxfObjectsSection from './Sections/ObjectsSection/DxfObjectsSection';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import DxfVPort from './Sections/TablesSection/Tables/Records/DxfVPort';
 
@@ -22,22 +17,26 @@ export default class DxfDocument implements DxfInterface {
 	readonly tables: DxfTablesSection;
 	readonly blocks: DxfBlocksSection;
 	readonly entities: DxfEntitiesSection;
-	readonly objects: DxfObjects;
+	readonly objects: DxfObjectsSection;
 	readonly activeVPort: DxfVPort;
 	readonly modelSpace: DxfBlock;
 	readonly paperSpace: DxfBlock;
+	currentLayerName: string;
+	currentUnits: Units;
 
 	constructor() {
 		this.header = new DxfHeaderSection();
 		this.classes = new DxfClassesSection();
 		this.tables = new DxfTablesSection();
-		this.blocks = new DxfBlocksSection(this.tables);
+		this.objects = new DxfObjectsSection();
+		this.blocks = new DxfBlocksSection(this.tables, this.objects);
 		this.entities = new DxfEntitiesSection(this.blocks.modelSpace);
-		this.objects = new DxfObjects();
+		this.currentLayerName = '0';
+		this.currentUnits = Units.Unitless;
 
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
 		this.handseed();
-		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
+		this.setUnits(Units.Unitless);
 
 		this.tables.addLType('ByBlock', '', []);
 		this.tables.addLType('ByLayer', '', []);
@@ -53,24 +52,26 @@ export default class DxfDocument implements DxfInterface {
 	}
 
 	addBlock(name: string) {
-		return this.blocks.addBlock(name);
+		return this.blocks.addBlock(name, this.objects);
 	}
 
 	setCurrentLayerName(name: string): void {
 		const layerRecord = this.tables.layerTable.layerRecords.find(
 			(layer) => layer.name === name
 		);
-		if (layerRecord) GlobalState.currentLayerName = name;
-		else throw new Error(`The '${name} layer doesn't exist!'`);
+		if (layerRecord) {
+			this.currentLayerName = name;
+			this.entities.setLayerName(this.currentLayerName);
+		} else throw new Error(`The '${name} layer doesn't exist!'`);
 	}
 
 	private handseed() {
 		this.header.setVariable('$HANDSEED', { 5: Handle.peek() });
 	}
 
-	setUnits(units: number) {
-		GlobalState.units = units;
-		this.header.setVariable('$INSUNITS', { 70: GlobalState.units });
+	setUnits(units: Units) {
+		this.currentUnits = units;
+		this.header.setVariable('$INSUNITS', { 70: this.currentUnits });
 	}
 
 	setViewCenter(center: point3d_t) {
@@ -79,46 +80,6 @@ export default class DxfDocument implements DxfInterface {
 			20: center.y,
 		});
 		this.activeVPort.viewCenter = [center.x, center.y];
-	}
-
-	addImage(
-		imagePath: string,
-		name: string,
-		insertionPoint: point3d_t,
-		width: number,
-		height: number,
-		scale: number,
-		rotation: number,
-		options?: ImageOptions_t
-	): Image {
-		// TODO make sure there is no IMAGEDEF for this image!
-		const imageDef = new DxfImageDef(imagePath);
-		imageDef.width = width;
-		imageDef.height = height;
-		const image = new Image(
-			{
-				height,
-				width,
-				scale,
-				rotation,
-				insertionPoint,
-				imageDefHandle: imageDef.handle,
-			},
-			options
-		);
-		const imageDefReactor = new DxfImageDefReactor(image.handle);
-		image.imageDefReactorHandle = imageDefReactor.handle;
-		this.modelSpace.addEntity(image);
-		this.objects.addObject(imageDef);
-		this.objects.addObject(imageDefReactor);
-		const dictionary = this.objects.addDictionary();
-
-		dictionary.addEntryObject(name, imageDef.handle);
-		imageDef.ownerObjecthandle = dictionary.handle;
-		this.objects.root.addEntryObject('ACAD_IMAGE_DICT', dictionary.handle);
-		imageDef.acadImageDictHandle = dictionary.handle;
-		imageDef.addImageDefReactorHandle(imageDefReactor.handle);
-		return image;
 	}
 
 	stringify(): string {
