@@ -12,6 +12,6 @@ jobs:
         with:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
-      - run: pnpm i
-      - run: pnpm run test
-      - run: pnpm run build
+      - run: yarn install
+      - run: yarn test
+      - run: yarn build
