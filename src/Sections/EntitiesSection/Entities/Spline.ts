@@ -11,7 +11,7 @@ export enum SplineFlags {
 }
 
 export type SplineArgs_t = {
-	controlPoints: point3d_t[];
+	controlPoints: [point3d_t, point3d_t, point3d_t, point3d_t, ...point3d_t[]];
 	fitPoints?: point3d_t[];
 	degreeCurve?: number;
 	flags?: SplineFlags;
