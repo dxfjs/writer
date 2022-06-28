@@ -1,34 +1,18 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"useDefineForClassFields": true,
-		"module": "ESNext",
-		"rootDir": "./src",
+		"module": "esnext",
+		"target": "esnext",
 		"moduleResolution": "node",
-		"types": ["vitest/globals"],
-		"declaration": true,
-		"declarationDir": "./lib/types",
-		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
 		"strict": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
-		"strictFunctionTypes": true,
-		"strictBindCallApply": true,
-		"strictPropertyInitialization": true,
-		"noImplicitThis": true,
-		"useUnknownInCatchVariables": true,
-		"alwaysStrict": true,
+		"skipLibCheck": true,
 		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"exactOptionalPropertyTypes": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
-		"noPropertyAccessFromIndexSignature": true,
-		"skipLibCheck": true
+		"types": [
+			"vitest/globals"
+		]
 	},
-	"include": ["src/**/*"]
+	"exclude": [
+		"**/node_modules/**",
+		"**/lib/**"
+	],
 }

@@ -11,6 +11,23 @@ function folderDelete(folders) {
 	};
 }
 
+const tsconfigBuild = {
+	compilerOptions: {
+		module: 'esnext',
+		target: 'esnext',
+		rootDir: './src',
+		declaration: true,
+		declarationDir: './lib/types',
+		moduleResolution: 'node',
+		esModuleInterop: true,
+		strict: true,
+		skipLibCheck: true,
+		noUnusedLocals: true,
+		types: ['vitest/globals'],
+	},
+	include: ['./src'],
+};
+
 export default [
 	{
 		input: 'src/index.ts',
@@ -28,6 +45,7 @@ export default [
 		],
 		plugins: [
 			typescript({
+				tsconfigDefaults: tsconfigBuild,
 				useTsconfigDeclarationDir: true,
 			}),
 		],
