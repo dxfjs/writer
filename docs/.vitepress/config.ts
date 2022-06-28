@@ -11,8 +11,8 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/tarikjabiri/dxf" },
     ],
     algolia: {
-      appId: "ZMSRYGPU60",
-      apiKey: "4345b5f1dbb67455c34bc9422850e920",
+      appId: "VYHQL6H1FK",
+      apiKey: "d12995c0f160c81f0fb1bf6138648503",
       indexName: "dxf",
     },
     sidebar: [
