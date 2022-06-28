@@ -1,12 +1,12 @@
-name: publish
+name: CD
 
 on:
   release:
     types: [published]
 
 jobs:
-  release:
-    name: publish
+  CD:
+    name: CD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

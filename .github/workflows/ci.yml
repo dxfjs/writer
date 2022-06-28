@@ -1,10 +1,10 @@
-name: ci
+name: CI
 
 on: [push, pull_request]
 
 jobs:
   test-build:
-    name: ci
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

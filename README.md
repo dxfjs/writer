@@ -6,6 +6,8 @@
 
 A Javascript dxf generator, written in Typescript.
 
+![ci](https://github.com/tarikjabiri/dxf/actions/workflows/ci.yml/badge.svg)
+![publish](https://github.com/tarikjabiri/dxf/actions/workflows/cd.yml/badge.svg)
 [![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
 ![npm](https://img.shields.io/npm/dw/@tarikjabiri/dxf)
 
