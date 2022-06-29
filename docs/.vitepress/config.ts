@@ -28,6 +28,15 @@ export default defineConfig({
           { text: "Objects", link: "/guide/objects" },
         ],
       },
+      {
+        text: "API",
+        collapsible: true,
+        items: [
+          { text: "DxfWriter class", link: "/api/DxfWriter" },
+          { text: "Enums", link: "/api/Enums" },
+          { text: "Types", link: "/api/Types" },
+        ],
+      },
     ],
     footer: {
       message: "Released under the MIT License.",
