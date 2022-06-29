@@ -33,8 +33,9 @@ export default defineConfig({
         collapsible: true,
         items: [
           { text: "DxfWriter class", link: "/api/DxfWriter" },
-          { text: "Enums", link: "/api/Enums" },
-          { text: "Types", link: "/api/Types" },
+          { text: "Enums", link: "/api/enums" },
+          { text: "Types", link: "/api/types" },
+          { text: "Helper functions", link: "/api/helpers" },
         ],
       },
     ],

@@ -6,7 +6,7 @@ title: DxfWriter class
 # `DxfWriter` Methods
 
 ## `DxfWriter.setVariable()`
-- **Type:** `(name: string, values: values_t) => void`. See [values_t](/api/Types.html#values-t).
+- **Type:** `(name: string, values: values_t) => void`. See [values_t](/api/types.html#values-t).
 
 Add or update a header variable, see [HEADER variables](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A) for more informations.
 
@@ -18,7 +18,7 @@ Add or update a header variable, see [HEADER variables](https://help.autodesk.co
 Sets the current layer, to be used for the new entity.
 
 ## `DxfWriter.setUnits()`
-- **Type:** `(units: Units) => void`. See [Units](/api/Enums.html#units).
+- **Type:** `(units: Units) => void`. See [Units](/api/enums.html#units).
 
 Sets the default drawing units for AutoCAD DesignCenter blocks.
 
@@ -26,19 +26,19 @@ Sets the default drawing units for AutoCAD DesignCenter blocks.
 - **Type:** `(name: string, descriptive: string, elements: number[]) => DxfLType`.
 
 ## `DxfWriter.addLayer()`
-- **Type:** `(name: string, color: number, lineType: string, flags = LayerFlags.None) => DxfLayer`. See [LayerFlags](/api/Enums.html#layerflags).
+- **Type:** `(name: string, color: number, lineType: string, flags = LayerFlags.None) => DxfLayer`. See [LayerFlags](/api/enums.html#layerflags).
 
 ## `DxfWriter.addBlock()`
 - **Type:** `(name: string) => DxfBlock`.
 
 ## `DxfWriter.addHatch()`
-- **Type:** `(boundaryPath: HatchBoundaryPaths, fill: HatchPatternOptions_t | HatchGradientOptions_t, options?: HatchOptions_t) => Hatch`. See [HatchPatternOptions_t](/api/Types.html#hatchpatternoptions-t), [HatchGradientOptions_t](/api/Types.html#hatchgradientoptions-t) and [HatchOptions_t](/api/Types.html#hatchoptions-t).
+- **Type:** `(boundaryPath: HatchBoundaryPaths, fill: HatchPatternOptions_t | HatchGradientOptions_t, options?: HatchOptions_t) => Hatch`. See [HatchPatternOptions_t](/api/types.html#hatchpatternoptions-t), [HatchGradientOptions_t](/api/types.html#hatchgradientoptions-t) and [HatchOptions_t](/api/types.html#hatchoptions-t).
 
 ## `DxfWriter.addLine()`
-- **Type:** `(startPoint: point3d_t, endPoint: point3d_t, options?: options_t) => Line`. See [point3d_t](/api/Types.html#point3d-t)
+- **Type:** `(startPoint: point3d_t, endPoint: point3d_t, options?: options_t) => Line`. See [point3d_t](/api/types.html#point3d-t)
 
 ## `DxfWriter.addLWPolyline()`
-- **Type:** `(points: lwPolylineVertex_t[], options?: lwPolylineOptions_t) => LWPolyline`. See [lwPolylineVertex_t](/api/Types.html#lwpolylinevertex-t) and [lwPolylineOptions_t](/api/Types.html#lwpolylineoptions-t)
+- **Type:** `(points: lwPolylineVertex_t[], options?: lwPolylineOptions_t) => LWPolyline`. See [lwPolylineVertex_t](/api/types.html#lwpolylinevertex-t) and [lwPolylineOptions_t](/api/types.html#lwpolylineoptions-t)
 
 ## `DxfWriter.addRectangle()`
 - **Type:** `(topLeft: point2d_t, bottomRight: point2d_t, options?: rectangleOptions_t) => LWPolyline`.
