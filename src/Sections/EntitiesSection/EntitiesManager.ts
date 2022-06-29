@@ -164,8 +164,8 @@ export default abstract class EntitiesManager implements DxfInterface {
 	addPolyline3D(
 		points: (point3d_t | point2d_t)[],
 		options?: polylineOptions_t
-	): void {
-		this.addEntity(new Polyline(points, options));
+	) {
+		return this.addEntity(new Polyline(points, options));
 	}
 
 	addPoint(x: number, y: number, z: number, options?: options_t): Point {
