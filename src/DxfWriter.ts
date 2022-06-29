@@ -19,6 +19,7 @@ import {
 import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 import { Units } from './Internals/Enums';
+import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 
 /**
  * The base class for creating the dxf content.
@@ -116,7 +117,12 @@ export class DxfWriter {
 	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the the added layer.
 	 */
-	public addLayer(name: string, color: number, lineType: string, flags = 0) {
+	public addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags = LayerFlags.None
+	) {
 		return this.document.tables.addLayer(name, color, lineType, flags);
 	}
 
