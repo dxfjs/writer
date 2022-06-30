@@ -20,6 +20,7 @@ import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 import { Units } from './Internals/Enums';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
+import Handle from './Internals/Handle';
 
 /**
  * The base class for creating the dxf content.
@@ -52,6 +53,7 @@ export class DxfWriter {
 	}
 
 	constructor() {
+		Handle.seed = 0;
 		this.document = new DxfDocument();
 	}
 
