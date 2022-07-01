@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { version } from '../../package.json'
 
 export default defineConfig({
 	title: 'dxf',
@@ -10,7 +11,22 @@ export default defineConfig({
 	],
 	themeConfig: {
 		logo: '/logo.svg',
-		nav: [{ text: 'Get Started', link: '/guide/' }],
+		nav: [
+			{ text: 'Get Started', link: '/guide/' },
+			{
+        text: `v${version}`,
+        items: [
+          {
+            text: 'Releases ',
+            link: 'https://github.com/tarikjabiri/dxf/releases',
+          },
+          {
+            text: 'npm ',
+            link: 'https://www.npmjs.com/package/@tarikjabiri/dxf',
+          },
+        ],
+      },
+		],
 		socialLinks: [
 			{ icon: 'github', link: 'https://github.com/tarikjabiri/dxf' },
 		],
