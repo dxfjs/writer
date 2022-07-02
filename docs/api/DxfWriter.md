@@ -3,7 +3,7 @@ layout: doc
 title: DxfWriter class
 ---
 
-# `DxfWriter` Methods
+# `DxfWriter`
 
 ## `DxfWriter.setVariable()`
 - **Type:** `(name: string, values: values_t) => void`. See [values_t](/api/Types.html#values-t).
@@ -80,11 +80,9 @@ Sets the default drawing units for AutoCAD DesignCenter blocks.
 ## `DxfWriter.stringify()`
 - **Type:** `() => string`.
 
-## `DxfWriter` Getters
-
-### `DxfWriter.header`
-### `DxfWriter.tables`
-### `DxfWriter.blocks`
-### `DxfWriter.entities`
-### `DxfWriter.currentLayer`
-### `DxfWriter.units`
+## `DxfWriter.header`
+## `DxfWriter.tables`
+## `DxfWriter.blocks`
+## `DxfWriter.entities`
+## `DxfWriter.currentLayer`
+## `DxfWriter.units`
