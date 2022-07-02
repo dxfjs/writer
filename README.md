@@ -1,8 +1,4 @@
-<div align="center">
-
-![logo](https://user-images.githubusercontent.com/6343314/149963847-4388b2b3-2127-4e2b-8e83-ba40aa6ab979.png)
-
-</div>
+# writer
 
 A Javascript dxf generator, written in Typescript.
 
