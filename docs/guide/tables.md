@@ -136,6 +136,8 @@ You understand the principle.
 
 Last thing is the length of the array should equal the number of elements. Note that 4 underscores are treated one element.
 
+[See more informations](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-5A6E6759-8A9A-4A8A-9AEE-EE9DB72F792D)
+
 :::warning
 
 This explanation is my personal thought, no guarantee to be correct, but it is working 😉.
