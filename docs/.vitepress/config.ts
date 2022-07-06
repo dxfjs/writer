@@ -28,7 +28,7 @@ export default defineConfig({
       },
 		],
 		socialLinks: [
-			{ icon: 'github', link: 'https://github.com/tarikjabiri/dxf' },
+			{ icon: 'github', link: 'https://github.com/dxfjs/writer' },
 		],
 		algolia: {
 			appId: 'VYHQL6H1FK',
@@ -65,7 +65,7 @@ export default defineConfig({
 		},
 		editLink: {
 			pattern:
-				'https://github.com/tarikjabiri/dxf/edit/master/docs/:path',
+				'https://github.com/dxfjs/writer/edit/main/docs/:path',
 			text: 'Edit this page on GitHub',
 		},
 	},
