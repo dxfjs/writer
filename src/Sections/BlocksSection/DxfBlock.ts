@@ -1,8 +1,4 @@
-import TagsManager, {
-	point3d,
-	point3d_t,
-	tag_t,
-} from '../../Internals/TagsManager';
+import TagsManager, { point3d, point3d_t } from '../../Internals/TagsManager';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import EndBlk from './DxfEndBlk';
@@ -40,7 +36,7 @@ export default class DxfBlock extends EntitiesManager {
 		this.layerName = layerName;
 	}
 
-	tags(): tag_t[] {
+	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.entityType('BLOCK');
 		manager.handle(this.handle);
@@ -54,11 +50,11 @@ export default class DxfBlock extends EntitiesManager {
 		manager.name(this.name, 3);
 		manager.add(1, this.xrefPathName);
 		if (this.stringifyEntities) {
-			this.entities.forEach((entity) => {
-				manager.append(entity);
-			});
+			for (let i = 0; i < this.entities.length; i++) {
+				manager.append(this.entities[i]);
+			}
 		}
 		manager.append(this.endBlk);
-		return manager.tags;
+		return manager;
 	}
 }

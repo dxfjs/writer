@@ -21,9 +21,9 @@ export default class DxfBlockRecordTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.blockRecords.length;
 		manager.push(super.manager.tags);
-		this.blockRecords.forEach((blockRecord) => {
-			manager.append(blockRecord);
-		});
+		for (let i = 0; i < this.blockRecords.length; i++) {
+			manager.append(this.blockRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

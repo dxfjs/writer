@@ -14,9 +14,9 @@ export default class DxfDimStyleTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.dimStyleRecords.length;
 		manager.push(super.manager.tags);
-		this.dimStyleRecords.forEach((dimStyleRecord) => {
-			manager.append(dimStyleRecord);
-		});
+		for (let i = 0; i < this.dimStyleRecords.length; i++) {
+			manager.append(this.dimStyleRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

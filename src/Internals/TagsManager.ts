@@ -69,7 +69,8 @@ export default class TagsManager {
 	push(tags: tag_t | tag_t[] | null) {
 		if (tags) {
 			if (Array.isArray(tags)) {
-				for (const tag of tags) {
+				for (let i = 0; i < tags.length; i++) {
+					const tag = tags[i];
 					this.tags.push(tag);
 				}
 			} else {
@@ -142,9 +143,11 @@ export default class TagsManager {
 	}
 
 	stringify(): string {
-		return this.tags.reduce((str, tag) => {
-			return `${str}${stringifyTag(tag)}`;
-		}, '');
+		let _str = '';
+		for (let i = 0; i < this.tags.length; i++) {
+			_str += stringifyTag(this.tags[i]);
+		}
+		return _str;
 	}
 
 	sectionStart(name: string) {

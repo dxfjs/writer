@@ -35,9 +35,9 @@ export default class DxfLTypeTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.lTypeRecords.length;
 		manager.push(super.manager.tags);
-		this.lTypeRecords.forEach((lineTypeRecord) => {
-			manager.append(lineTypeRecord);
-		});
+		for (let i = 0; i < this.lTypeRecords.length; i++) {
+			manager.append(this.lTypeRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

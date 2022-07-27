@@ -24,3 +24,21 @@ export type rgb_t = {
 	g: number;
 	b: number;
 };
+
+export function min(numbers: number[]) {
+	let _min = Infinity;
+	for (let i = 0; i < numbers.length; i++) {
+		const n = numbers[i];
+		if (n < _min) _min = n;
+	}
+	return _min;
+}
+
+export function max(numbers: number[]) {
+	let _max = -Infinity;
+	for (let i = 0; i < numbers.length; i++) {
+		const n = numbers[i];
+		if (n > _max) _max = n;
+	}
+	return _max;
+}

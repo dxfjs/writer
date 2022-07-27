@@ -20,9 +20,9 @@ export default class DxfStyleTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.styleRecords.length;
 		manager.push(super.manager.tags);
-		this.styleRecords.forEach((styleRecord) => {
-			manager.append(styleRecord);
-		});
+		for (let i = 0; i < this.styleRecords.length; i++) {
+			manager.append(this.styleRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

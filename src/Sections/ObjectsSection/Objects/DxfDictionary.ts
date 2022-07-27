@@ -30,10 +30,11 @@ export default class DxfDictionary extends DxfObject {
 		manager.subclassMarker('AcDbDictionary');
 		manager.add(280, this.hardOwnerFlag);
 		manager.add(281, this.duplicateRecordCloningFlag);
-		this.entries.forEach((entry) => {
-			manager.add(3, entry.name);
-			manager.add(350, entry.entryObjectHandle);
-		});
+		for (let i = 0; i < this.entries.length; i++) {
+			const _entry = this.entries[i];
+			manager.add(3, _entry.name);
+			manager.add(350, _entry.entryObjectHandle);
+		}
 		return manager;
 	}
 }

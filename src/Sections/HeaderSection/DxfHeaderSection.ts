@@ -17,9 +17,9 @@ export default class DxfHeaderSection implements DxfInterface {
 	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('HEADER');
-		this.variables.forEach((variable) => {
-			manager.push(variable.manager.tags);
-		});
+		for (let i = 0; i < this.variables.length; i++) {
+			manager.append(this.variables[i]);
+		}
 		manager.sectionEnd();
 		return manager;
 	}

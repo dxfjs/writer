@@ -45,9 +45,9 @@ export default class DxfObjectsSection implements DxfInterface {
 		const manager = new TagsManager();
 		manager.sectionStart('OBJECTS');
 		manager.append(this.root);
-		this.objects.forEach((object) => {
-			manager.append(object);
-		});
+		for (let i = 0; i < this.objects.length; i++) {
+			manager.append(this.objects[i]);
+		}
 		manager.sectionEnd();
 		manager.entityType('EOF');
 		return manager;

@@ -20,9 +20,9 @@ export default class DxfUcsTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.ucsRecords.length;
 		manager.push(super.manager.tags);
-		this.ucsRecords.forEach((ucsRecord) => {
-			manager.append(ucsRecord);
-		});
+		for (let i = 0; i < this.ucsRecords.length; i++) {
+			manager.append(this.ucsRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

@@ -1,5 +1,5 @@
 import DxfBlock from './DxfBlock';
-import TagsManager, { tag_t } from '../../Internals/TagsManager';
+import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfTablesSection from '../TablesSection/DxfTablesSection';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
@@ -28,11 +28,9 @@ export default class DxfBlocksSection implements DxfInterface {
 	get manager(): TagsManager {
 		const manager = new TagsManager();
 		manager.sectionStart('BLOCKS');
-		manager.push(
-			this.blocks.reduce((tags: tag_t[], block) => {
-				return [...tags, ...block.tags()];
-			}, [])
-		);
+		for (let i = 0; i < this.blocks.length; i++) {
+			manager.append(this.blocks[i]);
+		}
 		manager.sectionEnd();
 		return manager;
 	}

@@ -41,9 +41,9 @@ export default class DxfLayerTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.layerRecords.length;
 		manager.push(super.manager.tags);
-		this.layerRecords.forEach((layerRecord) => {
-			manager.append(layerRecord);
-		});
+		for (let i = 0; i < this.layerRecords.length; i++) {
+			manager.append(this.layerRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

@@ -20,9 +20,9 @@ export default class DxfVPortTable extends DxfTable {
 		const manager = new TagsManager();
 		this.maxNumberEntries = this.viewPortRecords.length;
 		manager.push(super.manager.tags);
-		this.viewPortRecords.forEach((viewPortRecord) => {
-			manager.append(viewPortRecord);
-		});
+		for (let i = 0; i < this.viewPortRecords.length; i++) {
+			manager.append(this.viewPortRecords[i]);
+		}
 		manager.entityType('ENDTAB');
 		return manager;
 	}

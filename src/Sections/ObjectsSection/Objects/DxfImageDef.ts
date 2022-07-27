@@ -40,9 +40,9 @@ export default class DxfImageDef extends DxfObject {
 		// TODO Need a dynamic way
 		const definedApp = new DxfDefinedApplication('ACAD_REACTORS');
 		definedApp.add(330, this.acadImageDictHandle);
-		this.imageReactorHandles.forEach((id) => {
-			definedApp.add(330, id);
-		});
+		for (let i = 0; i < this.imageReactorHandles.length; i++) {
+			definedApp.add(330, this.imageReactorHandles[i]);
+		}
 
 		const manager = new TagsManager();
 		manager.push(super.manager.tags);
