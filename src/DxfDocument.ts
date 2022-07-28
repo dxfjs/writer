@@ -1,7 +1,7 @@
+import { Dxifier, point3d_t } from './Internals/Dxifier';
 import { Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
-import TagsManager, { point3d_t } from './Internals/TagsManager';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
@@ -51,12 +51,21 @@ export default class DxfDocument implements DxfInterface {
 		this.paperSpace = this.blocks.paperSpace;
 	}
 
+	dxify(mg: Dxifier): void {
+		this.header.dxify(mg);
+		this.classes.dxify(mg);
+		this.tables.dxify(mg);
+		this.blocks.dxify(mg);
+		this.entities.dxify(mg);
+		this.objects.dxify(mg);
+	}
+
 	addBlock(name: string) {
 		return this.blocks.addBlock(name, this.objects);
 	}
 
 	setCurrentLayerName(name: string): void {
-		const layerRecord = this.tables.layerTable.layerRecords.find(
+		const layerRecord = this.tables.layerTable.records.find(
 			(layer) => layer.name === name
 		);
 		if (layerRecord) {
@@ -83,20 +92,11 @@ export default class DxfDocument implements DxfInterface {
 	}
 
 	stringify(): string {
+		const mg = new Dxifier();
 		this.handseed();
 		this.setViewCenter(this.modelSpace.centerView()); // fit in
 		this.activeVPort.viewHeight = this.modelSpace.viewHeight();
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.append(this.header);
-		manager.append(this.classes);
-		manager.append(this.tables);
-		manager.append(this.blocks);
-		manager.append(this.entities);
-		manager.append(this.objects);
-		return manager;
+		this.dxify(mg);
+		return mg.stringify();
 	}
 }

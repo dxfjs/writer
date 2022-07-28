@@ -1,10 +1,8 @@
+import { Dxifier } from '../../Internals/Dxifier';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../Internals/TagsManager';
 
 /**
  * This is the type for variable values.
- *
- * @public
  *
  * @example
  * ```js
@@ -18,30 +16,24 @@ import TagsManager from '../../Internals/TagsManager';
  * ```
  */
 export type values_t = {
-	[groupCode: number]: number | string;
+	[code: number]: number | string;
 };
 
 export default class DxfVariable implements DxfInterface {
 	readonly name: string;
 	values: values_t;
 
-	public constructor(name: string, values: values_t) {
+	constructor(name: string, values: values_t) {
 		this.values = values;
 		this.name = name;
 	}
 
-	public stringify(): string {
-		return this.manager.stringify();
-	}
-
-	public get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.variableName(this.name);
-		const _entries = Object.entries(this.values);
-		for (let i = 0; i < _entries.length; i++) {
-			const [groupCode, value] = _entries[i];
-			manager.add(parseInt(groupCode), value);
+	dxify(mg: Dxifier) {
+		mg.variable(this.name);
+		const entries = Object.entries(this.values);
+		for (const entry of entries) {
+			const [code, value] = entry;
+			mg.push(parseInt(code), value);
 		}
-		return manager;
 	}
 }

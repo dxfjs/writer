@@ -1,5 +1,5 @@
 import DxfObject from '../DxfObject';
-import TagsManager from '../../../Internals/TagsManager';
+import { Dxifier } from '../../../Internals/Dxifier';
 
 export type entryObject_t = {
 	name: string;
@@ -24,17 +24,14 @@ export default class DxfDictionary extends DxfObject {
 		});
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbDictionary');
-		manager.add(280, this.hardOwnerFlag);
-		manager.add(281, this.duplicateRecordCloningFlag);
-		for (let i = 0; i < this.entries.length; i++) {
-			const _entry = this.entries[i];
-			manager.add(3, _entry.name);
-			manager.add(350, _entry.entryObjectHandle);
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbDictionary');
+		mg.push(280, this.hardOwnerFlag);
+		mg.push(281, this.duplicateRecordCloningFlag);
+		for (const entry of this.entries) {
+			mg.push(3, entry.name);
+			mg.push(350, entry.entryObjectHandle);
 		}
-		return manager;
 	}
 }

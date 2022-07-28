@@ -1,5 +1,5 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {
@@ -26,14 +26,12 @@ export default class Text extends Entity {
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d(this.position);
-		manager.add(40, this.height);
-		manager.primaryText(this.value);
-		manager.textStyle(this.textStyle);
-		manager.subclassMarker('AcDbText');
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(this.position);
+		mg.push(40, this.height);
+		mg.primaryText(this.value);
+		mg.textStyle(this.textStyle);
+		mg.subclassMarker('AcDbText');
 	}
 }

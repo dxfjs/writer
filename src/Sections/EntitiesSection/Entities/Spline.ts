@@ -1,6 +1,6 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 
 export enum SplineFlags {
 	Closed = 1,
@@ -74,27 +74,25 @@ export default class Spline extends Entity {
 		]);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.add(70, this.flags);
-		manager.add(71, this.degreeCurve);
-		manager.add(72, this.knots.length);
-		manager.add(73, this.controlPoints.length);
-		manager.add(74, this.fitPoints.length);
-		manager.add(42, '0.0000001');
-		manager.add(43, '0.0000001');
-		manager.add(42, '0.0000000001');
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.push(70, this.flags);
+		mg.push(71, this.degreeCurve);
+		mg.push(72, this.knots.length);
+		mg.push(73, this.controlPoints.length);
+		mg.push(74, this.fitPoints.length);
+		mg.push(42, '0.0000001');
+		mg.push(43, '0.0000001');
+		mg.push(42, '0.0000000001');
 
-		this.knots.forEach((knot) => {
-			manager.add(40, knot);
-		});
-		this.controlPoints.forEach((point) => {
-			manager.point3d(point);
-		});
-		this.fitPoints.forEach((point) => {
-			manager.point3d(point, 1);
-		});
-		return manager;
+		for (const k of this.knots) {
+			mg.push(40, k);
+		}
+		for (const cp of this.controlPoints) {
+			mg.point3d(cp);
+		}
+		for (const fp of this.fitPoints) {
+			mg.point3d(fp, 1);
+		}
 	}
 }

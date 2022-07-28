@@ -1,12 +1,13 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { aciHex } from '../../../Internals/Colors';
-import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
-import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
-import TagsManager, {
+import {
+	Dxifier,
 	point2d_t,
 	point3d,
 	point3d_t,
-} from '../../../Internals/TagsManager';
+} from '../../../Internals/Dxifier';
+import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
+import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TrueColor from '../../../Internals/TrueColor';
 import Entity, { options_t } from '../Entity';
 
@@ -123,32 +124,26 @@ export function vertex(
 }
 
 export class HatchPolylineBoundary implements DxfInterface {
-	readonly verticies: HatchPolylineVertex_t[];
+	readonly vertices: HatchPolylineVertex_t[];
 
 	constructor(verticies?: HatchPolylineVertex_t[]) {
-		this.verticies = verticies || [];
+		this.vertices = verticies || [];
 	}
 
 	add(vertex: HatchPolylineVertex_t) {
-		this.verticies.push(vertex);
+		this.vertices.push(vertex);
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		const bulge = this.verticies.find((v) => v.bulge) ? true : false;
-		manager.add(72, Number(bulge));
-		manager.add(73, 1);
-		manager.add(93, this.verticies.length);
-		this.verticies.forEach((v) => {
-			manager.point2d(v);
-			if (bulge) manager.add(42, v.bulge || 0);
-		});
-		manager.add(97, 0);
-		return manager;
+	dxify(mg: Dxifier): void {
+		const bulge = this.vertices.find((v) => v.bulge) ? true : false;
+		mg.push(72, Number(bulge));
+		mg.push(73, 1);
+		mg.push(93, this.vertices.length);
+		for (const v of this.vertices) {
+			mg.point2d(v);
+			if (bulge) mg.push(42, v.bulge || 0);
+		}
+		mg.push(97, 0);
 	}
 }
 
@@ -218,26 +213,20 @@ export class HatchBoundaryPaths implements DxfInterface {
 		this.edgesTypeDatas.push(edgesTypeData);
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
+	dxify(mg: Dxifier) {
 		if (this.isPolyline()) {
 			this.polylineBoundaries.forEach((polyline) => {
-				manager.add(92, this.pathTypeFlag);
-				manager.append(polyline);
+				mg.push(92, this.pathTypeFlag);
+				polyline.dxify(mg);
 			});
 		} else if (this.isEdges()) {
 			this.edgesTypeDatas.forEach((data) => {
-				manager.add(92, this.pathTypeFlag);
-				manager.append(data);
+				mg.push(92, this.pathTypeFlag);
+				data.dxify(mg);
 			});
 		} else {
 			throw new Error('The boundary path is empty!');
 		}
-		return manager;
 	}
 }
 
@@ -250,15 +239,9 @@ export class HatchLineEdgeData implements DxfInterface {
 		this.end = end;
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.point2d(this.start);
-		manager.point2d(this.end, 1);
-		return manager;
+	dxify(mg: Dxifier) {
+		mg.point2d(this.start);
+		mg.point2d(this.end, 1);
 	}
 }
 
@@ -283,18 +266,12 @@ export class HatchArcEdgeData implements DxfInterface {
 		this.isCounterClockwise = isCounterClockwise;
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.point2d(this.center);
-		manager.add(40, this.raduis);
-		manager.add(50, this.startAngle);
-		manager.add(51, this.endAngle);
-		manager.add(73, Number(this.isCounterClockwise));
-		return manager;
+	dxify(mg: Dxifier) {
+		mg.point2d(this.center);
+		mg.push(40, this.raduis);
+		mg.push(50, this.startAngle);
+		mg.push(51, this.endAngle);
+		mg.push(73, Number(this.isCounterClockwise));
 	}
 }
 export class HatchEdgesTypeData implements DxfInterface {
@@ -325,16 +302,10 @@ export class HatchEdgesTypeData implements DxfInterface {
 		);
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		this.edgesData.forEach((edge) => {
-			manager.append(edge);
-		});
-		return manager;
+	dxify(mg: Dxifier) {
+		for (const edge of this.edgesData) {
+			edge.dxify(mg);
+		}
 	}
 }
 
@@ -413,47 +384,43 @@ export default class Hatch extends Entity {
 		this.boundaryPath = boundaryPath;
 	}
 
-	private pattern(fill: HatchPatternOptions_t) {
+	private pattern(mg: Dxifier, fill: HatchPatternOptions_t) {
 		const name = fill.name;
 		const angle = fill.angle ?? 0;
 		const scale = fill.scale || 1;
 		const double = fill.double || false;
-		const manager = new TagsManager();
-		manager.add(52, angle);
-		manager.add(41, scale);
-		manager.add(77, Number(double));
+		mg.push(52, angle);
+		mg.push(41, scale);
+		mg.push(77, Number(double));
 		const pattern = PredefinedHatchPatterns.get(name);
 		if (pattern) {
 			pattern.scale = scale;
 			if (angle !== 0) pattern.angle = angle;
-			manager.append(pattern);
+			pattern.dxify(mg);
 		}
-		return manager;
 	}
 
-	private gradient(fill: HatchGradientOptions_t) {
+	private gradient(mg: Dxifier, fill: HatchGradientOptions_t) {
 		const firstColor = fill.firstColor;
 		const secondColor = fill.secondColor ?? 7;
 		const angle = fill.angle ?? 0;
 		const definition = fill.definition || 0;
 		const tint = fill.tint ?? 1;
 		const type = fill.type || GradientType.LINEAR;
-		const manager = new TagsManager();
-		manager.add(450, 1);
-		manager.add(451, 0);
-		manager.add(460, angle);
-		manager.add(461, definition);
-		manager.add(452, fill.secondColor ? 0 : 1);
-		manager.add(462, tint);
-		manager.add(453, 2);
-		manager.add(463, 0);
-		manager.add(63, firstColor);
-		manager.add(421, TrueColor.fromHex(aciHex(firstColor)));
-		manager.add(463, 1);
-		manager.add(63, secondColor);
-		manager.add(421, TrueColor.fromHex(aciHex(secondColor)));
-		manager.add(470, type);
-		return manager;
+		mg.push(450, 1);
+		mg.push(451, 0);
+		mg.push(460, angle);
+		mg.push(461, definition);
+		mg.push(452, fill.secondColor ? 0 : 1);
+		mg.push(462, tint);
+		mg.push(453, 2);
+		mg.push(463, 0);
+		mg.push(63, firstColor);
+		mg.push(421, TrueColor.fromHex(aciHex(firstColor)));
+		mg.push(463, 1);
+		mg.push(63, secondColor);
+		mg.push(421, TrueColor.fromHex(aciHex(secondColor)));
+		mg.push(470, type);
 	}
 
 	private isPattern(
@@ -466,38 +433,36 @@ export default class Hatch extends Entity {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d(point3d(0, 0, this.elevation));
-		manager.add(210, this.extrusion.x);
-		manager.add(220, this.extrusion.y);
-		manager.add(230, this.extrusion.z);
-		manager.name(
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(point3d(0, 0, this.elevation));
+		mg.push(210, this.extrusion.x);
+		mg.push(220, this.extrusion.y);
+		mg.push(230, this.extrusion.z);
+		mg.name(
 			this.isPattern(this.fill)
 				? this.fill.name
 				: HatchPredefinedPatterns.SOLID
 		);
-		manager.add(
+		mg.push(
 			70,
 			this.isPattern(this.fill)
 				? SolidFillFlag.PatternFill
 				: SolidFillFlag.SolidFill
 		);
-		manager.add(71, AssociativityFlag.NonAssociative);
-		manager.add(91, this.boundaryPath.length);
-		manager.append(this.boundaryPath);
-		manager.add(75, HatchStyle.Outer);
-		manager.add(76, HatchPatternType.Predifined);
+		mg.push(71, AssociativityFlag.NonAssociative);
+		mg.push(91, this.boundaryPath.length);
+		this.boundaryPath.dxify(mg);
+		mg.push(75, HatchStyle.Outer);
+		mg.push(76, HatchPatternType.Predifined);
 		if (this.isPattern(this.fill)) {
-			manager.push(this.pattern(this.fill).tags);
-			manager.add(47, 1);
-			manager.add(98, 0);
+			this.pattern(mg, this.fill);
+			mg.push(47, 1);
+			mg.push(98, 0);
 		} else {
-			manager.add(47, 1);
-			manager.add(98, 0);
-			manager.push(this.gradient(this.fill).tags);
+			mg.push(47, 1);
+			mg.push(98, 0);
+			this.gradient(mg, this.fill);
 		}
-		return manager;
 	}
 }

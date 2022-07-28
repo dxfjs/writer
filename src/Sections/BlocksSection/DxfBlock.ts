@@ -1,4 +1,4 @@
-import TagsManager, { point3d, point3d_t } from '../../Internals/TagsManager';
+import { Dxifier, point3d, point3d_t } from '../../Internals/Dxifier';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import EndBlk from './DxfEndBlk';
@@ -36,25 +36,19 @@ export default class DxfBlock extends EntitiesManager {
 		this.layerName = layerName;
 	}
 
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.entityType('BLOCK');
-		manager.handle(this.handle);
-		manager.add(330, this.ownerObjectHandle);
-		manager.subclassMarker('AcDbEntity');
-		manager.layerName(this.layerName);
-		manager.subclassMarker('AcDbBlockBegin');
-		manager.name(this.name);
-		manager.add(70, this.flags);
-		manager.point3d(this.basePoint);
-		manager.name(this.name, 3);
-		manager.add(1, this.xrefPathName);
-		if (this.stringifyEntities) {
-			for (let i = 0; i < this.entities.length; i++) {
-				manager.append(this.entities[i]);
-			}
-		}
-		manager.append(this.endBlk);
-		return manager;
+	dxify(mg: Dxifier): void {
+		mg.type('BLOCK');
+		mg.handle(this.handle);
+		mg.push(330, this.ownerObjectHandle);
+		mg.subclassMarker('AcDbEntity');
+		mg.layerName(this.layerName);
+		mg.subclassMarker('AcDbBlockBegin');
+		mg.name(this.name);
+		mg.push(70, this.flags);
+		mg.point3d(this.basePoint);
+		mg.name(this.name, 3);
+		mg.push(1, this.xrefPathName);
+		if (this.stringifyEntities) super.dxify(mg);
+		this.endBlk.dxify(mg);
 	}
 }

@@ -1,12 +1,13 @@
 import Entity, { options_t } from '../Entity';
 import Vertex, { VertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
-import TagsManager, {
+import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import {
+	Dxifier,
 	point2d_t,
 	point3d,
 	point3d_t,
-} from '../../../Internals/TagsManager';
-import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+} from '../../../Internals/Dxifier';
 
 export enum PolylineFlags {
 	None = 0,
@@ -99,24 +100,22 @@ export default class Polyline extends Entity {
 		return BoundingBox.verticesBBox(this.vertices);
 	}
 
-	public override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.add(66, 1);
-		manager.point3d(point3d(0, 0, this.elevation));
-		manager.add(39, this.thickness);
-		manager.add(70, this.flags);
-		manager.add(40, this.defaultStartWidth);
-		manager.add(41, this.defaultEndWidth);
-		manager.add(71, this.polygonMeshM);
-		manager.add(72, this.polygonMeshN);
-		manager.add(73, this.smoothSurfaceM);
-		manager.add(74, this.smoothSurfaceN);
-		manager.add(75, this.surfaceType);
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.push(66, 1);
+		mg.point3d(point3d(0, 0, this.elevation));
+		mg.push(39, this.thickness);
+		mg.push(70, this.flags);
+		mg.push(40, this.defaultStartWidth);
+		mg.push(41, this.defaultEndWidth);
+		mg.push(71, this.polygonMeshM);
+		mg.push(72, this.polygonMeshN);
+		mg.push(73, this.smoothSurfaceM);
+		mg.push(74, this.smoothSurfaceN);
+		mg.push(75, this.surfaceType);
 		this.vertexes.forEach((vertex) => {
-			manager.append(vertex);
+			vertex.dxify(mg);
 		});
-		manager.append(this.#seqEnd);
-		return manager;
+		this.#seqEnd.dxify(mg);
 	}
 }

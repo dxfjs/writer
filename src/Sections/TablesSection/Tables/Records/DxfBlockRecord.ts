@@ -1,4 +1,4 @@
-import TagsManager from '../../../../Internals/TagsManager';
+import { Dxifier } from '../../../../Internals/Dxifier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfBlockRecord extends DxfRecord {
@@ -16,15 +16,13 @@ export default class DxfBlockRecord extends DxfRecord {
 		this.scalability = 0;
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbBlockTableRecord');
-		manager.name(this.name);
-		manager.add(340, this.layoutObject);
-		manager.add(70, this.insertionUnits);
-		manager.add(280, this.explodability);
-		manager.add(281, this.scalability);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbBlockTableRecord');
+		mg.name(this.name);
+		mg.push(340, this.layoutObject);
+		mg.push(70, this.insertionUnits);
+		mg.push(280, this.explodability);
+		mg.push(281, this.scalability);
 	}
 }

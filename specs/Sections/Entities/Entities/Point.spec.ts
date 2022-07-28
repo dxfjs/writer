@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { Dxifier } from '../../../../src';
 import Point from '../../../../src/Sections/EntitiesSection/Entities/Point';
 
 describe('Point', () => {
@@ -33,9 +34,11 @@ describe('Point', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nPOINT\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbPoint\n`;
+		let entityString = `0\nPOINT\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbPoint\n`;
 		entityString +=
-			'  10\n24445787874545.336\n  20\n47854548454.54874\n  30\n0.14111122215556\n';
-		expect(entity.stringify()).toBe(entityString);
+			'10\n24445787874545.336\n20\n47854548454.54874\n30\n0.14111122215556';
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

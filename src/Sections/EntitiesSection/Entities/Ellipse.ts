@@ -1,6 +1,6 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 
 export default class Ellipse extends Entity {
 	center: point3d_t;
@@ -38,15 +38,12 @@ export default class Ellipse extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
 
-	override get manager(): TagsManager {
-		const [x, y, z] = [this.center.x, this.center.y, this.center.z];
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d({ x, y, z });
-		manager.point3d(this.endPointOfMajorAxis, 1);
-		manager.add(40, this.ratioOfMinorAxisToMajorAxis);
-		manager.add(41, this.startParameter);
-		manager.add(42, this.endParameter);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(this.center);
+		mg.point3d(this.endPointOfMajorAxis, 1);
+		mg.push(40, this.ratioOfMinorAxisToMajorAxis);
+		mg.push(41, this.startParameter);
+		mg.push(42, this.endParameter);
 	}
 }

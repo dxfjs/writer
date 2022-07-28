@@ -1,6 +1,6 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d } from '../../../Internals/Dxifier';
 
 export default class Point extends Entity {
 	x: number;
@@ -18,10 +18,8 @@ export default class Point extends Entity {
 		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d(point3d(this.x, this.y, this.z));
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(point3d(this.x, this.y, this.z));
 	}
 }

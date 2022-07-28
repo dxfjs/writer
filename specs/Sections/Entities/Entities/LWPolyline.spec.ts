@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point2d } from '../../../../src/Internals/TagsManager';
+import { Dxifier, point2d } from '../../../../src';
 import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
 
 describe('Polyline', () => {
@@ -34,9 +34,11 @@ describe('Polyline', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nLWPOLYLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbPolyline\n`;
+		let entityString = `0\nLWPOLYLINE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbPolyline\n`;
 		entityString +=
-			'  90\n2\n  70\n0\n  43\n0\n  38\n0\n  39\n0\n  10\n0\n  20\n0\n  10\n120\n  20\n54\n';
-		expect(entity.stringify()).toBe(entityString);
+			'90\n2\n70\n0\n43\n0\n38\n0\n39\n0\n10\n0\n20\n0\n10\n120\n20\n54';
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

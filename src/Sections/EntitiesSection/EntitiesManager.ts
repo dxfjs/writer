@@ -1,9 +1,4 @@
 import Entity, { options_t } from './Entity';
-import TagsManager, {
-	point2d,
-	point2d_t,
-	point3d_t,
-} from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Line from './Entities/Line';
@@ -31,6 +26,12 @@ import Hatch, {
 } from './Entities/Hatch';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import Image, { ImageOptions_t } from './Entities/Image';
+import {
+	Dxifier,
+	point2d,
+	point2d_t,
+	point3d_t,
+} from '../../Internals/Dxifier';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -42,6 +43,12 @@ export default abstract class EntitiesManager implements DxfInterface {
 		this.handle = Handle.next();
 		this.objects = objects;
 		this.layerName = layerName;
+	}
+
+	dxify(mg: Dxifier): void {
+		for (const entity of this.entities) {
+			entity.dxify(mg);
+		}
 	}
 
 	addHatch(
@@ -252,9 +259,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	boundingBox(): boundingBox_t {
-		return BoundingBox.boundingBox(
-			this.entities.map((enity) => enity.boundingBox())
-		);
+		const _bboxes = [];
+		for (let i = 0; i < this.entities.length; i++)
+			_bboxes.push(this.entities[i].boundingBox());
+		return BoundingBox.boundingBox(_bboxes);
 	}
 
 	centerView(): point3d_t {
@@ -263,17 +271,5 @@ export default abstract class EntitiesManager implements DxfInterface {
 
 	viewHeight(): number {
 		return BoundingBox.boundingBoxHeight(this.boundingBox());
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		for (let i = 0; i < this.entities.length; i++) {
-			manager.append(this.entities[i]);
-		}
-		return manager;
-	}
-
-	stringify(): string {
-		return this.manager.stringify();
 	}
 }

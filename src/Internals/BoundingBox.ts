@@ -1,4 +1,4 @@
-import { point3d, point3d_t } from './TagsManager';
+import { point3d, point3d_t } from './Dxifier';
 import { max, min } from './Utils';
 
 export type boundingBox_t = {
@@ -66,8 +66,7 @@ export default class BoundingBox {
 		const _vertices = [];
 		for (let i = 0; i < boundingBoxes.length; i++) {
 			const _bbox = boundingBoxes[i];
-			_vertices.push(_bbox.topLeft);
-			_vertices.push(_bbox.bottomRight);
+			_vertices.push(_bbox.topLeft, _bbox.bottomRight);
 		}
 		return BoundingBox.verticesBBox(_vertices);
 	}

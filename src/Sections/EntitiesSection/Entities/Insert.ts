@@ -1,6 +1,5 @@
-import { point3d_t } from '../../../index';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import TagsManager, { point3d } from '../../../Internals/TagsManager';
+import { Dxifier, point3d, point3d_t } from '../../../Internals/Dxifier';
 import Entity, { options_t } from '../Entity';
 
 export type insertOptions_t = options_t & {
@@ -42,19 +41,17 @@ export default class Insert extends Entity {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.name(this.blockName);
-		manager.point3d(this.insertionPoint);
-		manager.add(41, this.scaleFactor.x || 1);
-		manager.add(42, this.scaleFactor.y || 1);
-		manager.add(43, this.scaleFactor.z || 1);
-		manager.add(50, this.rotationAngle);
-		manager.add(70, this.columnCount);
-		manager.add(71, this.rowCount);
-		manager.add(44, this.columnSpacing);
-		manager.add(45, this.rowSpacing);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.name(this.blockName);
+		mg.point3d(this.insertionPoint);
+		mg.push(41, this.scaleFactor.x || 1);
+		mg.push(42, this.scaleFactor.y || 1);
+		mg.push(43, this.scaleFactor.z || 1);
+		mg.push(50, this.rotationAngle);
+		mg.push(70, this.columnCount);
+		mg.push(71, this.rowCount);
+		mg.push(44, this.columnSpacing);
+		mg.push(45, this.rowSpacing);
 	}
 }

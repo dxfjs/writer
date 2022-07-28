@@ -1,5 +1,5 @@
+import { Dxifier } from './Dxifier';
 import DxfInterface from './Interfaces/DxfInterface';
-import TagsManager from './TagsManager';
 
 export type HatchPatternData_t = {
 	lineAngle: number;
@@ -25,29 +25,23 @@ export class HatchPattern implements DxfInterface {
 		this.scale = 1;
 	}
 
+	dxify(mg: Dxifier): void {
+		mg.push(78, this.patternsData.length);
+		for (const p of this.patternsData) {
+			mg.push(53, p.lineAngle);
+			mg.push(43, p.x);
+			mg.push(44, p.y);
+			mg.push(45, p.offsetX * this.scale);
+			mg.push(46, p.offsetY * this.scale);
+			mg.push(79, p.dashLengthItems.length);
+			for (const d of p.dashLengthItems) {
+				mg.push(49, d * this.scale);
+			}
+		}
+	}
+
 	add(patternData: HatchPatternData_t) {
 		this.patternsData.push(patternData);
-	}
-
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.add(78, this.patternsData.length);
-		this.patternsData.forEach((p) => {
-			manager.add(53, p.lineAngle);
-			manager.add(43, p.x);
-			manager.add(44, p.y);
-			manager.add(45, p.offsetX * this.scale);
-			manager.add(46, p.offsetY * this.scale);
-			manager.add(79, p.dashLengthItems.length);
-			p.dashLengthItems.forEach((d) => {
-				manager.add(49, d * this.scale);
-			});
-		});
-		return manager;
 	}
 }
 

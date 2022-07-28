@@ -1,6 +1,6 @@
+import { Dxifier } from '../../../../Internals/Dxifier';
 import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../../../Internals/TagsManager';
 
 export enum LayerFlags {
 	None = 0,
@@ -27,25 +27,19 @@ export enum ViewFlags {
 }
 
 export default class DxfRecord implements DxfInterface {
-	readonly entityType: string;
+	readonly type: string;
 	readonly handle: string;
 	ownerObjectHandle?: string;
 
 	constructor(type: string) {
-		this.entityType = type;
+		this.type = type;
 		this.handle = Handle.next();
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.entityType(this.entityType);
-		manager.handle(this.handle);
-		manager.add(330, this.ownerObjectHandle);
-		manager.subclassMarker('AcDbSymbolTableRecord');
-		return manager;
+	dxify(mg: Dxifier) {
+		mg.type(this.type);
+		mg.handle(this.handle);
+		mg.push(330, this.ownerObjectHandle);
+		mg.subclassMarker('AcDbSymbolTableRecord');
 	}
 }

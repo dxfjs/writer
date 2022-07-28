@@ -1,4 +1,4 @@
-import TagsManager from '../../../../Internals/TagsManager';
+import { Dxifier } from '../../../../Internals/Dxifier';
 import DxfRecord from './DxfRecord';
 
 export enum AppIdFlags {
@@ -17,12 +17,10 @@ export default class DxfAppId extends DxfRecord {
 		this.flags = flags ?? AppIdFlags.None;
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbRegAppTableRecord');
-		manager.name(this.name);
-		manager.add(70, this.flags);
-		return manager;
+	dxify(mg: Dxifier) {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbRegAppTableRecord');
+		mg.name(this.name);
+		mg.push(70, this.flags);
 	}
 }

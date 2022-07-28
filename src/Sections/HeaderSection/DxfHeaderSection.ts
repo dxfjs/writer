@@ -1,6 +1,6 @@
 import DxfVariable, { values_t } from './DxfVariable';
-import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import { Dxifier } from '../../Internals/Dxifier';
 
 export default class DxfHeaderSection implements DxfInterface {
 	readonly variables: DxfVariable[] = [];
@@ -14,17 +14,11 @@ export default class DxfHeaderSection implements DxfInterface {
 		}
 	}
 
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.sectionStart('HEADER');
-		for (let i = 0; i < this.variables.length; i++) {
-			manager.append(this.variables[i]);
+	dxify(mg: Dxifier) {
+		mg.start('HEADER');
+		for (const variable of this.variables) {
+			variable.dxify(mg);
 		}
-		manager.sectionEnd();
-		return manager;
-	}
-
-	stringify(): string {
-		return this.manager.stringify();
+		mg.end();
 	}
 }

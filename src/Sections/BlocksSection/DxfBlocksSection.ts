@@ -1,8 +1,8 @@
 import DxfBlock from './DxfBlock';
-import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfTablesSection from '../TablesSection/DxfTablesSection';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
+import { Dxifier } from '../../Internals/Dxifier';
 
 export default class DxfBlocksSection implements DxfInterface {
 	readonly blocks: DxfBlock[] = [];
@@ -25,17 +25,9 @@ export default class DxfBlocksSection implements DxfInterface {
 		return block;
 	}
 
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.sectionStart('BLOCKS');
-		for (let i = 0; i < this.blocks.length; i++) {
-			manager.append(this.blocks[i]);
-		}
-		manager.sectionEnd();
-		return manager;
-	}
-
-	stringify(): string {
-		return this.manager.stringify();
+	dxify(mg: Dxifier) {
+		mg.start('BLOCKS');
+		for (const b of this.blocks) b.dxify(mg);
+		mg.end();
 	}
 }

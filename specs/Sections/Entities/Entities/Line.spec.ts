@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/TagsManager';
+import { Dxifier, point3d } from '../../../../src';
 import Line from '../../../../src/Sections/EntitiesSection/Entities/Line';
 
 describe('Line', () => {
@@ -36,8 +36,10 @@ describe('Line', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbLine\n`;
-		entityString += `  10\n1.32\n  20\n1\n  30\n0.22\n  11\n135\n  21\n855.23\n  31\n0.336\n`;
-		expect(entity.stringify()).toBe(entityString);
+		let entityString = `0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbLine\n`;
+		entityString += `10\n1.32\n20\n1\n30\n0.22\n11\n135\n21\n855.23\n31\n0.336`;
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

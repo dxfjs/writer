@@ -1,4 +1,3 @@
-import { point2d_t, point3d_t } from './Internals/TagsManager';
 import DxfDocument from './DxfDocument';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
 import { options_t } from './Sections/EntitiesSection/Entity';
@@ -21,6 +20,7 @@ import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline'
 import { Units } from './Internals/Enums';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 import Handle from './Internals/Handle';
+import { point2d_t, point3d_t } from './Internals/Dxifier';
 
 /**
  * The base class for creating the dxf content.

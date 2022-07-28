@@ -1,4 +1,4 @@
-import TagsManager from '../../../Internals/TagsManager';
+import { Dxifier } from '../../../Internals/Dxifier';
 import Entity from '../Entity';
 
 export default class SeqEnd extends Entity {
@@ -6,9 +6,7 @@ export default class SeqEnd extends Entity {
 		super('SEQEND');
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
 	}
 }

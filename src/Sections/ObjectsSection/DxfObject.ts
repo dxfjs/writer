@@ -1,6 +1,6 @@
+import { Dxifier } from '../../Internals/Dxifier';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfObject implements DxfInterface {
 	readonly type: string;
@@ -13,15 +13,9 @@ export default class DxfObject implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.entityType(this.type);
-		manager.handle(this.handle);
-		manager.add(330, this.ownerObjecthandle);
-		return manager;
+	dxify(mg: Dxifier) {
+		mg.type(this.type);
+		mg.handle(this.handle);
+		mg.push(330, this.ownerObjecthandle);
 	}
 }

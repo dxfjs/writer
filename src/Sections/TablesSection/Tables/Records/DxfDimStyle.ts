@@ -1,6 +1,6 @@
+import { Dxifier } from '../../../../Internals/Dxifier';
 import Handle from '../../../../Internals/Handle';
 import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../../../Internals/TagsManager';
 
 export enum DimStyleFlags {
 	None = 0,
@@ -14,87 +14,83 @@ export default class DxfDimStyle implements DxfInterface {
 	readonly flags: DimStyleFlags;
 	readonly handle: string;
 	ownerObjectHandle?: string;
+	readonly type: string;
 
 	constructor(name: string, flags?: DimStyleFlags) {
 		this.name = name;
 		this.flags = flags ?? DimStyleFlags.None;
 		this.handle = Handle.next();
+		this.type = 'DIMSTYLE';
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.subclassMarker('AcDbDimStyleTable');
-		manager.entityType('DIMSTYLE');
-		manager.add(105, this.handle);
-		manager.add(330, this.ownerObjectHandle);
-		manager.subclassMarker('AcDbSymbolTableRecord');
-		manager.add(100, 'AcDbDimStyleTableRecord');
-		manager.add(2, this.name);
-		manager.add(70, this.flags);
-		manager.add(40, 1);
-		manager.add(41, 2.5);
-		manager.add(42, 0.625);
-		manager.add(43, 0.38);
-		manager.add(44, 1.25);
-		manager.add(45, 0);
-		manager.add(46, 0);
-		manager.add(47, 0);
-		manager.add(48, 0);
-		// manager.add(49, 1); // Not exist in the DXF Spec
-		manager.add(140, 2.5);
-		manager.add(141, 0.09);
-		manager.add(142, 2.5);
-		manager.add(143, 25.4);
-		manager.add(144, 1);
-		manager.add(145, 0);
-		manager.add(146, 1);
-		manager.add(147, 0.625);
-		manager.add(148, 0);
-		manager.add(71, 0);
-		manager.add(72, 0);
-		manager.add(73, 0);
-		manager.add(74, 1);
-		manager.add(75, 0);
-		manager.add(76, 0);
-		manager.add(77, 0);
-		manager.add(78, 1);
-		manager.add(79, 0);
-		manager.add(170, 0);
-		manager.add(171, 2);
-		manager.add(172, 0);
-		manager.add(173, 0);
-		manager.add(174, 0);
-		manager.add(175, 0);
-		manager.add(176, 0);
-		manager.add(177, 0);
-		manager.add(178, 0);
-		manager.add(179, 0);
-		manager.add(271, 2);
-		manager.add(272, 4);
-		manager.add(273, 2);
-		manager.add(274, 2);
-		manager.add(275, 0);
-		manager.add(276, 0);
-		manager.add(277, 2);
-		manager.add(278, 0);
-		manager.add(279, 0);
-		manager.add(280, 0);
-		manager.add(281, 0);
-		manager.add(282, 0);
-		manager.add(283, 1);
-		manager.add(284, 0);
-		manager.add(285, 0);
-		manager.add(286, 0);
-		manager.add(288, 0);
-		manager.add(289, 3);
-		manager.add(340, 'standard'); // TODO ??????????
-		manager.add(341, '');
-		manager.add(371, '-2');
-		manager.add(372, '-2');
-		return manager;
+	dxify(mg: Dxifier): void {
+		mg.subclassMarker('AcDbDimStyleTable');
+		mg.type('DIMSTYLE');
+		mg.push(105, this.handle);
+		mg.push(330, this.ownerObjectHandle);
+		mg.subclassMarker('AcDbSymbolTableRecord');
+		mg.push(100, 'AcDbDimStyleTableRecord');
+		mg.push(2, this.name);
+		mg.push(70, this.flags);
+		mg.push(40, 1);
+		mg.push(41, 2.5);
+		mg.push(42, 0.625);
+		mg.push(43, 0.38);
+		mg.push(44, 1.25);
+		mg.push(45, 0);
+		mg.push(46, 0);
+		mg.push(47, 0);
+		mg.push(48, 0);
+		// mg.push(49, 1); // Not exist in the DXF Spec
+		mg.push(140, 2.5);
+		mg.push(141, 0.09);
+		mg.push(142, 2.5);
+		mg.push(143, 25.4);
+		mg.push(144, 1);
+		mg.push(145, 0);
+		mg.push(146, 1);
+		mg.push(147, 0.625);
+		mg.push(148, 0);
+		mg.push(71, 0);
+		mg.push(72, 0);
+		mg.push(73, 0);
+		mg.push(74, 1);
+		mg.push(75, 0);
+		mg.push(76, 0);
+		mg.push(77, 0);
+		mg.push(78, 1);
+		mg.push(79, 0);
+		mg.push(170, 0);
+		mg.push(171, 2);
+		mg.push(172, 0);
+		mg.push(173, 0);
+		mg.push(174, 0);
+		mg.push(175, 0);
+		mg.push(176, 0);
+		mg.push(177, 0);
+		mg.push(178, 0);
+		mg.push(179, 0);
+		mg.push(271, 2);
+		mg.push(272, 4);
+		mg.push(273, 2);
+		mg.push(274, 2);
+		mg.push(275, 0);
+		mg.push(276, 0);
+		mg.push(277, 2);
+		mg.push(278, 0);
+		mg.push(279, 0);
+		mg.push(280, 0);
+		mg.push(281, 0);
+		mg.push(282, 0);
+		mg.push(283, 1);
+		mg.push(284, 0);
+		mg.push(285, 0);
+		mg.push(286, 0);
+		mg.push(288, 0);
+		mg.push(289, 3);
+		mg.push(340, 'standard'); // TODO ??????????
+		mg.push(341, '');
+		mg.push(371, '-2');
+		mg.push(372, '-2');
 	}
 }

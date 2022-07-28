@@ -1,6 +1,6 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 
 export default class Line extends Entity {
 	startPoint: point3d_t;
@@ -20,11 +20,9 @@ export default class Line extends Entity {
 		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d(this.startPoint);
-		manager.point3d(this.endPoint, 1);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(this.startPoint);
+		mg.point3d(this.endPoint, 1);
 	}
 }

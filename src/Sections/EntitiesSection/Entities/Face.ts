@@ -1,10 +1,7 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 
-/**
- * @public
- */
 export enum InvisibleEdgeFlags {
 	None = 0,
 	First = 1,
@@ -13,9 +10,6 @@ export enum InvisibleEdgeFlags {
 	Fourth = 8,
 }
 
-/**
- * @public
- */
 export type faceOptions_t = options_t & {
 	invisibleEdges?: InvisibleEdgeFlags;
 };
@@ -88,14 +82,12 @@ export default class Face extends Entity {
 		]);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.point3d(this.firstCorner);
-		manager.point3d(this.secondCorner, 1);
-		manager.point3d(this.thirdCorner, 2);
-		manager.point3d(this.fourthCorner, 3);
-		manager.add(70, this.invisibleEdges);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.point3d(this.firstCorner);
+		mg.point3d(this.secondCorner, 1);
+		mg.point3d(this.thirdCorner, 2);
+		mg.point3d(this.fourthCorner, 3);
+		mg.push(70, this.invisibleEdges);
 	}
 }

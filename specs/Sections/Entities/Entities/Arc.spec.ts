@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { point3d } from '../../../../src/Internals/TagsManager';
+import { Dxifier, point3d } from '../../../../src';
 import Arc from '../../../../src/Sections/EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {
@@ -7,7 +7,7 @@ describe('Arc', () => {
 		instancesCount: 0,
 	};
 
-	let entity;
+	let entity: Arc;
 
 	beforeEach(() => {
 		entity = new Arc(point3d(10, 1250, 63.3), 120, 0, 120, {});
@@ -36,8 +36,10 @@ describe('Arc', () => {
 
 	it('should return the correct dxf string.', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nARC\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbCircle\n`;
-		entityString += `  10\n10\n  20\n1250\n  30\n63.3\n  40\n120\n  100\nAcDbArc\n  50\n0\n  51\n120\n`;
-		expect(entity.stringify()).toBe(entityString);
+		let entityString = `0\nARC\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbCircle\n`;
+		entityString += `10\n10\n20\n1250\n30\n63.3\n40\n120\n100\nAcDbArc\n50\n0\n51\n120`;
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

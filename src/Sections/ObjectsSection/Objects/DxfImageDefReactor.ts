@@ -1,4 +1,4 @@
-import TagsManager from '../../../Internals/TagsManager';
+import { Dxifier } from '../../../Internals/Dxifier';
 import DxfObject from '../DxfObject';
 
 export default class DxfImageDefReactor extends DxfObject {
@@ -11,12 +11,10 @@ export default class DxfImageDefReactor extends DxfObject {
 		this.classVersion = 2;
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbRasterImageDefReactor');
-		manager.add(90, this.classVersion);
-		manager.add(330, this.imageHandle);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbRasterImageDefReactor');
+		mg.push(90, this.classVersion);
+		mg.push(330, this.imageHandle);
 	}
 }

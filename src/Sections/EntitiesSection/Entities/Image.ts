@@ -1,10 +1,11 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import TagsManager, {
+import {
+	Dxifier,
 	point2d,
-	point3d,
 	point2d_t,
+	point3d,
 	point3d_t,
-} from '../../../Internals/TagsManager';
+} from '../../../Internals/Dxifier';
 import Entity, { options_t } from '../Entity';
 
 export enum ImageDisplayFlags {
@@ -155,29 +156,27 @@ export default class Image extends Entity {
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.add(90, this.classVersion);
-		manager.point3d(this.insertionPoint);
-		manager.point3d(this._uVector(), 1);
-		manager.point3d(this._vVector(), 2);
-		manager.add(13, this.width);
-		manager.add(23, this.height);
-		manager.add(340, this.imageDefHandle);
-		manager.add(70, this.imageDisplayFlags);
-		manager.add(280, this.clippingStateFlag);
-		manager.add(281, this.brightness);
-		manager.add(282, this.contrast);
-		manager.add(283, this.fade);
-		manager.add(360, this.imageDefReactorHandle);
-		manager.add(71, this.clippingType);
-		manager.add(91, this.#clipBoundaryVertices.length);
-		this.#clipBoundaryVertices.forEach((vertex) => {
-			manager.add(14, vertex.x);
-			manager.add(24, vertex.y);
-		});
-		manager.add(290, this.clipModeFlag);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.push(90, this.classVersion);
+		mg.point3d(this.insertionPoint);
+		mg.point3d(this._uVector(), 1);
+		mg.point3d(this._vVector(), 2);
+		mg.push(13, this.width);
+		mg.push(23, this.height);
+		mg.push(340, this.imageDefHandle);
+		mg.push(70, this.imageDisplayFlags);
+		mg.push(280, this.clippingStateFlag);
+		mg.push(281, this.brightness);
+		mg.push(282, this.contrast);
+		mg.push(283, this.fade);
+		mg.push(360, this.imageDefReactorHandle);
+		mg.push(71, this.clippingType);
+		mg.push(91, this.#clipBoundaryVertices.length);
+		for (const vertex of this.#clipBoundaryVertices) {
+			mg.push(14, vertex.x);
+			mg.push(24, vertex.y);
+		}
+		mg.push(290, this.clipModeFlag);
 	}
 }

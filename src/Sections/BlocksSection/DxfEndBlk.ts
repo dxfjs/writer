@@ -1,6 +1,6 @@
+import { Dxifier } from '../../Internals/Dxifier';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import TagsManager from '../../Internals/TagsManager';
 
 export default class DxfEndBlk implements DxfInterface {
 	readonly handle: string;
@@ -10,18 +10,12 @@ export default class DxfEndBlk implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	public stringify(): string {
-		return this.manager.stringify();
-	}
-
-	public get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.entityType('ENDBLK');
-		manager.handle(this.handle);
-		manager.add(330, this.ownerObjectHandle);
-		manager.subclassMarker('AcDbEntity');
-		manager.layerName('0'); // TODO make this dynamic
-		manager.subclassMarker('AcDbBlockEnd');
-		return manager;
+	dxify(mg: Dxifier): void {
+		mg.type('ENDBLK');
+		mg.handle(this.handle);
+		mg.push(330, this.ownerObjectHandle);
+		mg.subclassMarker('AcDbEntity');
+		mg.layerName('0'); // TODO make this dynamic
+		mg.subclassMarker('AcDbBlockEnd');
 	}
 }

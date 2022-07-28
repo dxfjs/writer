@@ -1,30 +1,15 @@
 import DxfTable from '../DxfTable';
-import BlockRecord from './Records/DxfBlockRecord';
 import DxfBlockRecord from './Records/DxfBlockRecord';
-import TagsManager from '../../../Internals/TagsManager';
 
-export default class DxfBlockRecordTable extends DxfTable {
-	readonly blockRecords: BlockRecord[] = [];
-
+export default class DxfBlockRecordTable extends DxfTable<DxfBlockRecord> {
 	constructor() {
 		super('BLOCK_RECORD');
 	}
 
 	addBlockRecord(name: string) {
-		const blockRecord = new DxfBlockRecord(name);
-		blockRecord.ownerObjectHandle = this.handle;
-		this.blockRecords.push(blockRecord);
-		return blockRecord;
-	}
-
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		this.maxNumberEntries = this.blockRecords.length;
-		manager.push(super.manager.tags);
-		for (let i = 0; i < this.blockRecords.length; i++) {
-			manager.append(this.blockRecords[i]);
-		}
-		manager.entityType('ENDTAB');
-		return manager;
+		const r = new DxfBlockRecord(name);
+		r.ownerObjectHandle = this.handle;
+		this.records.push(r);
+		return r;
 	}
 }

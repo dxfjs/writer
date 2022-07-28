@@ -1,5 +1,5 @@
+import { Dxifier, tag_t } from './Dxifier';
 import DxfInterface from './Interfaces/DxfInterface';
-import TagsManager, { tag, tag_t } from './TagsManager';
 
 export default class DxfDefinedApplication implements DxfInterface {
 	readonly name: string;
@@ -10,21 +10,15 @@ export default class DxfDefinedApplication implements DxfInterface {
 		this.tags = [];
 	}
 
-	add(groupCode: number, value: string) {
-		this.tags.push(tag(groupCode, value));
+	add(code: number, value: string) {
+		this.tags.push({ code, value });
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.add(102, `{${this.name}`);
-		this.tags.forEach((tag) => {
-			manager.push(tag);
-		});
-		manager.add(102, '}');
-		return manager;
+	dxify(mg: Dxifier) {
+		mg.push(102, `{${this.name}`);
+		for (const tag of this.tags) {
+			mg.push(tag.code, tag.value);
+		}
+		mg.push(102, `}`);
 	}
 }

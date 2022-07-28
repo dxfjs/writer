@@ -1,5 +1,5 @@
 import DxfDefinedApplication from '../../../Internals/DefinedApplication';
-import TagsManager, { point2d } from '../../../Internals/TagsManager';
+import { Dxifier, point2d } from '../../../Internals/Dxifier';
 import DxfObject from '../DxfObject';
 
 export enum ImageDefResolutionUnits {
@@ -36,23 +36,20 @@ export default class DxfImageDef extends DxfObject {
 		this.imageReactorHandles.push(id);
 	}
 
-	override get manager(): TagsManager {
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
 		// TODO Need a dynamic way
-		const definedApp = new DxfDefinedApplication('ACAD_REACTORS');
-		definedApp.add(330, this.acadImageDictHandle);
-		for (let i = 0; i < this.imageReactorHandles.length; i++) {
-			definedApp.add(330, this.imageReactorHandles[i]);
+		const da = new DxfDefinedApplication('ACAD_REACTORS');
+		da.add(330, this.acadImageDictHandle);
+		for (const handle of this.imageReactorHandles) {
+			da.add(330, handle);
 		}
-
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.append(definedApp);
-		manager.subclassMarker('AcDbRasterImageDef');
-		manager.add(1, this.path);
-		manager.point2d(point2d(this.width, this.height));
-		manager.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
-		manager.add(280, Number(this.loaded));
-		manager.add(281, this.resolutionUnits);
-		return manager;
+		da.dxify(mg);
+		mg.subclassMarker('AcDbRasterImageDef');
+		mg.push(1, this.path);
+		mg.point2d(point2d(this.width, this.height));
+		mg.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
+		mg.push(280, Number(this.loaded));
+		mg.push(281, this.resolutionUnits);
 	}
 }

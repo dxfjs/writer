@@ -1,4 +1,4 @@
-import TagsManager from '../../../../Internals/TagsManager';
+import { Dxifier } from '../../../../Internals/Dxifier';
 import DxfRecord, { LayerFlags } from './DxfRecord';
 
 export default class DxfLayer extends DxfRecord {
@@ -22,17 +22,15 @@ export default class DxfLayer extends DxfRecord {
 		this.flags = flags ?? LayerFlags.None;
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbLayerTableRecord');
-		manager.name(this.name);
-		manager.add(70, this.flags);
-		manager.colorNumber(this.colorNumber);
-		manager.lineType(this.lineType);
-		manager.add(370, 0); // TODO Refactor this to be dynamic
-		manager.add(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
-		manager.add(347, this.materialObject);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbLayerTableRecord');
+		mg.name(this.name);
+		mg.push(70, this.flags);
+		mg.colorNumber(this.colorNumber);
+		mg.lineType(this.lineType);
+		mg.push(370, 0); // TODO Refactor this to be dynamic
+		mg.push(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
+		mg.push(347, this.materialObject);
 	}
 }

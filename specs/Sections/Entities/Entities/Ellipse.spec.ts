@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import Ellipse from '../../../../src/Sections/EntitiesSection/Entities/Ellipse';
-import { point3d } from '../../../../src/Internals/TagsManager';
+import { Dxifier, point3d } from '../../../../src';
 
 describe('Ellipse', () => {
 	const dataState = {
@@ -62,8 +62,10 @@ describe('Ellipse', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\nELLIPSE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbEllipse\n`;
-		entityString += `  10\n10\n  20\n1250\n  30\n63.3\n  11\n100\n  21\n50\n  31\n0\n  40\n0.4243\n  41\n0\n  42\n6.283185307179586\n`;
-		expect(entity.stringify()).toBe(entityString);
+		let entityString = `0\nELLIPSE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbEllipse\n`;
+		entityString += `10\n10\n20\n1250\n30\n63.3\n11\n100\n21\n50\n31\n0\n40\n0.4243\n41\n0\n42\n6.283185307179586`;
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

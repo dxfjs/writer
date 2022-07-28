@@ -1,22 +1,13 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, {
-	point2d_t,
-	point3d,
-} from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point2d_t, point3d } from '../../../Internals/Dxifier';
 
-/**
- * @public
- */
 export enum LWPolylineFlags {
 	None = 0,
 	Closed = 1,
 	Plinegen = 128,
 }
 
-/**
- * @public
- */
 export type lwPolylineOptions_t = options_t & {
 	flags?: LWPolylineFlags;
 	constantWidth?: number;
@@ -24,9 +15,6 @@ export type lwPolylineOptions_t = options_t & {
 	thickness?: number;
 };
 
-/**
- * @public
- */
 export type lwPolylineVertex_t = {
 	point: point2d_t;
 	startingWidth?: number;
@@ -34,9 +22,6 @@ export type lwPolylineVertex_t = {
 	bulge?: number;
 };
 
-/**
- * @public
- */
 export default class LWPolyline extends Entity {
 	vertices: lwPolylineVertex_t[];
 	flags: LWPolylineFlags;
@@ -61,32 +46,30 @@ export default class LWPolyline extends Entity {
 		);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.add(90, this.vertices.length);
-		manager.add(70, this.flags || 0);
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.push(90, this.vertices.length);
+		mg.push(70, this.flags || 0);
 
 		if (
-			!this.vertices.find((vertex) => {
+			!this.vertices.find((v) => {
 				return (
-					vertex.startingWidth &&
-					vertex.startingWidth > 0 &&
-					vertex.endWidth &&
-					vertex.endWidth > 0
+					v.startingWidth &&
+					v.startingWidth > 0 &&
+					v.endWidth &&
+					v.endWidth > 0
 				);
 			})
 		) {
-			manager.add(43, this.constantWidth);
+			mg.push(43, this.constantWidth);
 		}
-		manager.elevation(this.elevation);
-		manager.thickness(this.thickness);
-		this.vertices.forEach((vertex) => {
-			manager.point2d(vertex.point);
-			manager.add(40, vertex.startingWidth);
-			manager.add(41, vertex.endWidth);
-			manager.add(42, vertex.bulge);
-		});
-		return manager;
+		mg.elevation(this.elevation);
+		mg.thickness(this.thickness);
+		for (const v of this.vertices) {
+			mg.point2d(v.point);
+			mg.push(40, v.startingWidth);
+			mg.push(41, v.endWidth);
+			mg.push(42, v.bulge);
+		}
 	}
 }

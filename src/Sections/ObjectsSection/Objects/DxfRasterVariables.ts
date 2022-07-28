@@ -1,4 +1,4 @@
-import TagsManager from '../../../Internals/TagsManager';
+import { Dxifier } from '../../../Internals/Dxifier';
 import DxfObject from '../DxfObject';
 
 export default class DxfRasterVariables extends DxfObject {
@@ -6,13 +6,11 @@ export default class DxfRasterVariables extends DxfObject {
 		super('RASTERVARIABLES');
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbRasterVariables');
-		manager.add(70, 0);
-		manager.add(71, 1);
-		manager.add(72, 0);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbRasterVariables');
+		mg.push(70, 0);
+		mg.push(71, 1);
+		mg.push(72, 0);
 	}
 }

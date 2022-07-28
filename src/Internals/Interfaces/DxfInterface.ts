@@ -1,6 +1,5 @@
-import TagsManager from '../TagsManager';
+import { Dxifier } from '../Dxifier';
 
 export default interface DxfInterface {
-	stringify(): string;
-	get manager(): TagsManager;
+	dxify(mg: Dxifier): void;
 }

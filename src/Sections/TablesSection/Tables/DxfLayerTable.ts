@@ -1,11 +1,9 @@
 import DxfTable from '../DxfTable';
 import DxfLayer from './Records/DxfLayer';
-import TagsManager from '../../../Internals/TagsManager';
 import DxfLTypeTable from './DxfLTypeTable';
 import { LayerFlags } from './Records/DxfRecord';
 
-export default class DxfLayerTable extends DxfTable {
-	readonly layerRecords: DxfLayer[] = [];
+export default class DxfLayerTable extends DxfTable<DxfLayer> {
 	readonly lTypeTable: DxfLTypeTable;
 
 	constructor(lineTypeTable: DxfLTypeTable) {
@@ -23,28 +21,17 @@ export default class DxfLayerTable extends DxfTable {
 			throw new Error(`The ${name} Layer already exist!`);
 		if (!this.lTypeTable.exist(lineType))
 			throw new Error(`The ${name} LineType doesn't exist!`);
-		const layerRecord = new DxfLayer(name, color, lineType, flags);
-		layerRecord.ownerObjectHandle = this.handle;
-		this.layerRecords.push(layerRecord);
-		return layerRecord;
+		const r = new DxfLayer(name, color, lineType, flags);
+		r.ownerObjectHandle = this.handle;
+		this.records.push(r);
+		return r;
 	}
 
 	exist(name: string) {
 		return (
-			this.layerRecords.find((layerRecord) => {
+			this.records.find((layerRecord) => {
 				return layerRecord.name === name;
 			}) !== undefined
 		);
-	}
-
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		this.maxNumberEntries = this.layerRecords.length;
-		manager.push(super.manager.tags);
-		for (let i = 0; i < this.layerRecords.length; i++) {
-			manager.append(this.layerRecords[i]);
-		}
-		manager.entityType('ENDTAB');
-		return manager;
 	}
 }

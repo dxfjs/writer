@@ -7,7 +7,6 @@ import DxfLTypeTable from './Tables/DxfLTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfVPortTable from './Tables/DxfVPortTable';
-import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfStyle from './Tables/Records/DxfStyle';
 import DxfView, { ViewArgs } from './Tables/Records/DxfView';
@@ -16,6 +15,7 @@ import DxfAppId, { AppIdFlags } from './Tables/Records/DxfAppId';
 import DxfDimStyle from './Tables/Records/DxfDimStyle';
 import DxfVPort from './Tables/Records/DxfVPort';
 import { LayerFlags } from './Tables/Records/DxfRecord';
+import { Dxifier } from '../../Internals/Dxifier';
 
 export default class DxfTablesSection implements DxfInterface {
 	readonly vPortTable: DxfVPortTable;
@@ -38,22 +38,6 @@ export default class DxfTablesSection implements DxfInterface {
 		this.appIdTable = new DxfAppIdTable();
 		this.dimStyleTable = new DxfDimStyleTable();
 		this.blockRecordTable = new DxfBlockRecordTable();
-	}
-
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.sectionStart('TABLES');
-		manager.append(this.vPortTable);
-		manager.append(this.ltypeTable);
-		manager.append(this.layerTable);
-		manager.append(this.styleTable);
-		manager.append(this.viewTable);
-		manager.append(this.ucsTable);
-		manager.append(this.appIdTable);
-		manager.append(this.dimStyleTable);
-		manager.append(this.blockRecordTable);
-		manager.sectionEnd();
-		return manager;
 	}
 
 	addLType(
@@ -104,7 +88,17 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.vPortTable.addViewPort(name);
 	}
 
-	stringify(): string {
-		return this.manager.stringify();
+	dxify(mg: Dxifier) {
+		mg.start('TABLES');
+		this.vPortTable.dxify(mg);
+		this.ltypeTable.dxify(mg);
+		this.layerTable.dxify(mg);
+		this.styleTable.dxify(mg);
+		this.viewTable.dxify(mg);
+		this.ucsTable.dxify(mg);
+		this.appIdTable.dxify(mg);
+		this.dimStyleTable.dxify(mg);
+		this.blockRecordTable.dxify(mg);
+		mg.end();
 	}
 }

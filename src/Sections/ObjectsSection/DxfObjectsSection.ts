@@ -1,9 +1,9 @@
 import DxfDictionary from './Objects/DxfDictionary';
 import DxfObject from './DxfObject';
-import TagsManager from '../../Internals/TagsManager';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import DxfImageDef from './Objects/DxfImageDef';
 import DxfImageDefReactor from './Objects/DxfImageDefReactor';
+import { Dxifier } from '../../Internals/Dxifier';
 
 export default class DxfObjectsSection implements DxfInterface {
 	root: DxfDictionary = new DxfDictionary();
@@ -12,9 +12,8 @@ export default class DxfObjectsSection implements DxfInterface {
 
 	constructor() {
 		this.root.duplicateRecordCloningFlag = 1;
-		const dic = this.addDictionary();
-
-		this.root.addEntryObject('ACAD_GROUP', dic.handle);
+		const d = this.addDictionary();
+		this.root.addEntryObject('ACAD_GROUP', d.handle);
 	}
 
 	public addObject<T extends DxfObject>(object: T): T {
@@ -31,29 +30,23 @@ export default class DxfObjectsSection implements DxfInterface {
 	}
 
 	addDictionary(): DxfDictionary {
-		const dictionary = new DxfDictionary();
-		dictionary.ownerObjecthandle = this.root.handle;
-		this.addObject(dictionary);
-		return dictionary;
+		const d = new DxfDictionary();
+		d.ownerObjecthandle = this.root.handle;
+		this.addObject(d);
+		return d;
 	}
 
 	addEntryToRoot(name: string, softOwner: string): void {
 		this.root.addEntryObject(name, softOwner);
 	}
 
-	get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.sectionStart('OBJECTS');
-		manager.append(this.root);
-		for (let i = 0; i < this.objects.length; i++) {
-			manager.append(this.objects[i]);
+	dxify(mg: Dxifier) {
+		mg.start('OBJECTS');
+		this.root.dxify(mg);
+		for (const obj of this.objects) {
+			obj.dxify(mg);
 		}
-		manager.sectionEnd();
-		manager.entityType('EOF');
-		return manager;
-	}
-
-	stringify(): string {
-		return this.manager.stringify();
+		mg.end();
+		mg.type('EOF');
 	}
 }

@@ -1,11 +1,8 @@
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
+import { Dxifier, point3d } from '../../Internals/Dxifier';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import TagsManager, { point3d } from '../../Internals/TagsManager';
 
-/**
- * @public
- */
 export type options_t = {
 	trueColor?: string;
 	colorNumber?: number;
@@ -51,28 +48,17 @@ export default abstract class Entity implements DxfInterface {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	/**
-	 * Get the array tags of the entity.
-	 *
-	 * @returns Array of Tag.
-	 */
-	public get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.entityType(this.type);
-		manager.handle(this.handle);
-		manager.add(330, this.ownerBlockRecord);
-		manager.subclassMarker('AcDbEntity');
-		manager.add(420, this.options.trueColor);
-		manager.layerName(this.options.layerName || this.layerName);
-		manager.lineType(this.options.lineType);
-		manager.colorNumber(this.options.colorNumber);
-		manager.add(48, this.options.lineTypeScale);
-		manager.visibilty(this.options.visible);
-		manager.subclassMarker(this.subclassMarker);
-		return manager;
-	}
-
-	public stringify(): string {
-		return this.manager.stringify();
+	dxify(mg: Dxifier) {
+		mg.type(this.type);
+		mg.handle(this.handle);
+		mg.push(330, this.ownerBlockRecord);
+		mg.subclassMarker('AcDbEntity');
+		mg.push(420, this.options.trueColor);
+		mg.layerName(this.options.layerName || this.layerName);
+		mg.lineType(this.options.lineType);
+		mg.colorNumber(this.options.colorNumber);
+		mg.push(48, this.options.lineTypeScale);
+		mg.visibilty(this.options.visible);
+		mg.subclassMarker(this.subclassMarker);
 	}
 }

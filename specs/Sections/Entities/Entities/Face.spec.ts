@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/TagsManager';
+import { Dxifier, point3d } from '../../../../src';
 import Face from '../../../../src/Sections/EntitiesSection/Entities/Face';
 
 describe('Face', () => {
@@ -54,9 +54,11 @@ describe('Face', () => {
 		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
-		let entityString = `  0\n3DFACE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbFace\n`;
-		entityString += `  10\n0\n  20\n0\n  30\n50\n  11\n3\n  21\n0\n  31\n0\n`;
-		entityString += `  12\n0\n  22\n2\n  32\n0\n  13\n90\n  23\n0\n  33\n0\n  70\n0\n`;
-		expect(entity.stringify()).toBe(entityString);
+		let entityString = `0\n3DFACE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbFace\n`;
+		entityString += `10\n0\n20\n0\n30\n50\n11\n3\n21\n0\n31\n0\n`;
+		entityString += `12\n0\n22\n2\n32\n0\n13\n90\n23\n0\n33\n0\n70\n0`;
+		const mg = new Dxifier();
+		entity.dxify(mg);
+		expect(mg.stringify()).toBe(entityString);
 	});
 });

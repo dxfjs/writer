@@ -1,6 +1,6 @@
 import Entity, { options_t } from '../Entity';
-import TagsManager, { point3d_t } from '../../../Internals/TagsManager';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
 
 export enum VertexFlags {
 	ExtraVertex = 1,
@@ -31,13 +31,6 @@ export default class Vertex extends Entity {
 
 	constructor(vertex: point3d_t, options?: vertexOptions_t) {
 		super('VERTEX', 'AcDbVertex', options);
-		/*if ("z" in vertex)
-			this.vertex = vertex;
-		else
-			this.vertex = {
-				...vertex,
-				z: 0
-			};*/
 		this.vertex = vertex;
 		this.is3d = options?.is3d || true;
 		this.flags = options?.flags ?? VertexFlags.NotUsed;
@@ -53,17 +46,13 @@ export default class Vertex extends Entity {
 		return BoundingBox.pointBBox(this.vertex);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker(
-			this.is3d ? 'AcDb3dPolylineVertex' : 'AcDb2dVertex'
-		);
-		manager.point3d(this.vertex);
-		manager.add(40, this.startingWidth);
-		manager.add(41, this.endWidth);
-		manager.add(42, this.bulge);
-		manager.add(70, this.flags);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker(this.is3d ? 'AcDb3dPolylineVertex' : 'AcDb2dVertex');
+		mg.point3d(this.vertex);
+		mg.push(40, this.startingWidth);
+		mg.push(41, this.endWidth);
+		mg.push(42, this.bulge);
+		mg.push(70, this.flags);
 	}
 }

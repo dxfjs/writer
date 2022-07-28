@@ -1,4 +1,4 @@
-import TagsManager from '../../../../Internals/TagsManager';
+import { Dxifier } from '../../../../Internals/Dxifier';
 import DxfRecord, { StyleFlags } from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
@@ -18,19 +18,17 @@ export default class DxfStyle extends DxfRecord {
 		this.flags = flags ?? StyleFlags.None;
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbTextStyleTableRecord');
-		manager.name(this.name);
-		manager.add(70, this.flags);
-		manager.add(40, this.fixedTextHeight);
-		manager.add(41, this.widthFactor);
-		manager.add(50, this.obliqueAngle);
-		manager.add(71, this.textGenerationFlag);
-		manager.add(42, this.lastHeightUsed);
-		manager.add(3, this.fontFileName);
-		manager.add(4, this.bigFontFileName);
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbTextStyleTableRecord');
+		mg.name(this.name);
+		mg.push(70, this.flags);
+		mg.push(40, this.fixedTextHeight);
+		mg.push(41, this.widthFactor);
+		mg.push(50, this.obliqueAngle);
+		mg.push(71, this.textGenerationFlag);
+		mg.push(42, this.lastHeightUsed);
+		mg.push(3, this.fontFileName);
+		mg.push(4, this.bigFontFileName);
 	}
 }

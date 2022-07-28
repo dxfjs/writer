@@ -1,16 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import TagsManager from '../../../src/Internals/TagsManager';
+import { Dxifier } from '../../../src';
 import DxfVariable from '../../../src/Sections/HeaderSection/DxfVariable';
 
 describe('DxfHeader class', () => {
 	const header = new DxfVariable('$ACADVER', { 1: 'AC1021' });
 
-	it('Defines stringify()', () => {
-		expect(typeof header.stringify).toBe('function');
-	});
-
-	it('Has property manager', () => {
-		expect(header.manager).toBeInstanceOf(TagsManager);
+	it('Defines dxify()', () => {
+		expect(typeof header.dxify).toBe('function');
 	});
 
 	it('Should have correct name and values', () => {
@@ -19,6 +15,8 @@ describe('DxfHeader class', () => {
 	});
 
 	it('Should return correct dxf string', () => {
-		expect(header.stringify()).toBe('  9\n$ACADVER\n  1\nAC1021\n');
+		const mg = new Dxifier();
+		header.dxify(mg);
+		expect(mg.stringify()).toBe('9\n$ACADVER\n1\nAC1021');
 	});
 });

@@ -1,7 +1,4 @@
-import TagsManager, {
-	point2d_t,
-	point3d_t,
-} from '../../../../Internals/TagsManager';
+import { Dxifier, point2d_t, point3d_t } from '../../../../Internals/Dxifier';
 import DxfRecord, { ViewFlags } from './DxfRecord';
 
 export type ViewArgs = {
@@ -71,29 +68,26 @@ export default class DxfView extends DxfRecord {
 			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
-	override get manager(): TagsManager {
-		const manager = new TagsManager();
-		manager.push(super.manager.tags);
-		manager.subclassMarker('AcDbViewTableRecord');
-		manager.name(this.name);
-		manager.add(70, this.flags);
-		manager.add(40, this.viewHeight);
-		manager.point2d(this.viewCenter);
-		manager.add(41, this.viewWidth);
-		manager.point3d(this.viewDirection, 1);
-		manager.point3d(this.targetPoint, 2);
-		manager.add(42, this.lensLength);
-		manager.add(43, this.frontClipping);
-		manager.add(44, this.backClipping);
-		manager.add(50, this.twistAngle);
-		manager.add(71, this.viewMode);
-		manager.add(281, this.renderMode);
-		manager.add(72, this.isUCSAssociated ? 1 : 0);
-		manager.add(73, this.isCameraPlottable ? 1 : undefined);
-		manager.add(332, this.backgroundObjectHandle);
-		manager.add(334, this.liveSectionObjectHandle);
-		manager.add(348, this.visualStyleObjectHandle);
-
-		return manager;
+	dxify(mg: Dxifier): void {
+		super.dxify(mg);
+		mg.subclassMarker('AcDbViewTableRecord');
+		mg.name(this.name);
+		mg.push(70, this.flags);
+		mg.push(40, this.viewHeight);
+		mg.point2d(this.viewCenter);
+		mg.push(41, this.viewWidth);
+		mg.point3d(this.viewDirection, 1);
+		mg.point3d(this.targetPoint, 2);
+		mg.push(42, this.lensLength);
+		mg.push(43, this.frontClipping);
+		mg.push(44, this.backClipping);
+		mg.push(50, this.twistAngle);
+		mg.push(71, this.viewMode);
+		mg.push(281, this.renderMode);
+		mg.push(72, this.isUCSAssociated ? 1 : 0);
+		mg.push(73, this.isCameraPlottable ? 1 : undefined);
+		mg.push(332, this.backgroundObjectHandle);
+		mg.push(334, this.liveSectionObjectHandle);
+		mg.push(348, this.visualStyleObjectHandle);
 	}
 }
