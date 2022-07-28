@@ -15,6 +15,7 @@ export default class DxfEntitiesSection implements DxfInterface {
 
 	dxify(mg: Dxifier) {
 		mg.start('ENTITIES');
+		for (const entity of this.modelSpace.entities) entity.dxify(mg);
 		mg.end();
 	}
 }
