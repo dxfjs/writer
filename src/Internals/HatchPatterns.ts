@@ -25,17 +25,17 @@ export class HatchPattern implements DxfInterface {
 		this.scale = 1;
 	}
 
-	dxify(mg: Dxifier): void {
-		mg.push(78, this.patternsData.length);
+	dxify(dx: Dxifier): void {
+		dx.push(78, this.patternsData.length);
 		for (const p of this.patternsData) {
-			mg.push(53, p.lineAngle);
-			mg.push(43, p.x);
-			mg.push(44, p.y);
-			mg.push(45, p.offsetX * this.scale);
-			mg.push(46, p.offsetY * this.scale);
-			mg.push(79, p.dashLengthItems.length);
+			dx.push(53, p.lineAngle);
+			dx.push(43, p.x);
+			dx.push(44, p.y);
+			dx.push(45, p.offsetX * this.scale);
+			dx.push(46, p.offsetY * this.scale);
+			dx.push(79, p.dashLengthItems.length);
 			for (const d of p.dashLengthItems) {
-				mg.push(49, d * this.scale);
+				dx.push(49, d * this.scale);
 			}
 		}
 	}

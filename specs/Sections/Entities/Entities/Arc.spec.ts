@@ -38,8 +38,8 @@ describe('Arc', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\nARC\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbCircle\n`;
 		entityString += `10\n10\n20\n1250\n30\n63.3\n40\n120\n100\nAcDbArc\n50\n0\n51\n120`;
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

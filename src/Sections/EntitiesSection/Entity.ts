@@ -48,17 +48,17 @@ export default abstract class Entity implements DxfInterface {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	dxify(mg: Dxifier) {
-		mg.type(this.type);
-		mg.handle(this.handle);
-		mg.push(330, this.ownerBlockRecord);
-		mg.subclassMarker('AcDbEntity');
-		mg.push(420, this.options.trueColor);
-		mg.layerName(this.options.layerName || this.layerName);
-		mg.lineType(this.options.lineType);
-		mg.colorNumber(this.options.colorNumber);
-		mg.push(48, this.options.lineTypeScale);
-		mg.visibilty(this.options.visible);
-		mg.subclassMarker(this.subclassMarker);
+	dxify(dx: Dxifier) {
+		dx.type(this.type);
+		dx.handle(this.handle);
+		dx.push(330, this.ownerBlockRecord);
+		dx.subclassMarker('AcDbEntity');
+		dx.push(420, this.options.trueColor);
+		dx.layerName(this.options.layerName || this.layerName);
+		dx.lineType(this.options.lineType);
+		dx.colorNumber(this.options.colorNumber);
+		dx.push(48, this.options.lineTypeScale);
+		dx.visibilty(this.options.visible);
+		dx.subclassMarker(this.subclassMarker);
 	}
 }

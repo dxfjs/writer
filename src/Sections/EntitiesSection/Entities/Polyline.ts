@@ -100,22 +100,22 @@ export default class Polyline extends Entity {
 		return BoundingBox.verticesBBox(this.vertices);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.push(66, 1);
-		mg.point3d(point3d(0, 0, this.elevation));
-		mg.push(39, this.thickness);
-		mg.push(70, this.flags);
-		mg.push(40, this.defaultStartWidth);
-		mg.push(41, this.defaultEndWidth);
-		mg.push(71, this.polygonMeshM);
-		mg.push(72, this.polygonMeshN);
-		mg.push(73, this.smoothSurfaceM);
-		mg.push(74, this.smoothSurfaceN);
-		mg.push(75, this.surfaceType);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.push(66, 1);
+		dx.point3d(point3d(0, 0, this.elevation));
+		dx.push(39, this.thickness);
+		dx.push(70, this.flags);
+		dx.push(40, this.defaultStartWidth);
+		dx.push(41, this.defaultEndWidth);
+		dx.push(71, this.polygonMeshM);
+		dx.push(72, this.polygonMeshN);
+		dx.push(73, this.smoothSurfaceM);
+		dx.push(74, this.smoothSurfaceN);
+		dx.push(75, this.surfaceType);
 		this.vertexes.forEach((vertex) => {
-			vertex.dxify(mg);
+			vertex.dxify(dx);
 		});
-		this.#seqEnd.dxify(mg);
+		this.#seqEnd.dxify(dx);
 	}
 }

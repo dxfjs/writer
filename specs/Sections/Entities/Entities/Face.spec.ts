@@ -57,8 +57,8 @@ describe('Face', () => {
 		let entityString = `0\n3DFACE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbFace\n`;
 		entityString += `10\n0\n20\n0\n30\n50\n11\n3\n21\n0\n31\n0\n`;
 		entityString += `12\n0\n22\n2\n32\n0\n13\n90\n23\n0\n33\n0\n70\n0`;
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

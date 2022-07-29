@@ -34,9 +34,9 @@ describe('Entity', () => {
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		entity.layerName = 'l_green';
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(
 			`0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\nl_green\n100\nAcDbLine`
 		);
 	});

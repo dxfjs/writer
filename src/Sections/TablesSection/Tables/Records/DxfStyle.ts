@@ -18,17 +18,17 @@ export default class DxfStyle extends DxfRecord {
 		this.flags = flags ?? StyleFlags.None;
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbTextStyleTableRecord');
-		mg.name(this.name);
-		mg.push(70, this.flags);
-		mg.push(40, this.fixedTextHeight);
-		mg.push(41, this.widthFactor);
-		mg.push(50, this.obliqueAngle);
-		mg.push(71, this.textGenerationFlag);
-		mg.push(42, this.lastHeightUsed);
-		mg.push(3, this.fontFileName);
-		mg.push(4, this.bigFontFileName);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbTextStyleTableRecord');
+		dx.name(this.name);
+		dx.push(70, this.flags);
+		dx.push(40, this.fixedTextHeight);
+		dx.push(41, this.widthFactor);
+		dx.push(50, this.obliqueAngle);
+		dx.push(71, this.textGenerationFlag);
+		dx.push(42, this.lastHeightUsed);
+		dx.push(3, this.fontFileName);
+		dx.push(4, this.bigFontFileName);
 	}
 }

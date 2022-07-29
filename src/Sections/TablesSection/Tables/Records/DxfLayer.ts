@@ -22,15 +22,15 @@ export default class DxfLayer extends DxfRecord {
 		this.flags = flags ?? LayerFlags.None;
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbLayerTableRecord');
-		mg.name(this.name);
-		mg.push(70, this.flags);
-		mg.colorNumber(this.colorNumber);
-		mg.lineType(this.lineType);
-		mg.push(370, 0); // TODO Refactor this to be dynamic
-		mg.push(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
-		mg.push(347, this.materialObject);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbLayerTableRecord');
+		dx.name(this.name);
+		dx.push(70, this.flags);
+		dx.colorNumber(this.colorNumber);
+		dx.lineType(this.lineType);
+		dx.push(370, 0); // TODO Refactor this to be dynamic
+		dx.push(390, 0); // TODO Add ACDBPLACEHOLDER Object to support this
+		dx.push(347, this.materialObject);
 	}
 }

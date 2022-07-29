@@ -28,12 +28,12 @@ export default class DxfVariable implements DxfInterface {
 		this.name = name;
 	}
 
-	dxify(mg: Dxifier) {
-		mg.variable(this.name);
+	dxify(dx: Dxifier) {
+		dx.variable(this.name);
 		const entries = Object.entries(this.values);
 		for (const entry of entries) {
 			const [code, value] = entry;
-			mg.push(parseInt(code), value);
+			dx.push(parseInt(code), value);
 		}
 	}
 }

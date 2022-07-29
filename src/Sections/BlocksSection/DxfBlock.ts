@@ -36,19 +36,19 @@ export default class DxfBlock extends EntitiesManager {
 		this.layerName = layerName;
 	}
 
-	dxify(mg: Dxifier): void {
-		mg.type('BLOCK');
-		mg.handle(this.handle);
-		mg.push(330, this.ownerObjectHandle);
-		mg.subclassMarker('AcDbEntity');
-		mg.layerName(this.layerName);
-		mg.subclassMarker('AcDbBlockBegin');
-		mg.name(this.name);
-		mg.push(70, this.flags);
-		mg.point3d(this.basePoint);
-		mg.name(this.name, 3);
-		mg.push(1, this.xrefPathName);
-		if (this.stringifyEntities) super.dxify(mg);
-		this.endBlk.dxify(mg);
+	dxify(dx: Dxifier): void {
+		dx.type('BLOCK');
+		dx.handle(this.handle);
+		dx.push(330, this.ownerObjectHandle);
+		dx.subclassMarker('AcDbEntity');
+		dx.layerName(this.layerName);
+		dx.subclassMarker('AcDbBlockBegin');
+		dx.name(this.name);
+		dx.push(70, this.flags);
+		dx.point3d(this.basePoint);
+		dx.name(this.name, 3);
+		dx.push(1, this.xrefPathName);
+		if (this.stringifyEntities) super.dxify(dx);
+		this.endBlk.dxify(dx);
 	}
 }

@@ -20,24 +20,24 @@ export default class DxfLType extends DxfRecord {
 		this.flags = flags ?? 0;
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbLinetypeTableRecord');
-		mg.name(this.name);
-		mg.push(70, this.flags);
-		mg.push(3, this.descriptive);
-		mg.push(72, 65);
-		mg.push(73, this.elements.length);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbLinetypeTableRecord');
+		dx.name(this.name);
+		dx.push(70, this.flags);
+		dx.push(3, this.descriptive);
+		dx.push(72, 65);
+		dx.push(73, this.elements.length);
 
 		let sum = 0;
 		for (const element of this.elements) {
 			sum += Math.abs(element);
 		}
-		mg.push(40, sum);
+		dx.push(40, sum);
 
 		for (const element of this.elements) {
-			mg.push(49, element);
-			mg.push(74, 0);
+			dx.push(49, element);
+			dx.push(74, 0);
 		}
 	}
 }

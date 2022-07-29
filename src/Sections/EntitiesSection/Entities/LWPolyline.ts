@@ -46,10 +46,10 @@ export default class LWPolyline extends Entity {
 		);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.push(90, this.vertices.length);
-		mg.push(70, this.flags || 0);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.push(90, this.vertices.length);
+		dx.push(70, this.flags || 0);
 
 		if (
 			!this.vertices.find((v) => {
@@ -61,15 +61,15 @@ export default class LWPolyline extends Entity {
 				);
 			})
 		) {
-			mg.push(43, this.constantWidth);
+			dx.push(43, this.constantWidth);
 		}
-		mg.elevation(this.elevation);
-		mg.thickness(this.thickness);
+		dx.elevation(this.elevation);
+		dx.thickness(this.thickness);
 		for (const v of this.vertices) {
-			mg.point2d(v.point);
-			mg.push(40, v.startingWidth);
-			mg.push(41, v.endWidth);
-			mg.push(42, v.bulge);
+			dx.point2d(v.point);
+			dx.push(40, v.startingWidth);
+			dx.push(41, v.endWidth);
+			dx.push(42, v.bulge);
 		}
 	}
 }

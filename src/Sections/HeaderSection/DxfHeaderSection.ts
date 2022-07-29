@@ -14,11 +14,11 @@ export default class DxfHeaderSection implements DxfInterface {
 		}
 	}
 
-	dxify(mg: Dxifier) {
-		mg.start('HEADER');
+	dxify(dx: Dxifier) {
+		dx.start('HEADER');
 		for (const variable of this.variables) {
-			variable.dxify(mg);
+			variable.dxify(dx);
 		}
-		mg.end();
+		dx.end();
 	}
 }

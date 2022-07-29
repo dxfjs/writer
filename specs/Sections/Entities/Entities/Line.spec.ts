@@ -38,8 +38,8 @@ describe('Line', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbLine\n`;
 		entityString += `10\n1.32\n20\n1\n30\n0.22\n11\n135\n21\n855.23\n31\n0.336`;
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

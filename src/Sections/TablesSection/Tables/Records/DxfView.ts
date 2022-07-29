@@ -68,26 +68,26 @@ export default class DxfView extends DxfRecord {
 			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbViewTableRecord');
-		mg.name(this.name);
-		mg.push(70, this.flags);
-		mg.push(40, this.viewHeight);
-		mg.point2d(this.viewCenter);
-		mg.push(41, this.viewWidth);
-		mg.point3d(this.viewDirection, 1);
-		mg.point3d(this.targetPoint, 2);
-		mg.push(42, this.lensLength);
-		mg.push(43, this.frontClipping);
-		mg.push(44, this.backClipping);
-		mg.push(50, this.twistAngle);
-		mg.push(71, this.viewMode);
-		mg.push(281, this.renderMode);
-		mg.push(72, this.isUCSAssociated ? 1 : 0);
-		mg.push(73, this.isCameraPlottable ? 1 : undefined);
-		mg.push(332, this.backgroundObjectHandle);
-		mg.push(334, this.liveSectionObjectHandle);
-		mg.push(348, this.visualStyleObjectHandle);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbViewTableRecord');
+		dx.name(this.name);
+		dx.push(70, this.flags);
+		dx.push(40, this.viewHeight);
+		dx.point2d(this.viewCenter);
+		dx.push(41, this.viewWidth);
+		dx.point3d(this.viewDirection, 1);
+		dx.point3d(this.targetPoint, 2);
+		dx.push(42, this.lensLength);
+		dx.push(43, this.frontClipping);
+		dx.push(44, this.backClipping);
+		dx.push(50, this.twistAngle);
+		dx.push(71, this.viewMode);
+		dx.push(281, this.renderMode);
+		dx.push(72, this.isUCSAssociated ? 1 : 0);
+		dx.push(73, this.isCameraPlottable ? 1 : undefined);
+		dx.push(332, this.backgroundObjectHandle);
+		dx.push(334, this.liveSectionObjectHandle);
+		dx.push(348, this.visualStyleObjectHandle);
 	}
 }

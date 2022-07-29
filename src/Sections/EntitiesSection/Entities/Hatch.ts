@@ -134,16 +134,16 @@ export class HatchPolylineBoundary implements DxfInterface {
 		this.vertices.push(vertex);
 	}
 
-	dxify(mg: Dxifier): void {
+	dxify(dx: Dxifier): void {
 		const bulge = this.vertices.find((v) => v.bulge) ? true : false;
-		mg.push(72, Number(bulge));
-		mg.push(73, 1);
-		mg.push(93, this.vertices.length);
+		dx.push(72, Number(bulge));
+		dx.push(73, 1);
+		dx.push(93, this.vertices.length);
 		for (const v of this.vertices) {
-			mg.point2d(v);
-			if (bulge) mg.push(42, v.bulge || 0);
+			dx.point2d(v);
+			if (bulge) dx.push(42, v.bulge || 0);
 		}
-		mg.push(97, 0);
+		dx.push(97, 0);
 	}
 }
 
@@ -213,16 +213,16 @@ export class HatchBoundaryPaths implements DxfInterface {
 		this.edgesTypeDatas.push(edgesTypeData);
 	}
 
-	dxify(mg: Dxifier) {
+	dxify(dx: Dxifier) {
 		if (this.isPolyline()) {
 			this.polylineBoundaries.forEach((polyline) => {
-				mg.push(92, this.pathTypeFlag);
-				polyline.dxify(mg);
+				dx.push(92, this.pathTypeFlag);
+				polyline.dxify(dx);
 			});
 		} else if (this.isEdges()) {
 			this.edgesTypeDatas.forEach((data) => {
-				mg.push(92, this.pathTypeFlag);
-				data.dxify(mg);
+				dx.push(92, this.pathTypeFlag);
+				data.dxify(dx);
 			});
 		} else {
 			throw new Error('The boundary path is empty!');
@@ -239,9 +239,9 @@ export class HatchLineEdgeData implements DxfInterface {
 		this.end = end;
 	}
 
-	dxify(mg: Dxifier) {
-		mg.point2d(this.start);
-		mg.point2d(this.end, 1);
+	dxify(dx: Dxifier) {
+		dx.point2d(this.start);
+		dx.point2d(this.end, 1);
 	}
 }
 
@@ -266,12 +266,12 @@ export class HatchArcEdgeData implements DxfInterface {
 		this.isCounterClockwise = isCounterClockwise;
 	}
 
-	dxify(mg: Dxifier) {
-		mg.point2d(this.center);
-		mg.push(40, this.raduis);
-		mg.push(50, this.startAngle);
-		mg.push(51, this.endAngle);
-		mg.push(73, Number(this.isCounterClockwise));
+	dxify(dx: Dxifier) {
+		dx.point2d(this.center);
+		dx.push(40, this.raduis);
+		dx.push(50, this.startAngle);
+		dx.push(51, this.endAngle);
+		dx.push(73, Number(this.isCounterClockwise));
 	}
 }
 export class HatchEdgesTypeData implements DxfInterface {
@@ -302,9 +302,9 @@ export class HatchEdgesTypeData implements DxfInterface {
 		);
 	}
 
-	dxify(mg: Dxifier) {
+	dxify(dx: Dxifier) {
 		for (const edge of this.edgesData) {
-			edge.dxify(mg);
+			edge.dxify(dx);
 		}
 	}
 }
@@ -384,43 +384,43 @@ export default class Hatch extends Entity {
 		this.boundaryPath = boundaryPath;
 	}
 
-	private pattern(mg: Dxifier, fill: HatchPatternOptions_t) {
+	private pattern(dx: Dxifier, fill: HatchPatternOptions_t) {
 		const name = fill.name;
 		const angle = fill.angle ?? 0;
 		const scale = fill.scale || 1;
 		const double = fill.double || false;
-		mg.push(52, angle);
-		mg.push(41, scale);
-		mg.push(77, Number(double));
+		dx.push(52, angle);
+		dx.push(41, scale);
+		dx.push(77, Number(double));
 		const pattern = PredefinedHatchPatterns.get(name);
 		if (pattern) {
 			pattern.scale = scale;
 			if (angle !== 0) pattern.angle = angle;
-			pattern.dxify(mg);
+			pattern.dxify(dx);
 		}
 	}
 
-	private gradient(mg: Dxifier, fill: HatchGradientOptions_t) {
+	private gradient(dx: Dxifier, fill: HatchGradientOptions_t) {
 		const firstColor = fill.firstColor;
 		const secondColor = fill.secondColor ?? 7;
 		const angle = fill.angle ?? 0;
 		const definition = fill.definition || 0;
 		const tint = fill.tint ?? 1;
 		const type = fill.type || GradientType.LINEAR;
-		mg.push(450, 1);
-		mg.push(451, 0);
-		mg.push(460, angle);
-		mg.push(461, definition);
-		mg.push(452, fill.secondColor ? 0 : 1);
-		mg.push(462, tint);
-		mg.push(453, 2);
-		mg.push(463, 0);
-		mg.push(63, firstColor);
-		mg.push(421, TrueColor.fromHex(aciHex(firstColor)));
-		mg.push(463, 1);
-		mg.push(63, secondColor);
-		mg.push(421, TrueColor.fromHex(aciHex(secondColor)));
-		mg.push(470, type);
+		dx.push(450, 1);
+		dx.push(451, 0);
+		dx.push(460, angle);
+		dx.push(461, definition);
+		dx.push(452, fill.secondColor ? 0 : 1);
+		dx.push(462, tint);
+		dx.push(453, 2);
+		dx.push(463, 0);
+		dx.push(63, firstColor);
+		dx.push(421, TrueColor.fromHex(aciHex(firstColor)));
+		dx.push(463, 1);
+		dx.push(63, secondColor);
+		dx.push(421, TrueColor.fromHex(aciHex(secondColor)));
+		dx.push(470, type);
 	}
 
 	private isPattern(
@@ -433,36 +433,36 @@ export default class Hatch extends Entity {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(point3d(0, 0, this.elevation));
-		mg.push(210, this.extrusion.x);
-		mg.push(220, this.extrusion.y);
-		mg.push(230, this.extrusion.z);
-		mg.name(
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(point3d(0, 0, this.elevation));
+		dx.push(210, this.extrusion.x);
+		dx.push(220, this.extrusion.y);
+		dx.push(230, this.extrusion.z);
+		dx.name(
 			this.isPattern(this.fill)
 				? this.fill.name
 				: HatchPredefinedPatterns.SOLID
 		);
-		mg.push(
+		dx.push(
 			70,
 			this.isPattern(this.fill)
 				? SolidFillFlag.PatternFill
 				: SolidFillFlag.SolidFill
 		);
-		mg.push(71, AssociativityFlag.NonAssociative);
-		mg.push(91, this.boundaryPath.length);
-		this.boundaryPath.dxify(mg);
-		mg.push(75, HatchStyle.Outer);
-		mg.push(76, HatchPatternType.Predifined);
+		dx.push(71, AssociativityFlag.NonAssociative);
+		dx.push(91, this.boundaryPath.length);
+		this.boundaryPath.dxify(dx);
+		dx.push(75, HatchStyle.Outer);
+		dx.push(76, HatchPatternType.Predifined);
 		if (this.isPattern(this.fill)) {
-			this.pattern(mg, this.fill);
-			mg.push(47, 1);
-			mg.push(98, 0);
+			this.pattern(dx, this.fill);
+			dx.push(47, 1);
+			dx.push(98, 0);
 		} else {
-			mg.push(47, 1);
-			mg.push(98, 0);
-			this.gradient(mg, this.fill);
+			dx.push(47, 1);
+			dx.push(98, 0);
+			this.gradient(dx, this.fill);
 		}
 	}
 }

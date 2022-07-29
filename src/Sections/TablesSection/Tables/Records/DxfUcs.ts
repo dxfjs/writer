@@ -9,7 +9,7 @@ export default class DxfUcs extends DxfRecord {
 		this.name = name;
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
 	}
 }

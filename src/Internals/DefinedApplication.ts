@@ -14,11 +14,11 @@ export default class DxfDefinedApplication implements DxfInterface {
 		this.tags.push({ code, value });
 	}
 
-	dxify(mg: Dxifier) {
-		mg.push(102, `{${this.name}`);
+	dxify(dx: Dxifier) {
+		dx.push(102, `{${this.name}`);
 		for (const tag of this.tags) {
-			mg.push(tag.code, tag.value);
+			dx.push(tag.code, tag.value);
 		}
-		mg.push(102, `}`);
+		dx.push(102, `}`);
 	}
 }

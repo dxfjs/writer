@@ -16,13 +16,13 @@ export default class DxfBlockRecord extends DxfRecord {
 		this.scalability = 0;
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbBlockTableRecord');
-		mg.name(this.name);
-		mg.push(340, this.layoutObject);
-		mg.push(70, this.insertionUnits);
-		mg.push(280, this.explodability);
-		mg.push(281, this.scalability);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbBlockTableRecord');
+		dx.name(this.name);
+		dx.push(340, this.layoutObject);
+		dx.push(70, this.insertionUnits);
+		dx.push(280, this.explodability);
+		dx.push(281, this.scalability);
 	}
 }

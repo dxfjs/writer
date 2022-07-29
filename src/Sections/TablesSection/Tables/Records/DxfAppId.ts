@@ -17,10 +17,10 @@ export default class DxfAppId extends DxfRecord {
 		this.flags = flags ?? AppIdFlags.None;
 	}
 
-	dxify(mg: Dxifier) {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbRegAppTableRecord');
-		mg.name(this.name);
-		mg.push(70, this.flags);
+	dxify(dx: Dxifier) {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbRegAppTableRecord');
+		dx.name(this.name);
+		dx.push(70, this.flags);
 	}
 }

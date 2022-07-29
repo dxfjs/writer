@@ -88,17 +88,17 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.vPortTable.addViewPort(name);
 	}
 
-	dxify(mg: Dxifier) {
-		mg.start('TABLES');
-		this.vPortTable.dxify(mg);
-		this.ltypeTable.dxify(mg);
-		this.layerTable.dxify(mg);
-		this.styleTable.dxify(mg);
-		this.viewTable.dxify(mg);
-		this.ucsTable.dxify(mg);
-		this.appIdTable.dxify(mg);
-		this.dimStyleTable.dxify(mg);
-		this.blockRecordTable.dxify(mg);
-		mg.end();
+	dxify(dx: Dxifier) {
+		dx.start('TABLES');
+		this.vPortTable.dxify(dx);
+		this.ltypeTable.dxify(dx);
+		this.layerTable.dxify(dx);
+		this.styleTable.dxify(dx);
+		this.viewTable.dxify(dx);
+		this.ucsTable.dxify(dx);
+		this.appIdTable.dxify(dx);
+		this.dimStyleTable.dxify(dx);
+		this.blockRecordTable.dxify(dx);
+		dx.end();
 	}
 }

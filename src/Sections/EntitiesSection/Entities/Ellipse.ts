@@ -38,12 +38,12 @@ export default class Ellipse extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(this.center);
-		mg.point3d(this.endPointOfMajorAxis, 1);
-		mg.push(40, this.ratioOfMinorAxisToMajorAxis);
-		mg.push(41, this.startParameter);
-		mg.push(42, this.endParameter);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(this.center);
+		dx.point3d(this.endPointOfMajorAxis, 1);
+		dx.push(40, this.ratioOfMinorAxisToMajorAxis);
+		dx.push(41, this.startParameter);
+		dx.push(42, this.endParameter);
 	}
 }

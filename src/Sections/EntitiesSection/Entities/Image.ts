@@ -156,27 +156,27 @@ export default class Image extends Entity {
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.push(90, this.classVersion);
-		mg.point3d(this.insertionPoint);
-		mg.point3d(this._uVector(), 1);
-		mg.point3d(this._vVector(), 2);
-		mg.push(13, this.width);
-		mg.push(23, this.height);
-		mg.push(340, this.imageDefHandle);
-		mg.push(70, this.imageDisplayFlags);
-		mg.push(280, this.clippingStateFlag);
-		mg.push(281, this.brightness);
-		mg.push(282, this.contrast);
-		mg.push(283, this.fade);
-		mg.push(360, this.imageDefReactorHandle);
-		mg.push(71, this.clippingType);
-		mg.push(91, this.#clipBoundaryVertices.length);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.push(90, this.classVersion);
+		dx.point3d(this.insertionPoint);
+		dx.point3d(this._uVector(), 1);
+		dx.point3d(this._vVector(), 2);
+		dx.push(13, this.width);
+		dx.push(23, this.height);
+		dx.push(340, this.imageDefHandle);
+		dx.push(70, this.imageDisplayFlags);
+		dx.push(280, this.clippingStateFlag);
+		dx.push(281, this.brightness);
+		dx.push(282, this.contrast);
+		dx.push(283, this.fade);
+		dx.push(360, this.imageDefReactorHandle);
+		dx.push(71, this.clippingType);
+		dx.push(91, this.#clipBoundaryVertices.length);
 		for (const vertex of this.#clipBoundaryVertices) {
-			mg.push(14, vertex.x);
-			mg.push(24, vertex.y);
+			dx.push(14, vertex.x);
+			dx.push(24, vertex.y);
 		}
-		mg.push(290, this.clipModeFlag);
+		dx.push(290, this.clipModeFlag);
 	}
 }

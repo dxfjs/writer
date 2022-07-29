@@ -74,25 +74,25 @@ export default class Spline extends Entity {
 		]);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.push(70, this.flags);
-		mg.push(71, this.degreeCurve);
-		mg.push(72, this.knots.length);
-		mg.push(73, this.controlPoints.length);
-		mg.push(74, this.fitPoints.length);
-		mg.push(42, '0.0000001');
-		mg.push(43, '0.0000001');
-		mg.push(42, '0.0000000001');
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.push(70, this.flags);
+		dx.push(71, this.degreeCurve);
+		dx.push(72, this.knots.length);
+		dx.push(73, this.controlPoints.length);
+		dx.push(74, this.fitPoints.length);
+		dx.push(42, '0.0000001');
+		dx.push(43, '0.0000001');
+		dx.push(42, '0.0000000001');
 
 		for (const k of this.knots) {
-			mg.push(40, k);
+			dx.push(40, k);
 		}
 		for (const cp of this.controlPoints) {
-			mg.point3d(cp);
+			dx.point3d(cp);
 		}
 		for (const fp of this.fitPoints) {
-			mg.point3d(fp, 1);
+			dx.point3d(fp, 1);
 		}
 	}
 }

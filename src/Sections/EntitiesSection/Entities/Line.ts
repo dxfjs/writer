@@ -20,9 +20,9 @@ export default class Line extends Entity {
 		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(this.startPoint);
-		mg.point3d(this.endPoint, 1);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(this.startPoint);
+		dx.point3d(this.endPoint, 1);
 	}
 }

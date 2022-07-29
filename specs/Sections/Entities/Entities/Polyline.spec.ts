@@ -31,8 +31,8 @@ describe('Polyline3D', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `  0\nLWPOLYLINE\n  5\n${handle}\n  100\nAcDbEntity\n  8\n0\n  100\nAcDbPolyline\n`;
 		entityString += '  90\n2\n  70\n0\n  10\n0\n  20\n0\n  10\n120\n  20\n54\n';
-		const mg = new DxfManager();
-		entity.dxify(mg)
-		expect(mg.stringify()).toBe(entityString);
+		const dx =  new DxfManager();
+		entity.dxify(dx)
+		expect(dx.stringify()).toBe(entityString);
 	});*/
 });

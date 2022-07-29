@@ -24,14 +24,14 @@ export default class DxfDictionary extends DxfObject {
 		});
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbDictionary');
-		mg.push(280, this.hardOwnerFlag);
-		mg.push(281, this.duplicateRecordCloningFlag);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbDictionary');
+		dx.push(280, this.hardOwnerFlag);
+		dx.push(281, this.duplicateRecordCloningFlag);
 		for (const entry of this.entries) {
-			mg.push(3, entry.name);
-			mg.push(350, entry.entryObjectHandle);
+			dx.push(3, entry.name);
+			dx.push(350, entry.entryObjectHandle);
 		}
 	}
 }

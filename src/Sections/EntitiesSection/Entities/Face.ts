@@ -82,12 +82,12 @@ export default class Face extends Entity {
 		]);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(this.firstCorner);
-		mg.point3d(this.secondCorner, 1);
-		mg.point3d(this.thirdCorner, 2);
-		mg.point3d(this.fourthCorner, 3);
-		mg.push(70, this.invisibleEdges);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(this.firstCorner);
+		dx.point3d(this.secondCorner, 1);
+		dx.point3d(this.thirdCorner, 2);
+		dx.point3d(this.fourthCorner, 3);
+		dx.push(70, this.invisibleEdges);
 	}
 }

@@ -37,8 +37,8 @@ describe('Point', () => {
 		let entityString = `0\nPOINT\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbPoint\n`;
 		entityString +=
 			'10\n24445787874545.336\n20\n47854548454.54874\n30\n0.14111122215556';
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

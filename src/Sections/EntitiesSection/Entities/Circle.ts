@@ -16,9 +16,9 @@ export default class Circle extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(this.center);
-		mg.push(40, this.radius);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(this.center);
+		dx.push(40, this.radius);
 	}
 }

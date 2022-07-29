@@ -64,8 +64,8 @@ describe('Ellipse', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\nELLIPSE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbEllipse\n`;
 		entityString += `10\n10\n20\n1250\n30\n63.3\n11\n100\n21\n50\n31\n0\n40\n0.4243\n41\n0\n42\n6.283185307179586`;
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

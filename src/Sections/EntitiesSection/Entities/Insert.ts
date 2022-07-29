@@ -41,17 +41,17 @@ export default class Insert extends Entity {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.name(this.blockName);
-		mg.point3d(this.insertionPoint);
-		mg.push(41, this.scaleFactor.x || 1);
-		mg.push(42, this.scaleFactor.y || 1);
-		mg.push(43, this.scaleFactor.z || 1);
-		mg.push(50, this.rotationAngle);
-		mg.push(70, this.columnCount);
-		mg.push(71, this.rowCount);
-		mg.push(44, this.columnSpacing);
-		mg.push(45, this.rowSpacing);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.name(this.blockName);
+		dx.point3d(this.insertionPoint);
+		dx.push(41, this.scaleFactor.x || 1);
+		dx.push(42, this.scaleFactor.y || 1);
+		dx.push(43, this.scaleFactor.z || 1);
+		dx.push(50, this.rotationAngle);
+		dx.push(70, this.columnCount);
+		dx.push(71, this.rowCount);
+		dx.push(44, this.columnSpacing);
+		dx.push(45, this.rowSpacing);
 	}
 }

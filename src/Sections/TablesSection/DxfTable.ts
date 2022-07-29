@@ -17,14 +17,14 @@ export default abstract class DxfTable<T extends DxfRecord>
 		this.records = [];
 	}
 
-	dxify(mg: Dxifier) {
-		mg.type('TABLE');
-		mg.name(this.name);
-		mg.handle(this.handle);
-		mg.push(330, this.ownerObjectHandle);
-		mg.subclassMarker('AcDbSymbolTable');
-		mg.push(70, this.records.length);
-		for (const record of this.records) record.dxify(mg);
-		mg.type('ENDTAB');
+	dxify(dx: Dxifier) {
+		dx.type('TABLE');
+		dx.name(this.name);
+		dx.handle(this.handle);
+		dx.push(330, this.ownerObjectHandle);
+		dx.subclassMarker('AcDbSymbolTable');
+		dx.push(70, this.records.length);
+		for (const record of this.records) record.dxify(dx);
+		dx.type('ENDTAB');
 	}
 }

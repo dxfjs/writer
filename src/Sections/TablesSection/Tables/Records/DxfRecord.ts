@@ -36,10 +36,10 @@ export default class DxfRecord implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	dxify(mg: Dxifier) {
-		mg.type(this.type);
-		mg.handle(this.handle);
-		mg.push(330, this.ownerObjectHandle);
-		mg.subclassMarker('AcDbSymbolTableRecord');
+	dxify(dx: Dxifier) {
+		dx.type(this.type);
+		dx.handle(this.handle);
+		dx.push(330, this.ownerObjectHandle);
+		dx.subclassMarker('AcDbSymbolTableRecord');
 	}
 }

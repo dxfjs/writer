@@ -13,9 +13,9 @@ export default class DxfObject implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	dxify(mg: Dxifier) {
-		mg.type(this.type);
-		mg.handle(this.handle);
-		mg.push(330, this.ownerObjecthandle);
+	dxify(dx: Dxifier) {
+		dx.type(this.type);
+		dx.handle(this.handle);
+		dx.push(330, this.ownerObjecthandle);
 	}
 }

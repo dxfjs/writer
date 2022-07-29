@@ -6,11 +6,11 @@ export default class DxfRasterVariables extends DxfObject {
 		super('RASTERVARIABLES');
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.subclassMarker('AcDbRasterVariables');
-		mg.push(70, 0);
-		mg.push(71, 1);
-		mg.push(72, 0);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.subclassMarker('AcDbRasterVariables');
+		dx.push(70, 0);
+		dx.push(71, 1);
+		dx.push(72, 0);
 	}
 }

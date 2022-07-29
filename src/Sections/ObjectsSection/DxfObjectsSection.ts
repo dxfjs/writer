@@ -40,13 +40,13 @@ export default class DxfObjectsSection implements DxfInterface {
 		this.root.addEntryObject(name, softOwner);
 	}
 
-	dxify(mg: Dxifier) {
-		mg.start('OBJECTS');
-		this.root.dxify(mg);
+	dxify(dx: Dxifier) {
+		dx.start('OBJECTS');
+		this.root.dxify(dx);
 		for (const obj of this.objects) {
-			obj.dxify(mg);
+			obj.dxify(dx);
 		}
-		mg.end();
-		mg.type('EOF');
+		dx.end();
+		dx.type('EOF');
 	}
 }

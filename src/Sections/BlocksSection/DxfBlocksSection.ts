@@ -25,9 +25,9 @@ export default class DxfBlocksSection implements DxfInterface {
 		return block;
 	}
 
-	dxify(mg: Dxifier) {
-		mg.start('BLOCKS');
-		for (const b of this.blocks) b.dxify(mg);
-		mg.end();
+	dxify(dx: Dxifier) {
+		dx.start('BLOCKS');
+		for (const b of this.blocks) b.dxify(dx);
+		dx.end();
 	}
 }

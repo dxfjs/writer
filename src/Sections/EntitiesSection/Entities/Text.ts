@@ -26,12 +26,12 @@ export default class Text extends Entity {
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(this.position);
-		mg.push(40, this.height);
-		mg.primaryText(this.value);
-		mg.textStyle(this.textStyle);
-		mg.subclassMarker('AcDbText');
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(this.position);
+		dx.push(40, this.height);
+		dx.primaryText(this.value);
+		dx.textStyle(this.textStyle);
+		dx.subclassMarker('AcDbText');
 	}
 }

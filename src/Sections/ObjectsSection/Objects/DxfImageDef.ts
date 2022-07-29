@@ -36,20 +36,20 @@ export default class DxfImageDef extends DxfObject {
 		this.imageReactorHandles.push(id);
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
 		// TODO Need a dynamic way
 		const da = new DxfDefinedApplication('ACAD_REACTORS');
 		da.add(330, this.acadImageDictHandle);
 		for (const handle of this.imageReactorHandles) {
 			da.add(330, handle);
 		}
-		da.dxify(mg);
-		mg.subclassMarker('AcDbRasterImageDef');
-		mg.push(1, this.path);
-		mg.point2d(point2d(this.width, this.height));
-		mg.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
-		mg.push(280, Number(this.loaded));
-		mg.push(281, this.resolutionUnits);
+		da.dxify(dx);
+		dx.subclassMarker('AcDbRasterImageDef');
+		dx.push(1, this.path);
+		dx.point2d(point2d(this.width, this.height));
+		dx.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
+		dx.push(280, Number(this.loaded));
+		dx.push(281, this.resolutionUnits);
 	}
 }

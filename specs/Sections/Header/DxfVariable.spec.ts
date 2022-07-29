@@ -15,8 +15,8 @@ describe('DxfHeader class', () => {
 	});
 
 	it('Should return correct dxf string', () => {
-		const mg = new Dxifier();
-		header.dxify(mg);
-		expect(mg.stringify()).toBe('9\n$ACADVER\n1\nAC1021');
+		const dx = new Dxifier();
+		header.dxify(dx);
+		expect(dx.stringify()).toBe('9\n$ACADVER\n1\nAC1021');
 	});
 });

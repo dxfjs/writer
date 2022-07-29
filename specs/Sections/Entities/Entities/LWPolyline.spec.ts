@@ -37,8 +37,8 @@ describe('Polyline', () => {
 		let entityString = `0\nLWPOLYLINE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbPolyline\n`;
 		entityString +=
 			'90\n2\n70\n0\n43\n0\n38\n0\n39\n0\n10\n0\n20\n0\n10\n120\n20\n54';
-		const mg = new Dxifier();
-		entity.dxify(mg);
-		expect(mg.stringify()).toBe(entityString);
+		const dx = new Dxifier();
+		entity.dxify(dx);
+		expect(dx.stringify()).toBe(entityString);
 	});
 });

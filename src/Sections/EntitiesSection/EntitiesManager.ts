@@ -45,9 +45,9 @@ export default abstract class EntitiesManager implements DxfInterface {
 		this.layerName = layerName;
 	}
 
-	dxify(mg: Dxifier): void {
+	dxify(dx: Dxifier): void {
 		for (const entity of this.entities) {
-			entity.dxify(mg);
+			entity.dxify(dx);
 		}
 	}
 

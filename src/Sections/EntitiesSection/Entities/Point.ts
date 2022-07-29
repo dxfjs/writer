@@ -18,8 +18,8 @@ export default class Point extends Entity {
 		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
-	dxify(mg: Dxifier): void {
-		super.dxify(mg);
-		mg.point3d(point3d(this.x, this.y, this.z));
+	dxify(dx: Dxifier): void {
+		super.dxify(dx);
+		dx.point3d(point3d(this.x, this.y, this.z));
 	}
 }

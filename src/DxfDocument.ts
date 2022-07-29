@@ -51,13 +51,13 @@ export default class DxfDocument implements DxfInterface {
 		this.paperSpace = this.blocks.paperSpace;
 	}
 
-	dxify(mg: Dxifier): void {
-		this.header.dxify(mg);
-		this.classes.dxify(mg);
-		this.tables.dxify(mg);
-		this.blocks.dxify(mg);
-		this.entities.dxify(mg);
-		this.objects.dxify(mg);
+	dxify(dx: Dxifier): void {
+		this.header.dxify(dx);
+		this.classes.dxify(dx);
+		this.tables.dxify(dx);
+		this.blocks.dxify(dx);
+		this.entities.dxify(dx);
+		this.objects.dxify(dx);
 	}
 
 	addBlock(name: string) {
@@ -92,11 +92,11 @@ export default class DxfDocument implements DxfInterface {
 	}
 
 	stringify(): string {
-		const mg = new Dxifier();
+		const dx = new Dxifier();
 		this.handseed();
 		this.setViewCenter(this.modelSpace.centerView()); // fit in
 		this.activeVPort.viewHeight = this.modelSpace.viewHeight();
-		this.dxify(mg);
-		return mg.stringify();
+		this.dxify(dx);
+		return dx.stringify();
 	}
 }
