@@ -43,3 +43,7 @@ const dxfString = dxf.stringify();
 ## Become a patron
 
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Duser%3Fu%3D33866044%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/user?u=33866044)
+
+<a href="https://www.archilogic.com/">
+<img src="https://assets.website-files.com/60b9f6eb7e7da3e6b3ddbefe/60ba47503448cd05decbf860_5ed7d45ee0b0e5a2ce195e01_archilogic-logo-black-fav2.png" style="width:48px" alt="Archilogic | Interior space for the digital world">
+</a>
