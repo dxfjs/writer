@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier, point2d } from '../../../../src';
+import { point2d } from '../../../../src/Internals/Utils';
+import { Dxifier } from '../../../../src/Internals/Dxifier';
 import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
 
 describe('Polyline', () => {

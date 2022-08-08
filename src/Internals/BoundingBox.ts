@@ -1,5 +1,22 @@
-import { point3d, point3d_t } from './Dxifier';
-import { max, min } from './Utils';
+import { point3d, point3d_t } from './Utils';
+
+export function min(numbers: number[]) {
+	let _min = Infinity;
+	for (let i = 0; i < numbers.length; i++) {
+		const n = numbers[i];
+		if (n < _min) _min = n;
+	}
+	return _min;
+}
+
+export function max(numbers: number[]) {
+	let _max = -Infinity;
+	for (let i = 0; i < numbers.length; i++) {
+		const n = numbers[i];
+		if (n > _max) _max = n;
+	}
+	return _max;
+}
 
 export type boundingBox_t = {
 	topLeft: point3d_t;

@@ -5,7 +5,7 @@ import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Sections/EntitiesSection/Entities/LWPolyline';
-import { rectangleOptions_t } from './Internals/Utils';
+import { point2d_t, point3d_t, rectangleOptions_t } from './Internals/Utils';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
@@ -20,7 +20,6 @@ import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline'
 import { Units } from './Internals/Enums';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 import Handle from './Internals/Handle';
-import { point2d_t, point3d_t } from './Internals/Dxifier';
 
 /**
  * The base class for creating the dxf content.

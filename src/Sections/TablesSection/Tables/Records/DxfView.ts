@@ -1,4 +1,5 @@
-import { Dxifier, point2d_t, point3d_t } from '../../../../Internals/Dxifier';
+import { Dxifier } from '../../../../Internals/Dxifier';
+import { point2d_t, point3d_t } from '../../../../Internals/Utils';
 import DxfRecord, { ViewFlags } from './DxfRecord';
 
 export type ViewArgs = {

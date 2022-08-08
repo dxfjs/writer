@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from '../../../src';
+import { Dxifier } from '../../../src/Internals/Dxifier';
 import DxfVariable from '../../../src/Sections/HeaderSection/DxfVariable';
 
 describe('DxfHeader class', () => {

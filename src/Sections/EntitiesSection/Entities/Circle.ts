@@ -1,6 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import { Dxifier, point3d_t } from '../../../Internals/Dxifier';
+import { Dxifier } from '../../../Internals/Dxifier';
+import { point3d_t } from '../../../Internals/Utils';
 
 export default class Circle extends Entity {
 	center: point3d_t;

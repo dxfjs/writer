@@ -1,11 +1,11 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
+import { Dxifier } from '../../../Internals/Dxifier';
 import {
-	Dxifier,
 	point2d,
 	point2d_t,
 	point3d,
 	point3d_t,
-} from '../../../Internals/Dxifier';
+} from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export enum ImageDisplayFlags {

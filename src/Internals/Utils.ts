@@ -25,20 +25,21 @@ export type rgb_t = {
 	b: number;
 };
 
-export function min(numbers: number[]) {
-	let _min = Infinity;
-	for (let i = 0; i < numbers.length; i++) {
-		const n = numbers[i];
-		if (n < _min) _min = n;
-	}
-	return _min;
+export type point3d_t = {
+	x: number;
+	y: number;
+	z: number;
+};
+
+export type point2d_t = {
+	x: number;
+	y: number;
+};
+
+export function point3d(x: number, y: number, z: number): point3d_t {
+	return { x, y, z };
 }
 
-export function max(numbers: number[]) {
-	let _max = -Infinity;
-	for (let i = 0; i < numbers.length; i++) {
-		const n = numbers[i];
-		if (n > _max) _max = n;
-	}
-	return _max;
+export function point2d(x: number, y: number): point2d_t {
+	return { x, y };
 }

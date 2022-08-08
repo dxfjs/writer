@@ -1,7 +1,8 @@
-import { Dxifier, point3d_t } from './Internals/Dxifier';
+import { Dxifier } from './Internals/Dxifier';
 import { Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
+import { point3d_t } from './Internals/Utils';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
@@ -35,6 +36,7 @@ export default class DxfDocument implements DxfInterface {
 		this.currentUnits = Units.Unitless;
 
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
+		this.header.setVariable('$LASTSAVEDBY', { 1: '@tarikjabiri/dxf' });
 		this.handseed();
 		this.setUnits(Units.Unitless);
 

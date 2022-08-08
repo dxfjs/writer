@@ -7,7 +7,13 @@ import LWPolyline, {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Entities/LWPolyline';
-import { bulge, rectangleOptions_t } from '../../Internals/Utils';
+import {
+	bulge,
+	point2d,
+	point2d_t,
+	point3d_t,
+	rectangleOptions_t,
+} from '../../Internals/Utils';
 import Polyline, { polylineOptions_t } from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
@@ -26,12 +32,7 @@ import Hatch, {
 } from './Entities/Hatch';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import Image, { ImageOptions_t } from './Entities/Image';
-import {
-	Dxifier,
-	point2d,
-	point2d_t,
-	point3d_t,
-} from '../../Internals/Dxifier';
+import { Dxifier } from '../../Internals/Dxifier';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];

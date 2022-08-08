@@ -1,28 +1,10 @@
 import { StringBuilder } from './StringBuilder';
+import { point2d, point2d_t, point3d_t } from './Utils';
 
 export type tag_t = {
 	code: number;
 	value: number | string;
 };
-
-export type point3d_t = {
-	x: number;
-	y: number;
-	z: number;
-};
-
-export type point2d_t = {
-	x: number;
-	y: number;
-};
-
-export function point3d(x: number, y: number, z: number): point3d_t {
-	return { x, y, z };
-}
-
-export function point2d(x: number, y: number): point2d_t {
-	return { x, y };
-}
 
 export const createGroupCode = (
 	firstDigits: number,

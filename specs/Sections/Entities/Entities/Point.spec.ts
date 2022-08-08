@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from '../../../../src';
+import { Dxifier } from '../../../../src/Internals/Dxifier';
 import Point from '../../../../src/Sections/EntitiesSection/Entities/Point';
 
 describe('Point', () => {

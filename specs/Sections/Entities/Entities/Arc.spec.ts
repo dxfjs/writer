@@ -1,5 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { Dxifier, point3d } from '../../../../src';
+import { point3d } from '../../../../src/Internals/Utils';
+import { Dxifier } from '../../../../src/Internals/Dxifier';
 import Arc from '../../../../src/Sections/EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {

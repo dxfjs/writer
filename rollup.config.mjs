@@ -1,12 +1,12 @@
 import typescript from 'rollup-plugin-typescript2';
 import dts from 'rollup-plugin-dts';
-import del from 'del';
+import { deleteAsync } from 'del';
 
 function folderDelete(folders) {
 	return {
-		name: 'folder-delete',
+		name: 'folderDelete',
 		buildEnd() {
-			del.sync(folders, {});
+			deleteAsync(folders, {});
 		},
 	};
 }
@@ -39,7 +39,7 @@ export default [
 			},
 			{
 				file: 'lib/index.js',
-				name: 'DxfWriter CommonJS',
+				name: 'DxfWriter',
 				format: 'cjs',
 			},
 		],

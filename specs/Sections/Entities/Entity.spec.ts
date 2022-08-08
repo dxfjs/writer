@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { Dxifier } from '../../../src';
+import { Dxifier } from '../../../src/Internals/Dxifier';
 import BoundingBox from '../../../src/Internals/BoundingBox';
 import { boundingBox_t } from '../../../src/Internals/BoundingBox';
 import Entity from '../../../src/Sections/EntitiesSection/Entity';

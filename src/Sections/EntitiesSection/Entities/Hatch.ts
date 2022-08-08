@@ -1,14 +1,10 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { aciHex } from '../../../Internals/Colors';
-import {
-	Dxifier,
-	point2d_t,
-	point3d,
-	point3d_t,
-} from '../../../Internals/Dxifier';
+import { Dxifier } from '../../../Internals/Dxifier';
 import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
 import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TrueColor from '../../../Internals/TrueColor';
+import { point2d_t, point3d, point3d_t } from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export enum HatchPredefinedPatterns {
