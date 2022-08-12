@@ -1,6 +1,7 @@
 import typescript from 'rollup-plugin-typescript2';
 import dts from 'rollup-plugin-dts';
 import { deleteAsync } from 'del';
+import json from '@rollup/plugin-json';
 
 function folderDelete(folders) {
 	return {
@@ -15,9 +16,8 @@ const tsconfigBuild = {
 	compilerOptions: {
 		module: 'esnext',
 		target: 'esnext',
-		rootDir: './src',
 		declaration: true,
-		declarationDir: './lib/types',
+		declarationDir: './lib',
 		moduleResolution: 'node',
 		esModuleInterop: true,
 		strict: true,
@@ -25,34 +25,37 @@ const tsconfigBuild = {
 		noUnusedLocals: true,
 		types: ['vitest/globals'],
 	},
-	include: ['./src'],
+	include: ['./src', './package.json'],
+};
+
+const esModule = {
+	file: 'lib/esm/index.js',
+	format: 'es',
+};
+
+const commonJs = {
+	file: 'lib/index.js',
+	format: 'cjs',
+};
+
+const typescriptOptions = {
+	tsconfigDefaults: tsconfigBuild,
+	useTsconfigDeclarationDir: true,
+};
+
+const jsonOptions = {
+	preferConst: true,
 };
 
 export default [
 	{
 		input: 'src/index.ts',
-		output: [
-			{
-				file: 'lib/esm/index.js',
-				name: 'DxfWriter',
-				format: 'es',
-			},
-			{
-				file: 'lib/index.js',
-				name: 'DxfWriter',
-				format: 'cjs',
-			},
-		],
-		plugins: [
-			typescript({
-				tsconfigDefaults: tsconfigBuild,
-				useTsconfigDeclarationDir: true,
-			}),
-		],
+		output: [esModule, commonJs],
+		plugins: [json(jsonOptions), typescript(typescriptOptions)],
 	},
 	{
-		input: './lib/types/index.d.ts',
+		input: './lib/src/index.d.ts',
 		output: [{ file: 'lib/index.d.ts', format: 'es' }],
-		plugins: [folderDelete(['./lib/types']), dts()],
+		plugins: [folderDelete(['./lib/src']), dts()],
 	},
 ];

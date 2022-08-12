@@ -8,12 +8,8 @@
 		"skipLibCheck": true,
 		"noUnusedLocals": true,
 		"noImplicitOverride": true,
-		"types": [
-			"vitest/globals"
-		]
+		"resolveJsonModule": true,
+		"types": ["vitest/globals"]
 	},
-	"exclude": [
-		"**/node_modules/**",
-		"**/lib/**"
-	],
+	"exclude": ["**/node_modules/**", "**/lib/**"]
 }
