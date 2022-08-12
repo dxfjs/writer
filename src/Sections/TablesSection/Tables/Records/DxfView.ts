@@ -69,7 +69,7 @@ export default class DxfView extends DxfRecord {
 			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbViewTableRecord');
 		dx.name(this.name);

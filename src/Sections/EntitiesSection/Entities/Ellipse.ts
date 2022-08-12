@@ -39,7 +39,7 @@ export default class Ellipse extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.center);
 		dx.point3d(this.endPointOfMajorAxis, 1);

@@ -37,7 +37,7 @@ export default class DxfImageDef extends DxfObject {
 		this.imageReactorHandles.push(id);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		// TODO Need a dynamic way
 		const da = new DxfDefinedApplication('ACAD_REACTORS');

@@ -18,7 +18,7 @@ export default class DxfStyle extends DxfRecord {
 		this.flags = flags ?? StyleFlags.None;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbTextStyleTableRecord');
 		dx.name(this.name);

@@ -27,7 +27,7 @@ export default class Text extends Entity {
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.position);
 		dx.push(40, this.height);

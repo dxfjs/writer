@@ -17,7 +17,7 @@ export default class DxfAppId extends DxfRecord {
 		this.flags = flags ?? AppIdFlags.None;
 	}
 
-	dxify(dx: Dxifier) {
+	override dxify(dx: Dxifier) {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbRegAppTableRecord');
 		dx.name(this.name);

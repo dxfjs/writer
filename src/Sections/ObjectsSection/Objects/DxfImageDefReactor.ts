@@ -11,7 +11,7 @@ export default class DxfImageDefReactor extends DxfObject {
 		this.classVersion = 2;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbRasterImageDefReactor');
 		dx.push(90, this.classVersion);

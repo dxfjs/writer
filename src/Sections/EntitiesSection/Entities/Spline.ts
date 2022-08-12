@@ -75,7 +75,7 @@ export default class Spline extends Entity {
 		]);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.push(70, this.flags);
 		dx.push(71, this.degreeCurve);

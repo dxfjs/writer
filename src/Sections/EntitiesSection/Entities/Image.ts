@@ -156,7 +156,7 @@ export default class Image extends Entity {
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.push(90, this.classVersion);
 		dx.point3d(this.insertionPoint);

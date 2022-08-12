@@ -37,7 +37,7 @@ export default class DxfBlock extends EntitiesManager {
 		this.layerName = layerName;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		dx.type('BLOCK');
 		dx.handle(this.handle);
 		dx.push(330, this.ownerObjectHandle);

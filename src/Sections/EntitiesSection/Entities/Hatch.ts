@@ -429,7 +429,7 @@ export default class Hatch extends Entity {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(point3d(0, 0, this.elevation));
 		dx.push(210, this.extrusion.x);

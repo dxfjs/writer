@@ -20,7 +20,7 @@ export default class DxfLType extends DxfRecord {
 		this.flags = flags ?? 0;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbLinetypeTableRecord');
 		dx.name(this.name);

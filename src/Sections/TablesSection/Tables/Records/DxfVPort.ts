@@ -13,7 +13,7 @@ export default class DxfVPort extends DxfRecord {
 		this.viewCenter = [0, 0];
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		const [x, y] = this.viewCenter;
 		dx.subclassMarker('AcDbViewportTableRecord');

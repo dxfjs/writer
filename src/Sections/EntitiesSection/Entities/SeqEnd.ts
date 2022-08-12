@@ -6,7 +6,7 @@ export default class SeqEnd extends Entity {
 		super('SEQEND');
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 	}
 }

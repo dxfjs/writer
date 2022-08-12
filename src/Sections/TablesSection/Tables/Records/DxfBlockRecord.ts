@@ -16,7 +16,7 @@ export default class DxfBlockRecord extends DxfRecord {
 		this.scalability = 0;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbBlockTableRecord');
 		dx.name(this.name);

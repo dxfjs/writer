@@ -24,7 +24,7 @@ export default class DxfDictionary extends DxfObject {
 		});
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbDictionary');
 		dx.push(280, this.hardOwnerFlag);

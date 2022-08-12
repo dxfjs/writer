@@ -47,7 +47,7 @@ export default class LWPolyline extends Entity {
 		);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.push(90, this.vertices.length);
 		dx.push(70, this.flags || 0);

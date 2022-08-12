@@ -31,18 +31,18 @@ export default class Insert extends Entity {
 		this.blockName = blockName;
 		this.insertionPoint = insertionPoint;
 		this.scaleFactor = options?.scaleFactor || point3d(1, 1, 1);
-		this.rotationAngle = options?.rotationAngle || 0;
+		this.rotationAngle = options?.rotationAngle ?? 0;
 		this.columnCount = options?.columnCount || 1;
 		this.rowCount = options?.rowCount || 1;
-		this.columnSpacing = options?.columnSpacing || 0;
-		this.rowSpacing = options?.rowSpacing || 0;
+		this.columnSpacing = options?.columnSpacing ?? 0;
+		this.rowSpacing = options?.rowSpacing ?? 0;
 	}
 
 	override boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.name(this.blockName);
 		dx.point3d(this.insertionPoint);

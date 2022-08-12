@@ -96,7 +96,7 @@ export default class Polyline extends Entity {
 		return BoundingBox.verticesBBox(this.vertices);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.push(66, 1);
 		dx.point3d(point3d(0, 0, this.elevation));

@@ -47,7 +47,7 @@ export default class Vertex extends Entity {
 		return BoundingBox.pointBBox(this.vertex);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker(this.is3d ? 'AcDb3dPolylineVertex' : 'AcDb2dVertex');
 		dx.point3d(this.vertex);

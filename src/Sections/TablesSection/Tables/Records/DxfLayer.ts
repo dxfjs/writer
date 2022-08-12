@@ -22,7 +22,7 @@ export default class DxfLayer extends DxfRecord {
 		this.flags = flags ?? LayerFlags.None;
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.subclassMarker('AcDbLayerTableRecord');
 		dx.name(this.name);

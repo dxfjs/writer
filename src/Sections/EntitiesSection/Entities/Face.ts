@@ -83,7 +83,7 @@ export default class Face extends Entity {
 		]);
 	}
 
-	dxify(dx: Dxifier): void {
+	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.firstCorner);
 		dx.point3d(this.secondCorner, 1);
