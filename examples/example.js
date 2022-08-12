@@ -1,5 +1,5 @@
-import { DxfWriter, Colors, point3d } from '../dist';
-import { writeFileSync } from 'fs';
+const { DxfWriter, Colors, point3d } = require('../dist');
+const { writeFileSync } = require('fs');
 
 const d = new DxfWriter();
 const green = d.addLayer('green', Colors.Green, 'Continuous');
