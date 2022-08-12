@@ -1,12 +1,15 @@
-const { DxfWriter, Colors, point3d } = require('../dist');
-const { writeFileSync } = require('fs');
+import { DxfWriter, Colors, point3d } from '../dist';
+import { writeFileSync } from 'fs';
 
-const dxf = new DxfWriter();
-dxf.addLayer('green', Colors.Green, 'Continuous');
-dxf.addLayer('blue', Colors.Blue, 'Continuous');
-dxf.setCurrentLayerName('green');
-dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 100));
-dxf.addLine(point3d(100, 0, 0), point3d(200, 100, 0), {
+const d = new DxfWriter();
+const green = d.addLayer('green', Colors.Green, 'Continuous');
+const blue = d.addLayer('blue', Colors.Blue, 'Continuous');
+d.setCurrentLayerName(green.name);
+d.addLine(point3d(0, 0, 0), point3d(100, 100, 100));
+d.addLine(point3d(100, 0, 0), point3d(200, 100, 0), {
 	colorNumber: Colors.Cyan,
 });
-writeFileSync('examples/example.dxf', dxf.stringify());
+d.setCurrentLayerName(blue.name);
+d.addCircle(point3d(150, 100, 0), 50);
+const _str = d.stringify();
+writeFileSync('examples/example.dxf', _str);
