@@ -19,13 +19,12 @@ import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 import { Units } from './Internals/Enums';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
-import Handle from './Internals/Handle';
 
 /**
  * The base class for creating the dxf content.
  */
 export class DxfWriter {
-	private readonly document: DxfDocument;
+	readonly document: DxfDocument;
 
 	get header() {
 		return this.document.header;
@@ -51,8 +50,11 @@ export class DxfWriter {
 		return this.document.currentUnits;
 	}
 
+	get modelSpace() {
+		return this.document.modelSpace;
+	}
+
 	constructor() {
-		Handle.seed = 0;
 		this.document = new DxfDocument();
 	}
 
@@ -62,7 +64,7 @@ export class DxfWriter {
 	 * @returns The added block.
 	 */
 	addBlock(name: string) {
-		return this.document.blocks.addBlock(name, this.document.objects);
+		return this.blocks.addBlock(name, this.document.objects);
 	}
 
 	/**
@@ -79,7 +81,7 @@ export class DxfWriter {
 	 * @param values - The values correspanding to the variable.
 	 */
 	public setVariable(name: string, values: values_t) {
-		this.document.header.setVariable(name, values);
+		this.header.setVariable(name, values);
 	}
 
 	/**
@@ -90,7 +92,17 @@ export class DxfWriter {
 	 * @param elements - An array of elements of the pattern. 📝 Need more explications 😭!
 	 */
 	public addLType(name: string, descriptive: string, elements: number[]) {
-		return this.document.tables.addLType(name, descriptive, elements);
+		return this.tables.addLType(name, descriptive, elements);
+	}
+
+	/**
+	 * Add a Dimension style.
+	 *
+	 * @param name Dimension style name
+	 * @returns Dimension style object
+	 */
+	addDimStyle(name: string) {
+		return this.tables.addDimStyle(name);
 	}
 
 	/**
@@ -106,7 +118,7 @@ export class DxfWriter {
 		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
 	) {
-		return this.document.modelSpace.addHatch(boundaryPath, fill, options);
+		return this.modelSpace.addHatch(boundaryPath, fill, options);
 	}
 
 	/**
@@ -124,7 +136,7 @@ export class DxfWriter {
 		lineType: string,
 		flags = LayerFlags.None
 	) {
-		return this.document.tables.addLayer(name, color, lineType, flags);
+		return this.tables.addLayer(name, color, lineType, flags);
 	}
 
 	/**
@@ -158,7 +170,7 @@ export class DxfWriter {
 		endPoint: point3d_t,
 		options?: options_t
 	) {
-		return this.document.modelSpace.addLine(startPoint, endPoint, options);
+		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
 	/**
@@ -178,7 +190,7 @@ export class DxfWriter {
 		points: lwPolylineVertex_t[],
 		options: lwPolylineOptions_t = {}
 	) {
-		return this.document.modelSpace.addLWPolyline(points, options);
+		return this.modelSpace.addLWPolyline(points, options);
 	}
 
 	/**
@@ -196,7 +208,7 @@ export class DxfWriter {
 		bottomRight: point2d_t,
 		options?: rectangleOptions_t
 	) {
-		return this.document.modelSpace.addRectangle(
+		return this.modelSpace.addRectangle(
 			topLeft,
 			bottomRight,
 			options || {}
@@ -215,7 +227,7 @@ export class DxfWriter {
 		points: (point3d_t | point2d_t)[],
 		options?: polylineOptions_t
 	) {
-		return this.document.modelSpace.addPolyline3D(points, options);
+		return this.modelSpace.addPolyline3D(points, options);
 	}
 
 	/**
@@ -228,7 +240,7 @@ export class DxfWriter {
 	 * @returns Return the the added point.
 	 */
 	public addPoint(x: number, y: number, z: number, options?: options_t) {
-		return this.document.modelSpace.addPoint(x, y, z, options);
+		return this.modelSpace.addPoint(x, y, z, options);
 	}
 
 	/**
@@ -240,7 +252,7 @@ export class DxfWriter {
 	 * @returns Return the the added circle.
 	 */
 	public addCircle(center: point3d_t, radius: number, options?: options_t) {
-		return this.document.modelSpace.addCircle(center, radius, options);
+		return this.modelSpace.addCircle(center, radius, options);
 	}
 
 	/**
@@ -261,7 +273,7 @@ export class DxfWriter {
 		endAngle: number,
 		options?: options_t
 	) {
-		return this.document.modelSpace.addArc(
+		return this.modelSpace.addArc(
 			center,
 			radius,
 			startAngle,
@@ -286,7 +298,7 @@ export class DxfWriter {
 	 * @returns Return the the added spline.
 	 */
 	public addSpline(splineArgs: SplineArgs_t, options?: options_t) {
-		return this.document.modelSpace.addSpline(splineArgs, options);
+		return this.modelSpace.addSpline(splineArgs, options);
 	}
 
 	/**
@@ -307,7 +319,7 @@ export class DxfWriter {
 		endParameter: number,
 		options?: options_t
 	) {
-		return this.document.modelSpace.addEllipse(
+		return this.modelSpace.addEllipse(
 			center,
 			endPointOfMajorAxis,
 			ratioOfMinorAxisToMajorAxis,
@@ -351,7 +363,7 @@ export class DxfWriter {
 		rotation: number,
 		options?: ImageOptions_t
 	) {
-		return this.document.modelSpace.addImage(
+		return this.modelSpace.addImage(
 			imagePath,
 			name,
 			insertionPoint,
@@ -381,7 +393,7 @@ export class DxfWriter {
 		fourthCorner: point3d_t,
 		options?: faceOptions_t
 	) {
-		return this.document.modelSpace.add3dFace(
+		return this.modelSpace.add3dFace(
 			firstCorner,
 			secondCorner,
 			thirdCorner,
@@ -403,7 +415,7 @@ export class DxfWriter {
 		value: string,
 		options?: options_t
 	) {
-		return this.document.modelSpace.addText(
+		return this.modelSpace.addText(
 			firstAlignementPoint,
 			height,
 			value,
@@ -424,11 +436,7 @@ export class DxfWriter {
 		insertionPoint: point3d_t,
 		options?: insertOptions_t
 	) {
-		return this.document.modelSpace.addInsert(
-			blockName,
-			insertionPoint,
-			options
-		);
+		return this.modelSpace.addInsert(blockName, insertionPoint, options);
 	}
 
 	/**

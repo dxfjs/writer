@@ -1,4 +1,4 @@
-import DxfDimStyle from './Records/DxfDimStyle';
+import DxfDimStyle, { DimStyleFlags } from './Records/DxfDimStyle';
 import DxfTable from '../DxfTable';
 
 export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
@@ -7,7 +7,7 @@ export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
 		this.ownerObjectHandle = '0';
 	}
 
-	addDimStyle(name: string, flags?: number) {
+	addDimStyle(name: string, flags?: DimStyleFlags) {
 		const r = new DxfDimStyle(name, flags);
 		r.ownerObjectHandle = this.handle;
 		this.records.push(r);

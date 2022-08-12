@@ -8,4 +8,8 @@ export default class Handle {
 	static peek(): string {
 		return (Handle.seed + 1).toString(16).toUpperCase();
 	}
+
+	static clear() {
+		Handle.seed = 0;
+	}
 }

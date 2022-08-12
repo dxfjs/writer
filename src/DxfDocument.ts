@@ -1,5 +1,5 @@
 import { Dxifier } from './Internals/Dxifier';
-import { Units } from './Internals/Enums';
+import { Colors, Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
 import { point3d_t } from './Internals/Utils';
@@ -10,6 +10,8 @@ import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
 import DxfHeaderSection from './Sections/HeaderSection/DxfHeaderSection';
 import DxfObjectsSection from './Sections/ObjectsSection/DxfObjectsSection';
 import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
+import { AppIdFlags } from './Sections/TablesSection/Tables/Records/DxfAppId';
+import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 import DxfVPort from './Sections/TablesSection/Tables/Records/DxfVPort';
 
 export default class DxfDocument implements DxfInterface {
@@ -26,13 +28,13 @@ export default class DxfDocument implements DxfInterface {
 	currentUnits: Units;
 
 	constructor() {
+		Handle.clear();
 		this.header = new DxfHeaderSection();
 		this.classes = new DxfClassesSection();
 		this.tables = new DxfTablesSection();
 		this.objects = new DxfObjectsSection();
 		this.blocks = new DxfBlocksSection(this.tables, this.objects);
 		this.entities = new DxfEntitiesSection(this.blocks.modelSpace);
-		this.currentLayerName = '0';
 		this.currentUnits = Units.Unitless;
 
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
@@ -42,11 +44,18 @@ export default class DxfDocument implements DxfInterface {
 
 		this.tables.addLType('ByBlock', '', []);
 		this.tables.addLType('ByLayer', '', []);
-		this.tables.addLType('Continuous', 'Solid line', []);
-		this.tables.addLayer('0', 7, 'Continuous', 0);
-		this.tables.addStyle('Standard');
-		this.tables.addAppId('ACAD', 0);
-		this.tables.addDimStyle('Standard');
+		const ltc = this.tables.addLType('Continuous', 'Solid line', []);
+		const cl = this.tables.addLayer(
+			'0',
+			Colors.White,
+			ltc.name,
+			LayerFlags.None
+		);
+		this.currentLayerName = cl.name;
+		const styleStandard = this.tables.addStyle('Standard');
+		this.tables.addAppId('ACAD', AppIdFlags.None);
+		const dimStyleStandard = this.tables.addDimStyle('Standard');
+		dimStyleStandard.DIMTXSTY = styleStandard.handle;
 		this.activeVPort = this.tables.addVPort('*Active');
 
 		this.modelSpace = this.blocks.modelSpace;
