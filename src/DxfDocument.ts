@@ -82,6 +82,7 @@ export default class DxfDocument implements DxfInterface {
 		if (layerRecord) {
 			this.currentLayerName = name;
 			this.entities.setLayerName(this.currentLayerName);
+			this.setCLayerVariable();
 		} else throw new Error(`The '${name} layer doesn't exist!'`);
 	}
 
@@ -92,6 +93,10 @@ export default class DxfDocument implements DxfInterface {
 	setUnits(units: Units) {
 		this.currentUnits = units;
 		this.header.setVariable('$INSUNITS', { 70: this.currentUnits });
+	}
+
+	private setCLayerVariable() {
+		this.header.setVariable('$CLAYER', { 8: this.currentLayerName });
 	}
 
 	setViewCenter(center: point3d_t) {
