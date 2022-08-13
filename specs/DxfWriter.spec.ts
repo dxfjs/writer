@@ -43,14 +43,14 @@ describe('DxfWriter class', () => {
 			visible: false,
 		});
 
-		// const circleBlock = dxf.addBlock('circle');
-		// circleBlock.addCircle(point3d(0, 0, 0), 50);
-		// circleBlock.addRectangle(
-		// 	point2d(-35.3553, 35.3553),
-		// 	point2d(35.3553, -35.3553)
-		// );
-		//
-		// dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
+		const circleBlock = dxf.addBlock('circle');
+		circleBlock.addCircle(point3d(0, 0, 0), 50);
+		circleBlock.addRectangle(
+			point2d(-35.3553, 35.3553),
+			point2d(35.3553, -35.3553)
+		);
+
+		dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
 
 		const controlPoints = [
 			point3d(0, 0, 0),
@@ -61,6 +61,7 @@ describe('DxfWriter class', () => {
 
 		dxf.addSpline({
 			controlPoints,
+			fitPoints: controlPoints,
 		});
 
 		dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
@@ -100,7 +101,7 @@ describe('DxfWriter class', () => {
 		dxf.addImage(
 			'.\\test - image.png',
 			'test - image',
-			point3d(462419.04, 576568.45, 0),
+			point3d(700, 600, 0),
 			1792,
 			1280,
 			433.54,
@@ -125,7 +126,6 @@ describe('DxfWriter class', () => {
 
 		dxf.addText(point3d(0, 0, 0), 5, 'test');
 
-		dxf.stringify();
-		expect(dxf).toBeInstanceOf(DxfWriter);
+		expect(dxf.stringify()).toMatchSnapshot();
 	});
 });
