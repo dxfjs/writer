@@ -1,79 +1,63 @@
-import { point3d, point3d_t } from './Utils';
-
-export function min(numbers: number[]) {
-	let _min = Infinity;
-	for (let i = 0; i < numbers.length; i++) {
-		const n = numbers[i];
-		if (n < _min) _min = n;
-	}
-	return _min;
-}
-
-export function max(numbers: number[]) {
-	let _max = -Infinity;
-	for (let i = 0; i < numbers.length; i++) {
-		const n = numbers[i];
-		if (n > _max) _max = n;
-	}
-	return _max;
-}
+import { point3d, vec3_t } from './Utils';
 
 export type boundingBox_t = {
-	topLeft: point3d_t;
-	bottomRight: point3d_t;
+	tl: vec3_t; // Top-left
+	br: vec3_t; // Bottom-Right
 };
 
-export const createBoundingBox = (
-	topLeft: point3d_t,
-	bottomRight: point3d_t
-): boundingBox_t => {
+export const createBoundingBox = (tl: vec3_t, br: vec3_t): boundingBox_t => {
 	return {
-		topLeft,
-		bottomRight,
+		tl: tl,
+		br: br,
 	};
 };
 
 export default class BoundingBox {
-	static centerRadiusBBox(center: point3d_t, radius: number) {
+	static centerRadiusBBox(center: vec3_t, radius: number) {
 		return createBoundingBox(
 			point3d(center.x - radius, center.y + radius, 0),
 			point3d(center.x + radius, center.y - radius, 0)
 		);
 	}
 
-	static pointBBox(point: point3d_t) {
+	static pointBBox(point: vec3_t) {
 		return createBoundingBox(
 			point3d(point.x - 100, point.y + 100, 0),
 			point3d(point.x + 100, point.y - 100, 0)
 		);
 	}
 
-	static lineBBox(startPoint: point3d_t, endPoint: point3d_t) {
-		const maxX = max([startPoint.x, endPoint.x]);
-		const minX = min([startPoint.x, endPoint.x]);
-		const maxY = max([startPoint.y, endPoint.y]);
-		const minY = min([startPoint.y, endPoint.y]);
+	/**
+	 * @param sp The start point.
+	 * @param ep The end point.
+	 * @returns
+	 */
+	static lineBBox(sp: vec3_t, ep: vec3_t) {
+		const maxX = sp.x > ep.x ? sp.x : ep.x;
+		const minX = sp.x < ep.x ? sp.x : ep.x;
+		const maxY = sp.y > ep.y ? sp.y : ep.y;
+		const minY = sp.y < ep.y ? sp.y : ep.y;
 		return createBoundingBox(
 			point3d(minX, maxY, 0),
 			point3d(maxX, minY, 0)
 		);
 	}
 
-	static verticesBBox(vertices: point3d_t[]) {
-		const _xCoordinates = [];
-		const _yCoordinates = [];
+	static verticesBBox(vertices: vec3_t[]) {
+		let _xMax = -Infinity;
+		let _yMax = -Infinity;
+		let _xMin = Infinity;
+		let _yMin = Infinity;
 		for (let i = 0; i < vertices.length; i++) {
-			const _vertex = vertices[i];
-			_xCoordinates.push(_vertex.x);
-			_yCoordinates.push(_vertex.y);
+			const { x, y } = vertices[i];
+			if (_xMax < x) _xMax = x;
+			if (_yMax < y) _yMax = y;
+			if (_xMin > x) _xMin = x;
+			if (_yMin > y) _yMin = y;
 		}
-		const maxX = max(_xCoordinates);
-		const minX = min(_xCoordinates);
-		const maxY = max(_yCoordinates);
-		const minY = min(_yCoordinates);
 		return createBoundingBox(
-			point3d(minX, maxY, 0),
-			point3d(maxX, minY, 0)
+			point3d(_xMin, _yMax, 0),
+			point3d(_xMax, _yMin, 0)
 		);
 	}
 
@@ -83,22 +67,18 @@ export default class BoundingBox {
 		const _vertices = [];
 		for (let i = 0; i < boundingBoxes.length; i++) {
 			const _bbox = boundingBoxes[i];
-			_vertices.push(_bbox.topLeft, _bbox.bottomRight);
+			_vertices.push(_bbox.tl, _bbox.br);
 		}
 		return BoundingBox.verticesBBox(_vertices);
 	}
 
-	static boundingBoxCenter(boundingBox: boundingBox_t): point3d_t {
-		const x =
-			boundingBox.topLeft.x +
-			(boundingBox.bottomRight.x - boundingBox.topLeft.x) / 2;
-		const y =
-			boundingBox.bottomRight.y +
-			(boundingBox.topLeft.y - boundingBox.bottomRight.y) / 2;
+	static boundingBoxCenter(boundingBox: boundingBox_t): vec3_t {
+		const x = boundingBox.tl.x + (boundingBox.br.x - boundingBox.tl.x) / 2;
+		const y = boundingBox.br.y + (boundingBox.tl.y - boundingBox.br.y) / 2;
 		return point3d(x, y, 0);
 	}
 
 	static boundingBoxHeight(boundingBox: boundingBox_t) {
-		return boundingBox.topLeft.y - boundingBox.bottomRight.y;
+		return boundingBox.tl.y - boundingBox.br.y;
 	}
 }

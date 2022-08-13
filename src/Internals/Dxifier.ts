@@ -1,31 +1,22 @@
-import { StringBuilder } from './StringBuilder';
-import { point2d, point2d_t, point3d_t } from './Utils';
+import { vec2_t, vec3_t } from './Utils';
 
 export type tag_t = {
 	code: number;
 	value: number | string;
 };
 
-export const createGroupCode = (
-	firstDigits: number,
-	lastDigit: number
-): number => {
-	return parseInt(`${firstDigits}${lastDigit}`);
-};
-
 export class Dxifier {
-	readonly sb: StringBuilder;
-
+	readonly lines: (string | number)[];
 	constructor() {
-		this.sb = new StringBuilder();
+		this.lines = [];
 	}
 
 	push(code: number, value?: string | number) {
-		if (value !== undefined && value !== null) this.sb.push(code, value);
+		if (value != null) this.lines.push(code, value);
 	}
 
 	stringify() {
-		return this.sb.stringify();
+		return this.lines.join('\u000A');
 	}
 
 	start(name: string) {
@@ -73,14 +64,15 @@ export class Dxifier {
 		this.push(9, variableName);
 	}
 
-	point2d(point: point2d_t, lastDigit = 0) {
-		this.push(createGroupCode(1, lastDigit), point.x);
-		this.push(createGroupCode(2, lastDigit), point.y);
+	point2d(point: vec2_t) {
+		this.push(10, point.x);
+		this.push(20, point.y);
 	}
 
-	point3d(point: point3d_t, lastDigit = 0) {
-		this.point2d(point2d(point.x, point.y), lastDigit);
-		this.push(createGroupCode(3, lastDigit), point.z);
+	point3d(point: vec3_t) {
+		this.push(10, point.x);
+		this.push(20, point.y);
+		this.push(30, point.z);
 	}
 
 	elevation(elevation?: number) {
@@ -92,7 +84,7 @@ export class Dxifier {
 	}
 
 	visibilty(visibilty?: boolean) {
-		if (visibilty !== undefined) this.push(60, visibilty ? 0 : 1);
+		if (visibilty != null) this.push(60, visibilty ? 0 : 1);
 	}
 
 	colorNumber(colorNumber?: number) {
