@@ -10,12 +10,12 @@ export default class DxfEntitiesSection implements DxfInterface {
 	}
 
 	setLayerName(layerName: string) {
-		this.modelSpace.setlayerName(layerName);
+		this.modelSpace.setLayerName(layerName);
 	}
 
 	dxify(dx: Dxifier) {
 		dx.start('ENTITIES');
-		for (const entity of this.modelSpace.entities) entity.dxify(dx);
+		this.modelSpace.entities.forEach((e) => e.dxify(dx));
 		dx.end();
 	}
 }

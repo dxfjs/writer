@@ -1,10 +1,10 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d, point3d_t } from '../../../Internals/Utils';
+import { point3d, vec3_t } from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export type insertOptions_t = options_t & {
-	scaleFactor?: Partial<point3d_t>;
+	scaleFactor?: Partial<vec3_t>;
 	rotationAngle?: number;
 	columnCount?: number;
 	rowCount?: number;
@@ -14,8 +14,8 @@ export type insertOptions_t = options_t & {
 
 export default class Insert extends Entity {
 	blockName: string;
-	insertionPoint: point3d_t;
-	scaleFactor: Partial<point3d_t>;
+	insertionPoint: vec3_t;
+	scaleFactor: Partial<vec3_t>;
 	rotationAngle: number;
 	columnCount: number;
 	rowCount: number;
@@ -24,7 +24,7 @@ export default class Insert extends Entity {
 
 	constructor(
 		blockName: string,
-		insertionPoint: point3d_t,
+		insertionPoint: vec3_t,
 		options?: insertOptions_t
 	) {
 		super('INSERT', 'AcDbBlockReference', options);
@@ -46,9 +46,9 @@ export default class Insert extends Entity {
 		super.dxify(dx);
 		dx.name(this.blockName);
 		dx.point3d(this.insertionPoint);
-		dx.push(41, this.scaleFactor.x || 1);
-		dx.push(42, this.scaleFactor.y || 1);
-		dx.push(43, this.scaleFactor.z || 1);
+		dx.push(41, this.scaleFactor.x);
+		dx.push(42, this.scaleFactor.y);
+		dx.push(43, this.scaleFactor.z);
 		dx.push(50, this.rotationAngle);
 		dx.push(70, this.columnCount);
 		dx.push(71, this.rowCount);

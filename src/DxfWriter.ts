@@ -5,7 +5,7 @@ import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Sections/EntitiesSection/Entities/LWPolyline';
-import { point2d_t, point3d_t, rectangleOptions_t } from './Internals/Utils';
+import { vec2_t, vec3_t, rectangleOptions_t } from './Internals/Utils';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
@@ -165,11 +165,7 @@ export class DxfWriter {
 	 * @param options - The options of the line entity.
 	 * @returns Return the added line.
 	 */
-	public addLine(
-		startPoint: point3d_t,
-		endPoint: point3d_t,
-		options?: options_t
-	) {
+	public addLine(startPoint: vec3_t, endPoint: vec3_t, options?: options_t) {
 		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
@@ -204,8 +200,8 @@ export class DxfWriter {
 	 * @returns Return the the added lwpolyline.
 	 */
 	public addRectangle(
-		topLeft: point2d_t,
-		bottomRight: point2d_t,
+		topLeft: vec2_t,
+		bottomRight: vec2_t,
 		options?: rectangleOptions_t
 	) {
 		return this.modelSpace.addRectangle(
@@ -224,7 +220,7 @@ export class DxfWriter {
 	 * @returns Return the the added polyline.
 	 */
 	public addPolyline3D(
-		points: (point3d_t | point2d_t)[],
+		points: (vec3_t | vec2_t)[],
 		options?: polylineOptions_t
 	) {
 		return this.modelSpace.addPolyline3D(points, options);
@@ -251,7 +247,7 @@ export class DxfWriter {
 	 * @param options - The Circle entity options;
 	 * @returns Return the the added circle.
 	 */
-	public addCircle(center: point3d_t, radius: number, options?: options_t) {
+	public addCircle(center: vec3_t, radius: number, options?: options_t) {
 		return this.modelSpace.addCircle(center, radius, options);
 	}
 
@@ -267,7 +263,7 @@ export class DxfWriter {
 	 * @returns Return the the added arc.
 	 */
 	public addArc(
-		center: point3d_t,
+		center: vec3_t,
 		radius: number,
 		startAngle: number,
 		endAngle: number,
@@ -312,8 +308,8 @@ export class DxfWriter {
 	 * @returns Return the the added ellipse.
 	 */
 	public addEllipse(
-		center: point3d_t,
-		endPointOfMajorAxis: point3d_t,
+		center: vec3_t,
+		endPointOfMajorAxis: vec3_t,
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
@@ -356,7 +352,7 @@ export class DxfWriter {
 	public addImage(
 		imagePath: string,
 		name: string,
-		insertionPoint: point3d_t,
+		insertionPoint: vec3_t,
 		width: number,
 		height: number,
 		scale: number,
@@ -387,10 +383,10 @@ export class DxfWriter {
 	 * @returns Return the the added face.
 	 */
 	public add3dFace(
-		firstCorner: point3d_t,
-		secondCorner: point3d_t,
-		thirdCorner: point3d_t,
-		fourthCorner: point3d_t,
+		firstCorner: vec3_t,
+		secondCorner: vec3_t,
+		thirdCorner: vec3_t,
+		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	) {
 		return this.modelSpace.add3dFace(
@@ -410,7 +406,7 @@ export class DxfWriter {
 	 * @returns Return the the added text.
 	 */
 	public addText(
-		firstAlignementPoint: point3d_t,
+		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
 		options?: options_t
@@ -433,7 +429,7 @@ export class DxfWriter {
 	 */
 	public addInsert(
 		blockName: string,
-		insertionPoint: point3d_t,
+		insertionPoint: vec3_t,
 		options?: insertOptions_t
 	) {
 		return this.modelSpace.addInsert(blockName, insertionPoint, options);

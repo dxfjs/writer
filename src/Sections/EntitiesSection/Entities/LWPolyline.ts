@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point2d_t, point3d } from '../../../Internals/Utils';
+import { vec2_t, point3d } from '../../../Internals/Utils';
 
 export enum LWPolylineFlags {
 	None = 0,
@@ -17,7 +17,7 @@ export type lwPolylineOptions_t = options_t & {
 };
 
 export type lwPolylineVertex_t = {
-	point: point2d_t;
+	point: vec2_t;
 	startingWidth?: number;
 	endWidth?: number;
 	bulge?: number;

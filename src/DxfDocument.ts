@@ -2,7 +2,7 @@ import { Dxifier } from './Internals/Dxifier';
 import { Colors, Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
-import { point3d_t } from './Internals/Utils';
+import { vec3_t } from './Internals/Utils';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
@@ -13,6 +13,7 @@ import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
 import { AppIdFlags } from './Sections/TablesSection/Tables/Records/DxfAppId';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 import DxfVPort from './Sections/TablesSection/Tables/Records/DxfVPort';
+import { name as packageName } from '../package.json';
 
 export default class DxfDocument implements DxfInterface {
 	readonly header: DxfHeaderSection;
@@ -38,7 +39,7 @@ export default class DxfDocument implements DxfInterface {
 		this.currentUnits = Units.Unitless;
 
 		this.header.setVariable('$ACADVER', { 1: 'AC1021' });
-		this.header.setVariable('$LASTSAVEDBY', { 1: '@tarikjabiri/dxf' });
+		this.header.setVariable('$LASTSAVEDBY', { 1: packageName });
 		this.handseed();
 		this.setUnits(Units.Unitless);
 
@@ -99,7 +100,7 @@ export default class DxfDocument implements DxfInterface {
 		this.header.setVariable('$CLAYER', { 8: this.currentLayerName });
 	}
 
-	setViewCenter(center: point3d_t) {
+	setViewCenter(center: vec3_t) {
 		this.header.setVariable('$VIEWCTR', {
 			10: center.x,
 			20: center.y,

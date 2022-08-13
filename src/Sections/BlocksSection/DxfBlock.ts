@@ -1,5 +1,5 @@
 import { Dxifier } from '../../Internals/Dxifier';
-import { point3d, point3d_t } from '../../Internals/Utils';
+import { point3d, vec3_t } from '../../Internals/Utils';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import EndBlk from './DxfEndBlk';
@@ -21,7 +21,7 @@ export default class DxfBlock extends EntitiesManager {
 	stringifyEntities = true;
 	ownerObjectHandle?: string;
 	flags: BlockFlags;
-	basePoint: point3d_t;
+	basePoint: vec3_t;
 	xrefPathName: string;
 
 	constructor(name: string, objects: DxfObjectsSection) {
@@ -33,7 +33,7 @@ export default class DxfBlock extends EntitiesManager {
 		this.xrefPathName = '';
 	}
 
-	setlayerName(layerName: string) {
+	setLayerName(layerName: string) {
 		this.layerName = layerName;
 	}
 

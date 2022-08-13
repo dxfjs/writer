@@ -1,18 +1,18 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export default class Ellipse extends Entity {
-	center: point3d_t;
-	endPointOfMajorAxis: point3d_t;
+	center: vec3_t;
+	endPointOfMajorAxis: vec3_t;
 	ratioOfMinorAxisToMajorAxis: number;
 	startParameter: number;
 	endParameter: number;
 
 	constructor(
-		center: point3d_t,
-		endPointOfMajorAxis: point3d_t,
+		center: vec3_t,
+		endPointOfMajorAxis: vec3_t,
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
@@ -42,7 +42,9 @@ export default class Ellipse extends Entity {
 	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.center);
-		dx.point3d(this.endPointOfMajorAxis, 1);
+		dx.push(11, this.endPointOfMajorAxis.x);
+		dx.push(21, this.endPointOfMajorAxis.y);
+		dx.push(31, this.endPointOfMajorAxis.z);
 		dx.push(40, this.ratioOfMinorAxisToMajorAxis);
 		dx.push(41, this.startParameter);
 		dx.push(42, this.endParameter);

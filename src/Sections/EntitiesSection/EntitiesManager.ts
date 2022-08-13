@@ -10,8 +10,8 @@ import LWPolyline, {
 import {
 	bulge,
 	point2d,
-	point2d_t,
-	point3d_t,
+	vec2_t,
+	vec3_t,
 	rectangleOptions_t,
 } from '../../Internals/Utils';
 import Polyline, { polylineOptions_t } from './Entities/Polyline';
@@ -68,11 +68,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return entity;
 	}
 
-	addLine(
-		startPoint: point3d_t,
-		endPoint: point3d_t,
-		options?: options_t
-	): Line {
+	addLine(startPoint: vec3_t, endPoint: vec3_t, options?: options_t): Line {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
@@ -81,8 +77,8 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	addRectangle(
-		topLeft: point2d_t,
-		bottomRight: point2d_t,
+		topLeft: vec2_t,
+		bottomRight: vec2_t,
 		options: rectangleOptions_t = {}
 	) {
 		const vertices: lwPolylineVertex_t[] = [];
@@ -132,7 +128,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 	addImage(
 		imagePath: string,
 		name: string,
-		insertionPoint: point3d_t,
+		insertionPoint: vec3_t,
 		width: number,
 		height: number,
 		scale: number,
@@ -169,10 +165,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return image;
 	}
 
-	addPolyline3D(
-		points: (point3d_t | point2d_t)[],
-		options?: polylineOptions_t
-	) {
+	addPolyline3D(points: (vec3_t | vec2_t)[], options?: polylineOptions_t) {
 		return this.addEntity(new Polyline(points, options));
 	}
 
@@ -180,12 +173,12 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	addCircle(center: point3d_t, radius: number, options?: options_t): Circle {
+	addCircle(center: vec3_t, radius: number, options?: options_t): Circle {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
 	addArc(
-		center: point3d_t,
+		center: vec3_t,
 		radius: number,
 		startAngle: number,
 		endAngle: number,
@@ -201,8 +194,8 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	addEllipse(
-		center: point3d_t,
-		endPointOfMajorAxis: point3d_t,
+		center: vec3_t,
+		endPointOfMajorAxis: vec3_t,
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
@@ -221,10 +214,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	add3dFace(
-		firstCorner: point3d_t,
-		secondCorner: point3d_t,
-		thirdCorner: point3d_t,
-		fourthCorner: point3d_t,
+		firstCorner: vec3_t,
+		secondCorner: vec3_t,
+		thirdCorner: vec3_t,
+		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	): Face {
 		return this.addEntity(
@@ -239,7 +232,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 	}
 
 	addText(
-		firstAlignementPoint: point3d_t,
+		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
 		options?: options_t
@@ -251,7 +244,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 
 	addInsert(
 		blockName: string,
-		insertionPoint: point3d_t,
+		insertionPoint: vec3_t,
 		options?: insertOptions_t
 	): Insert {
 		return this.addEntity(
@@ -266,7 +259,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return BoundingBox.boundingBox(_bboxes);
 	}
 
-	centerView(): point3d_t {
+	centerView(): vec3_t {
 		return BoundingBox.boundingBoxCenter(this.boundingBox());
 	}
 

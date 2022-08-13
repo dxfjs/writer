@@ -1,16 +1,16 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {
-	position: point3d_t;
+	position: vec3_t;
 	height: number;
 	value: string;
 	textStyle: string;
 
 	constructor(
-		position: point3d_t,
+		position: vec3_t,
 		height: number,
 		value: string,
 		options?: options_t

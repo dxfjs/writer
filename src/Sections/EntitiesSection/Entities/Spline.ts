@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export enum SplineFlags {
 	Closed = 1,
@@ -12,8 +12,8 @@ export enum SplineFlags {
 }
 
 export type SplineArgs_t = {
-	controlPoints: point3d_t[];
-	fitPoints?: point3d_t[];
+	controlPoints: vec3_t[];
+	fitPoints?: vec3_t[];
 	degreeCurve?: number;
 	flags?: SplineFlags;
 	knots?: number[];
@@ -21,12 +21,12 @@ export type SplineArgs_t = {
 };
 
 export default class Spline extends Entity {
-	controlPoints: point3d_t[];
+	controlPoints: vec3_t[];
 	degreeCurve: number;
 	knots: number[];
 	weights: number[];
 	flags: SplineFlags;
-	fitPoints: point3d_t[];
+	fitPoints: vec3_t[];
 
 	constructor(splineArgs: SplineArgs_t, options?: options_t) {
 		super('SPLINE', 'AcDbSpline', options);
@@ -86,14 +86,12 @@ export default class Spline extends Entity {
 		dx.push(43, '0.0000001');
 		dx.push(42, '0.0000000001');
 
-		for (const k of this.knots) {
-			dx.push(40, k);
-		}
-		for (const cp of this.controlPoints) {
-			dx.point3d(cp);
-		}
-		for (const fp of this.fitPoints) {
-			dx.point3d(fp, 1);
-		}
+		this.knots.forEach((k) => dx.push(40, k));
+		this.controlPoints.forEach((cp) => dx.point3d(cp));
+		this.fitPoints.forEach((fp) => {
+			dx.push(11, fp.x);
+			dx.push(21, fp.y);
+			dx.push(31, fp.z);
+		});
 	}
 }

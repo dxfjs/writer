@@ -4,7 +4,7 @@ import { Dxifier } from '../../../Internals/Dxifier';
 import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
 import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TrueColor from '../../../Internals/TrueColor';
-import { point2d_t, point3d, point3d_t } from '../../../Internals/Utils';
+import { vec2_t, point3d, vec3_t } from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export enum HatchPredefinedPatterns {
@@ -227,29 +227,30 @@ export class HatchBoundaryPaths implements DxfInterface {
 }
 
 export class HatchLineEdgeData implements DxfInterface {
-	start: point2d_t;
-	end: point2d_t;
+	start: vec2_t;
+	end: vec2_t;
 
-	constructor(start: point2d_t, end: point2d_t) {
+	constructor(start: vec2_t, end: vec2_t) {
 		this.start = start;
 		this.end = end;
 	}
 
 	dxify(dx: Dxifier) {
 		dx.point2d(this.start);
-		dx.point2d(this.end, 1);
+		dx.push(11, this.end.x);
+		dx.push(21, this.end.y);
 	}
 }
 
 export class HatchArcEdgeData implements DxfInterface {
-	center: point2d_t;
+	center: vec2_t;
 	raduis: number;
 	startAngle: number;
 	endAngle: number;
 	isCounterClockwise: boolean;
 
 	constructor(
-		center: point2d_t,
+		center: vec2_t,
 		raduis: number,
 		startAngle: number,
 		endAngle: number,
@@ -276,12 +277,12 @@ export class HatchEdgesTypeData implements DxfInterface {
 		this.edgesData = [];
 	}
 
-	addLineEdgeData(start: point2d_t, end: point2d_t) {
+	addLineEdgeData(start: vec2_t, end: vec2_t) {
 		this.edgesData.push(new HatchLineEdgeData(start, end));
 	}
 
 	addArcEdgeData(
-		center: point2d_t,
+		center: vec2_t,
 		raduis: number,
 		startAngle: number,
 		endAngle: number,
@@ -351,7 +352,7 @@ export type HatchGradientOptions_t = {
 
 export type HatchOptions_t = options_t & {
 	elevation?: number;
-	extrusion?: point3d_t;
+	extrusion?: vec3_t;
 };
 
 export function gradient(fill: HatchGradientOptions_t) {
@@ -365,7 +366,7 @@ export function pattern(fill: HatchPatternOptions_t) {
 export default class Hatch extends Entity {
 	fill: HatchPatternOptions_t | HatchGradientOptions_t;
 	elevation: number;
-	extrusion: point3d_t;
+	extrusion: vec3_t;
 	readonly boundaryPath: HatchBoundaryPaths;
 
 	constructor(

@@ -1,15 +1,15 @@
 import { Dxifier } from '../../../../Internals/Dxifier';
-import { point2d_t, point3d_t } from '../../../../Internals/Utils';
+import { vec2_t, vec3_t } from '../../../../Internals/Utils';
 import DxfRecord, { ViewFlags } from './DxfRecord';
 
 export type ViewArgs = {
 	name: string;
 	flags?: ViewFlags;
 	viewHeight: number;
-	viewCenter: point2d_t;
+	viewCenter: vec2_t;
 	viewWidth: number;
-	viewDirection: point3d_t;
-	targetPoint: point3d_t;
+	viewDirection: vec3_t;
+	targetPoint: vec3_t;
 	lensLength: number;
 	frontClipping: number;
 	backClipping: number;
@@ -27,10 +27,10 @@ export default class DxfView extends DxfRecord {
 	name: string;
 	flags: ViewFlags;
 	viewHeight: number;
-	viewCenter: point2d_t;
+	viewCenter: vec2_t;
 	viewWidth: number;
-	viewDirection: point3d_t;
-	targetPoint: point3d_t;
+	viewDirection: vec3_t;
+	targetPoint: vec3_t;
 	lensLength: number;
 	frontClipping: number;
 	backClipping: number;
@@ -77,8 +77,12 @@ export default class DxfView extends DxfRecord {
 		dx.push(40, this.viewHeight);
 		dx.point2d(this.viewCenter);
 		dx.push(41, this.viewWidth);
-		dx.point3d(this.viewDirection, 1);
-		dx.point3d(this.targetPoint, 2);
+		dx.push(11, this.viewDirection.x);
+		dx.push(21, this.viewDirection.y);
+		dx.push(31, this.viewDirection.z);
+		dx.push(12, this.targetPoint.x);
+		dx.push(22, this.targetPoint.y);
+		dx.push(32, this.targetPoint.z);
 		dx.push(42, this.lensLength);
 		dx.push(43, this.frontClipping);
 		dx.push(44, this.backClipping);

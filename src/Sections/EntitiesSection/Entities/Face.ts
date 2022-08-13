@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export enum InvisibleEdgeFlags {
 	None = 0,
@@ -16,17 +16,17 @@ export type faceOptions_t = options_t & {
 };
 
 export default class Face extends Entity {
-	firstCorner: point3d_t;
-	secondCorner: point3d_t;
-	thirdCorner: point3d_t;
-	fourthCorner: point3d_t;
+	firstCorner: vec3_t;
+	secondCorner: vec3_t;
+	thirdCorner: vec3_t;
+	fourthCorner: vec3_t;
 	invisibleEdges: InvisibleEdgeFlags;
 
 	constructor(
-		firstCorner: point3d_t,
-		secondCorner: point3d_t,
-		thirdCorner: point3d_t,
-		fourthCorner: point3d_t,
+		firstCorner: vec3_t,
+		secondCorner: vec3_t,
+		thirdCorner: vec3_t,
+		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	) {
 		super('3DFACE', 'AcDbFace', options);
@@ -86,9 +86,15 @@ export default class Face extends Entity {
 	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.firstCorner);
-		dx.point3d(this.secondCorner, 1);
-		dx.point3d(this.thirdCorner, 2);
-		dx.point3d(this.fourthCorner, 3);
+		dx.push(11, this.secondCorner.x);
+		dx.push(21, this.secondCorner.y);
+		dx.push(31, this.secondCorner.z);
+		dx.push(12, this.thirdCorner.x);
+		dx.push(22, this.thirdCorner.y);
+		dx.push(32, this.thirdCorner.z);
+		dx.push(13, this.fourthCorner.x);
+		dx.push(23, this.fourthCorner.y);
+		dx.push(33, this.fourthCorner.z);
 		dx.push(70, this.invisibleEdges);
 	}
 }

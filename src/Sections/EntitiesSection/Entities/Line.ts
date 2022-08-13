@@ -1,17 +1,13 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export default class Line extends Entity {
-	startPoint: point3d_t;
-	endPoint: point3d_t;
+	startPoint: vec3_t;
+	endPoint: vec3_t;
 
-	constructor(
-		startPoint: point3d_t,
-		endPoint: point3d_t,
-		options?: options_t
-	) {
+	constructor(startPoint: vec3_t, endPoint: vec3_t, options?: options_t) {
 		super('LINE', 'AcDbLine', options);
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
@@ -24,6 +20,8 @@ export default class Line extends Entity {
 	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
 		dx.point3d(this.startPoint);
-		dx.point3d(this.endPoint, 1);
+		dx.push(11, this.endPoint.x);
+		dx.push(21, this.endPoint.y);
+		dx.push(31, this.endPoint.z);
 	}
 }

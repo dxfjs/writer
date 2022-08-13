@@ -49,7 +49,8 @@ export default class DxfImageDef extends DxfObject {
 		dx.subclassMarker('AcDbRasterImageDef');
 		dx.push(1, this.path);
 		dx.point2d(point2d(this.width, this.height));
-		dx.point2d(point2d(this.widthPixelSize, this.heightPixelSize), 1);
+		dx.push(11, this.widthPixelSize);
+		dx.push(21, this.heightPixelSize);
 		dx.push(280, Number(this.loaded));
 		dx.push(281, this.resolutionUnits);
 	}

@@ -3,7 +3,7 @@ import Vertex, { VertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point2d_t, point3d, point3d_t } from '../../../Internals/Utils';
+import { vec2_t, point3d, vec3_t } from '../../../Internals/Utils';
 
 export enum PolylineFlags {
 	None = 0,
@@ -38,7 +38,7 @@ export type polylineOptions_t = options_t & {
 };
 
 export default class Polyline extends Entity {
-	vertices: point3d_t[];
+	vertices: vec3_t[];
 	elevation: number;
 	thickness: number;
 	flags: PolylineFlags;
@@ -54,7 +54,7 @@ export default class Polyline extends Entity {
 	is3D: boolean;
 
 	public constructor(
-		vertices: (point3d_t | point2d_t)[],
+		vertices: (vec3_t | vec2_t)[],
 		options?: polylineOptions_t
 	) {
 		super('POLYLINE', 'AcDb3dPolyline', options);

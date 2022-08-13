@@ -1,16 +1,16 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export default class Arc extends Entity {
-	center: point3d_t;
+	center: vec3_t;
 	radius: number;
 	startAngle: number;
 	endAngle: number;
 
 	constructor(
-		center: point3d_t,
+		center: vec3_t,
 		radius: number,
 		startAngle: number,
 		endAngle: number,

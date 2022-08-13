@@ -1,11 +1,6 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import {
-	point2d,
-	point2d_t,
-	point3d,
-	point3d_t,
-} from '../../../Internals/Utils';
+import { point2d, vec2_t, point3d, vec3_t } from '../../../Internals/Utils';
 import Entity, { options_t } from '../Entity';
 
 export enum ImageDisplayFlags {
@@ -35,7 +30,7 @@ export type ImageArgs_t = {
 	height: number;
 	scale: number;
 	rotation: number;
-	insertionPoint: point3d_t;
+	insertionPoint: vec3_t;
 	imageDefHandle: string;
 };
 
@@ -55,14 +50,14 @@ export default class Image extends Entity {
 	height: number;
 	scale: number;
 	rotation: number;
-	insertionPoint: point3d_t;
+	insertionPoint: vec3_t;
 	imageDefHandle: string;
 	imageDefReactorHandle?: string;
 	imageDisplayFlags: ImageDisplayFlags;
 	clippingStateFlag: ImageClippingStateFlag;
 	clipModeFlag: ImageClipModeFlag;
 	clippingType: ImageClippingType;
-	#clipBoundaryVertices: point2d_t[];
+	#clipBoundaryVertices: vec2_t[];
 	brightness: number;
 	contrast: number;
 	fade: number;
@@ -101,7 +96,7 @@ export default class Image extends Entity {
 	 * @param clippingType - The clipping boundary type.
 	 */
 	setClipBoundaryVerticies(
-		verticies: point2d_t[],
+		verticies: vec2_t[],
 		clippingType: ImageClippingType
 	) {
 		if (clippingType === ImageClippingType.Rectangular) {
@@ -133,18 +128,18 @@ export default class Image extends Entity {
 		this.setClipBoundaryVerticies(verticies, ImageClippingType.Rectangular);
 	}
 
-	private _vector(): point2d_t {
+	private _vector(): vec2_t {
 		const x = this.ratio * Math.cos((this.rotation * Math.PI) / 180);
 		const y = this.ratio * Math.sin((this.rotation * Math.PI) / 180);
 		return point2d(x, y);
 	}
 
-	private _uVector(): point3d_t {
+	private _uVector(): vec3_t {
 		const v = this._vector();
 		return point3d(v.x, -v.y, 0);
 	}
 
-	private _vVector(): point3d_t {
+	private _vVector(): vec3_t {
 		const v = this._vector();
 		return point3d(v.y, v.x, 0);
 	}
@@ -160,8 +155,12 @@ export default class Image extends Entity {
 		super.dxify(dx);
 		dx.push(90, this.classVersion);
 		dx.point3d(this.insertionPoint);
-		dx.point3d(this._uVector(), 1);
-		dx.point3d(this._vVector(), 2);
+		dx.push(11, this._uVector().x);
+		dx.push(21, this._uVector().y);
+		dx.push(31, this._uVector().z);
+		dx.push(12, this._vVector().x);
+		dx.push(22, this._vVector().y);
+		dx.push(32, this._vVector().z);
 		dx.push(13, this.width);
 		dx.push(23, this.height);
 		dx.push(340, this.imageDefHandle);
@@ -173,10 +172,10 @@ export default class Image extends Entity {
 		dx.push(360, this.imageDefReactorHandle);
 		dx.push(71, this.clippingType);
 		dx.push(91, this.#clipBoundaryVertices.length);
-		for (const vertex of this.#clipBoundaryVertices) {
-			dx.push(14, vertex.x);
-			dx.push(24, vertex.y);
-		}
+		this.#clipBoundaryVertices.forEach((v) => {
+			dx.push(14, v.x);
+			dx.push(24, v.y);
+		});
 		dx.push(290, this.clipModeFlag);
 	}
 }

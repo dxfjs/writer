@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Utils';
 
 export enum VertexFlags {
 	ExtraVertex = 1,
@@ -23,14 +23,14 @@ export type vertexOptions_t = options_t & {
 };
 
 export default class Vertex extends Entity {
-	vertex: point3d_t;
+	vertex: vec3_t;
 	is3d: boolean;
 	flags: number;
 	startingWidth?: number;
 	endWidth?: number;
 	bulge?: number;
 
-	constructor(vertex: point3d_t, options?: vertexOptions_t) {
+	constructor(vertex: vec3_t, options?: vertexOptions_t) {
 		super('VERTEX', 'AcDbVertex', options);
 		this.vertex = vertex;
 		this.is3d = options?.is3d || true;

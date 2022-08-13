@@ -25,21 +25,21 @@ export type rgb_t = {
 	b: number;
 };
 
-export type point3d_t = {
+export type vec3_t = {
 	x: number;
 	y: number;
 	z: number;
 };
 
-export type point2d_t = {
+export type vec2_t = {
 	x: number;
 	y: number;
 };
 
-export function point3d(x: number, y: number, z: number): point3d_t {
+export function point3d(x: number, y: number, z: number): vec3_t {
 	return { x, y, z };
 }
 
-export function point2d(x: number, y: number): point2d_t {
+export function point2d(x: number, y: number): vec2_t {
 	return { x, y };
 }
