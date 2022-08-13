@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 import { version } from '../../package.json'
 
 export default defineConfig({
-	title: 'dxf',
+	title: 'dxfjs',
 	description: 'A JavaScript dxf generator written in TypeScript.',
 	lastUpdated: true,
 	head: [
@@ -29,6 +29,7 @@ export default defineConfig({
 		],
 		socialLinks: [
 			{ icon: 'github', link: 'https://github.com/dxfjs/writer' },
+			{ icon: 'slack', link: 'https://dxfjs.slack.com' },
 		],
 		algolia: {
 			appId: 'VYHQL6H1FK',

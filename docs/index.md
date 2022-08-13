@@ -1,11 +1,11 @@
 ---
 layout: home
 
-title: Dxf
+title: '@tarikjabiri/dxf'
 titleTemplate: A JavaScript dxf generator written in TypeScript.
 
 hero:
-  name: dxf
+  name: '@tarikjabiri/dxf'
   text: A JavaScript dxf generator written in TypeScript.
   tagline: A simple JavaScript interface to DXF written in TypeScript.
   actions:
