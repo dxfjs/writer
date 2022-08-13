@@ -35,16 +35,16 @@ Sets the default drawing units for AutoCAD DesignCenter blocks.
 - **Type:** `(boundaryPath: HatchBoundaryPaths, fill: HatchPatternOptions_t | HatchGradientOptions_t, options?: HatchOptions_t) => Hatch`. See [HatchPatternOptions_t](/api/Types.html#hatchpatternoptions-t), [HatchGradientOptions_t](/api/Types.html#hatchgradientoptions-t) and [HatchOptions_t](/api/Types.html#hatchoptions-t).
 
 ## `DxfWriter.addLine()`
-- **Type:** `(startPoint: point3d_t, endPoint: point3d_t, options?: options_t) => Line`. See [point3d_t](/api/Types.html#point3d-t)
+- **Type:** `(startPoint: vec3_t, endPoint: vec3_t, options?: options_t) => Line`. See [vec3_t](/api/Types.html#vec3-t)
 
 ## `DxfWriter.addLWPolyline()`
 - **Type:** `(points: lwPolylineVertex_t[], options?: lwPolylineOptions_t) => LWPolyline`. See [lwPolylineVertex_t](/api/Types.html#lwpolylinevertex-t) and [lwPolylineOptions_t](/api/Types.html#lwpolylineoptions-t)
 
 ## `DxfWriter.addRectangle()`
-- **Type:** `(topLeft: point2d_t, bottomRight: point2d_t, options?: rectangleOptions_t) => LWPolyline`.
+- **Type:** `(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t) => LWPolyline`.
 
 ## `DxfWriter.addPolyline3D()`
-- **Type:** `(points: (point3d_t | point2d_t)[], options?: polylineOptions_t) => Polyline`.
+- **Type:** `(points: (vec3_t | vec2_t)[], options?: polylineOptions_t) => Polyline`.
 
 :::danger
 `DxfWriter.addPolyline3D()` will be `DxfWriter.addPolyline()`in the future when the `Polyline` class is fully implemented. Please use `addLWPolyline()` instead.
@@ -54,28 +54,28 @@ Sets the default drawing units for AutoCAD DesignCenter blocks.
 - **Type:** `(x: number, y: number, z: number, options?: options_t) => Point`.
 
 ## `DxfWriter.addCircle()`
-- **Type:** `(center: point3d_t, radius: number, options?: options_t) => Circle`.
+- **Type:** `(center: vec3_t, radius: number, options?: options_t) => Circle`.
 
 ## `DxfWriter.addArc()`
-- **Type:** `(center: point3d_t, radius: number, startAngle: number, endAngle: number, options?: options_t) => Arc`.
+- **Type:** `(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: options_t) => Arc`.
 
 ## `DxfWriter.addSpline()`
 - **Type:** `(splineArgs: SplineArgs_t, options?: options_t) => Spline`.
 
 ## `DxfWriter.addEllipse()`
-- **Type:** `(center: point3d_t, endPointOfMajorAxis: point3d_t, ratioOfMinorAxisToMajorAxis: number, startParameter: number, endParameter: number, options?: options_t) => Ellipse`.
+- **Type:** `(center: vec3_t, endPointOfMajorAxis: vec3_t, ratioOfMinorAxisToMajorAxis: number, startParameter: number, endParameter: number, options?: options_t) => Ellipse`.
 
 ## `DxfWriter.addImage()`
-- **Type:** `(imagePath: string, name: string, insertionPoint: point3d_t, width: number, height: number, scale: number, rotation: number, options?: ImageOptions_t) => Image`.
+- **Type:** `(imagePath: string, name: string, insertionPoint: vec3_t, width: number, height: number, scale: number, rotation: number, options?: ImageOptions_t) => Image`.
 
 ## `DxfWriter.add3dFace()`
-- **Type:** `(firstCorner: point3d_t, secondCorner: point3d_t, thirdCorner: point3d_t, fourthCorner: point3d_t, options?: faceOptions_t) => Face`.
+- **Type:** `(firstCorner: vec3_t, secondCorner: vec3_t, thirdCorner: vec3_t, fourthCorner: vec3_t, options?: faceOptions_t) => Face`.
 
 ## `DxfWriter.addText()`
-- **Type:** `(firstAlignementPoint: point3d_t, height: number, value: string, options?: options_t) => Text`.
+- **Type:** `(firstAlignementPoint: vec3_t, height: number, value: string, options?: options_t) => Text`.
 
 ## `DxfWriter.addInsert()`
-- **Type:** `(blockName: string, insertionPoint: point3d_t, options?: insertOptions_t) => Insert`.
+- **Type:** `(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t) => Insert`.
 
 ## `DxfWriter.stringify()`
 - **Type:** `() => string`.

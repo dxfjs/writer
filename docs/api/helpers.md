@@ -1,8 +1,8 @@
 ## `point3d`
-- **Type:** `(x: number, y: number, z: number): point3d_t;`.
+- **Type:** `(x: number, y: number, z: number): vec3_t;`.
 
 ## `point2d`
-- **Type:** `(x: number, y: number): point2d_t;`.
+- **Type:** `(x: number, y: number): vec2_t;`.
 
 ## `vertex`
 - **Type:** `(x: number, y: number, bulge?: number): HatchPolylineVertex_t;`.

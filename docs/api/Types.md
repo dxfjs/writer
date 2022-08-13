@@ -6,19 +6,19 @@ declare type tag_t = {
     value: number | string;
 };
 ```
-## `point3d_t`
+## `vec3_t`
 
 ```ts
-declare type point3d_t = {
+declare type vec3_t = {
     x: number;
     y: number;
     z: number;
 };
 ```
-## `point2d_t`
+## `vec2_t`
 
 ```ts
-declare type point2d_t = {
+declare type vec2_t = {
     x: number;
     y: number;
 };
@@ -27,8 +27,8 @@ declare type point2d_t = {
 
 ```ts
 declare type boundingBox_t = {
-    topLeft: point3d_t;
-    bottomRight: point3d_t;
+    topLeft: vec3_t;
+    bottomRight: vec3_t;
 };
 ```
 ## `options_t`
@@ -47,7 +47,7 @@ declare type options_t = {
 
 ```ts
 declare type insertOptions_t = options_t & {
-    scaleFactor?: Partial<point3d_t>;
+    scaleFactor?: Partial<vec3_t>;
     rotationAngle?: number;
     columnCount?: number;
     rowCount?: number;
@@ -70,7 +70,7 @@ declare type ImageArgs_t = {
     height: number;
     scale: number;
     rotation: number;
-    insertionPoint: point3d_t;
+    insertionPoint: vec3_t;
     imageDefHandle: string;
 };
 ```
@@ -92,8 +92,8 @@ declare type ImageOptions_t = options_t & {
 
 ```ts
 declare type SplineArgs_t = {
-    controlPoints: point3d_t[];
-    fitPoints?: point3d_t[];
+    controlPoints: vec3_t[];
+    fitPoints?: vec3_t[];
     degreeCurve?: number;
     flags?: SplineFlags;
     knots?: number[];
@@ -114,7 +114,7 @@ declare type lwPolylineOptions_t = options_t & {
 
 ```ts
 declare type lwPolylineVertex_t = {
-    point: point2d_t;
+    point: vec2_t;
     startingWidth?: number;
     endWidth?: number;
     bulge?: number;
@@ -157,7 +157,7 @@ declare type HatchGradientOptions_t = {
 declare type HatchOptions_t = options_t & {
     elevation?: number;
     extrusion?:
-    point3d_t;
+    vec3_t;
 };
 ```
 ## `chamfer_t`
@@ -216,10 +216,10 @@ declare type ViewArgs = {
     name: string;
     flags?: ViewFlags;
     viewHeight: number;
-    viewCenter: point2d_t;
+    viewCenter: vec2_t;
     viewWidth: number;
-    viewDirection: point3d_t;
-    targetPoint: point3d_t;
+    viewDirection: vec3_t;
+    targetPoint: vec3_t;
     lensLength: number;
     frontClipping: number;
     backClipping: number;
