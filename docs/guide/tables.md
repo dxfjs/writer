@@ -4,7 +4,11 @@ layout: doc
 
 # Tables
 
-## `APPID` record
+The TABLES section contains several tables, each of which can contain a variable number of entries. These codes are also used by AutoLISP ® and ObjectARX ® applications in entity definition lists.
+
+[[toc]]
+
+## `APPID`
 
 ```js
 import { DxfWriter, RecordFlags } from "@tarikjabiri/dxf";
@@ -21,64 +25,51 @@ const name3AppId = dxf.tables.addAppId(
 ```
 
 :::info
-
-By default the `ACAD` record is automatically added.
-
+- By default the `ACAD` record is automatically added.
 :::
 
-## `BLOCKRECORD` record
+## `BLOCKRECORD`
 
 ```js
 import { DxfWriter, Units } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-const exampleBlockRecord = dxf.tables.addBlockRecord("example");
+const blockRecord = dxf.tables.addBlockRecord("example");
 
 // You can customize the blockRecord
-exampleBlockRecord.insertionUnits = Units.Unitless;
-exampleBlockRecord.explodability = 1;
-exampleBlockRecord.scalability = 0;
-exampleBlockRecord.layoutObject = "1C"; // Hard-pointer ID/handle to associated LAYOUT object.
+blockRecord.insertionUnits = Units.Unitless;
+blockRecord.explodability = 1;
+blockRecord.scalability = 0;
+blockRecord.layoutObject = "1C"; // Hard-pointer ID/handle to associated LAYOUT object.
 // '1C' is an arbitrary value, please use a correct value.
 // Internally this value is not set. Until LAYOUT implemented you can set it.
 // For now it is working fine without it
 ```
 
 :::info
-
-By default the `*Model_Space` and `*Paper_Space` block records are automatically added.
-
+- By default the `*Model_Space` and `*Paper_Space` block records are automatically added.
 :::
 
-## `DIMSTYLE` record
+## `DIMSTYLE`
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-const exampleDimStyle = dxf.tables.addDimStyle("example");
+const dimStyle = dxf.addDimStyle("example");
 ```
 
 :::info
-
-The `DIMSTYLE` record accept same flags as `APPID` record: `RecordFlags`.
-
-By default the `Standard` record is automatically added.
-
+- The `DIMSTYLE` record accept same flags as `APPID` record: `RecordFlags`.
+- By default the `Standard` record is automatically added.
 :::
+
+## `LTYPE`
+
+The `LTYPE` table stores all line type definitions of a dxf file. Every line type used in the file should be stored as `LTYPE` record, or the dxf file considered invalid in CADs softwares.
+
+### Add a LTYPE record
 
 :::warning
-
-`DIMSTYLE` entries are not customizable at this moment, and `DIMENSION` entity is not implemented so no need to create these entries.
-
-:::
-
-## `LTYPE` record
-
-### Adding LTYPE record
-
-:::info
-
-Note that `LTYPE` is not fully customizable, only basics are implemented.
-
+- Note that `LTYPE` is not fully customizable, only basics are implemented.
 :::
 
 ```js
@@ -90,16 +81,13 @@ dxf.addLType("AXES", "____ _ ", [4, -1, 1, -1]); // Always choose unique names.
 ```
 
 :::info
-
-The `LTYPE` record accept same flags as `APPID` record: `RecordFlags`.
-
-By default `ByBlock`, `ByLayer` and `Continuous` line types are automatically added.
-
+- The `LTYPE` record accept same flags as `APPID` record: `RecordFlags`.
+- By default `ByBlock`, `ByLayer` and `Continuous` line types are automatically added.
 :::
 
 > **More predefined line types will be added in the future for convenient.**
 
-### LineType pattern
+### How LType pattern work 🤔
 
 I found this hard to understand, but I will explain it and make it simple as I can:
 
@@ -127,9 +115,7 @@ First you choose the length of the unit, I choose 1. Now for this descriptive `'
 - Fourth element is -1.
 
 :::info
-
-For the dot unit we always use 0. Ex: for `'_ . '`, length is 1 so the array elements is `[1, -1, 0, -1]`.
-
+- For the dot unit we always use 0. Ex: for `'_ . '`, length is 1 so the array elements is `[1, -1, 0, -1]`.
 :::
 
 You understand the principle.
@@ -139,12 +125,10 @@ Last thing is the length of the array should equal the number of elements. Note 
 [See more informations](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-5A6E6759-8A9A-4A8A-9AEE-EE9DB72F792D)
 
 :::warning
-
-This explanation is my personal thought, no guarantee to be correct, but it is working 😉.
-
+- **This explanation is my personal thought, no guarantee to be correct, but it is working 😉.**
 :::
 
-## `LAYER` record
+## `LAYER`
 
 ```js
 import { DxfWriter, Colors, LayerFlags } from "@tarikjabiri/dxf";
@@ -163,63 +147,31 @@ const exampleLayer = dxf.addLayer(
 ```
 
 :::info
-
-If no flag is set, by default the flag is set to 0 which make the layer thawed.
-
+- If no flag is set, by default the flag is set to 0 which make the layer thawed.
 :::
 
-Possible values in `LayerFlags`:
-
-- `LayerFlags.None`
-- `LayerFlags.Frozen`
-- `LayerFlags.FrozenInNewViewports`
-- `LayerFlags.Locked`
-- `LayerFlags.XRefDependent`
-- `LayerFlags.XRefResolved`
-
-There are 8 colors predefined in `Colors`:
-
-- `Colors.Red`.
-- `Colors.Green`.
-- `Colors.Cyan`.
-- `Colors.Blue`.
-- `Colors.Magenta`.
-- `Colors.White`.
-- `Colors.Black`.
-- `Colors.Yellow`.
+For all possible values see [LayerFlags](/api/Enums.html#layerflags) and [Colors](/api/Enums.html#colors).
 
 :::tip
-
-For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
-
+- For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
 :::
 
-## `STYLE` record
+## `STYLE`
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 const myStyle = dxf.tables.addStyle("example");
 ```
-
-Possible values in `StyleFlags`:
-- `StyleFlags.None`
-- `StyleFlags.DescribeShape`
-- `StyleFlags.VerticalText`
-- `StyleFlags.XRefDependent`
-- `StyleFlags.XRefResolved`
+For all possible values see [StyleFlags](/api/Enums.html#styleflags).
 
 > You can customize these properties: `fixedTextHeight`, `widthFactor`, `obliqueAngle`, `textGenerationFlag`, `lastHeightUsed`, `fontFileName`, `bigFontFileName` and `flags`.
 
-## `UCS` record
+## `UCS`
 
-:::warning
+Comming soon 🎉
 
-Is not implemented 😔.
-
-:::
-
-## `VIEW` record
+## `VIEW`
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
@@ -241,13 +193,9 @@ dxf.tables.addView({
 });
 ```
 
-## `VPORT` record
+## `VPORT`
 
-:::warning
-
-Is not fully implemented 😔.
-
-:::
+Comming soon 🎉
 
 :::info
 

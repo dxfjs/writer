@@ -5,15 +5,18 @@ layout: doc
 # Variables
 
 Variables contains settings associated with the drawing, defined in the `HEADER` section.
+> All possible [variables](https://help.autodesk.com/view/OARX/2023/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A)
 
 :::info
 
 By default these variables are set automatically:
 
-- `$ACADVER` The AutoCAD drawing database version number: AC1027 = AutoCAD 2013.
+- `$ACADVER` The AutoCAD drawing database version number: AC1021 = AutoCAD 2007.
 - `$HANDSEED` Next available handle.
 - `$INSUNITS` Default drawing units for AutoCAD DesignCenter blocks: 0 = Unitless.
 - `$VIEWCTR` XY center of current view on screen.
+- `$CLAYER` Save the current layer name.
+- `$LASTSAVEDBY` Sets to the package name.
 
 :::
 
@@ -53,18 +56,7 @@ dxf.setVariable("$PLIMMAX", {
 
 :::info
 
-The object passed as values is key value paired, the key is the group code and value associated with it.
+- The object passed as values is key value paired, the key is the group code and value associated with it.
+- If you try to add a variable already added, its values will be updated.
 
 :::
-
-:::warning
-
-If you try to add a variable already added, his values will be updated.
-
-:::
-
-There are 3 type of variables:
-
-- variables with one value.
-- variables with tow values.
-- variables with three values.

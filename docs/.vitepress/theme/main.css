@@ -1,7 +1,15 @@
 :root {
-	--vp-c-green: #25c2a5;
-	--vp-c-green-light: #28ddbc;
-	--vp-c-green-lighter: #2ef3cf;
-	--vp-c-green-dark: #21b196;
-	--vp-c-green-darker: #19947d;
+	--vp-c-green: #4caf50;
+	--vp-c-green-light: #66bb6a;
+	--vp-c-green-lighter: #81c784;
+	--vp-c-green-dark: #388e3c;
+	--vp-c-green-darker: #2e7d32;
+
+	--vp-home-hero-name-color: transparent;
+  	--vp-home-hero-name-background: -webkit-linear-gradient(120deg, #81c784, #2e7d32);
+}
+
+.content img {
+	border-radius: 10px;
+	margin: auto;
 }

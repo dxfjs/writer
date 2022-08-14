@@ -6,17 +6,11 @@ layout: doc
 
 Objects are the nongraphical objects in the dxf.
 
-:::info
-
 Supported objects are:
+[[toc]]
 
-- `DICTIONARY`
-- `IMAGEDEF`
-- `IMAGEDEF_REACTOR`
 
-:::
-
-## `DICTIONARY` object
+## `DICTIONARY`
 
 Objects section have a root dictionary, you can get a reference to it like this:
 ```js
@@ -44,7 +38,7 @@ const dic = dxf.objects.addDictionary();
 dic.addEntry("example", "1B");
 ```
 
-## `IMAGEDEF` object
+## `IMAGEDEF`
 
 This object can store a reference to an external image file, which can be placed by the `IMAGE` entity.
 
@@ -77,7 +71,7 @@ For this to work properly in `AutoCAD` you need to add a [`DICTIONARY`](#diction
 
 :::
 
-## `IMAGEDEF_REACTOR` object
+## `IMAGEDEF_REACTOR`
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";

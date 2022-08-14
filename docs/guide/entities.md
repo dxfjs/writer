@@ -7,21 +7,12 @@ layout: doc
 Entities are the graphical objects in dxf.
 
 :::info
-
-All entities described here are added directly to the model space block.
-
+- All entities described here are added directly to the model space block(`*Model_Space`).
 :::
 
-All Entities have some common options:
+> All Entities have some common options: `trueColor`, `colorNumber`, `layerName`, `visible`, `lineType` and `lineTypeScale`.
 
-- `trueColor`
-- `colorNumber`
-- `layerName`
-- `visible`
-- `lineType`
-- `lineTypeScale`
-
-## `ARC` entity
+## `ARC`
 
 An arc is a portion of the circumference of a circle.
 (See more in [Wikipedia](https://en.wikipedia.org/wiki/Circular_arc))
@@ -36,7 +27,7 @@ dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
 const myArc = dxf.addArc(point3d(0, 0, 0), 10, 0, 45); // If you want a reference to the added arc.
 ```
 
-## `CIRCLE` entity
+## `CIRCLE`
 
 A circle is a shape consisting of all points in a plane that are at a given distance from a given point, the centre.
 Equivalently, it is the curve traced out by a point that moves in a plane so that its distance from a given point is constant.
@@ -52,7 +43,7 @@ dxf.addCircle(point3d(0, 0, 0), 10);
 const myCircle = dxf.addCircle(point3d(0, 0, 0), 10); // If you want a reference to the added circle.
 ```
 
-## `ELLIPSE` entity
+## `ELLIPSE`
 
 An ellipse is a plane curve surrounding two focal points, such that for all points on the curve, the sum of the two distances to the focal points is a constant.
 As such, it generalizes a circle, which is the special type of ellipse in which the two focal points are the same.
@@ -77,7 +68,7 @@ const myEllipse = dxf.addEllipse(
 
 ![ellipse demo](_media/ellipse-demo.png)
 
-## `3DFACE` entity
+## `3DFACE`
 
 A 3d face is flat surface with 4 corners.
 
@@ -139,12 +130,10 @@ dxf.add3dFace(
 ```
 
 :::tip
-
-To define a 3d face with only 3 corners, make the fourth same as the third corner 😉.
-
+- To define a 3d face with only 3 corners, make the fourth same as the third corner 😉.
 :::
 
-## `HATCH` entity
+## `HATCH`
 
 The HATCH entity fills an enclosed area defined by one or more boundary paths with a hatch pattern : solid or gradient.
 
@@ -196,7 +185,7 @@ boundary.addEdgesTypeData(edges); // You can add multiple
 ```
 
 :::warning
-You can define one type of paths `HatchPolylineBoundary` or `HatchEdgesTypeData`, not both at same time.
+- You can define one type of paths `HatchPolylineBoundary` or `HatchEdgesTypeData`, not both at same time.
 :::
 
 Next you define the fill pattern solid or gradient :
@@ -238,11 +227,11 @@ dxf.addHatch(boundary, mygradient);
 const hatch = dxf.addHatch(boundary, mygradient); // If you want a reference to the added hatch.
 ```
 
-:::info
-This way you can add only non-associative hatches.
+:::warning
+- This way you can add only non-associative hatches.
 :::
 
-## `IMAGE` entity
+## `IMAGE`
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
@@ -270,7 +259,7 @@ const myimage = dxf.addImage(
 ); // If you want a reference to the added image.
 ```
 
-## `INSERT` entity
+## `INSERT`
 
 It's convenient to create reusable blocks at once and use them all over the places you want.
 After defining your blocks, you can insert them with the `INSERT` entity. See example code below:
@@ -291,7 +280,7 @@ dxf.addInsert(myBlock.name, point3d(0, 0, 0));
 const myInsert = dxf.addInsert(myBlock.name, point3d(0, 0, 0)); // If you want a reference to the added insert.
 ```
 
-## `LINE` entity
+## `LINE`
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
@@ -303,7 +292,7 @@ dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added line.
 ```
 
-## `LWPOLYLINE` entity
+## `LWPOLYLINE`
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
@@ -333,7 +322,7 @@ dxf.addLWPolyline(vertices, {
 const lwpolyline = dxf.addLWPolyline(vertices); // // If you want a reference to the added lwpolyline.
 ```
 
-## `POINT` entity
+## `POINT`
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
@@ -345,8 +334,8 @@ dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added point.
 ```
 
-## `POLYLINE` entity
+## `POLYLINE`
 
-## `SPLINE` entity
+## `SPLINE`
 
-## `TEXT` entity
+## `TEXT`

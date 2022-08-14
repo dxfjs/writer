@@ -9,6 +9,9 @@ export default defineConfig({
 		['meta', { name: 'theme-color', content: '#25C2A5' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
 	],
+	markdown: {
+		toc: { level: [2] },
+	},
 	themeConfig: {
 		logo: '/logo.svg',
 		nav: [
@@ -62,7 +65,7 @@ export default defineConfig({
 		],
 		footer: {
 			message: 'Released under the MIT License.',
-			copyright: 'Copyright © 2022 Tarik EL JABIRI',
+			copyright: 'Copyright © 2021-present Tarik EL JABIRI',
 		},
 		editLink: {
 			pattern:
