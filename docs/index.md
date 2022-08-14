@@ -41,7 +41,10 @@ const members = [
     title: 'Open source developer',
     desc: 'Creator & Maintainer',
     links: [
-      { icon: 'github', link: 'https://github.com/tarikjabiri' }
+      { icon: 'github', link: 'https://github.com/tarikjabiri' },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/in/tarikjabiri' },
+      { icon: 'twitter', link: 'hhttps://twitter.com/TarikEljabiri1' },
+      { icon: 'facebook', link: 'https://web.facebook.com/tarike.eljabiri' }
     ],
     sponsor: 'https://github.com/sponsors/dxfjs',
     org: 'dxfjs',

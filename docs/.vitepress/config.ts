@@ -6,7 +6,7 @@ export default defineConfig({
 	description: 'A JavaScript dxf generator written in TypeScript.',
 	lastUpdated: true,
 	head: [
-		['meta', { name: 'theme-color', content: '#25C2A5' }],
+		['meta', { name: 'theme-color', content: '#4caf50' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
 	],
 	markdown: {
@@ -17,18 +17,18 @@ export default defineConfig({
 		nav: [
 			{ text: 'Get Started', link: '/guide/' },
 			{
-        text: `v${version}`,
-        items: [
-          {
-            text: 'Releases ',
-            link: 'https://github.com/tarikjabiri/dxf/releases',
-          },
-          {
-            text: 'npm ',
-            link: 'https://www.npmjs.com/package/@tarikjabiri/dxf',
-          },
-        ],
-      },
+				text: `v${version}`,
+				items: [
+					{
+						text: 'Releases ',
+						link: 'https://github.com/tarikjabiri/dxf/releases',
+					},
+					{
+						text: 'npm ',
+						link: 'https://www.npmjs.com/package/@tarikjabiri/dxf',
+					}
+				],
+			}
 		],
 		socialLinks: [
 			{ icon: 'github', link: 'https://github.com/dxfjs/writer' },
