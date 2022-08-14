@@ -16,7 +16,7 @@ hero:
   text: A DXF writer.
   tagline: A JavaScript interface to dxf written in TypeScript.
   image:
-    src: /public/logo.svg
+    src: /logo.svg
     alt: '@tarikjabiri/dxf'
   actions:
     - theme: brand
