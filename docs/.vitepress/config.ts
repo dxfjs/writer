@@ -8,6 +8,14 @@ export default defineConfig({
 	head: [
 		['meta', { name: 'theme-color', content: '#4caf50' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+		[
+			'script',
+			{
+				src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9193055221439938',
+				crossorigin: 'anonymous',
+				async: ''
+			}
+		],
 	],
 	markdown: {
 		toc: { level: [2] },
