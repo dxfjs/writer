@@ -16,6 +16,21 @@ export default defineConfig({
 				async: ''
 			}
 		],
+		[
+			'script',
+			{
+				src: 'https://www.googletagmanager.com/gtag/js?id=G-NBMR3KX37M',
+				async: ''
+			}
+		],
+		[
+			'script',
+			{},
+			`window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+  			gtag('config', 'G-NBMR3KX37M');`
+		],
 	],
 	markdown: {
 		toc: { level: [2] },
