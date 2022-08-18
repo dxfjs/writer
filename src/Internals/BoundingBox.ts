@@ -1,4 +1,4 @@
-import { point3d, vec3_t } from './Utils';
+import { point3d, vec3_t } from './Helpers';
 
 export type boundingBox_t = {
 	tl: vec3_t; // Top-left

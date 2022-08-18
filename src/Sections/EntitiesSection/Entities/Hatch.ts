@@ -4,7 +4,7 @@ import { Dxifier } from '../../../Internals/Dxifier';
 import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
 import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TrueColor from '../../../Internals/TrueColor';
-import { vec2_t, point3d, vec3_t } from '../../../Internals/Utils';
+import { vec2_t, point3d, vec3_t } from '../../../Internals/Helpers';
 import Entity, { options_t } from '../Entity';
 
 export enum HatchPredefinedPatterns {
@@ -423,7 +423,7 @@ export default class Hatch extends Entity {
 	private isPattern(
 		fill: HatchPatternOptions_t | HatchGradientOptions_t
 	): fill is HatchPatternOptions_t {
-		return Object.hasOwn(fill, 'name');
+		return Object.prototype.hasOwnProperty.call(fill, 'name');
 	}
 
 	override boundingBox(): boundingBox_t {

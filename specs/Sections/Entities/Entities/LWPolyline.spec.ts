@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point2d } from '../../../../src/Internals/Utils';
+import { point2d } from '../../../../src/Internals/Helpers';
 import { Dxifier } from '../../../../src/Internals/Dxifier';
 import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
 

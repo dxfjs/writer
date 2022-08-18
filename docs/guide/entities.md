@@ -19,9 +19,7 @@ An arc is a portion of the circumference of a circle.
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
 // or
 const myArc = dxf.addArc(point3d(0, 0, 0), 10, 0, 45); // If you want a reference to the added arc.
@@ -35,9 +33,7 @@ The distance between any point of the circle and the centre is called the radius
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addCircle(point3d(0, 0, 0), 10);
 // or
 const myCircle = dxf.addCircle(point3d(0, 0, 0), 10); // If you want a reference to the added circle.
@@ -51,11 +47,8 @@ As such, it generalizes a circle, which is the special type of ellipse in which 
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addEllipse(point3d(100, 100, 0), point3d(50, 0, 0), 0.5, 0, 2 * Math.PI);
-
 // or
 const myEllipse = dxf.addEllipse(
   point3d(100, 100, 0),
@@ -74,16 +67,13 @@ A 3d face is flat surface with 4 corners.
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.add3dFace(
   point3d(0, 0, 0),
   point3d(0, 100, 0),
   point3d(100, 100, 0),
   point3d(100, 0, 0)
 );
-
 // or
 const my3dFace = dxf.add3dFace(
   point3d(0, 0, 0),
@@ -114,9 +104,7 @@ import { DxfWriter,
   point3d,
   InvisibleEdgeFlags,
 } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.add3dFace(
   point3d(0, 0, 0),
   point3d(0, 100, 0),
@@ -148,7 +136,6 @@ Define a polyline path :
 
 ```js
 import { HatchPolylineBoundary, vertex } from "@tarikjabiri/dxf";
-
 const polyline = new HatchPolylineBoundary();
 polyline.add(vertex(0, 0));
 polyline.add(vertex(0, 10000));
@@ -162,7 +149,6 @@ Define a edges path :
 
 ```js
 import { HatchEdgesTypeData, point2d } from "@tarikjabiri/dxf";
-
 const edges = new HatchEdgesTypeData();
 edges.addLineEdgeData(point2d(0, 0), point2d(0, 10000));
 edges.addLineEdgeData(point2d(0, 10000), point2d(10000, 10000));
@@ -175,9 +161,7 @@ Create a `HatchBoundaryPath` instance :
 
 ```js
 import { HatchBoundaryPath } from "@tarikjabiri/dxf";
-
 const boundary = new HatchBoundaryPath();
-
 // Add the defined path
 boundary.addPolylineBoundary(polyline); // You can add multiple
 // Or
@@ -200,7 +184,6 @@ const mysolid = pattern({
   // scale?: number;
   // double?: boolean;
 });
-
 // Gradient
 const mygradient = gradient({
   firstColor: 5,
@@ -217,12 +200,9 @@ Now you have a boundary path and a fill pattern, you can add the hatch :
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 // You can call addHatch from dxf object
 dxf.addHatch(boundary, mygradient);
-
 // Or
 const hatch = dxf.addHatch(boundary, mygradient); // If you want a reference to the added hatch.
 ```
@@ -235,9 +215,7 @@ const hatch = dxf.addHatch(boundary, mygradient); // If you want a reference to 
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addImage(
   ".\\image-name.png", // Or the absolute path of the image if it isn't int the same folder.
   "image-name",
@@ -266,14 +244,11 @@ After defining your blocks, you can insert them with the `INSERT` entity. See ex
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 // Define your block
 const myBlock = addBlock("block1");
 myBlock.addCircle(point3d(0, 0, 0), 50);
 myBlock.addRectangle(point2d(-35.3553, 35.3553), point2d(35.3553, -35.3553));
-
 // Insert it when and where ever you want.
 dxf.addInsert(myBlock.name, point3d(0, 0, 0));
 // or
@@ -284,9 +259,7 @@ const myInsert = dxf.addInsert(myBlock.name, point3d(0, 0, 0)); // If you want a
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 // or
 const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added line.
@@ -296,9 +269,7 @@ const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 const vertices = [
   {
     point: point2d(0, 0, 0),
@@ -313,11 +284,9 @@ const vertices = [
     point: point2d(0, 300, 0),
   },
 ];
-
 dxf.addLWPolyline(vertices, {
   flags: LWPolylineFlags.Closed,
 });
-
 // or
 const lwpolyline = dxf.addLWPolyline(vertices); // // If you want a reference to the added lwpolyline.
 ```
@@ -326,9 +295,7 @@ const lwpolyline = dxf.addLWPolyline(vertices); // // If you want a reference to
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 // or
 const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added point.

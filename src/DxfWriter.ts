@@ -5,7 +5,8 @@ import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Sections/EntitiesSection/Entities/LWPolyline';
-import { vec2_t, vec3_t, rectangleOptions_t } from './Internals/Utils';
+import { vec2_t, vec3_t } from './Internals/Helpers';
+import { rectangleOptions_t } from './Internals/Helpers';
 import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
 import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
@@ -19,6 +20,9 @@ import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
 import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
 import { Units } from './Internals/Enums';
 import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
+import { AlignedDimOptions } from './Sections/EntitiesSection/Entities/Dimension/AlignedDimension';
+import { DiameterDimOptions } from './Sections/EntitiesSection/Entities/Dimension/DiameterDimension';
+import { RadialDimOptions } from './Sections/EntitiesSection/Entities/Dimension/RadialDimension';
 
 /**
  * The base class for creating the dxf content.
@@ -101,8 +105,53 @@ export class DxfWriter {
 	 * @param name Dimension style name
 	 * @returns Dimension style object
 	 */
-	addDimStyle(name: string) {
+	public addDimStyle(name: string) {
 		return this.tables.addDimStyle(name);
+	}
+
+	/**
+	 * Add an aligned dimension entity to the dxf.
+	 * @param first The first definition point for linear and angular dimensions.
+	 * @param second The second definition point for linear and angular dimensions.
+	 * @param options The options of the aligned dimension entity.
+	 * @returns
+	 */
+	public addAlignedDim(
+		first: vec3_t,
+		second: vec3_t,
+		options: AlignedDimOptions
+	) {
+		return this.modelSpace.addAlignedDim(first, second, options);
+	}
+
+	/**
+	 * Add an diameter dimension entity to the dxf.
+	 * @param first The first definition point for diameter, radius, and angular dimensions.
+	 * @param second The second definition point for diameter, radius, and angular dimensions.
+	 * @param options The options of the diameter dimension entity.
+	 * @returns
+	 */
+	public addDiameterDim(
+		first: vec3_t,
+		second: vec3_t,
+		options: DiameterDimOptions
+	) {
+		return this.modelSpace.addDiameterDim(first, second, options);
+	}
+
+	/**
+	 * Add an radial dimension entity to the dxf.
+	 * @param first The first definition point for diameter, radius, and angular dimensions.
+	 * @param second The second definition point for diameter, radius, and angular dimensions.
+	 * @param options The options of the radial dimension entity.
+	 * @returns
+	 */
+	public addRadialDim(
+		first: vec3_t,
+		second: vec3_t,
+		options: RadialDimOptions
+	) {
+		return this.modelSpace.addRadialDim(first, second, options);
 	}
 
 	/**

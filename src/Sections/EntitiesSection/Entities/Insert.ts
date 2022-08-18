@@ -1,6 +1,6 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d, vec3_t } from '../../../Internals/Utils';
+import { point3d, vec3_t } from '../../../Internals/Helpers';
 import Entity, { options_t } from '../Entity';
 
 export type insertOptions_t = options_t & {

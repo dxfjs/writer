@@ -7,13 +7,8 @@ import LWPolyline, {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Entities/LWPolyline';
-import {
-	bulge,
-	point2d,
-	vec2_t,
-	vec3_t,
-	rectangleOptions_t,
-} from '../../Internals/Utils';
+import { bulge, point2d, vec2_t, vec3_t } from '../../Internals/Helpers';
+import { rectangleOptions_t } from '../../Internals/Helpers';
 import Polyline, { polylineOptions_t } from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
@@ -33,6 +28,18 @@ import Hatch, {
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import Image, { ImageOptions_t } from './Entities/Image';
 import { Dxifier } from '../../Internals/Dxifier';
+import {
+	AlignedDimension,
+	AlignedDimOptions,
+} from './Entities/Dimension/AlignedDimension';
+import {
+	DiameterDimension,
+	DiameterDimOptions,
+} from './Entities/Dimension/DiameterDimension';
+import {
+	RadialDimension,
+	RadialDimOptions,
+} from './Entities/Dimension/RadialDimension';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -66,6 +73,18 @@ export default abstract class EntitiesManager implements DxfInterface {
 		entity.layerName = this.layerName;
 		this.entities.push(entity);
 		return entity;
+	}
+
+	addAlignedDim(first: vec3_t, second: vec3_t, options: AlignedDimOptions) {
+		return this.addEntity(new AlignedDimension(first, second, options));
+	}
+
+	addDiameterDim(first: vec3_t, second: vec3_t, options: DiameterDimOptions) {
+		return this.addEntity(new DiameterDimension(first, second, options));
+	}
+
+	addRadialDim(first: vec3_t, second: vec3_t, options: RadialDimOptions) {
+		return this.addEntity(new RadialDimension(first, second, options));
 	}
 
 	addLine(startPoint: vec3_t, endPoint: vec3_t, options?: options_t): Line {

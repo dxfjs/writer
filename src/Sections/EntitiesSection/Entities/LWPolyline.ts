@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { vec2_t, point3d } from '../../../Internals/Utils';
+import { vec2_t, point3d } from '../../../Internals/Helpers';
 
 export enum LWPolylineFlags {
 	None = 0,

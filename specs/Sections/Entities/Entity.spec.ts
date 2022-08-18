@@ -5,7 +5,7 @@ import { boundingBox_t } from '../../../src/Internals/BoundingBox';
 import Entity from '../../../src/Sections/EntitiesSection/Entity';
 
 class DummyEntity extends Entity {
-	public boundingBox(): boundingBox_t {
+	public override boundingBox(): boundingBox_t {
 		return BoundingBox.pointBBox({ x: 0, y: 0, z: 0 });
 	}
 }

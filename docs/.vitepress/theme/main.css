@@ -6,7 +6,43 @@
 	--vp-c-green-darker: #2e7d32;
 
 	--vp-home-hero-name-color: transparent;
-  	--vp-home-hero-name-background: -webkit-linear-gradient(120deg, #81c784, #2e7d32);
+	--vp-home-hero-name-background: -webkit-linear-gradient(
+		120deg,
+		#81c784,
+		#2e7d32
+	);
+
+	--vp-scrollbar-track-bg: var(--vp-code-block-bg);
+	--vp-scrollbar-thumb-bg: rgba(255,255,255, 0.38);
+	--vp-scrollbar-thumb-bg-hover: rgba(255,255,255, 0.48);
+}
+
+.dark {
+	--vp-scrollbar-thumb-bg: var(--vp-c-bg-soft);
+	--vp-scrollbar-thumb-bg-hover: var(--vp-c-bg-mute);
+}
+
+pre {
+	scrollbar-width: thin;
+}
+
+pre::-webkit-scrollbar {
+  height: 10px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: var(--vp-scrollbar-track-bg);
+  
+}
+
+pre::-webkit-scrollbar-thumb {
+  	background: var(--vp-scrollbar-thumb-bg);
+	border: solid 2px var(--vp-scrollbar-track-bg);
+	border-radius: 10px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-scrollbar-thumb-bg-hover);
 }
 
 .content img {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Utils';
+import { point3d } from '../../../../src/Internals/Helpers';
 import Spline from '../../../../src/Sections/EntitiesSection/Entities/Spline';
 
 describe('Spline', () => {

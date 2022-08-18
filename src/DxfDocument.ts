@@ -2,7 +2,7 @@ import { Dxifier } from './Internals/Dxifier';
 import { Colors, Units } from './Internals/Enums';
 import Handle from './Internals/Handle';
 import DxfInterface from './Internals/Interfaces/DxfInterface';
-import { vec3_t } from './Internals/Utils';
+import { vec3_t } from './Internals/Helpers';
 import DxfBlock from './Sections/BlocksSection/DxfBlock';
 import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
 import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';

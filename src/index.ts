@@ -3,7 +3,7 @@ export * from './Sections/HeaderSection/DxfVariable';
 export * from './Sections/EntitiesSection/Entity';
 export * from './Sections/TablesSection/Tables/Records/DxfRecord';
 export * from './Sections/EntitiesSection/Entities/LWPolyline';
-export * from './Internals/Utils';
+export * from './Internals/Helpers';
 export * from './Sections/EntitiesSection/Entities/Spline';
 export * from './Sections/BlocksSection/DxfBlock';
 export * from './Sections/TablesSection/Tables/Records/DxfAppId';

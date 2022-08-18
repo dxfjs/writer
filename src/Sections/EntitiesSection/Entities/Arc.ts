@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { vec3_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Helpers';
 
 export default class Arc extends Entity {
 	center: vec3_t;

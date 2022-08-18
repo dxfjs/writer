@@ -1,5 +1,5 @@
 import { Dxifier } from '../../Internals/Dxifier';
-import { point3d, vec3_t } from '../../Internals/Utils';
+import { point3d, vec3_t } from '../../Internals/Helpers';
 import EntitiesManager from '../EntitiesSection/EntitiesManager';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import EndBlk from './DxfEndBlk';

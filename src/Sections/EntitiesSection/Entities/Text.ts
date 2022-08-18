@@ -1,6 +1,6 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { vec3_t } from '../../../Internals/Utils';
+import { vec3_t } from '../../../Internals/Helpers';
 import Entity, { options_t } from '../Entity';
 
 export default class Text extends Entity {

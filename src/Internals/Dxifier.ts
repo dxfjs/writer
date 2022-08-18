@@ -1,4 +1,4 @@
-import { vec2_t, vec3_t } from './Utils';
+import { vec2_t, vec3_t } from './Helpers';
 
 export type tag_t = {
 	code: number;
@@ -64,15 +64,15 @@ export class Dxifier {
 		this.push(9, variableName);
 	}
 
-	point2d(point: vec2_t) {
-		this.push(10, point.x);
-		this.push(20, point.y);
+	point2d(point?: vec2_t) {
+		this.push(10, point?.x);
+		this.push(20, point?.y);
 	}
 
-	point3d(point: vec3_t) {
-		this.push(10, point.x);
-		this.push(20, point.y);
-		this.push(30, point.z);
+	point3d(point?: vec3_t) {
+		this.push(10, point?.x);
+		this.push(20, point?.y);
+		this.push(30, point?.z);
 	}
 
 	elevation(elevation?: number) {

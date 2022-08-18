@@ -2,7 +2,7 @@ import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import { Dxifier } from '../../Internals/Dxifier';
 import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import { point3d } from '../../Internals/Utils';
+import { point3d } from '../../Internals/Helpers';
 
 export type options_t = {
 	trueColor?: string;

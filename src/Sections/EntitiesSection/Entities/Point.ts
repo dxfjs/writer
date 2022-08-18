@@ -1,7 +1,7 @@
 import Entity, { options_t } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
-import { point3d } from '../../../Internals/Utils';
+import { point3d } from '../../../Internals/Helpers';
 
 export default class Point extends Entity {
 	x: number;

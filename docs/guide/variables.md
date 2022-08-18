@@ -40,11 +40,8 @@ Javascript code :
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 dxf.setVariable("$ATTMODE", { 70: 2 });
-
 // $ATTMODE is the name of the variable
 // 70 is the group code
 // 2 is the value to be set.

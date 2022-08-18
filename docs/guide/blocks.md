@@ -9,9 +9,7 @@ Blocks are reusable definitions used by the `INSERT` entity, defined in the `BLO
 By default two blocks are created: `*Model_Space` and `*Paper_Space`.
 
 :::danger
-
 `INSERT` entity cannot use these tow blocks.
-
 :::
 
 ## Adding blocks
@@ -20,9 +18,7 @@ To add a block use the convenient function `addBlock()`, it is a factory functio
 
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 const myBlock = dxf.addBlock("myBlock");
 ```
 
@@ -32,9 +28,7 @@ To add entities to a block just call the convenient methods to do so:
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 const myBlock = dxf.addBlock("myBlock");
 myBlock.addCircle(point3d(0, 0, 0), 20);
 myBlock.addLine(point3d(0, 0, 0), point3d(0, 20, 0));
@@ -47,9 +41,7 @@ To insert a block in the drawing use the convenient method `addInsert()`:
 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-
 const dxf = new DxfWriter();
-
 const myBlock = dxf.addBlock("myBlock");
 myBlock.addCircle(point3d(0, 0, 0), 20);
 myBlock.addLine(point3d(0, 0, 0), point3d(0, 20, 0));

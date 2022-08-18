@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Utils';
+import { point3d } from '../../../../src/Internals/Helpers';
 import { Dxifier } from '../../../../src/Internals/Dxifier';
 import Face from '../../../../src/Sections/EntitiesSection/Entities/Face';
 

@@ -14,8 +14,6 @@ function folderDelete(folders) {
 
 const tsconfigBuild = {
 	compilerOptions: {
-		module: 'esnext',
-		target: 'esnext',
 		declaration: true,
 		declarationDir: './lib',
 		moduleResolution: 'node',

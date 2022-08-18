@@ -33,6 +33,7 @@ export default defineConfig({
 		],
 	],
 	markdown: {
+		lineNumbers: true,
 		toc: { level: [2] },
 	},
 	themeConfig: {

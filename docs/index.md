@@ -79,8 +79,7 @@ const members = [
   }
 ]
 </script>
-
-<VPTeamPageSection>
+<VPTeamPageSection style="margin-top: 1em;">
   <template #title>Members, Contributors & Sponsors</template>
   <template #lead>This project made possible because of all wonderful peoples</template>
   <template #members>

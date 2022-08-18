@@ -34,7 +34,6 @@ const name3AppId = dxf.tables.addAppId(
 import { DxfWriter, Units } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 const blockRecord = dxf.tables.addBlockRecord("example");
-
 // You can customize the blockRecord
 blockRecord.insertionUnits = Units.Unitless;
 blockRecord.explodability = 1;
@@ -56,7 +55,9 @@ import { DxfWriter } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 const dimStyle = dxf.addDimStyle("example");
 ```
+All of these properties are customizable:
 
+> `name`, `flags`, `ownerObjectHandle`, `DIMPOST`, `DIMAPOST`, `DIMSCALE`, `DIMASZ`, `DIMEXO`, `DIMDLI`, `DIMEXE`, `DIMRND`, `DIMDLE`, `DIMTP`, `DIMTM`, `DIMTXT`, `DIMCEN`, `DIMTSZ`, `DIMALTF`, `DIMLFAC`, `DIMTVP`, `DIMTFAC`, `DIMGAP`, `DIMALTRND`, `DIMTOL`, `DIMLIM`, `DIMTIH`, `DIMTOH`, `DIMSE1`, `DIMSE2`, `DIMTAD`, `DIMZIN`, `DIMAZIN`, `DIMALT`, `DIMALTD`, `DIMTOFL`, `DIMSAH`, `DIMTIX`, `DIMSOXD`, `DIMCLRD`, `DIMCLRE`, `DIMCLRT`, `DIMADEC`, `DIMDEC`, `DIMTDEC`, `DIMALTU`, `DIMALTTD`, `DIMAUNIT`, `DIMFRAC`, `DIMLUNIT`, `DIMDSEP`, `DIMTMOVE`, `DIMJUST`, `DIMSD1`, `DIMSD2`, `DIMTOLJ`, `DIMTZIN`, `DIMALTZ`, `DIMALTTZ`, `DIMFIT`, `DIMUPT`, `DIMATFIT`, `DIMTXSTY`, `DIMLDRBLK`, `DIMBLK`, `DIMBLK1`, `DIMBLK2`, `DIMLWD`, `DIMLWE`.
 :::info
 - The `DIMSTYLE` record accept same flags as `APPID` record: `RecordFlags`.
 - By default the `Standard` record is automatically added.
