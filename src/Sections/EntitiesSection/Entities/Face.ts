@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -11,7 +11,7 @@ export enum InvisibleEdgeFlags {
 	Fourth = 8,
 }
 
-export type faceOptions_t = options_t & {
+export type faceOptions_t = CommonEntityOptions & {
 	invisibleEdges?: InvisibleEdgeFlags;
 };
 

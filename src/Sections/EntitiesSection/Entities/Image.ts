@@ -1,7 +1,7 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { point2d, vec2_t, point3d, vec3_t } from '../../../Internals/Helpers';
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 
 export enum ImageDisplayFlags {
 	ShowImage = 1,
@@ -34,7 +34,7 @@ export type ImageArgs_t = {
 	imageDefHandle: string;
 };
 
-export type ImageOptions_t = options_t & {
+export type ImageOptions_t = CommonEntityOptions & {
 	imageDisplayFlags?: ImageDisplayFlags;
 	clippingStateFlag?: ImageClippingStateFlag;
 	clipModeFlag?: ImageClipModeFlag;

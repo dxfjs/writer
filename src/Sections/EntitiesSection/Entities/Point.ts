@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { point3d } from '../../../Internals/Helpers';
@@ -8,7 +8,12 @@ export default class Point extends Entity {
 	y: number;
 	z: number;
 
-	constructor(x: number, y: number, z: number, options?: options_t) {
+	constructor(
+		x: number,
+		y: number,
+		z: number,
+		options?: CommonEntityOptions
+	) {
 		super('POINT', 'AcDbPoint', options);
 		this.x = x;
 		this.y = y;

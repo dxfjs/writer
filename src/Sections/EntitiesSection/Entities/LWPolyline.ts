@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec2_t, point3d } from '../../../Internals/Helpers';
@@ -9,7 +9,7 @@ export enum LWPolylineFlags {
 	Plinegen = 128,
 }
 
-export type lwPolylineOptions_t = options_t & {
+export type lwPolylineOptions_t = CommonEntityOptions & {
 	flags?: LWPolylineFlags;
 	constantWidth?: number;
 	elevation?: number;

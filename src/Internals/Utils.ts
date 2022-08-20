@@ -8,6 +8,10 @@ export function rad2deg(v: number) {
 	return (v * 180) / Math.PI;
 }
 
+export function deg2rad(v: number) {
+	return (v * Math.PI) / 180;
+}
+
 export function angle(f: vec3_t, s: vec3_t) {
 	const _d = d(f, s);
 	if (_d === 0) return _d;

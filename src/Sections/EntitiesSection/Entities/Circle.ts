@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -7,7 +7,7 @@ export default class Circle extends Entity {
 	center: vec3_t;
 	radius: number;
 
-	constructor(center: vec3_t, radius: number, options?: options_t) {
+	constructor(center: vec3_t, radius: number, options?: CommonEntityOptions) {
 		super('CIRCLE', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;

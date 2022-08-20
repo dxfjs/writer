@@ -1,7 +1,7 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 
 export default class Text extends Entity {
 	position: vec3_t;
@@ -13,7 +13,7 @@ export default class Text extends Entity {
 		position: vec3_t,
 		height: number,
 		value: string,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		super('TEXT', 'AcDbText', options);
 		this.position = position;

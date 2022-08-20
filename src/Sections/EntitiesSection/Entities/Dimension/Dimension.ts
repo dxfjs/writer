@@ -1,6 +1,6 @@
 import { Dxifier } from '../../../../Internals/Dxifier';
 import { vec3_t } from '../../../../Internals/Helpers';
-import Entity from '../../Entity';
+import Entity, { CommonEntityOptions } from '../../Entity';
 
 export enum DimensionType {
 	Default = 0,
@@ -31,7 +31,7 @@ export enum TextLineSpacingStyle {
 	Exact = 2,
 }
 
-export interface DimensionOptions {
+export interface DimensionOptions extends CommonEntityOptions {
 	blockName?: string;
 	definitionPoint?: vec3_t;
 	middlePoint?: vec3_t;
@@ -59,11 +59,11 @@ export class Dimension extends Entity {
 	horizontalDirection?: number;
 	styleName?: string;
 	constructor(options?: DimensionOptions) {
-		super('DIMENSION', 'AcDbDimension');
+		super('DIMENSION', 'AcDbDimension', options);
 		this.blockName = options?.blockName;
 		this.definitionPoint = options?.definitionPoint;
 		this.middlePoint = options?.middlePoint;
-		this.dimensionType = DimensionType.ReferencedByThis;
+		this.dimensionType = DimensionType.Default;
 		this.attachmentPoint =
 			options?.attachmentPoint || AttachmentPoint.MiddleCenter;
 		this.textLineSpacingStyle = options?.textLineSpacingStyle;

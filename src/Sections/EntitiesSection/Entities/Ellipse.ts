@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -16,7 +16,7 @@ export default class Ellipse extends Entity {
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		super('ELLIPSE', 'AcDbEllipse', options);
 		this.center = center;

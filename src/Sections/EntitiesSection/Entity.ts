@@ -4,21 +4,25 @@ import Handle from '../../Internals/Handle';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import { point3d } from '../../Internals/Helpers';
 
-export type options_t = {
+export interface CommonEntityOptions {
 	trueColor?: string;
 	colorNumber?: number;
 	layerName?: string;
 	visible?: boolean;
 	lineType?: string;
 	lineTypeScale?: number;
-};
+}
 
 export default abstract class Entity implements DxfInterface {
 	type: string;
-	subclassMarker: string | undefined;
-	layerName: string;
-	options: options_t;
+	protected subclassMarker: string | undefined;
 	ownerBlockRecord?: string;
+	trueColor?: string;
+	colorNumber?: number;
+	layerName: string;
+	visible?: boolean;
+	lineType?: string;
+	lineTypeScale?: number;
 	readonly handle: string;
 
 	/**
@@ -31,13 +35,17 @@ export default abstract class Entity implements DxfInterface {
 	public constructor(
 		type: string,
 		subclassMarker?: string,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
-		this.options = options || {};
 		this.type = type;
 		this.subclassMarker = subclassMarker;
 		this.layerName = options?.layerName || '0';
 		this.handle = Handle.next();
+		this.trueColor = options?.trueColor;
+		this.colorNumber = options?.colorNumber;
+		this.visible = options?.visible;
+		this.lineType = options?.lineType;
+		this.lineTypeScale = options?.lineTypeScale;
 	}
 
 	/**
@@ -54,12 +62,12 @@ export default abstract class Entity implements DxfInterface {
 		dx.handle(this.handle);
 		dx.push(330, this.ownerBlockRecord);
 		dx.subclassMarker('AcDbEntity');
-		dx.push(420, this.options.trueColor);
-		dx.layerName(this.options.layerName || this.layerName);
-		dx.lineType(this.options.lineType);
-		dx.colorNumber(this.options.colorNumber);
-		dx.push(48, this.options.lineTypeScale);
-		dx.visibilty(this.options.visible);
+		dx.push(420, this.trueColor);
+		dx.layerName(this.layerName);
+		dx.lineType(this.lineType);
+		dx.colorNumber(this.colorNumber);
+		dx.push(48, this.lineTypeScale);
+		dx.visibilty(this.visible);
 		dx.subclassMarker(this.subclassMarker);
 	}
 }

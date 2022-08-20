@@ -1,35 +1,42 @@
 import { Dxifier } from '../../../../Internals/Dxifier';
-import { vec3_t } from '../../../../Internals/Helpers';
-import { ab, angle, b, xy } from '../../../../Internals/Utils';
+import { point3d, vec3_t } from '../../../../Internals/Helpers';
+import { deg2rad } from '../../../../Internals/Utils';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
 
-export interface AlignedDimOptions extends DimensionOptions {
+export interface LinearDimOptions extends DimensionOptions {
 	insertionPoint?: vec3_t;
 	offset?: number;
+	angle?: number;
+	linearType?: number;
 }
 
-export class AlignedDimension extends Dimension {
+export class LinearDimension extends Dimension {
 	insertionPoint?: vec3_t;
 	fisrtPoint: vec3_t;
 	secondPoint: vec3_t;
-	constructor(first: vec3_t, second: vec3_t, options?: AlignedDimOptions) {
+	angle: number;
+	linearType?: number;
+	constructor(first: vec3_t, second: vec3_t, options?: LinearDimOptions) {
 		super(options);
-		this.dimensionType = DimensionType.Aligned;
+		this.dimensionType = DimensionType.Default;
 		this.insertionPoint = options?.insertionPoint;
 		this.fisrtPoint = first;
 		this.secondPoint = second;
+		this.angle = options?.angle ?? 0;
+		this.linearType = options?.linearType;
 		this.offset(options?.offset);
 	}
 
 	private offset(v?: number) {
 		if (v == null) return;
-		const [a_, b_] = ab(this.fisrtPoint, this.secondPoint);
-		const _b = b(v, [a_, b_]);
-		this.definitionPoint = xy([a_, _b], this.fisrtPoint);
+		const radAngle = deg2rad(this.angle);
+		const x = this.fisrtPoint.x + v * Math.floor(Math.sin(radAngle));
+		const y = this.fisrtPoint.y + v * Math.floor(Math.cos(radAngle));
+		this.definitionPoint = point3d(x, y, 0);
 	}
 
 	protected override rotate(): number {
-		return angle(this.fisrtPoint, this.secondPoint);
+		return this.angle;
 	}
 
 	override dxify(dx: Dxifier): void {
@@ -44,5 +51,8 @@ export class AlignedDimension extends Dimension {
 		dx.push(14, this.secondPoint.x);
 		dx.push(24, this.secondPoint.y);
 		dx.push(34, this.secondPoint.z);
+		dx.push(50, this.angle);
+		dx.push(52, this.linearType);
+		dx.subclassMarker('AcDbRotatedDimension');
 	}
 }

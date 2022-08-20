@@ -12,8 +12,7 @@ export class DiameterDimension extends Dimension {
 
 	constructor(first: vec3_t, second: vec3_t, options?: DiameterDimOptions) {
 		super(options);
-		this.dimensionType =
-			DimensionType.Diameter | DimensionType.ReferencedByThis;
+		this.dimensionType = DimensionType.Diameter;
 		this.first = first;
 		this.definitionPoint = second;
 		this.leaderLength = options?.leaderLength;

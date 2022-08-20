@@ -1,4 +1,4 @@
-import Entity, { options_t } from './Entity';
+import Entity, { CommonEntityOptions } from './Entity';
 import DxfInterface from '../../Internals/Interfaces/DxfInterface';
 import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
 import Line from './Entities/Line';
@@ -40,6 +40,10 @@ import {
 	RadialDimension,
 	RadialDimOptions,
 } from './Entities/Dimension/RadialDimension';
+import {
+	LinearDimension,
+	LinearDimOptions,
+} from './Entities/Dimension/LinearDimension';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -75,30 +79,42 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return entity;
 	}
 
-	addAlignedDim(first: vec3_t, second: vec3_t, options: AlignedDimOptions) {
+	addAlignedDim(first: vec3_t, second: vec3_t, options?: AlignedDimOptions) {
 		return this.addEntity(new AlignedDimension(first, second, options));
 	}
 
-	addDiameterDim(first: vec3_t, second: vec3_t, options: DiameterDimOptions) {
+	addDiameterDim(
+		first: vec3_t,
+		second: vec3_t,
+		options?: DiameterDimOptions
+	) {
 		return this.addEntity(new DiameterDimension(first, second, options));
 	}
 
-	addRadialDim(first: vec3_t, second: vec3_t, options: RadialDimOptions) {
+	addRadialDim(first: vec3_t, second: vec3_t, options?: RadialDimOptions) {
 		return this.addEntity(new RadialDimension(first, second, options));
 	}
 
-	addLine(startPoint: vec3_t, endPoint: vec3_t, options?: options_t): Line {
+	addLinearDim(first: vec3_t, second: vec3_t, options?: LinearDimOptions) {
+		return this.addEntity(new LinearDimension(first, second, options));
+	}
+
+	addLine(
+		startPoint: vec3_t,
+		endPoint: vec3_t,
+		options?: CommonEntityOptions
+	): Line {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
-	addLWPolyline(points: lwPolylineVertex_t[], options: lwPolylineOptions_t) {
+	addLWPolyline(points: lwPolylineVertex_t[], options?: lwPolylineOptions_t) {
 		return this.addEntity(new LWPolyline(points, options));
 	}
 
 	addRectangle(
 		topLeft: vec2_t,
 		bottomRight: vec2_t,
-		options: rectangleOptions_t = {}
+		options?: rectangleOptions_t
 	) {
 		const vertices: lwPolylineVertex_t[] = [];
 		const tX = topLeft.x;
@@ -106,11 +122,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 		const bX = bottomRight.x;
 		const bY = bottomRight.y;
 
-		if (options.fillet !== undefined && options.chamfer !== undefined)
+		if (options?.fillet !== undefined && options?.chamfer !== undefined)
 			throw new Error('You cannot define both fillet and chamfer!');
 
-		if (options.fillet !== undefined) {
-			const f = options.fillet;
+		if (options?.fillet !== undefined) {
+			const f = options?.fillet;
 			const b = bulge(f);
 			vertices.push({ point: point2d(tX, tY - f), bulge: b });
 			vertices.push({ point: point2d(tX + f, tY) });
@@ -120,9 +136,9 @@ export default abstract class EntitiesManager implements DxfInterface {
 			vertices.push({ point: point2d(bX - f, bY) });
 			vertices.push({ point: point2d(tX + f, bY), bulge: b });
 			vertices.push({ point: point2d(tX, bY + f) });
-		} else if (options.chamfer !== undefined) {
-			const f = options.chamfer.first;
-			const s: number = options.chamfer.second || f;
+		} else if (options?.chamfer !== undefined) {
+			const f = options?.chamfer.first;
+			const s: number = options?.chamfer.second || f;
 			vertices.push({ point: point2d(tX, tY - f) });
 			vertices.push({ point: point2d(tX + s, tY) });
 			vertices.push({ point: point2d(bX - f, tY) });
@@ -188,11 +204,20 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Polyline(points, options));
 	}
 
-	addPoint(x: number, y: number, z: number, options?: options_t): Point {
+	addPoint(
+		x: number,
+		y: number,
+		z: number,
+		options?: CommonEntityOptions
+	): Point {
 		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	addCircle(center: vec3_t, radius: number, options?: options_t): Circle {
+	addCircle(
+		center: vec3_t,
+		radius: number,
+		options?: CommonEntityOptions
+	): Circle {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
@@ -201,14 +226,14 @@ export default abstract class EntitiesManager implements DxfInterface {
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	): Arc {
 		return this.addEntity(
 			new Arc(center, radius, startAngle, endAngle, options)
 		);
 	}
 
-	addSpline(splineArgs: SplineArgs_t, options?: options_t): Spline {
+	addSpline(splineArgs: SplineArgs_t, options?: CommonEntityOptions): Spline {
 		return this.addEntity(new Spline(splineArgs, options));
 	}
 
@@ -218,7 +243,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	): Ellipse {
 		const ellipse = new Ellipse(
 			center,
@@ -254,7 +279,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
-		options?: options_t
+		options?: CommonEntityOptions
 	): Text {
 		return this.addEntity(
 			new Text(firstAlignementPoint, height, value, options)

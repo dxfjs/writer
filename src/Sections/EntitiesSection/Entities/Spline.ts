@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -28,7 +28,7 @@ export default class Spline extends Entity {
 	flags: SplineFlags;
 	fitPoints: vec3_t[];
 
-	constructor(splineArgs: SplineArgs_t, options?: options_t) {
+	constructor(splineArgs: SplineArgs_t, options?: CommonEntityOptions) {
 		super('SPLINE', 'AcDbSpline', options);
 
 		this.controlPoints = splineArgs.controlPoints;

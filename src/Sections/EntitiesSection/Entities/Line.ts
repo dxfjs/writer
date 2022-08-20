@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -7,7 +7,11 @@ export default class Line extends Entity {
 	startPoint: vec3_t;
 	endPoint: vec3_t;
 
-	constructor(startPoint: vec3_t, endPoint: vec3_t, options?: options_t) {
+	constructor(
+		startPoint: vec3_t,
+		endPoint: vec3_t,
+		options?: CommonEntityOptions
+	) {
 		super('LINE', 'AcDbLine', options);
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;

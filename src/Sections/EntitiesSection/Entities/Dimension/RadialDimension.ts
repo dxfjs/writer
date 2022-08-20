@@ -12,8 +12,7 @@ export class RadialDimension extends Dimension {
 
 	constructor(first: vec3_t, second: vec3_t, options?: RadialDimOptions) {
 		super(options);
-		this.dimensionType =
-			DimensionType.Radius | DimensionType.ReferencedByThis;
+		this.dimensionType = DimensionType.Radius;
 		this.first = first;
 		this.definitionPoint = second;
 		this.leaderLength = options?.leaderLength;

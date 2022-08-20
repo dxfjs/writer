@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import Vertex, { VertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
@@ -24,7 +24,7 @@ export enum SurfaceType {
 	Bezier = 8,
 }
 
-export type polylineOptions_t = options_t & {
+export type polylineOptions_t = CommonEntityOptions & {
 	flags?: PolylineFlags;
 	elevation?: number;
 	thickness?: number;

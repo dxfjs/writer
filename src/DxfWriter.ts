@@ -1,6 +1,6 @@
 import DxfDocument from './DxfDocument';
 import { values_t } from './Sections/HeaderSection/DxfVariable';
-import { options_t } from './Sections/EntitiesSection/Entity';
+import { CommonEntityOptions } from './Sections/EntitiesSection/Entity';
 import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
@@ -23,6 +23,7 @@ import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
 import { AlignedDimOptions } from './Sections/EntitiesSection/Entities/Dimension/AlignedDimension';
 import { DiameterDimOptions } from './Sections/EntitiesSection/Entities/Dimension/DiameterDimension';
 import { RadialDimOptions } from './Sections/EntitiesSection/Entities/Dimension/RadialDimension';
+import { LinearDimOptions } from './Sections/EntitiesSection/Entities/Dimension/LinearDimension';
 
 /**
  * The base class for creating the dxf content.
@@ -119,39 +120,54 @@ export class DxfWriter {
 	public addAlignedDim(
 		first: vec3_t,
 		second: vec3_t,
-		options: AlignedDimOptions
+		options?: AlignedDimOptions
 	) {
 		return this.modelSpace.addAlignedDim(first, second, options);
 	}
 
 	/**
 	 * Add an diameter dimension entity to the dxf.
-	 * @param first The first definition point for diameter, radius, and angular dimensions.
-	 * @param second The second definition point for diameter, radius, and angular dimensions.
+	 * @param first The first definition point for diameter dimensions.
+	 * @param second The second definition point for diameter dimensions.
 	 * @param options The options of the diameter dimension entity.
 	 * @returns
 	 */
 	public addDiameterDim(
 		first: vec3_t,
 		second: vec3_t,
-		options: DiameterDimOptions
+		options?: DiameterDimOptions
 	) {
 		return this.modelSpace.addDiameterDim(first, second, options);
 	}
 
 	/**
 	 * Add an radial dimension entity to the dxf.
-	 * @param first The first definition point for diameter, radius, and angular dimensions.
-	 * @param second The second definition point for diameter, radius, and angular dimensions.
+	 * @param first The first definition point for radius dimensions.
+	 * @param second The second definition point for radius dimensions.
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
 	public addRadialDim(
 		first: vec3_t,
 		second: vec3_t,
-		options: RadialDimOptions
+		options?: RadialDimOptions
 	) {
 		return this.modelSpace.addRadialDim(first, second, options);
+	}
+
+	/**
+	 * Add an linear dimension entity to the dxf.
+	 * @param first The first definition point for linear and angular dimensions.
+	 * @param second The second definition point for linear and angular dimensions.
+	 * @param options The options of the radial dimension entity.
+	 * @returns
+	 */
+	public addLinearDim(
+		first: vec3_t,
+		second: vec3_t,
+		options?: LinearDimOptions
+	) {
+		return this.modelSpace.addLinearDim(first, second, options);
 	}
 
 	/**
@@ -214,7 +230,11 @@ export class DxfWriter {
 	 * @param options - The options of the line entity.
 	 * @returns Return the added line.
 	 */
-	public addLine(startPoint: vec3_t, endPoint: vec3_t, options?: options_t) {
+	public addLine(
+		startPoint: vec3_t,
+		endPoint: vec3_t,
+		options?: CommonEntityOptions
+	) {
 		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
@@ -233,7 +253,7 @@ export class DxfWriter {
 	 */
 	public addLWPolyline(
 		points: lwPolylineVertex_t[],
-		options: lwPolylineOptions_t = {}
+		options?: lwPolylineOptions_t
 	) {
 		return this.modelSpace.addLWPolyline(points, options);
 	}
@@ -284,7 +304,12 @@ export class DxfWriter {
 	 * @param options - The options to apply to the point.
 	 * @returns Return the the added point.
 	 */
-	public addPoint(x: number, y: number, z: number, options?: options_t) {
+	public addPoint(
+		x: number,
+		y: number,
+		z: number,
+		options?: CommonEntityOptions
+	) {
 		return this.modelSpace.addPoint(x, y, z, options);
 	}
 
@@ -296,7 +321,11 @@ export class DxfWriter {
 	 * @param options - The Circle entity options;
 	 * @returns Return the the added circle.
 	 */
-	public addCircle(center: vec3_t, radius: number, options?: options_t) {
+	public addCircle(
+		center: vec3_t,
+		radius: number,
+		options?: CommonEntityOptions
+	) {
 		return this.modelSpace.addCircle(center, radius, options);
 	}
 
@@ -316,7 +345,7 @@ export class DxfWriter {
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		return this.modelSpace.addArc(
 			center,
@@ -342,7 +371,7 @@ export class DxfWriter {
 	 * @param options - The options of the spline entity.
 	 * @returns Return the the added spline.
 	 */
-	public addSpline(splineArgs: SplineArgs_t, options?: options_t) {
+	public addSpline(splineArgs: SplineArgs_t, options?: CommonEntityOptions) {
 		return this.modelSpace.addSpline(splineArgs, options);
 	}
 
@@ -362,7 +391,7 @@ export class DxfWriter {
 		ratioOfMinorAxisToMajorAxis: number,
 		startParameter: number,
 		endParameter: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		return this.modelSpace.addEllipse(
 			center,
@@ -458,7 +487,7 @@ export class DxfWriter {
 		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		return this.modelSpace.addText(
 			firstAlignementPoint,

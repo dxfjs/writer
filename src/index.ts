@@ -20,3 +20,8 @@ export * from './Sections/EntitiesSection/Entities/Hatch';
 export * from './Sections/ObjectsSection/Objects/DxfImageDef';
 export * from './Sections/ObjectsSection/Objects/DxfImageDefReactor';
 export * from './Internals/Enums';
+export * from './Sections/EntitiesSection/Entities/Dimension/Dimension';
+export * from './Sections/EntitiesSection/Entities/Dimension/AlignedDimension';
+export * from './Sections/EntitiesSection/Entities/Dimension/DiameterDimension';
+export * from './Sections/EntitiesSection/Entities/Dimension/RadialDimension';
+export * from './Sections/EntitiesSection/Entities/Dimension/LinearDimension';

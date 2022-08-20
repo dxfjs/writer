@@ -1,16 +1,16 @@
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { point3d, vec3_t } from '../../../Internals/Helpers';
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 
-export type insertOptions_t = options_t & {
+export interface insertOptions_t extends CommonEntityOptions {
 	scaleFactor?: Partial<vec3_t>;
 	rotationAngle?: number;
 	columnCount?: number;
 	rowCount?: number;
 	columnSpacing?: number;
 	rowSpacing?: number;
-};
+}
 
 export default class Insert extends Entity {
 	blockName: string;

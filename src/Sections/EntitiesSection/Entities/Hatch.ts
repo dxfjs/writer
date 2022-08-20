@@ -5,7 +5,7 @@ import PredefinedHatchPatterns from '../../../Internals/HatchPatterns';
 import DxfInterface from '../../../Internals/Interfaces/DxfInterface';
 import TrueColor from '../../../Internals/TrueColor';
 import { vec2_t, point3d, vec3_t } from '../../../Internals/Helpers';
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 
 export enum HatchPredefinedPatterns {
 	SOLID = 'SOLID',
@@ -350,7 +350,7 @@ export type HatchGradientOptions_t = {
 	type?: GradientType;
 };
 
-export type HatchOptions_t = options_t & {
+export type HatchOptions_t = CommonEntityOptions & {
 	elevation?: number;
 	extrusion?: vec3_t;
 };

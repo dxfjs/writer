@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -14,7 +14,7 @@ export default class Arc extends Entity {
 		radius: number,
 		startAngle: number,
 		endAngle: number,
-		options?: options_t
+		options?: CommonEntityOptions
 	) {
 		super('ARC', 'AcDbCircle', options);
 		this.center = center;

@@ -1,4 +1,4 @@
-import Entity, { options_t } from '../Entity';
+import Entity, { CommonEntityOptions } from '../Entity';
 import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
 import { Dxifier } from '../../../Internals/Dxifier';
 import { vec3_t } from '../../../Internals/Helpers';
@@ -14,7 +14,7 @@ export enum VertexFlags {
 	PolyfaceMeshVertex = 128,
 }
 
-export type vertexOptions_t = options_t & {
+export type vertexOptions_t = CommonEntityOptions & {
 	is3d?: boolean;
 	flags?: number;
 	startingWidth?: number;
