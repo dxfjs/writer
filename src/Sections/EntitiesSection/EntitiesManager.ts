@@ -1,14 +1,14 @@
 import Entity, { CommonEntityOptions } from './Entity';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
 import Line from './Entities/Line';
 import LWPolyline, {
 	LWPolylineFlags,
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
 } from './Entities/LWPolyline';
-import { bulge, point2d, vec2_t, vec3_t } from '../../Internals/Helpers';
-import { rectangleOptions_t } from '../../Internals/Helpers';
+import { bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers';
+import { rectangleOptions_t } from 'Internals/Helpers';
 import Polyline, { polylineOptions_t } from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
@@ -17,7 +17,7 @@ import Ellipse from './Entities/Ellipse';
 import Face, { faceOptions_t } from './Entities/Face';
 import Text from './Entities/Text';
 import Arc from './Entities/Arc';
-import Handle from '../../Internals/Handle';
+import Handle from 'Internals/Handle';
 import Insert, { insertOptions_t } from './Entities/Insert';
 import Hatch, {
 	HatchBoundaryPaths,
@@ -27,7 +27,7 @@ import Hatch, {
 } from './Entities/Hatch';
 import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
 import Image, { ImageOptions_t } from './Entities/Image';
-import { Dxifier } from '../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 import {
 	AlignedDimension,
 	AlignedDimOptions,

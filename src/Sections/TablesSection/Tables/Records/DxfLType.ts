@@ -1,4 +1,4 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfLType extends DxfRecord {

@@ -1,29 +1,29 @@
 import DxfDocument from './DxfDocument';
-import { values_t } from './Sections/HeaderSection/DxfVariable';
-import { CommonEntityOptions } from './Sections/EntitiesSection/Entity';
+import { values_t } from 'HeaderSection/DxfVariable';
+import { CommonEntityOptions } from 'EntitiesSection/Entity';
 import {
 	lwPolylineOptions_t,
 	lwPolylineVertex_t,
-} from './Sections/EntitiesSection/Entities/LWPolyline';
-import { vec2_t, vec3_t } from './Internals/Helpers';
-import { rectangleOptions_t } from './Internals/Helpers';
-import { insertOptions_t } from './Sections/EntitiesSection/Entities/Insert';
-import { SplineArgs_t } from './Sections/EntitiesSection/Entities/Spline';
-import { faceOptions_t } from './Sections/EntitiesSection/Entities/Face';
+} from 'EntitiesSection/Entities/LWPolyline';
+import { vec2_t, vec3_t } from 'Internals/Helpers';
+import { rectangleOptions_t } from 'Internals/Helpers';
+import { insertOptions_t } from 'EntitiesSection/Entities/Insert';
+import { SplineArgs_t } from 'EntitiesSection/Entities/Spline';
+import { faceOptions_t } from 'EntitiesSection/Entities/Face';
 import {
 	HatchBoundaryPaths,
 	HatchGradientOptions_t,
 	HatchOptions_t,
 	HatchPatternOptions_t,
-} from './Sections/EntitiesSection/Entities/Hatch';
-import { ImageOptions_t } from './Sections/EntitiesSection/Entities/Image';
-import { polylineOptions_t } from './Sections/EntitiesSection/Entities/Polyline';
-import { Units } from './Internals/Enums';
-import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
-import { AlignedDimOptions } from './Sections/EntitiesSection/Entities/Dimension/AlignedDimension';
-import { DiameterDimOptions } from './Sections/EntitiesSection/Entities/Dimension/DiameterDimension';
-import { RadialDimOptions } from './Sections/EntitiesSection/Entities/Dimension/RadialDimension';
-import { LinearDimOptions } from './Sections/EntitiesSection/Entities/Dimension/LinearDimension';
+} from 'EntitiesSection/Entities/Hatch';
+import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
+import { polylineOptions_t } from 'EntitiesSection/Entities/Polyline';
+import { Units } from 'Internals/Enums';
+import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
+import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
+import { DiameterDimOptions } from 'EntitiesSection/Entities/Dimension/DiameterDimension';
+import { RadialDimOptions } from 'EntitiesSection/Entities/Dimension/RadialDimension';
+import { LinearDimOptions } from 'EntitiesSection/Entities/Dimension/LinearDimension';
 
 /**
  * The base class for creating the dxf content.

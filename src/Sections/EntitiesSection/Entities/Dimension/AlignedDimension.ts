@@ -1,6 +1,6 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
-import { vec3_t } from '../../../../Internals/Helpers';
-import { ab, angle, b, xy } from '../../../../Internals/Utils';
+import { Dxifier } from 'Internals/Dxifier';
+import { vec3_t } from 'Internals/Helpers';
+import { ab, angle, b, xy } from 'Internals/Utils';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
 
 export interface AlignedDimOptions extends DimensionOptions {

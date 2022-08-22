@@ -1,20 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { point2d } from '../../../../src/Internals/Helpers';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import LWPolyline from '../../../../src/Sections/EntitiesSection/Entities/LWPolyline';
+import { point2d } from 'Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import LWPolyline from 'EntitiesSection/Entities/LWPolyline';
 
 describe('Polyline', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new LWPolyline(
-			[{ point: point2d(0, 0) }, { point: point2d(120, 54) }],
-			{}
-		);
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbPolyline');
-	});
 
 	it('should return the given parameters.', () => {
 		const entity = new LWPolyline(

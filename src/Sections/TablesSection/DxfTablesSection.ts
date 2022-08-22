@@ -7,7 +7,7 @@ import DxfLTypeTable from './Tables/DxfLTypeTable';
 import DxfDimStyleTable from './Tables/DxfDimStyleTable';
 import DxfBlockRecordTable from './Tables/DxfBlockRecordTable';
 import DxfVPortTable from './Tables/DxfVPortTable';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfStyle from './Tables/Records/DxfStyle';
 import DxfView, { ViewArgs } from './Tables/Records/DxfView';
 import DxfUcs from './Tables/Records/DxfUcs';
@@ -15,7 +15,7 @@ import DxfAppId, { AppIdFlags } from './Tables/Records/DxfAppId';
 import DxfDimStyle, { DimStyleFlags } from './Tables/Records/DxfDimStyle';
 import DxfVPort from './Tables/Records/DxfVPort';
 import { LayerFlags } from './Tables/Records/DxfRecord';
-import { Dxifier } from '../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 
 export default class DxfTablesSection implements DxfInterface {
 	readonly vPortTable: DxfVPortTable;

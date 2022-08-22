@@ -1,8 +1,8 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { Dxifier } from '../../../src/Internals/Dxifier';
-import BoundingBox from '../../../src/Internals/BoundingBox';
-import { boundingBox_t } from '../../../src/Internals/BoundingBox';
-import Entity from '../../../src/Sections/EntitiesSection/Entity';
+import { Dxifier } from 'Internals/Dxifier';
+import BoundingBox from 'Internals/BoundingBox';
+import { boundingBox_t } from 'Internals/BoundingBox';
+import Entity from 'EntitiesSection/Entity';
 
 class DummyEntity extends Entity {
 	public override boundingBox(): boundingBox_t {
@@ -21,10 +21,6 @@ describe('Entity', () => {
 		entity = new DummyEntity('LINE', 'AcDbLine');
 	});
 
-	it('should return the subClassName given.', () => {
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbLine');
-	});
 	it('should return the entity Type given.', () => {
 		dataState.instancesCount++;
 		expect(entity.type).toBe('LINE');

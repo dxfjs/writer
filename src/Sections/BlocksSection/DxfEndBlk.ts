@@ -1,6 +1,6 @@
-import { Dxifier } from '../../Internals/Dxifier';
-import Handle from '../../Internals/Handle';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import { Dxifier } from 'Internals/Dxifier';
+import Handle from 'Internals/Handle';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
 export default class DxfEndBlk implements DxfInterface {
 	readonly handle: string;

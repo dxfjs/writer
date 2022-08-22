@@ -1,5 +1,5 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
-import { vec2_t, vec3_t } from '../../../../Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import { vec2_t, vec3_t } from 'Internals/Helpers';
 import DxfRecord, { ViewFlags } from './DxfRecord';
 
 export type ViewArgs = {

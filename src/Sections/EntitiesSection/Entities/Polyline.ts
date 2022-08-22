@@ -1,9 +1,9 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import Vertex, { VertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
-import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import { Dxifier } from '../../../Internals/Dxifier';
-import { vec2_t, point3d, vec3_t } from '../../../Internals/Helpers';
+import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { Dxifier } from 'Internals/Dxifier';
+import { vec2_t, point3d, vec3_t } from 'Internals/Helpers';
 
 export enum PolylineFlags {
 	None = 0,

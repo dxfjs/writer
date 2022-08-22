@@ -1,18 +1,18 @@
-import { Dxifier } from './Internals/Dxifier';
-import { Colors, Units } from './Internals/Enums';
-import Handle from './Internals/Handle';
-import DxfInterface from './Internals/Interfaces/DxfInterface';
-import { vec3_t } from './Internals/Helpers';
-import DxfBlock from './Sections/BlocksSection/DxfBlock';
-import DxfBlocksSection from './Sections/BlocksSection/DxfBlocksSection';
-import DxfClassesSection from './Sections/ClassesSection/DxfClassesSection';
-import DxfEntitiesSection from './Sections/EntitiesSection/DxfEntitiesSection';
-import DxfHeaderSection from './Sections/HeaderSection/DxfHeaderSection';
-import DxfObjectsSection from './Sections/ObjectsSection/DxfObjectsSection';
-import DxfTablesSection from './Sections/TablesSection/DxfTablesSection';
-import { AppIdFlags } from './Sections/TablesSection/Tables/Records/DxfAppId';
-import { LayerFlags } from './Sections/TablesSection/Tables/Records/DxfRecord';
-import DxfVPort from './Sections/TablesSection/Tables/Records/DxfVPort';
+import { Dxifier } from 'Internals/Dxifier';
+import { Colors, Units } from 'Internals/Enums';
+import Handle from 'Internals/Handle';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import { vec3_t } from 'Internals/Helpers';
+import DxfBlock from 'BlocksSection/DxfBlock';
+import DxfBlocksSection from 'BlocksSection/DxfBlocksSection';
+import DxfClassesSection from 'ClassesSection/DxfClassesSection';
+import DxfEntitiesSection from 'EntitiesSection/DxfEntitiesSection';
+import DxfHeaderSection from 'HeaderSection/DxfHeaderSection';
+import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
+import DxfTablesSection from 'TablesSection/DxfTablesSection';
+import { AppIdFlags } from 'TablesSection/Tables/Records/DxfAppId';
+import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
+import DxfVPort from 'TablesSection/Tables/Records/DxfVPort';
 import { name as packageName } from '../package.json';
 
 export default class DxfDocument implements DxfInterface {

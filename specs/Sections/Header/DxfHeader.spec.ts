@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from '../../../src/Internals/Dxifier';
-import DxfHeaderSection from '../../../src/Sections/HeaderSection/DxfHeaderSection';
+import { Dxifier } from 'Internals/Dxifier';
+import DxfHeaderSection from 'HeaderSection/DxfHeaderSection';
 
 describe('DxfHeader class', () => {
 	const header = new DxfHeaderSection();

@@ -1,4 +1,4 @@
-import { Dxifier } from '../../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 import Entity from '../Entity';
 
 export default class SeqEnd extends Entity {

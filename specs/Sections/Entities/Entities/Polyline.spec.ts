@@ -1,16 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Helpers';
-import Polyline from '../../../../src/Sections/EntitiesSection/Entities/Polyline';
+import { point3d } from 'Internals/Helpers';
+import Polyline from 'EntitiesSection/Entities/Polyline';
 
 describe('Polyline3D', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new Polyline([point3d(0, 0, 0), point3d(120, 54, 45)]);
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDb3dPolyline');
-	});
 
 	it('should return the given parameters.', () => {
 		const entity = new Polyline([

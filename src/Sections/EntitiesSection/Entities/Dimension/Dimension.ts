@@ -1,5 +1,5 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
-import { vec3_t } from '../../../../Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import { vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../../Entity';
 
 export enum DimensionType {

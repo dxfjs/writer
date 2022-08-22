@@ -1,24 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import Ellipse from '../../../../src/Sections/EntitiesSection/Entities/Ellipse';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import { point3d } from '../../../../src/Internals/Helpers';
+import Ellipse from 'EntitiesSection/Entities/Ellipse';
+import { Dxifier } from 'Internals/Dxifier';
+import { point3d } from 'Internals/Helpers';
 
 describe('Ellipse', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new Ellipse(
-			point3d(0, 0, 0),
-			point3d(100, 50, 0),
-			0.4243,
-			0,
-			2 * Math.PI,
-			{}
-		);
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbEllipse');
-	});
 
 	it('should return the center given.', () => {
 		const entity = new Ellipse(

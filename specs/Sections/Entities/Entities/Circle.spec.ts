@@ -1,17 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Helpers';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import Circle from '../../../../src/Sections/EntitiesSection/Entities/Circle';
+import { point3d } from 'Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import Circle from 'EntitiesSection/Entities/Circle';
 
 describe('Circle', () => {
 	const dataState = {
 		instancesCount: 0, // I increment this variable by 2 because we have 2 instantiations of Entity class (Arc and Point)
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new Circle(point3d(0, 0, 0), 120, {});
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbCircle');
-	});
 
 	it('should return the center given.', () => {
 		const entity = new Circle(point3d(10, 1250, 63.3), 120, {});

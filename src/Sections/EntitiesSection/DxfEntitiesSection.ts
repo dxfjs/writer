@@ -1,5 +1,5 @@
-import { Dxifier } from '../../Internals/Dxifier';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import { Dxifier } from 'Internals/Dxifier';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfBlock from '../BlocksSection/DxfBlock';
 
 export default class DxfEntitiesSection implements DxfInterface {

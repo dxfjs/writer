@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { point3d } from '../../../../src/Internals/Helpers';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import Arc from '../../../../src/Sections/EntitiesSection/Entities/Arc';
+import { point3d } from 'Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import Arc from 'EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {
 	const dataState = {
@@ -13,11 +13,6 @@ describe('Arc', () => {
 	beforeEach(() => {
 		entity = new Arc(point3d(10, 1250, 63.3), 120, 0, 120, {});
 		dataState.instancesCount++;
-	});
-	it('should return the subClassName given.', () => {
-		entity = new Arc(point3d(0, 0, 0), 120, 0, 120, {});
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbCircle');
 	});
 
 	it('should return the center given.', () => {

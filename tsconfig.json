@@ -12,7 +12,17 @@
 		"checkJs": true,
 		"types": [
 			"vitest/globals"
-		]
+		],
+		"paths": {
+			"src/*": ["./src/*"],
+			"Internals/*": ["./src/Internals/*"],
+			"BlocksSection/*": ["./src/Sections/BlocksSection/*"],
+			"ClassesSection/*": ["./src/Sections/ClassesSection/*"],
+			"EntitiesSection/*": ["./src/Sections/EntitiesSection/*"],
+			"HeaderSection/*": ["./src/Sections/HeaderSection/*"],
+			"ObjectsSection/*": ["./src/Sections/ObjectsSection/*"],
+			"TablesSection/*": ["./src/Sections/TablesSection/*"],
+		}
 	},
 	"exclude": [
 		"**/node_modules/**",

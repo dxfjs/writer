@@ -1,6 +1,6 @@
-import BoundingBox, { boundingBox_t } from '../../../Internals/BoundingBox';
-import { Dxifier } from '../../../Internals/Dxifier';
-import { point2d, vec2_t, point3d, vec3_t } from '../../../Internals/Helpers';
+import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { Dxifier } from 'Internals/Dxifier';
+import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
 
 export enum ImageDisplayFlags {

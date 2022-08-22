@@ -1,5 +1,5 @@
-import { Dxifier } from '../../Internals/Dxifier';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import { Dxifier } from 'Internals/Dxifier';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
 /**
  * This is the type for variable values.

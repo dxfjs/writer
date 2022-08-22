@@ -1,5 +1,5 @@
 import DxfObject from '../DxfObject';
-import { Dxifier } from '../../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 
 export type entryObject_t = {
 	name: string;

@@ -1,6 +1,6 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
-import { point3d, vec3_t } from '../../../../Internals/Helpers';
-import { deg2rad } from '../../../../Internals/Utils';
+import { Dxifier } from 'Internals/Dxifier';
+import { point3d, vec3_t } from 'Internals/Helpers';
+import { deg2rad } from 'Internals/Utils';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
 
 export interface LinearDimOptions extends DimensionOptions {

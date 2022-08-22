@@ -1,4 +1,4 @@
-import { lwPolylineOptions_t } from '../Sections/EntitiesSection/Entities/LWPolyline';
+import { lwPolylineOptions_t } from 'EntitiesSection/Entities/LWPolyline';
 
 export function bulge(fillet: number): number {
 	const length = Math.sqrt(Math.pow(fillet, 2) + Math.pow(fillet, 2));

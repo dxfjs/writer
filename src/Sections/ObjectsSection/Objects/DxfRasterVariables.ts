@@ -1,4 +1,4 @@
-import { Dxifier } from '../../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 import DxfObject from '../DxfObject';
 
 export default class DxfRasterVariables extends DxfObject {

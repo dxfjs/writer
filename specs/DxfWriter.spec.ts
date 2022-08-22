@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { LWPolylineFlags, lwPolylineVertex_t, point2d, point3d } from '../src';
-import { DxfWriter } from '../src/DxfWriter';
+import { DxfWriter } from 'src/DxfWriter';
 
 describe('DxfWriter class', () => {
 	it('should cover all code source', () => {

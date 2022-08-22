@@ -1,17 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Helpers';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import Line from '../../../../src/Sections/EntitiesSection/Entities/Line';
+import { point3d } from 'Internals/Helpers';
+import { Dxifier } from 'Internals/Dxifier';
+import Line from 'EntitiesSection/Entities/Line';
 
 describe('Line', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new Line(point3d(0, 0, 0), point3d(0, 0, 0), {});
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbLine');
-	});
 
 	it('should return the given points.', () => {
 		const entity = new Line(

@@ -1,6 +1,6 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
-import Handle from '../../../../Internals/Handle';
-import DxfInterface from '../../../../Internals/Interfaces/DxfInterface';
+import { Dxifier } from 'Internals/Dxifier';
+import Handle from 'Internals/Handle';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
 export enum DimStyleFlags {
 	None = 0,

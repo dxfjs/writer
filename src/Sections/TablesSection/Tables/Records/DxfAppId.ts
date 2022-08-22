@@ -1,4 +1,4 @@
-import { Dxifier } from '../../../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 import DxfRecord from './DxfRecord';
 
 export enum AppIdFlags {

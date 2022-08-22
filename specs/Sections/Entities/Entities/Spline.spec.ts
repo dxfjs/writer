@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { point3d } from '../../../../src/Internals/Helpers';
-import Spline from '../../../../src/Sections/EntitiesSection/Entities/Spline';
+import { point3d } from 'Internals/Helpers';
+import Spline from 'EntitiesSection/Entities/Spline';
 
 describe('Spline', () => {
 	const dataState = {
@@ -16,6 +16,6 @@ describe('Spline', () => {
 		];
 		const entity = new Spline({ controlPoints: points }, {});
 		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbSpline');
+		expect(entity.controlPoints.length).toBe(5);
 	});
 });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from '../../../src/Internals/Dxifier';
-import DxfVariable from '../../../src/Sections/HeaderSection/DxfVariable';
+import { Dxifier } from 'Internals/Dxifier';
+import DxfVariable from 'HeaderSection/DxfVariable';
 
 describe('DxfHeader class', () => {
 	const header = new DxfVariable('$ACADVER', { 1: 'AC1021' });

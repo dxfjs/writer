@@ -1,16 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from '../../../../src/Internals/Dxifier';
-import Point from '../../../../src/Sections/EntitiesSection/Entities/Point';
+import { Dxifier } from 'Internals/Dxifier';
+import Point from 'EntitiesSection/Entities/Point';
 
 describe('Point', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
-	it('should return the subClassName given.', () => {
-		const entity = new Point(0, 0, 0, {});
-		dataState.instancesCount++;
-		expect(entity.subclassMarker).toBe('AcDbPoint');
-	});
 
 	it('should the given parameters.', () => {
 		const entity = new Point(

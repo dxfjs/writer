@@ -1,8 +1,8 @@
 import DxfBlock from './DxfBlock';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import DxfTablesSection from '../TablesSection/DxfTablesSection';
-import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
-import { Dxifier } from '../../Internals/Dxifier';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import DxfTablesSection from 'TablesSection/DxfTablesSection';
+import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
+import { Dxifier } from 'Internals/Dxifier';
 
 export default class DxfBlocksSection implements DxfInterface {
 	readonly blocks: DxfBlock[] = [];

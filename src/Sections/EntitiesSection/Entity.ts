@@ -1,8 +1,8 @@
-import BoundingBox, { boundingBox_t } from '../../Internals/BoundingBox';
-import { Dxifier } from '../../Internals/Dxifier';
-import Handle from '../../Internals/Handle';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import { point3d } from '../../Internals/Helpers';
+import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { Dxifier } from 'Internals/Dxifier';
+import Handle from 'Internals/Handle';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import { point3d } from 'Internals/Helpers';
 
 export interface CommonEntityOptions {
 	trueColor?: string;

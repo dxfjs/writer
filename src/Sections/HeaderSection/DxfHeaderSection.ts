@@ -1,6 +1,6 @@
 import DxfVariable, { values_t } from './DxfVariable';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
-import { Dxifier } from '../../Internals/Dxifier';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import { Dxifier } from 'Internals/Dxifier';
 
 export default class DxfHeaderSection implements DxfInterface {
 	readonly variables: DxfVariable[] = [];

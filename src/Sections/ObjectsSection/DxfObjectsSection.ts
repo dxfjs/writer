@@ -1,9 +1,9 @@
 import DxfDictionary from './Objects/DxfDictionary';
 import DxfObject from './DxfObject';
-import DxfInterface from '../../Internals/Interfaces/DxfInterface';
+import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfImageDef from './Objects/DxfImageDef';
 import DxfImageDefReactor from './Objects/DxfImageDefReactor';
-import { Dxifier } from '../../Internals/Dxifier';
+import { Dxifier } from 'Internals/Dxifier';
 
 export default class DxfObjectsSection implements DxfInterface {
 	root: DxfDictionary = new DxfDictionary();
