@@ -32,8 +32,6 @@ describe('Entity', () => {
 		entity.layerName = 'l_green';
 		const dx = new Dxifier();
 		entity.dxify(dx);
-		expect(dx.stringify()).toBe(
-			`0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\nl_green\n100\nAcDbLine`
-		);
+		expect(dx.stringify()).toBe(`0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\nl_green\n100\nAcDbLine`);
 	});
 });

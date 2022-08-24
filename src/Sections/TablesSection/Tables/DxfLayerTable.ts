@@ -11,16 +11,9 @@ export default class DxfLayerTable extends DxfTable<DxfLayer> {
 		this.lTypeTable = lineTypeTable;
 	}
 
-	addLayer(
-		name: string,
-		color: number,
-		lineType: string,
-		flags?: LayerFlags
-	) {
-		if (this.exist(name))
-			throw new Error(`The ${name} Layer already exist!`);
-		if (!this.lTypeTable.exist(lineType))
-			throw new Error(`The ${name} LineType doesn't exist!`);
+	addLayer(name: string, color: number, lineType: string, flags?: LayerFlags) {
+		if (this.exist(name)) throw new Error(`The ${name} Layer already exist!`);
+		if (!this.lTypeTable.exist(lineType)) throw new Error(`The ${name} LineType doesn't exist!`);
 		const r = new DxfLayer(name, color, lineType, flags);
 		r.ownerObjectHandle = this.handle;
 		this.records.push(r);

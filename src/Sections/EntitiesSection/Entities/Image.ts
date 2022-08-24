@@ -75,13 +75,10 @@ export default class Image extends Entity {
 		this.imageDefHandle = imageArgs.imageDefHandle;
 		this.imageDisplayFlags =
 			options?.imageDisplayFlags ||
-			ImageDisplayFlags.ShowImage |
-				ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
-		this.clippingStateFlag =
-			options?.clippingStateFlag || ImageClippingStateFlag.On;
+			ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
+		this.clippingStateFlag = options?.clippingStateFlag || ImageClippingStateFlag.On;
 		this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside;
-		this.clippingType =
-			options?.clippingType || ImageClippingType.Rectangular;
+		this.clippingType = options?.clippingType || ImageClippingType.Rectangular;
 		this.brightness = options?.brightness || 50;
 		this.contrast = options?.brightness || 50;
 		this.fade = options?.fade || 0;
@@ -95,25 +92,18 @@ export default class Image extends Entity {
 	 * @param verticies - The clip boundary verticies.
 	 * @param clippingType - The clipping boundary type.
 	 */
-	setClipBoundaryVerticies(
-		verticies: vec2_t[],
-		clippingType: ImageClippingType
-	) {
+	setClipBoundaryVerticies(verticies: vec2_t[], clippingType: ImageClippingType) {
 		if (clippingType === ImageClippingType.Rectangular) {
 			if (verticies.length == 2) {
 				this.#clipBoundaryVertices = verticies;
 			} else {
-				throw new Error(
-					'The number of vertices should be 2 in rectangular clipping !'
-				);
+				throw new Error('The number of vertices should be 2 in rectangular clipping !');
 			}
 		} else {
 			if (verticies.length >= 3) {
 				this.#clipBoundaryVertices = verticies;
 			} else {
-				throw new Error(
-					'The number of vertices should be >= 3 in polygonal clipping !'
-				);
+				throw new Error('The number of vertices should be >= 3 in polygonal clipping !');
 			}
 		}
 		this.#clipBoundaryVertices = [];
@@ -121,10 +111,7 @@ export default class Image extends Entity {
 	}
 
 	resetClipping() {
-		const verticies = [
-			point2d(-0.5, -0.5),
-			point2d(this.width - 0.5, this.height - 0.5),
-		];
+		const verticies = [point2d(-0.5, -0.5), point2d(this.width - 0.5, this.height - 0.5)];
 		this.setClipBoundaryVerticies(verticies, ImageClippingType.Rectangular);
 	}
 

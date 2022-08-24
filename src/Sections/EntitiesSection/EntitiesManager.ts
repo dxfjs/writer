@@ -2,14 +2,10 @@ import Entity, { CommonEntityOptions } from './Entity';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
 import Line from './Entities/Line';
-import LWPolyline, {
-	LWPolylineFlags,
-	lwPolylineOptions_t,
-	lwPolylineVertex_t,
-} from './Entities/LWPolyline';
+import LWPolyline, { LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline';
 import { bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers';
 import { rectangleOptions_t } from 'Internals/Helpers';
-import Polyline, { polylineOptions_t } from './Entities/Polyline';
+import Polyline, { PolylineOptions, PolylineVertex } from './Entities/Polyline';
 import Point from './Entities/Point';
 import Circle from './Entities/Circle';
 import Spline, { SplineArgs_t } from './Entities/Spline';
@@ -25,25 +21,16 @@ import Hatch, {
 	HatchOptions_t,
 	HatchPatternOptions_t,
 } from './Entities/Hatch';
-import DxfObjectsSection from '../ObjectsSection/DxfObjectsSection';
+import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
 import Image, { ImageOptions_t } from './Entities/Image';
 import { Dxifier } from 'Internals/Dxifier';
-import {
-	AlignedDimension,
-	AlignedDimOptions,
-} from './Entities/Dimension/AlignedDimension';
-import {
-	DiameterDimension,
-	DiameterDimOptions,
-} from './Entities/Dimension/DiameterDimension';
-import {
-	RadialDimension,
-	RadialDimOptions,
-} from './Entities/Dimension/RadialDimension';
-import {
-	LinearDimension,
-	LinearDimOptions,
-} from './Entities/Dimension/LinearDimension';
+import { AlignedDimension, AlignedDimOptions } from './Entities/Dimension/AlignedDimension';
+import { DiameterDimension, DiameterDimOptions } from './Entities/Dimension/DiameterDimension';
+import { RadialDimension, RadialDimOptions } from './Entities/Dimension/RadialDimension';
+import { LinearDimension, LinearDimOptions } from './Entities/Dimension/LinearDimension';
+import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines';
+import { DimensionOptions } from './Entities/Dimension/Dimension';
+import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -83,11 +70,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new AlignedDimension(first, second, options));
 	}
 
-	addDiameterDim(
-		first: vec3_t,
-		second: vec3_t,
-		options?: DiameterDimOptions
-	) {
+	addDiameterDim(first: vec3_t, second: vec3_t, options?: DiameterDimOptions) {
 		return this.addEntity(new DiameterDimension(first, second, options));
 	}
 
@@ -99,24 +82,24 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new LinearDimension(first, second, options));
 	}
 
-	addLine(
-		startPoint: vec3_t,
-		endPoint: vec3_t,
-		options?: CommonEntityOptions
-	): Line {
+	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions) {
+		return this.addEntity(new AngularDimLines(first, second, location, options));
+	}
+	
+	addAngularPointsDim(center: vec3_t, first: vec3_t, second: vec3_t, options?: DimensionOptions) {
+		return this.addEntity(new AngularDimPoints(center, first, second, options));
+	}
+
+	addLine(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions): Line {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
-	addLWPolyline(points: lwPolylineVertex_t[], options?: lwPolylineOptions_t) {
+	addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions) {
 		return this.addEntity(new LWPolyline(points, options));
 	}
 
-	addRectangle(
-		topLeft: vec2_t,
-		bottomRight: vec2_t,
-		options?: rectangleOptions_t
-	) {
-		const vertices: lwPolylineVertex_t[] = [];
+	addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t) {
+		const vertices: LWPolylineVertex[] = [];
 		const tX = topLeft.x;
 		const tY = topLeft.y;
 		const bX = bottomRight.x;
@@ -200,37 +183,20 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return image;
 	}
 
-	addPolyline3D(points: (vec3_t | vec2_t)[], options?: polylineOptions_t) {
-		return this.addEntity(new Polyline(points, options));
+	addPolyline3D(vertices: PolylineVertex[], options?: PolylineOptions) {
+		return this.addEntity(new Polyline(vertices, options));
 	}
 
-	addPoint(
-		x: number,
-		y: number,
-		z: number,
-		options?: CommonEntityOptions
-	): Point {
+	addPoint(x: number, y: number, z: number, options?: CommonEntityOptions): Point {
 		return this.addEntity(new Point(x, y, z, options));
 	}
 
-	addCircle(
-		center: vec3_t,
-		radius: number,
-		options?: CommonEntityOptions
-	): Circle {
+	addCircle(center: vec3_t, radius: number, options?: CommonEntityOptions): Circle {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
-	addArc(
-		center: vec3_t,
-		radius: number,
-		startAngle: number,
-		endAngle: number,
-		options?: CommonEntityOptions
-	): Arc {
-		return this.addEntity(
-			new Arc(center, radius, startAngle, endAngle, options)
-		);
+	addArc(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions): Arc {
+		return this.addEntity(new Arc(center, radius, startAngle, endAngle, options));
 	}
 
 	addSpline(splineArgs: SplineArgs_t, options?: CommonEntityOptions): Spline {
@@ -264,42 +230,20 @@ export default abstract class EntitiesManager implements DxfInterface {
 		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	): Face {
-		return this.addEntity(
-			new Face(
-				firstCorner,
-				secondCorner,
-				thirdCorner,
-				fourthCorner,
-				options
-			)
-		);
+		return this.addEntity(new Face(firstCorner, secondCorner, thirdCorner, fourthCorner, options));
 	}
 
-	addText(
-		firstAlignementPoint: vec3_t,
-		height: number,
-		value: string,
-		options?: CommonEntityOptions
-	): Text {
-		return this.addEntity(
-			new Text(firstAlignementPoint, height, value, options)
-		);
+	addText(firstAlignementPoint: vec3_t, height: number, value: string, options?: CommonEntityOptions): Text {
+		return this.addEntity(new Text(firstAlignementPoint, height, value, options));
 	}
 
-	addInsert(
-		blockName: string,
-		insertionPoint: vec3_t,
-		options?: insertOptions_t
-	): Insert {
-		return this.addEntity(
-			new Insert(blockName, insertionPoint, options || {})
-		);
+	addInsert(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t): Insert {
+		return this.addEntity(new Insert(blockName, insertionPoint, options || {}));
 	}
 
 	boundingBox(): boundingBox_t {
 		const _bboxes = [];
-		for (let i = 0; i < this.entities.length; i++)
-			_bboxes.push(this.entities[i].boundingBox());
+		for (let i = 0; i < this.entities.length; i++) _bboxes.push(this.entities[i].boundingBox());
 		return BoundingBox.boundingBox(_bboxes);
 	}
 

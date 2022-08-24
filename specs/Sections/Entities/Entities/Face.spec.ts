@@ -9,13 +9,7 @@ describe('Face', () => {
 	};
 
 	it('should return the point given.', () => {
-		const entity = new Face(
-			point3d(0, 0, 50),
-			point3d(3, 0, 0),
-			point3d(0, 2, 0),
-			point3d(90, 0, 0),
-			{}
-		);
+		const entity = new Face(point3d(0, 0, 50), point3d(3, 0, 0), point3d(0, 2, 0), point3d(90, 0, 0), {});
 		dataState.instancesCount++;
 		expect(entity.firstCorner.x).toBe(0);
 		expect(entity.firstCorner.y).toBe(0);
@@ -35,13 +29,7 @@ describe('Face', () => {
 	});
 
 	it('should return the correct dxf string.', () => {
-		const entity = new Face(
-			point3d(0, 0, 50),
-			point3d(3, 0, 0),
-			point3d(0, 2, 0),
-			point3d(90, 0, 0),
-			{}
-		);
+		const entity = new Face(point3d(0, 0, 50), point3d(3, 0, 0), point3d(0, 2, 0), point3d(90, 0, 0), {});
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\n3DFACE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbFace\n`;

@@ -9,12 +9,7 @@ export default class Text extends Entity {
 	value: string;
 	textStyle: string;
 
-	constructor(
-		position: vec3_t,
-		height: number,
-		value: string,
-		options?: CommonEntityOptions
-	) {
+	constructor(position: vec3_t, height: number, value: string, options?: CommonEntityOptions) {
 		super('TEXT', 'AcDbText', options);
 		this.position = position;
 		this.height = height;

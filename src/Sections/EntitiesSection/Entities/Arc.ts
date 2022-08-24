@@ -9,13 +9,7 @@ export default class Arc extends Entity {
 	startAngle: number;
 	endAngle: number;
 
-	constructor(
-		center: vec3_t,
-		radius: number,
-		startAngle: number,
-		endAngle: number,
-		options?: CommonEntityOptions
-	) {
+	constructor(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions) {
 		super('ARC', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;

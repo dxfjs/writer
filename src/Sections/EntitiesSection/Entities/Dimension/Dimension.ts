@@ -64,8 +64,7 @@ export class Dimension extends Entity {
 		this.definitionPoint = options?.definitionPoint;
 		this.middlePoint = options?.middlePoint;
 		this.dimensionType = DimensionType.Default;
-		this.attachmentPoint =
-			options?.attachmentPoint || AttachmentPoint.MiddleCenter;
+		this.attachmentPoint = options?.attachmentPoint || AttachmentPoint.MiddleCenter;
 		this.textLineSpacingStyle = options?.textLineSpacingStyle;
 		this.textLineSpacingFactor = options?.textLineSpacingFactor;
 		this.ActualMeasurement = options?.ActualMeasurement;

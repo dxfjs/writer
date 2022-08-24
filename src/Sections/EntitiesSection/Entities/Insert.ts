@@ -22,11 +22,7 @@ export default class Insert extends Entity {
 	columnSpacing: number;
 	rowSpacing: number;
 
-	constructor(
-		blockName: string,
-		insertionPoint: vec3_t,
-		options?: insertOptions_t
-	) {
+	constructor(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t) {
 		super('INSERT', 'AcDbBlockReference', options);
 		this.blockName = blockName;
 		this.insertionPoint = insertionPoint;

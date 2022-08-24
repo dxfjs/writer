@@ -3,7 +3,7 @@ import Vertex, { VertexFlags } from './Vertex';
 import SeqEnd from './SeqEnd';
 import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
-import { vec2_t, point3d, vec3_t } from 'Internals/Helpers';
+import { point3d, vec3_t } from 'Internals/Helpers';
 
 export enum PolylineFlags {
 	None = 0,
@@ -24,7 +24,7 @@ export enum SurfaceType {
 	Bezier = 8,
 }
 
-export type polylineOptions_t = CommonEntityOptions & {
+export interface PolylineOptions extends CommonEntityOptions {
 	flags?: PolylineFlags;
 	elevation?: number;
 	thickness?: number;
@@ -35,15 +35,21 @@ export type polylineOptions_t = CommonEntityOptions & {
 	smoothSurfaceM?: number;
 	smoothSurfaceN?: number;
 	surfaceType?: SurfaceType;
-};
+}
+
+export interface PolylineVertex {
+	point: vec3_t;
+	startingWidth?: number;
+	endWidth?: number;
+	bulge?: number;
+}
 
 export default class Polyline extends Entity {
-	vertices: vec3_t[];
+	vertices: Vertex[];
 	elevation: number;
 	thickness: number;
 	flags: PolylineFlags;
-	vertexes: Vertex[] = [];
-	#seqEnd = new SeqEnd();
+	private _seqend = new SeqEnd();
 	defaultStartWidth: number;
 	defaultEndWidth: number;
 	polygonMeshM: number;
@@ -51,49 +57,34 @@ export default class Polyline extends Entity {
 	smoothSurfaceM: number;
 	smoothSurfaceN: number;
 	surfaceType: SurfaceType;
-	is3D: boolean;
 
-	public constructor(
-		vertices: (vec3_t | vec2_t)[],
-		options?: polylineOptions_t
-	) {
+	public constructor(vertices: PolylineVertex[], options?: PolylineOptions) {
 		super('POLYLINE', 'AcDb3dPolyline', options);
 		this.vertices = [];
-		this.is3D = false;
-		vertices.forEach((vertex) => {
-			if ('z' in vertex) {
-				this.is3D = true;
-				this.vertices.push(vertex);
-			} else
-				this.vertices.push({
-					...vertex,
-					z: 0,
-				});
-		});
-		this.subclassMarker = this.is3D ? 'AcDb3dPolyline' : 'AcDb2dPolyline';
-		this.thickness = options?.thickness || 0;
-		this.elevation = options?.elevation || 0;
-		this.flags = options?.flags || PolylineFlags.None;
-
-		this.defaultStartWidth = options?.defaultStartWidth || 0;
-		this.defaultEndWidth = options?.defaultEndWidth || 0;
-		this.polygonMeshM = options?.polygonMeshM || 0;
-		this.polygonMeshN = options?.polygonMeshN || 0;
-		this.smoothSurfaceM = options?.smoothSurfaceM || 0;
-		this.smoothSurfaceN = options?.smoothSurfaceN || 0;
-		this.surfaceType = options?.surfaceType || SurfaceType.NoSmooth;
-
-		this.vertices.forEach((point) => {
-			this.vertexes.push(
-				new Vertex(point, {
+		this.thickness = options?.thickness ?? 0;
+		this.elevation = options?.elevation ?? 0;
+		this.flags = options?.flags ?? PolylineFlags.None;
+		this.defaultStartWidth = options?.defaultStartWidth ?? 0;
+		this.defaultEndWidth = options?.defaultEndWidth ?? 0;
+		this.polygonMeshM = options?.polygonMeshM ?? 0;
+		this.polygonMeshN = options?.polygonMeshN ?? 0;
+		this.smoothSurfaceM = options?.smoothSurfaceM ?? 0;
+		this.smoothSurfaceN = options?.smoothSurfaceN ?? 0;
+		this.surfaceType = options?.surfaceType ?? SurfaceType.NoSmooth;
+		vertices.forEach((v) =>
+			this.vertices.push(
+				new Vertex(v.point, {
+					startingWidth: v.startingWidth,
+					endWidth: v.endWidth,
+					bulge: v.bulge,
 					flags: VertexFlags.Polyline3dVertex,
 				})
-			);
-		});
+			)
+		);
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox(this.vertices);
+		return BoundingBox.verticesBBox(this.vertices.map((v) => v.point));
 	}
 
 	override dxify(dx: Dxifier): void {
@@ -109,9 +100,7 @@ export default class Polyline extends Entity {
 		dx.push(73, this.smoothSurfaceM);
 		dx.push(74, this.smoothSurfaceN);
 		dx.push(75, this.surfaceType);
-		this.vertexes.forEach((vertex) => {
-			vertex.dxify(dx);
-		});
-		this.#seqEnd.dxify(dx);
+		this.vertices.forEach((vertex) => vertex.dxify(dx));
+		this._seqend.dxify(dx);
 	}
 }

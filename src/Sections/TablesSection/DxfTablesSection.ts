@@ -40,12 +40,7 @@ export default class DxfTablesSection implements DxfInterface {
 		this.blockRecordTable = new DxfBlockRecordTable();
 	}
 
-	addLType(
-		name: string,
-		descriptive: string,
-		elements: number[],
-		flags?: number
-	) {
+	addLType(name: string, descriptive: string, elements: number[], flags?: number) {
 		return this.ltypeTable.addLType(name, descriptive, elements, flags);
 	}
 
@@ -53,14 +48,8 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.blockRecordTable.addBlockRecord(name);
 	}
 
-	addLayer(
-		name: string,
-		color: number,
-		lineType: string,
-		flags?: LayerFlags
-	) {
-		if (this.ltypeTable.exist(lineType))
-			return this.layerTable.addLayer(name, color, lineType, flags);
+	addLayer(name: string, color: number, lineType: string, flags?: LayerFlags) {
+		if (this.ltypeTable.exist(lineType)) return this.layerTable.addLayer(name, color, lineType, flags);
 		throw new Error(`The lineType ${lineType} doesn't exist.`);
 	}
 

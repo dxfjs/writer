@@ -61,12 +61,9 @@ export default class DxfView extends DxfRecord {
 		this.isUCSAssociated = args.isUCSAssociated;
 		this.isCameraPlottable = args.isCameraPlottable || false;
 
-		args.backgroundObjectHandle &&
-			(this.backgroundObjectHandle = args.backgroundObjectHandle);
-		args.liveSectionObjectHandle &&
-			(this.liveSectionObjectHandle = args.liveSectionObjectHandle);
-		args.visualStyleObjectHandle &&
-			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
+		args.backgroundObjectHandle && (this.backgroundObjectHandle = args.backgroundObjectHandle);
+		args.liveSectionObjectHandle && (this.liveSectionObjectHandle = args.liveSectionObjectHandle);
+		args.visualStyleObjectHandle && (this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
 	override dxify(dx: Dxifier): void {

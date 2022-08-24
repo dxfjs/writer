@@ -43,11 +43,9 @@ export default class Spline extends Entity {
 		const edc = dc + 1; // Expected number fo control points.
 		const fpl = this.fitPoints.length;
 
-		if (cpl < edc)
-			throw new Error(`Number of control points should be >= ${edc}.`);
+		if (cpl < edc) throw new Error(`Number of control points should be >= ${edc}.`);
 
-		if (fpl !== 0 && fpl < 2)
-			throw new Error(`Number of fit points should be >= 2.`);
+		if (fpl !== 0 && fpl < 2) throw new Error(`Number of fit points should be >= 2.`);
 
 		const eknl = dc + cpl + 1; // Expected knots length.
 
@@ -69,10 +67,7 @@ export default class Spline extends Entity {
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox([
-			...this.controlPoints,
-			...this.fitPoints,
-		]);
+		return BoundingBox.verticesBBox([...this.controlPoints, ...this.fitPoints]);
 	}
 
 	override dxify(dx: Dxifier): void {

@@ -7,12 +7,7 @@ export default class DxfLType extends DxfRecord {
 	readonly elements: number[];
 	flags: number;
 
-	constructor(
-		name: string,
-		descriptive: string,
-		elements: number[],
-		flags?: number
-	) {
+	constructor(name: string, descriptive: string, elements: number[], flags?: number) {
 		super('LTYPE');
 		this.name = name;
 		this.descriptive = descriptive;

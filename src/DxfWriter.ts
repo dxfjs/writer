@@ -1,10 +1,6 @@
-import DxfDocument from './DxfDocument';
+import DxfDocument from 'DxfDocument';
 import { values_t } from 'HeaderSection/DxfVariable';
 import { CommonEntityOptions } from 'EntitiesSection/Entity';
-import {
-	lwPolylineOptions_t,
-	lwPolylineVertex_t,
-} from 'EntitiesSection/Entities/LWPolyline';
 import { vec2_t, vec3_t } from 'Internals/Helpers';
 import { rectangleOptions_t } from 'Internals/Helpers';
 import { insertOptions_t } from 'EntitiesSection/Entities/Insert';
@@ -17,13 +13,16 @@ import {
 	HatchPatternOptions_t,
 } from 'EntitiesSection/Entities/Hatch';
 import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
-import { polylineOptions_t } from 'EntitiesSection/Entities/Polyline';
 import { Units } from 'Internals/Enums';
 import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
 import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
 import { DiameterDimOptions } from 'EntitiesSection/Entities/Dimension/DiameterDimension';
 import { RadialDimOptions } from 'EntitiesSection/Entities/Dimension/RadialDimension';
 import { LinearDimOptions } from 'EntitiesSection/Entities/Dimension/LinearDimension';
+import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
+import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
+import { DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
+import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
 
 /**
  * The base class for creating the dxf content.
@@ -68,7 +67,7 @@ export class DxfWriter {
 	 * @param name - The block name.
 	 * @returns The added block.
 	 */
-	addBlock(name: string) {
+	public addBlock(name: string) {
 		return this.blocks.addBlock(name, this.document.objects);
 	}
 
@@ -117,11 +116,7 @@ export class DxfWriter {
 	 * @param options The options of the aligned dimension entity.
 	 * @returns
 	 */
-	public addAlignedDim(
-		first: vec3_t,
-		second: vec3_t,
-		options?: AlignedDimOptions
-	) {
+	public addAlignedDim(first: vec3_t, second: vec3_t, options?: AlignedDimOptions) {
 		return this.modelSpace.addAlignedDim(first, second, options);
 	}
 
@@ -132,11 +127,7 @@ export class DxfWriter {
 	 * @param options The options of the diameter dimension entity.
 	 * @returns
 	 */
-	public addDiameterDim(
-		first: vec3_t,
-		second: vec3_t,
-		options?: DiameterDimOptions
-	) {
+	public addDiameterDim(first: vec3_t, second: vec3_t, options?: DiameterDimOptions) {
 		return this.modelSpace.addDiameterDim(first, second, options);
 	}
 
@@ -147,28 +138,44 @@ export class DxfWriter {
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addRadialDim(
-		first: vec3_t,
-		second: vec3_t,
-		options?: RadialDimOptions
-	) {
+	public addRadialDim(first: vec3_t, second: vec3_t, options?: RadialDimOptions) {
 		return this.modelSpace.addRadialDim(first, second, options);
 	}
 
 	/**
-	 * Add an linear dimension entity to the dxf.
+	 * Add a linear dimension entity to the dxf.
 	 * @param first The first definition point for linear and angular dimensions.
 	 * @param second The second definition point for linear and angular dimensions.
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addLinearDim(
-		first: vec3_t,
-		second: vec3_t,
-		options?: LinearDimOptions
-	) {
+	public addLinearDim(first: vec3_t, second: vec3_t, options?: LinearDimOptions) {
 		return this.modelSpace.addLinearDim(first, second, options);
 	}
+
+	/**
+	 * Add an angular dimension entity to the dxf.
+	 * @param first The first extension line defined by a start and an end points.
+	 * @param second The second extension line defined by a start and an end points.
+	 * @param location The location of the dimension line arc.
+	 * @param options The options of the dimension.
+	 * @returns The added dimension entity.
+	 */
+	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions) {
+		return this.modelSpace.addAngularLinesDim(first, second, location, options);
+	}
+
+	/**
+	 * Add an angular dimension entity to the dxf.
+	 * @param center The vertex of the angle.
+	 * @param first The endpoint of the first extension line.
+	 * @param second The endpoint of the second extension line.
+	 * @param options The options of the dimension.
+	 * @returns The added dimension entity.
+	 */
+	/*addAngularPointsDim(center: vec3_t, first: vec3_t, second: vec3_t, options?: DimensionOptions) {
+		return this.modelSpace.addAngularPointsDim(center, first, second, options);
+	}*/
 
 	/**
 	 * Add a Hatch entity to the dxf.
@@ -195,12 +202,7 @@ export class DxfWriter {
 	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the the added layer.
 	 */
-	public addLayer(
-		name: string,
-		color: number,
-		lineType: string,
-		flags = LayerFlags.None
-	) {
+	public addLayer(name: string, color: number, lineType: string, flags = LayerFlags.None) {
 		return this.tables.addLayer(name, color, lineType, flags);
 	}
 
@@ -230,11 +232,7 @@ export class DxfWriter {
 	 * @param options - The options of the line entity.
 	 * @returns Return the added line.
 	 */
-	public addLine(
-		startPoint: vec3_t,
-		endPoint: vec3_t,
-		options?: CommonEntityOptions
-	) {
+	public addLine(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions) {
 		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
@@ -246,15 +244,12 @@ export class DxfWriter {
 	 * The Polyline entity can represent the Rectangle and the Polygon
 	 * just pass the array of points and LWPolylineFlags.Closed flag.
 	 *
-	 * @param points - An array of {@link lwPolylineVertex_t}.
+	 * @param points - An array of {@link LWPolylineVertex}.
 	 * @param options - The options of LWPolyline entity.
 	 *
 	 * @returns Return the the added lwpolyline.
 	 */
-	public addLWPolyline(
-		points: lwPolylineVertex_t[],
-		options?: lwPolylineOptions_t
-	) {
+	public addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions) {
 		return this.modelSpace.addLWPolyline(points, options);
 	}
 
@@ -268,31 +263,18 @@ export class DxfWriter {
 	 * @param options - The options to apply to the rectangle.
 	 * @returns Return the the added lwpolyline.
 	 */
-	public addRectangle(
-		topLeft: vec2_t,
-		bottomRight: vec2_t,
-		options?: rectangleOptions_t
-	) {
-		return this.modelSpace.addRectangle(
-			topLeft,
-			bottomRight,
-			options || {}
-		);
+	public addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t) {
+		return this.modelSpace.addRectangle(topLeft, bottomRight, options);
 	}
 
 	/**
 	 * Add a 3D Polyline entity to the dxf.
-	 *
-	 * @param points - An array of points.
+	 * @param vertices - An array of points.
 	 * @param options - The options to apply to the polyline.
-	 *
 	 * @returns Return the the added polyline.
 	 */
-	public addPolyline3D(
-		points: (vec3_t | vec2_t)[],
-		options?: polylineOptions_t
-	) {
-		return this.modelSpace.addPolyline3D(points, options);
+	public addPolyline3D(vertices: PolylineVertex[], options?: PolylineOptions) {
+		return this.modelSpace.addPolyline3D(vertices, options);
 	}
 
 	/**
@@ -304,12 +286,7 @@ export class DxfWriter {
 	 * @param options - The options to apply to the point.
 	 * @returns Return the the added point.
 	 */
-	public addPoint(
-		x: number,
-		y: number,
-		z: number,
-		options?: CommonEntityOptions
-	) {
+	public addPoint(x: number, y: number, z: number, options?: CommonEntityOptions) {
 		return this.modelSpace.addPoint(x, y, z, options);
 	}
 
@@ -321,11 +298,7 @@ export class DxfWriter {
 	 * @param options - The Circle entity options;
 	 * @returns Return the the added circle.
 	 */
-	public addCircle(
-		center: vec3_t,
-		radius: number,
-		options?: CommonEntityOptions
-	) {
+	public addCircle(center: vec3_t, radius: number, options?: CommonEntityOptions) {
 		return this.modelSpace.addCircle(center, radius, options);
 	}
 
@@ -340,20 +313,8 @@ export class DxfWriter {
 	 * @param options - Arc entity options.
 	 * @returns Return the the added arc.
 	 */
-	public addArc(
-		center: vec3_t,
-		radius: number,
-		startAngle: number,
-		endAngle: number,
-		options?: CommonEntityOptions
-	) {
-		return this.modelSpace.addArc(
-			center,
-			radius,
-			startAngle,
-			endAngle,
-			options
-		);
+	public addArc(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions) {
+		return this.modelSpace.addArc(center, radius, startAngle, endAngle, options);
 	}
 
 	/**
@@ -437,16 +398,7 @@ export class DxfWriter {
 		rotation: number,
 		options?: ImageOptions_t
 	) {
-		return this.modelSpace.addImage(
-			imagePath,
-			name,
-			insertionPoint,
-			width,
-			height,
-			scale,
-			rotation,
-			options
-		);
+		return this.modelSpace.addImage(imagePath, name, insertionPoint, width, height, scale, rotation, options);
 	}
 
 	/**
@@ -467,13 +419,7 @@ export class DxfWriter {
 		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	) {
-		return this.modelSpace.add3dFace(
-			firstCorner,
-			secondCorner,
-			thirdCorner,
-			fourthCorner,
-			options
-		);
+		return this.modelSpace.add3dFace(firstCorner, secondCorner, thirdCorner, fourthCorner, options);
 	}
 
 	/**
@@ -483,18 +429,8 @@ export class DxfWriter {
 	 * @param value - The default value (the string itself).
 	 * @returns Return the the added text.
 	 */
-	public addText(
-		firstAlignementPoint: vec3_t,
-		height: number,
-		value: string,
-		options?: CommonEntityOptions
-	) {
-		return this.modelSpace.addText(
-			firstAlignementPoint,
-			height,
-			value,
-			options
-		);
+	public addText(firstAlignementPoint: vec3_t, height: number, value: string, options?: CommonEntityOptions) {
+		return this.modelSpace.addText(firstAlignementPoint, height, value, options);
 	}
 
 	/**
@@ -505,11 +441,7 @@ export class DxfWriter {
 	 * @param options - The options of the Insert entity.
 	 * @returns Return the the added insert.
 	 */
-	public addInsert(
-		blockName: string,
-		insertionPoint: vec3_t,
-		options?: insertOptions_t
-	) {
+	public addInsert(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t) {
 		return this.modelSpace.addInsert(blockName, insertionPoint, options);
 	}
 

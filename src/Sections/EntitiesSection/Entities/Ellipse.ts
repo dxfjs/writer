@@ -33,8 +33,7 @@ export default class Ellipse extends Entity {
 		const yEndPointOfMajorAxis = this.endPointOfMajorAxis.y;
 
 		const bigRadius = Math.sqrt(
-			Math.pow(x - (x + xEndPointOfMajorAxis), 2) +
-				Math.pow(y - (y + yEndPointOfMajorAxis), 2)
+			Math.pow(x - (x + xEndPointOfMajorAxis), 2) + Math.pow(y - (y + yEndPointOfMajorAxis), 2)
 		);
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}

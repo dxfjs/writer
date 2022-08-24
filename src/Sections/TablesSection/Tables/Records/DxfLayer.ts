@@ -8,12 +8,7 @@ export default class DxfLayer extends DxfRecord {
 	flags: LayerFlags;
 	materialObject?: string;
 
-	constructor(
-		name: string,
-		color: number,
-		lineType: string,
-		flags?: LayerFlags
-	) {
+	constructor(name: string, color: number, lineType: string, flags?: LayerFlags) {
 		super('LAYER');
 
 		this.name = name;

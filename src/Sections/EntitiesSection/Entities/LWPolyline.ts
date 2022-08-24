@@ -9,28 +9,28 @@ export enum LWPolylineFlags {
 	Plinegen = 128,
 }
 
-export type lwPolylineOptions_t = CommonEntityOptions & {
+export interface LWPolylineOptions extends CommonEntityOptions {
 	flags?: LWPolylineFlags;
 	constantWidth?: number;
 	elevation?: number;
 	thickness?: number;
-};
+}
 
-export type lwPolylineVertex_t = {
+export interface LWPolylineVertex {
 	point: vec2_t;
 	startingWidth?: number;
 	endWidth?: number;
 	bulge?: number;
-};
+}
 
 export default class LWPolyline extends Entity {
-	vertices: lwPolylineVertex_t[];
+	vertices: LWPolylineVertex[];
 	flags: LWPolylineFlags;
 	constantWidth: number;
 	elevation: number;
 	thickness: number;
 
-	constructor(vertices: lwPolylineVertex_t[], options?: lwPolylineOptions_t) {
+	constructor(vertices: LWPolylineVertex[], options?: LWPolylineOptions) {
 		super('LWPOLYLINE', 'AcDbPolyline', options);
 		this.vertices = vertices;
 		this.flags = options?.flags || LWPolylineFlags.None;
@@ -40,11 +40,7 @@ export default class LWPolyline extends Entity {
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox(
-			this.vertices.map((vertex) =>
-				point3d(vertex.point.x, vertex.point.y, 0)
-			)
-		);
+		return BoundingBox.verticesBBox(this.vertices.map((vertex) => point3d(vertex.point.x, vertex.point.y, 0)));
 	}
 
 	override dxify(dx: Dxifier): void {
@@ -54,12 +50,7 @@ export default class LWPolyline extends Entity {
 
 		if (
 			!this.vertices.find((v) => {
-				return (
-					v.startingWidth &&
-					v.startingWidth > 0 &&
-					v.endWidth &&
-					v.endWidth > 0
-				);
+				return (v.startingWidth ?? 0) > 0 && (v.endWidth ?? 0) > 0;
 			})
 		) {
 			dx.push(43, this.constantWidth);

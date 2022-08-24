@@ -3,9 +3,7 @@ import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfRecord from './Tables/Records/DxfRecord';
 
-export default abstract class DxfTable<T extends DxfRecord>
-	implements DxfInterface
-{
+export default abstract class DxfTable<T extends DxfRecord> implements DxfInterface {
 	maxNumberEntries = 0;
 	readonly handle: string;
 	ownerObjectHandle: string;

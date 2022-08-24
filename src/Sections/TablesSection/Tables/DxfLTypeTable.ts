@@ -14,14 +14,8 @@ export default class DxfLTypeTable extends DxfTable<DxfLType> {
 		);
 	}
 
-	addLType(
-		name: string,
-		descriptive: string,
-		elements: number[],
-		flags?: number
-	) {
-		if (this.exist(name))
-			throw new Error(`The ${name} LType already exist!`);
+	addLType(name: string, descriptive: string, elements: number[], flags?: number) {
+		if (this.exist(name)) throw new Error(`The ${name} LType already exist!`);
 		const r = new DxfLType(name, descriptive, elements, flags);
 		r.ownerObjectHandle = this.handle;
 		this.records.push(r);

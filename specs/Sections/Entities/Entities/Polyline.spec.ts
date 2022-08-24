@@ -6,18 +6,15 @@ describe('Polyline3D', () => {
 	const dataState = {
 		instancesCount: 0,
 	};
+	it('should return the subClassName given.', () => {
+		const entity = new Polyline([point3d(0, 0, 0), point3d(120, 54, 45)]);
+		dataState.instancesCount++;
+		expect(entity.subclassMarker).toBe('AcDb3dPolyline');
+	});
 
 	it('should return the given parameters.', () => {
-		const entity = new Polyline([
-			point3d(121.326, 0.4152, 8787),
-			point3d(120, 5544, 45),
-		]);
-		dataState.instancesCount++;
-		expect(entity.flags).toBe(0);
-		expect(entity.vertices).toEqual([
-			point3d(121.326, 0.4152, 8787),
-			point3d(120, 5544, 45),
-		]);
+		const entity = new Polyline([{ point: point3d(121.326, 0.4152, 8787) }, { point: point3d(120, 5544, 45) }]);
+		expect(entity.vertices.length).toBe(2);
 	});
 
 	/*it('should return the correct dxf string.', function () {

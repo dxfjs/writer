@@ -2,6 +2,8 @@ import typescript from 'rollup-plugin-typescript2';
 import dts from 'rollup-plugin-dts';
 import { deleteAsync } from 'del';
 import json from '@rollup/plugin-json';
+import { readFileSync } from 'fs';
+const { compilerOptions } = JSON.parse(readFileSync(new URL('./tsconfig.json', import.meta.url)));
 
 function folderDelete(folders) {
 	return {
@@ -11,20 +13,6 @@ function folderDelete(folders) {
 		},
 	};
 }
-
-const tsconfigBuild = {
-	compilerOptions: {
-		declaration: true,
-		declarationDir: './lib',
-		moduleResolution: 'node',
-		esModuleInterop: true,
-		strict: true,
-		skipLibCheck: true,
-		noUnusedLocals: true,
-		types: ['vitest/globals'],
-	},
-	include: ['./src', './package.json'],
-};
 
 const esModule = {
 	file: 'lib/esm/index.js',
@@ -37,7 +25,6 @@ const commonJs = {
 };
 
 const typescriptOptions = {
-	tsconfigDefaults: tsconfigBuild,
 	useTsconfigDeclarationDir: true,
 };
 
@@ -54,6 +41,14 @@ export default [
 	{
 		input: './lib/src/index.d.ts',
 		output: [{ file: 'lib/index.d.ts', format: 'es' }],
-		plugins: [folderDelete(['./lib/src']), dts()],
+		plugins: [
+			folderDelete(['./lib/src']),
+			dts({
+				compilerOptions: {
+					baseUrl: './lib/src',
+					paths: compilerOptions.paths,
+				},
+			}),
+		],
 	},
 ];

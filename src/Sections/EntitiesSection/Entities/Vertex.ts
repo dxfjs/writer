@@ -4,6 +4,7 @@ import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
 export enum VertexFlags {
+	None = 0,
 	ExtraVertex = 1,
 	CurveFit = 2,
 	NotUsed = 4,
@@ -14,43 +15,39 @@ export enum VertexFlags {
 	PolyfaceMeshVertex = 128,
 }
 
-export type vertexOptions_t = CommonEntityOptions & {
-	is3d?: boolean;
-	flags?: number;
+export interface VertexOptions extends CommonEntityOptions {
+	flags?: VertexFlags;
 	startingWidth?: number;
 	endWidth?: number;
 	bulge?: number;
-};
+}
 
 export default class Vertex extends Entity {
-	vertex: vec3_t;
-	is3d: boolean;
-	flags: number;
+	point: vec3_t;
+	flags: VertexFlags;
 	startingWidth?: number;
 	endWidth?: number;
 	bulge?: number;
 
-	constructor(vertex: vec3_t, options?: vertexOptions_t) {
+	constructor(point: vec3_t, options?: VertexOptions) {
 		super('VERTEX', 'AcDbVertex', options);
-		this.vertex = vertex;
-		this.is3d = options?.is3d || true;
-		this.flags = options?.flags ?? VertexFlags.NotUsed;
+		this.point = point;
+		this.flags = options?.flags ?? VertexFlags.None;
 		if (options) {
-			if ('startingWidth' in options)
-				this.startingWidth = options.startingWidth;
+			if ('startingWidth' in options) this.startingWidth = options.startingWidth;
 			if ('endWidth' in options) this.endWidth = options.endWidth;
 			if ('bulge' in options) this.bulge = options.bulge;
 		}
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.pointBBox(this.vertex);
+		return BoundingBox.pointBBox(this.point);
 	}
 
 	override dxify(dx: Dxifier): void {
 		super.dxify(dx);
-		dx.subclassMarker(this.is3d ? 'AcDb3dPolylineVertex' : 'AcDb2dVertex');
-		dx.point3d(this.vertex);
+		dx.subclassMarker('AcDb3dPolylineVertex');
+		dx.point3d(this.point);
 		dx.push(40, this.startingWidth);
 		dx.push(41, this.endWidth);
 		dx.push(42, this.bulge);

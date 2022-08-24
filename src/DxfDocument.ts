@@ -46,12 +46,7 @@ export default class DxfDocument implements DxfInterface {
 		this.tables.addLType('ByBlock', '', []);
 		this.tables.addLType('ByLayer', '', []);
 		const ltc = this.tables.addLType('Continuous', 'Solid line', []);
-		const cl = this.tables.addLayer(
-			'0',
-			Colors.White,
-			ltc.name,
-			LayerFlags.None
-		);
+		const cl = this.tables.addLayer('0', Colors.White, ltc.name, LayerFlags.None);
 		this.currentLayerName = cl.name;
 		const styleStandard = this.tables.addStyle('Standard');
 		this.tables.addAppId('ACAD', AppIdFlags.None);
@@ -77,9 +72,7 @@ export default class DxfDocument implements DxfInterface {
 	}
 
 	setCurrentLayerName(name: string): void {
-		const layerRecord = this.tables.layerTable.records.find(
-			(layer) => layer.name === name
-		);
+		const layerRecord = this.tables.layerTable.records.find((layer) => layer.name === name);
 		if (layerRecord) {
 			this.currentLayerName = name;
 			this.entities.setLayerName(this.currentLayerName);

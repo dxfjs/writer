@@ -105,11 +105,7 @@ export type HatchPolylineVertex_t = {
 	bulge?: number;
 };
 
-export function vertex(
-	x: number,
-	y: number,
-	bulge?: number
-): HatchPolylineVertex_t {
+export function vertex(x: number, y: number, bulge?: number): HatchPolylineVertex_t {
 	if (bulge)
 		return {
 			x,
@@ -176,35 +172,21 @@ export class HatchBoundaryPaths implements DxfInterface {
 	}
 
 	addPolylineBoundary(polylineBoundary: HatchPolylineBoundary) {
-		if (
-			(this.pathTypeFlag & PathTypeFlag.Polyline) !==
-			PathTypeFlag.Polyline
-		)
+		if ((this.pathTypeFlag & PathTypeFlag.Polyline) !== PathTypeFlag.Polyline)
 			this.pathTypeFlag |= PathTypeFlag.Polyline;
 		this.polylineBoundaries.push(polylineBoundary);
 	}
 
 	private isPolyline() {
-		return (
-			this.polylineBoundaries &&
-			(this.pathTypeFlag & PathTypeFlag.Polyline) ===
-				PathTypeFlag.Polyline
-		);
+		return this.polylineBoundaries && (this.pathTypeFlag & PathTypeFlag.Polyline) === PathTypeFlag.Polyline;
 	}
 
 	private isEdges() {
-		return (
-			this.edgesTypeDatas &&
-			(this.pathTypeFlag & PathTypeFlag.Polyline) !==
-				PathTypeFlag.Polyline
-		);
+		return this.edgesTypeDatas && (this.pathTypeFlag & PathTypeFlag.Polyline) !== PathTypeFlag.Polyline;
 	}
 
 	addEdgesTypeData(edgesTypeData: HatchEdgesTypeData) {
-		if (
-			(this.pathTypeFlag & PathTypeFlag.Polyline) !==
-			PathTypeFlag.Polyline
-		)
+		if ((this.pathTypeFlag & PathTypeFlag.Polyline) !== PathTypeFlag.Polyline)
 			this.pathTypeFlag ^= PathTypeFlag.Polyline;
 		this.edgesTypeDatas.push(edgesTypeData);
 	}
@@ -249,13 +231,7 @@ export class HatchArcEdgeData implements DxfInterface {
 	endAngle: number;
 	isCounterClockwise: boolean;
 
-	constructor(
-		center: vec2_t,
-		raduis: number,
-		startAngle: number,
-		endAngle: number,
-		isCounterClockwise: boolean
-	) {
+	constructor(center: vec2_t, raduis: number, startAngle: number, endAngle: number, isCounterClockwise: boolean) {
 		this.center = center;
 		this.raduis = raduis;
 		this.startAngle = startAngle;
@@ -281,22 +257,8 @@ export class HatchEdgesTypeData implements DxfInterface {
 		this.edgesData.push(new HatchLineEdgeData(start, end));
 	}
 
-	addArcEdgeData(
-		center: vec2_t,
-		raduis: number,
-		startAngle: number,
-		endAngle: number,
-		isCounterClockwise: boolean
-	) {
-		this.edgesData.push(
-			new HatchArcEdgeData(
-				center,
-				raduis,
-				startAngle,
-				endAngle,
-				isCounterClockwise
-			)
-		);
+	addArcEdgeData(center: vec2_t, raduis: number, startAngle: number, endAngle: number, isCounterClockwise: boolean) {
+		this.edgesData.push(new HatchArcEdgeData(center, raduis, startAngle, endAngle, isCounterClockwise));
 	}
 
 	dxify(dx: Dxifier) {
@@ -420,9 +382,7 @@ export default class Hatch extends Entity {
 		dx.push(470, type);
 	}
 
-	private isPattern(
-		fill: HatchPatternOptions_t | HatchGradientOptions_t
-	): fill is HatchPatternOptions_t {
+	private isPattern(fill: HatchPatternOptions_t | HatchGradientOptions_t): fill is HatchPatternOptions_t {
 		return Object.prototype.hasOwnProperty.call(fill, 'name');
 	}
 
@@ -436,17 +396,8 @@ export default class Hatch extends Entity {
 		dx.push(210, this.extrusion.x);
 		dx.push(220, this.extrusion.y);
 		dx.push(230, this.extrusion.z);
-		dx.name(
-			this.isPattern(this.fill)
-				? this.fill.name
-				: HatchPredefinedPatterns.SOLID
-		);
-		dx.push(
-			70,
-			this.isPattern(this.fill)
-				? SolidFillFlag.PatternFill
-				: SolidFillFlag.SolidFill
-		);
+		dx.name(this.isPattern(this.fill) ? this.fill.name : HatchPredefinedPatterns.SOLID);
+		dx.push(70, this.isPattern(this.fill) ? SolidFillFlag.PatternFill : SolidFillFlag.SolidFill);
 		dx.push(71, AssociativityFlag.NonAssociative);
 		dx.push(91, this.boundaryPath.length);
 		this.boundaryPath.dxify(dx);

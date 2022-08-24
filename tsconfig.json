@@ -1,8 +1,11 @@
 {
 	"compilerOptions": {
+		"baseUrl": "src",
 		"module": "ESNext",
 		"target": "ES2015",
 		"moduleResolution": "node",
+		"declaration": true,
+		"declarationDir": "./lib",
 		"esModuleInterop": true,
 		"strict": true,
 		"skipLibCheck": true,
@@ -10,18 +13,17 @@
 		"noImplicitOverride": true,
 		"resolveJsonModule": true,
 		"checkJs": true,
-		"types": [
-			"vitest/globals"
-		],
+		"types": ["vitest/globals"],
 		"paths": {
-			"src/*": ["./src/*"],
-			"Internals/*": ["./src/Internals/*"],
-			"BlocksSection/*": ["./src/Sections/BlocksSection/*"],
-			"ClassesSection/*": ["./src/Sections/ClassesSection/*"],
-			"EntitiesSection/*": ["./src/Sections/EntitiesSection/*"],
-			"HeaderSection/*": ["./src/Sections/HeaderSection/*"],
-			"ObjectsSection/*": ["./src/Sections/ObjectsSection/*"],
-			"TablesSection/*": ["./src/Sections/TablesSection/*"],
+			"DxfWriter": ["DxfWriter"],
+			"DxfDocument": ["DxfDocument"],
+			"Internals/*": ["Internals/*"],
+			"BlocksSection/*": ["Sections/BlocksSection/*"],
+			"ClassesSection/*": ["Sections/ClassesSection/*"],
+			"EntitiesSection/*": ["Sections/EntitiesSection/*"],
+			"HeaderSection/*": ["Sections/HeaderSection/*"],
+			"ObjectsSection/*": ["Sections/ObjectsSection/*"],
+			"TablesSection/*": ["Sections/TablesSection/*"]
 		}
 	},
 	"exclude": [
@@ -31,5 +33,6 @@
 		"**/coverage/**",
 		"**/examples/**",
 		"./rollup.config.mjs"
-	]
+	],
+	"include": ["./src", "./package.json"]
 }

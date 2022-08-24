@@ -32,11 +32,7 @@ export default abstract class Entity implements DxfInterface {
 	 * @param subclassMarker - The subclass marker of the entity.
 	 * @param options - The common options of all entities.
 	 */
-	public constructor(
-		type: string,
-		subclassMarker?: string,
-		options?: CommonEntityOptions
-	) {
+	public constructor(type: string, subclassMarker?: string, options?: CommonEntityOptions) {
 		this.type = type;
 		this.subclassMarker = subclassMarker;
 		this.layerName = options?.layerName || '0';

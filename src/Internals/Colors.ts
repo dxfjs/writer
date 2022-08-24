@@ -1,8 +1,4 @@
-const acicolors: [
-	[string, string, string],
-	number,
-	[string, string, string]
-][] = [
+const acicolors: [[string, string, string], number, [string, string, string]][] = [
 	[['0', '0', '0'], 0, ['0', '0', '0']],
 	[['FF', '0', '0'], 1, ['255', '0', '0']],
 	[['FF', 'FF', '0'], 2, ['255', '255', '0']],

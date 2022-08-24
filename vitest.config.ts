@@ -9,7 +9,8 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			src: r('./src'),
+			DxfWriter: r('./src/DxfWriter'),
+			DxfDocument: r('./src/DxfDocument'),
 			Internals: r('./src/Internals/'),
 			BlocksSection: r('./src/Sections/BlocksSection/'),
 			ClassesSection: r('./src/Sections/ClassesSection/'),

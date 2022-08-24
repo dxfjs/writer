@@ -7,11 +7,7 @@ export default class Line extends Entity {
 	startPoint: vec3_t;
 	endPoint: vec3_t;
 
-	constructor(
-		startPoint: vec3_t,
-		endPoint: vec3_t,
-		options?: CommonEntityOptions
-	) {
+	constructor(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions) {
 		super('LINE', 'AcDbLine', options);
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;

@@ -34,8 +34,7 @@ export default class Face extends Entity {
 		this.secondCorner = secondCorner;
 		this.thirdCorner = thirdCorner;
 		this.fourthCorner = fourthCorner;
-		this.invisibleEdges =
-			options?.invisibleEdges || InvisibleEdgeFlags.None;
+		this.invisibleEdges = options?.invisibleEdges || InvisibleEdgeFlags.None;
 	}
 
 	setFirstEdgeVisible(visible: boolean): void {
@@ -69,18 +68,12 @@ export default class Face extends Entity {
 		if (visible) {
 			this.invisibleEdges |= flag;
 		} else {
-			if (this.invisibleEdges === (this.invisibleEdges | flag))
-				this.invisibleEdges ^= flag;
+			if (this.invisibleEdges === (this.invisibleEdges | flag)) this.invisibleEdges ^= flag;
 		}
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox([
-			this.firstCorner,
-			this.secondCorner,
-			this.thirdCorner,
-			this.fourthCorner,
-		]);
+		return BoundingBox.verticesBBox([this.firstCorner, this.secondCorner, this.thirdCorner, this.fourthCorner]);
 	}
 
 	override dxify(dx: Dxifier): void {

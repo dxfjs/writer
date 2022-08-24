@@ -9,14 +9,7 @@ describe('Ellipse', () => {
 	};
 
 	it('should return the center given.', () => {
-		const entity = new Ellipse(
-			point3d(10, 1250, 63.3),
-			point3d(100, 50, 0),
-			0.4243,
-			0,
-			2 * Math.PI,
-			{}
-		);
+		const entity = new Ellipse(point3d(10, 1250, 63.3), point3d(100, 50, 0), 0.4243, 0, 2 * Math.PI, {});
 		dataState.instancesCount++;
 		expect(entity.center.x).toBe(10);
 		expect(entity.center.y).toBe(1250);
@@ -24,14 +17,7 @@ describe('Ellipse', () => {
 	});
 
 	it('should return the given parameters', () => {
-		const entity = new Ellipse(
-			point3d(10, 1250, 63.3),
-			point3d(100, 50, 0),
-			0.4243,
-			0,
-			2 * Math.PI,
-			{}
-		);
+		const entity = new Ellipse(point3d(10, 1250, 63.3), point3d(100, 50, 0), 0.4243, 0, 2 * Math.PI, {});
 		dataState.instancesCount++;
 		expect(entity.endPointOfMajorAxis.x).toBe(100);
 		expect(entity.endPointOfMajorAxis.y).toBe(50);
@@ -41,14 +27,7 @@ describe('Ellipse', () => {
 	});
 
 	it('should return the correct dxf string.', () => {
-		const entity = new Ellipse(
-			point3d(10, 1250, 63.3),
-			point3d(100, 50, 0),
-			0.4243,
-			0,
-			2 * Math.PI,
-			{}
-		);
+		const entity = new Ellipse(point3d(10, 1250, 63.3), point3d(100, 50, 0), 0.4243, 0, 2 * Math.PI, {});
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\nELLIPSE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbEllipse\n`;

@@ -8,12 +8,7 @@ export default class Point extends Entity {
 	y: number;
 	z: number;
 
-	constructor(
-		x: number,
-		y: number,
-		z: number,
-		options?: CommonEntityOptions
-	) {
+	constructor(x: number, y: number, z: number, options?: CommonEntityOptions) {
 		super('POINT', 'AcDbPoint', options);
 		this.x = x;
 		this.y = y;

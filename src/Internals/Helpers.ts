@@ -1,12 +1,11 @@
-import { lwPolylineOptions_t } from 'EntitiesSection/Entities/LWPolyline';
+import { LWPolylineOptions } from '..';
 
 export function bulge(fillet: number): number {
 	const length = Math.sqrt(Math.pow(fillet, 2) + Math.pow(fillet, 2));
 	const b = length / 2;
 	const d = Math.sqrt(Math.pow(fillet, 2) - Math.pow(b, 2));
 	const height = fillet - d;
-	const bulge = -height / b;
-	return bulge;
+	return -height / b;
 }
 
 export type chamfer_t = {
@@ -14,7 +13,7 @@ export type chamfer_t = {
 	second?: number;
 };
 
-export type rectangleOptions_t = lwPolylineOptions_t & {
+export type rectangleOptions_t = LWPolylineOptions & {
 	chamfer?: chamfer_t;
 	fillet?: number;
 };
@@ -36,10 +35,21 @@ export type vec2_t = {
 	y: number;
 };
 
-export function point3d(x: number, y: number, z: number): vec3_t {
-	return { x, y, z };
+/**
+ * @param x The X coordinate of the point.
+ * @param y The Y coordinate of the point.
+ * @param z The Z coordinate of the point. By default 0.
+ * @returns The vec3_t point.
+ */
+export function point3d(x: number, y: number, z?: number): vec3_t {
+	return { x, y, z: z ?? 0 };
 }
 
+/**
+ * @param x The X coordinate of the point.
+ * @param y The Y coordinate of the point.
+ * @returns The vec2_t point.
+ */
 export function point2d(x: number, y: number): vec2_t {
 	return { x, y };
 }
