@@ -53,3 +53,11 @@ export function point3d(x: number, y: number, z?: number): vec3_t {
 export function point2d(x: number, y: number): vec2_t {
 	return { x, y };
 }
+
+export function rad2deg(v: number) {
+	return (v * 180) / Math.PI;
+}
+
+export function deg2rad(v: number) {
+	return (v * Math.PI) / 180;
+}
