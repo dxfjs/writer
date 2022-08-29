@@ -1,28 +1,21 @@
 import Entity, { CommonEntityOptions } from './Entity';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
-import Line from './Entities/Line';
-import LWPolyline, { LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
+import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline';
 import { bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers';
 import { rectangleOptions_t } from 'Internals/Helpers';
-import Polyline, { PolylineOptions, PolylineVertex } from './Entities/Polyline';
-import Point from './Entities/Point';
-import Circle from './Entities/Circle';
-import Spline, { SplineArgs_t } from './Entities/Spline';
-import Ellipse from './Entities/Ellipse';
-import Face, { faceOptions_t } from './Entities/Face';
-import Text from './Entities/Text';
-import Arc from './Entities/Arc';
+import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline';
 import Handle from 'Internals/Handle';
-import Insert, { insertOptions_t } from './Entities/Insert';
-import Hatch, {
+import { Insert, insertOptions_t } from './Entities/Insert';
+import {
+	Hatch,
 	HatchBoundaryPaths,
 	HatchGradientOptions_t,
 	HatchOptions_t,
 	HatchPatternOptions_t,
 } from './Entities/Hatch';
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
-import Image, { ImageOptions_t } from './Entities/Image';
+import { Image, ImageOptions_t } from './Entities/Image';
 import { Dxifier } from 'Internals/Dxifier';
 import { AlignedDimension, AlignedDimOptions } from './Entities/Dimension/AlignedDimension';
 import { DiameterDimension, DiameterDimOptions } from './Entities/Dimension/DiameterDimension';
@@ -31,6 +24,14 @@ import { LinearDimension, LinearDimOptions } from './Entities/Dimension/LinearDi
 import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from './Entities/Dimension/Dimension';
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints';
+import { Line } from './Entities/Line';
+import { Point } from './Entities/Point';
+import { Circle } from './Entities/Circle';
+import { Arc } from './Entities/Arc';
+import { Spline, SplineArgs_t } from './Entities/Spline';
+import { Ellipse } from './Entities/Ellipse';
+import { Face, faceOptions_t } from './Entities/Face';
+import { Text } from './Entities/Text';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -82,11 +83,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new LinearDimension(first, second, options));
 	}
 
-	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions) {
+	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions): AngularDimLines {
 		return this.addEntity(new AngularDimLines(first, second, location, options));
 	}
-	
-	addAngularPointsDim(center: vec3_t, first: vec3_t, second: vec3_t, options?: DimensionOptions) {
+
+	addAngularPointsDim(center: vec3_t, first: vec3_t, second: vec3_t, options?: DimensionOptions): AngularDimPoints {
 		return this.addEntity(new AngularDimPoints(center, first, second, options));
 	}
 
@@ -94,11 +95,11 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Line(startPoint, endPoint, options));
 	}
 
-	addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions) {
+	addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions): LWPolyline {
 		return this.addEntity(new LWPolyline(points, options));
 	}
 
-	addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t) {
+	addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t): LWPolyline {
 		const vertices: LWPolylineVertex[] = [];
 		const tX = topLeft.x;
 		const tY = topLeft.y;
@@ -183,7 +184,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return image;
 	}
 
-	addPolyline3D(vertices: PolylineVertex[], options?: PolylineOptions) {
+	addPolyline3D(vertices: PolylineVertex[], options?: PolylineOptions): Polyline {
 		return this.addEntity(new Polyline(vertices, options));
 	}
 

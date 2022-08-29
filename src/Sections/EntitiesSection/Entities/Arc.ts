@@ -1,10 +1,10 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import { deg2rad } from 'Internals/Utils';
 
-export default class Arc extends Entity {
+export class Arc extends Entity {
 	center: vec3_t;
 	radius: number;
 	startAngle: number;

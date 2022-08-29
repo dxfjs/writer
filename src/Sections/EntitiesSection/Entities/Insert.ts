@@ -1,4 +1,4 @@
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
@@ -12,7 +12,7 @@ export interface insertOptions_t extends CommonEntityOptions {
 	rowSpacing?: number;
 }
 
-export default class Insert extends Entity {
+export class Insert extends Entity {
 	blockName: string;
 	insertionPoint: vec3_t;
 	scaleFactor: Partial<vec3_t>;

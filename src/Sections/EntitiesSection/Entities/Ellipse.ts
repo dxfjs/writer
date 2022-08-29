@@ -1,9 +1,9 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
-export default class Ellipse extends Entity {
+export class Ellipse extends Entity {
 	center: vec3_t;
 	endPointOfMajorAxis: vec3_t;
 	ratioOfMinorAxisToMajorAxis: number;

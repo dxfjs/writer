@@ -1,4 +1,4 @@
-import DxfDocument from 'DxfDocument';
+import { DxfDocument } from 'DxfDocument';
 import { values_t } from 'HeaderSection/DxfVariable';
 import { CommonEntityOptions } from 'EntitiesSection/Entity';
 import { vec2_t, vec3_t } from 'Internals/Helpers';
@@ -7,6 +7,7 @@ import { insertOptions_t } from 'EntitiesSection/Entities/Insert';
 import { SplineArgs_t } from 'EntitiesSection/Entities/Spline';
 import { faceOptions_t } from 'EntitiesSection/Entities/Face';
 import {
+	Hatch,
 	HatchBoundaryPaths,
 	HatchGradientOptions_t,
 	HatchOptions_t,
@@ -16,13 +17,14 @@ import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
 import { Units } from 'Internals/Enums';
 import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
 import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
-import { DiameterDimOptions } from 'EntitiesSection/Entities/Dimension/DiameterDimension';
-import { RadialDimOptions } from 'EntitiesSection/Entities/Dimension/RadialDimension';
-import { LinearDimOptions } from 'EntitiesSection/Entities/Dimension/LinearDimension';
+import { DiameterDimension, DiameterDimOptions } from 'EntitiesSection/Entities/Dimension/DiameterDimension';
+import { RadialDimension, RadialDimOptions } from 'EntitiesSection/Entities/Dimension/RadialDimension';
+import { LinearDimension, LinearDimOptions } from 'EntitiesSection/Entities/Dimension/LinearDimension';
 import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
 import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
-import { DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
+import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
+import DxfLayer from 'TablesSection/Tables/Records/DxfLayer';
 
 /**
  * The base class for creating the dxf content.
@@ -127,7 +129,7 @@ export class DxfWriter {
 	 * @param options The options of the diameter dimension entity.
 	 * @returns
 	 */
-	public addDiameterDim(first: vec3_t, second: vec3_t, options?: DiameterDimOptions) {
+	public addDiameterDim(first: vec3_t, second: vec3_t, options?: DiameterDimOptions): DiameterDimension {
 		return this.modelSpace.addDiameterDim(first, second, options);
 	}
 
@@ -138,7 +140,7 @@ export class DxfWriter {
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addRadialDim(first: vec3_t, second: vec3_t, options?: RadialDimOptions) {
+	public addRadialDim(first: vec3_t, second: vec3_t, options?: RadialDimOptions): RadialDimension {
 		return this.modelSpace.addRadialDim(first, second, options);
 	}
 
@@ -149,7 +151,7 @@ export class DxfWriter {
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addLinearDim(first: vec3_t, second: vec3_t, options?: LinearDimOptions) {
+	public addLinearDim(first: vec3_t, second: vec3_t, options?: LinearDimOptions): LinearDimension {
 		return this.modelSpace.addLinearDim(first, second, options);
 	}
 
@@ -161,7 +163,7 @@ export class DxfWriter {
 	 * @param options The options of the dimension.
 	 * @returns The added dimension entity.
 	 */
-	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions) {
+	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions): AngularDimLines {
 		return this.modelSpace.addAngularLinesDim(first, second, location, options);
 	}
 
@@ -189,7 +191,7 @@ export class DxfWriter {
 		boundaryPath: HatchBoundaryPaths,
 		fill: HatchPatternOptions_t | HatchGradientOptions_t,
 		options?: HatchOptions_t
-	) {
+	): Hatch {
 		return this.modelSpace.addHatch(boundaryPath, fill, options);
 	}
 
@@ -202,7 +204,7 @@ export class DxfWriter {
 	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the the added layer.
 	 */
-	public addLayer(name: string, color: number, lineType: string, flags = LayerFlags.None) {
+	public addLayer(name: string, color: number, lineType: string, flags = LayerFlags.None): DxfLayer {
 		return this.tables.addLayer(name, color, lineType, flags);
 	}
 

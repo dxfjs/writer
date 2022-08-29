@@ -1,4 +1,4 @@
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
@@ -45,7 +45,7 @@ export type ImageOptions_t = CommonEntityOptions & {
 	classVersion?: number;
 };
 
-export default class Image extends Entity {
+export class Image extends Entity {
 	width: number;
 	height: number;
 	scale: number;

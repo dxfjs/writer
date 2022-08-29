@@ -1,5 +1,5 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
@@ -22,7 +22,7 @@ export interface VertexOptions extends CommonEntityOptions {
 	bulge?: number;
 }
 
-export default class Vertex extends Entity {
+export class Vertex extends Entity {
 	point: vec3_t;
 	flags: VertexFlags;
 	startingWidth?: number;

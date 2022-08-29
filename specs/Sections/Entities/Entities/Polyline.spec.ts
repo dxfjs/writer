@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { point3d } from 'Internals/Helpers';
-import Polyline from 'EntitiesSection/Entities/Polyline';
+import { Polyline } from 'EntitiesSection/Entities/Polyline';
 
 describe('Polyline3D', () => {
 	const dataState = {

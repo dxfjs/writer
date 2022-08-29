@@ -1,9 +1,9 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { point3d } from 'Internals/Helpers';
 
-export default class Point extends Entity {
+export class Point extends Entity {
 	x: number;
 	y: number;
 	z: number;

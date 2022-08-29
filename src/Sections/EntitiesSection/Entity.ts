@@ -1,4 +1,4 @@
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';

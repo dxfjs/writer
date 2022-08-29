@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import Handle from '../../src/Internals/Handle';
+import Handle from 'Internals/Handle';
 
 describe('Handle class', () => {
 	it('The peek() should return "1"', () => {

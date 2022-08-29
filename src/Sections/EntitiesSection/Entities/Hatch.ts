@@ -1,4 +1,4 @@
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { aciHex } from 'Internals/Colors';
 import { Dxifier } from 'Internals/Dxifier';
 import PredefinedHatchPatterns from 'Internals/HatchPatterns';
@@ -325,7 +325,7 @@ export function pattern(fill: HatchPatternOptions_t) {
 	return fill;
 }
 
-export default class Hatch extends Entity {
+export class Hatch extends Entity {
 	fill: HatchPatternOptions_t | HatchGradientOptions_t;
 	elevation: number;
 	extrusion: vec3_t;

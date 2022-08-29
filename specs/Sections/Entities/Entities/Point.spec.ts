@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Dxifier } from 'Internals/Dxifier';
-import Point from 'EntitiesSection/Entities/Point';
+import { Point } from 'EntitiesSection/Entities/Point';
 
 describe('Point', () => {
 	const dataState = {

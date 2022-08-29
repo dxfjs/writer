@@ -1,9 +1,9 @@
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
 
-export default class Text extends Entity {
+export class Text extends Entity {
 	position: vec3_t;
 	height: number;
 	value: string;

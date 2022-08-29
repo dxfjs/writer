@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import Ellipse from 'EntitiesSection/Entities/Ellipse';
+import { Ellipse } from 'EntitiesSection/Entities/Ellipse';
 import { Dxifier } from 'Internals/Dxifier';
 import { point3d } from 'Internals/Helpers';
 

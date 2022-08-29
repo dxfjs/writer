@@ -1,5 +1,5 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec2_t, point3d } from 'Internals/Helpers';
 
@@ -23,7 +23,7 @@ export interface LWPolylineVertex {
 	bulge?: number;
 }
 
-export default class LWPolyline extends Entity {
+export class LWPolyline extends Entity {
 	vertices: LWPolylineVertex[];
 	flags: LWPolylineFlags;
 	constantWidth: number;

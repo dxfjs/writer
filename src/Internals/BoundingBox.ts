@@ -12,7 +12,7 @@ export const createBoundingBox = (tl: vec3_t, br: vec3_t): boundingBox_t => {
 	};
 };
 
-export default class BoundingBox {
+export class BoundingBox {
 	static centerRadiusBBox(center: vec3_t, radius: number) {
 		return createBoundingBox(
 			point3d(center.x - radius, center.y + radius, 0),

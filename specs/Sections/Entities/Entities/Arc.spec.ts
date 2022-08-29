@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { point3d } from 'Internals/Helpers';
 import { Dxifier } from 'Internals/Dxifier';
-import Arc from 'EntitiesSection/Entities/Arc';
+import { Arc } from 'EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {
 	const dataState = {

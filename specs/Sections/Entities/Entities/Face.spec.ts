@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { point3d } from 'Internals/Helpers';
 import { Dxifier } from 'Internals/Dxifier';
-import Face from 'EntitiesSection/Entities/Face';
+import { Face } from 'EntitiesSection/Entities/Face';
 
 describe('Face', () => {
 	const dataState = {

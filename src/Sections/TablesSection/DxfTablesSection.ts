@@ -16,6 +16,7 @@ import DxfDimStyle, { DimStyleFlags } from './Tables/Records/DxfDimStyle';
 import DxfVPort from './Tables/Records/DxfVPort';
 import { LayerFlags } from './Tables/Records/DxfRecord';
 import { Dxifier } from 'Internals/Dxifier';
+import DxfLayer from './Tables/Records/DxfLayer';
 
 export default class DxfTablesSection implements DxfInterface {
 	readonly vPortTable: DxfVPortTable;
@@ -48,7 +49,7 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.blockRecordTable.addBlockRecord(name);
 	}
 
-	addLayer(name: string, color: number, lineType: string, flags?: LayerFlags) {
+	addLayer(name: string, color: number, lineType: string, flags?: LayerFlags): DxfLayer {
 		if (this.ltypeTable.exist(lineType)) return this.layerTable.addLayer(name, color, lineType, flags);
 		throw new Error(`The lineType ${lineType} doesn't exist.`);
 	}

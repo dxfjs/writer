@@ -1,5 +1,5 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
@@ -20,7 +20,7 @@ export type SplineArgs_t = {
 	weights?: number[];
 };
 
-export default class Spline extends Entity {
+export class Spline extends Entity {
 	controlPoints: vec3_t[];
 	degreeCurve: number;
 	knots: number[];

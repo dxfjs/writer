@@ -15,7 +15,7 @@ import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
 import DxfVPort from 'TablesSection/Tables/Records/DxfVPort';
 import { name as packageName } from '../package.json';
 
-export default class DxfDocument implements DxfInterface {
+export class DxfDocument implements DxfInterface {
 	readonly header: DxfHeaderSection;
 	readonly classes: DxfClassesSection;
 	readonly tables: DxfTablesSection;

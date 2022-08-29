@@ -1,5 +1,5 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
@@ -15,7 +15,7 @@ export type faceOptions_t = CommonEntityOptions & {
 	invisibleEdges?: InvisibleEdgeFlags;
 };
 
-export default class Face extends Entity {
+export class Face extends Entity {
 	firstCorner: vec3_t;
 	secondCorner: vec3_t;
 	thirdCorner: vec3_t;

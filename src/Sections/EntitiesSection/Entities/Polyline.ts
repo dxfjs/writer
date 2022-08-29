@@ -1,7 +1,7 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import Vertex, { VertexFlags } from './Vertex';
+import { VertexFlags, Vertex } from './Vertex';
 import SeqEnd from './SeqEnd';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 
@@ -44,7 +44,7 @@ export interface PolylineVertex {
 	bulge?: number;
 }
 
-export default class Polyline extends Entity {
+export class Polyline extends Entity {
 	vertices: Vertex[];
 	elevation: number;
 	thickness: number;

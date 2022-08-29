@@ -1,9 +1,9 @@
 import Entity, { CommonEntityOptions } from '../Entity';
-import BoundingBox, { boundingBox_t } from 'Internals/BoundingBox';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxifier } from 'Internals/Dxifier';
 import { vec3_t } from 'Internals/Helpers';
 
-export default class Circle extends Entity {
+export class Circle extends Entity {
 	center: vec3_t;
 	radius: number;
 

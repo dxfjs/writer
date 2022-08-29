@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { Dxifier } from 'Internals/Dxifier';
-import BoundingBox from 'Internals/BoundingBox';
+import { BoundingBox } from 'Internals/BoundingBox';
 import { boundingBox_t } from 'Internals/BoundingBox';
 import Entity from 'EntitiesSection/Entity';
 
