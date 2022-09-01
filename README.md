@@ -4,8 +4,10 @@ A Javascript dxf generator, written in Typescript.
 
 ![ci](https://github.com/tarikjabiri/dxf/actions/workflows/ci.yml/badge.svg)
 ![publish](https://github.com/tarikjabiri/dxf/actions/workflows/cd.yml/badge.svg)
-[![npm version](https://badge.fury.io/js/%40tarikjabiri%2Fdxf.svg)](https://badge.fury.io/js/%40tarikjabiri%2Fdxf)
-![npm](https://img.shields.io/npm/dw/@tarikjabiri/dxf)
+
+![GitHub](https://img.shields.io/github/license/dxfjs/writer?color=%2334D058&label=License&logo=Open%20Access&logoColor=%23959DA5)
+![npm (scoped)](https://img.shields.io/npm/v/@tarikjabiri/dxf?color=%2334D058&logo=npm)
+![npm](https://img.shields.io/npm/dt/@tarikjabiri/dxf?color=%2334D058&logo=npm)
 
 <!--[Image entity scale and rotation](https://stackoverflow.com/questions/20521807/dxf-image-entity-group-code-explanation) explanation.-->
 
@@ -33,14 +35,11 @@ const dxfString = dxf.stringify();
 
 - [Documentation](https://dxf.vercel.app/)
 
-## License
+## Sponsors
 
-![GitHub](https://img.shields.io/github/license/tarikjabiri/dxf?style=for-the-badge)
-
-## Become a patron
-
-[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Duser%3Fu%3D33866044%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/user?u=33866044)
-
-<a href="https://www.archilogic.com/">
+<a href="https://www.archilogic.com/" style="display: inline-block">
 <img width="48" src="https://avatars.githubusercontent.com/u/6620048?s=200&v=4" style="width:48px" alt="Archilogic | Interior space for the digital world">
+</a>
+<a href="https://github.com/weareslate" style="display: inline-block; margin-left: 20px">
+<img width="48" src="https://github.com/weareslate.png" style="width:48px" alt="Slate">
 </a>
