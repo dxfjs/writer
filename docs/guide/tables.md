@@ -151,7 +151,7 @@ const exampleLayer = dxf.addLayer(
 - If no flag is set, by default the flag is set to 0 which make the layer thawed.
 :::
 
-For all possible values see [LayerFlags](/api/Enums.html#layerflags) and [Colors](/api/Enums.html#colors).
+For all possible values see `LayerFlags` and `Colors`.
 
 :::tip
 - For more colors please refer to [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
@@ -164,7 +164,7 @@ import { DxfWriter } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 const myStyle = dxf.tables.addStyle("example");
 ```
-For all possible values see [StyleFlags](/api/Enums.html#styleflags).
+For all possible values see `StyleFlags`.
 
 > You can customize these properties: `fixedTextHeight`, `widthFactor`, `obliqueAngle`, `textGenerationFlag`, `lastHeightUsed`, `fontFileName`, `bigFontFileName` and `flags`.
 
