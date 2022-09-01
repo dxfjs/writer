@@ -8,32 +8,8 @@ export default defineConfig({
 	head: [
 		['meta', { name: 'theme-color', content: '#4caf50' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-		[
-			'script',
-			{
-				src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9193055221439938',
-				crossorigin: 'anonymous',
-				async: ''
-			}
-		],
-		[
-			'script',
-			{
-				src: 'https://www.googletagmanager.com/gtag/js?id=G-NBMR3KX37M',
-				async: ''
-			}
-		],
-		[
-			'script',
-			{},
-			`window.dataLayer = window.dataLayer || [];
-  			function gtag(){dataLayer.push(arguments);}
-  			gtag('js', new Date());
-  			gtag('config', 'G-NBMR3KX37M');`
-		],
 	],
 	markdown: {
-		lineNumbers: true,
 		toc: { level: [2] },
 	},
 	themeConfig: {
@@ -74,16 +50,6 @@ export default defineConfig({
 					{ text: 'Blocks', link: '/guide/blocks' },
 					{ text: 'Entities', link: '/guide/entities' },
 					{ text: 'Objects', link: '/guide/objects' },
-				],
-			},
-			{
-				text: 'API',
-				collapsible: true,
-				items: [
-					{ text: 'DxfWriter class', link: '/api/DxfWriter' },
-					{ text: 'Enums', link: '/api/Enums' },
-					{ text: 'Types', link: '/api/Types' },
-					{ text: 'Helper functions', link: '/api/helpers' },
 				],
 			},
 		],

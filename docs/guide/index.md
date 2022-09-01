@@ -4,18 +4,15 @@ layout: doc
 
 # Getting started
 
+
+
 ## Installation
 
-`NPM`
 ```bash
 npm i @tarikjabiri/dxf
-```
-`YARN`
-```bash
+// Or
 yarn add @tarikjabiri/dxf
-```
-`PNPM`
-```bash
+// Or
 pnpm add @tarikjabiri/dxf
 ```
 
@@ -28,3 +25,7 @@ dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 // To get the dxf string just call the stringify() method
 const dxfString = dxf.stringify();
 ```
+## Sponsor
+
+<iframe src="https://github.com/sponsors/dxfjs/card" title="Sponsor dxfjs" style="border: 0; width: 100%"></iframe>
+

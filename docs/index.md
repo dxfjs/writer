@@ -76,6 +76,17 @@ const members = [
     desc: 'Sponsor',
     org: 'Archilogic',
     orgLink: 'https://github.com/archilogic-com'
+  },
+  {
+    avatar: 'https://github.com/ashleycoker.png',
+    name: 'Ashley Coker',
+    title: 'CEO',
+    links: [
+      { icon: 'github', link: 'https://github.com/ashleycoker' }
+    ],
+    desc: 'Sponsor',
+    org: 'Slate',
+    orgLink: 'https://github.com/weareslate'
   }
 ]
 </script>
@@ -86,4 +97,5 @@ const members = [
     <VPTeamMembers size="small" :members="members" />
   </template>
 </VPTeamPageSection>
+
 
