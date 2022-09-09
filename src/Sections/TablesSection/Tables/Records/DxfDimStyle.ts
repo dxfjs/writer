@@ -88,7 +88,6 @@ export default class DxfDimStyle implements DxfInterface {
 	}
 
 	dxify(dx: Dxifier): void {
-		dx.subclassMarker('AcDbDimStyleTable');
 		dx.type(this.type);
 		dx.push(105, this.handle);
 		dx.push(330, this.ownerObjectHandle);
