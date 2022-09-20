@@ -1,8 +1,8 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
 export default class DxfClassesSection implements DxfInterface {
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('CLASSES');
 		dx.end();
 	}

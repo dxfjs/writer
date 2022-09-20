@@ -21,7 +21,10 @@ export class BoundingBox {
 	}
 
 	static pointBBox(point: vec3_t) {
-		return createBoundingBox(point3d(point.x - 100, point.y + 100, 0), point3d(point.x + 100, point.y - 100, 0));
+		return createBoundingBox(
+			point3d(point.x - 100, point.y + 100, 0),
+			point3d(point.x + 100, point.y - 100, 0)
+		);
 	}
 
 	/**

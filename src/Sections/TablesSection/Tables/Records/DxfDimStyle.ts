@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
@@ -87,7 +87,7 @@ export default class DxfDimStyle implements DxfInterface {
 		this.type = 'DIMSTYLE';
 	}
 
-	dxify(dx: Dxifier): void {
+	dxfy(dx: Dxfier): void {
 		dx.type(this.type);
 		dx.push(105, this.handle);
 		dx.push(330, this.ownerObjectHandle);

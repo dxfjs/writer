@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 
 export enum SplineFlags {
@@ -70,8 +70,8 @@ export class Spline extends Entity {
 		return BoundingBox.verticesBBox([...this.controlPoints, ...this.fitPoints]);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.push(70, this.flags);
 		dx.push(71, this.degreeCurve);
 		dx.push(72, this.knots.length);

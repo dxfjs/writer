@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 
 export class Circle extends Entity {
@@ -17,8 +17,8 @@ export class Circle extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(this.center);
 		dx.push(40, this.radius);
 	}

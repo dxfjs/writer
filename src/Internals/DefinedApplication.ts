@@ -1,4 +1,4 @@
-import { Dxifier, tag_t } from './Dxifier';
+import { Dxfier, tag_t } from './Dxfier';
 import DxfInterface from './Interfaces/DxfInterface';
 
 export default class DxfDefinedApplication implements DxfInterface {
@@ -14,7 +14,7 @@ export default class DxfDefinedApplication implements DxfInterface {
 		this.tags.push({ code, value });
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.push(102, `{${this.name}`);
 		for (const tag of this.tags) {
 			dx.push(tag.code, tag.value);

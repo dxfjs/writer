@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfLType extends DxfRecord {
@@ -15,8 +15,8 @@ export default class DxfLType extends DxfRecord {
 		this.flags = flags ?? 0;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbLinetypeTableRecord');
 		dx.name(this.name);
 		dx.push(70, this.flags);

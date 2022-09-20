@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfHeaderSection from 'HeaderSection/DxfHeaderSection';
 
 describe('DxfHeader class', () => {
@@ -50,10 +50,11 @@ describe('DxfHeader class', () => {
 	});
 
 	it('Should return the correct dxf string', () => {
-		const dx = new Dxifier();
-		header.dxify(dx);
+		const dx = new Dxfier();
+		header.dxfy(dx);
 		const dxfStr = dx.stringify();
-		const expected = '0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1027\n9\n$EXTMAX\n10\n10\n20\n20\n30\n31\n0\nENDSEC';
+		const expected =
+			'0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1027\n9\n$EXTMAX\n10\n10\n20\n20\n30\n31\n0\nENDSEC';
 		expect(dxfStr).toBe(expected);
 	});
 });

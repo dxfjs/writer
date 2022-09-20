@@ -1,7 +1,12 @@
 import Entity, { CommonEntityOptions } from './Entity';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
-import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline';
+import {
+	LWPolyline,
+	LWPolylineFlags,
+	LWPolylineOptions,
+	LWPolylineVertex,
+} from './Entities/LWPolyline';
 import { bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers';
 import { rectangleOptions_t } from 'Internals/Helpers';
 import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline';
@@ -16,7 +21,7 @@ import {
 } from './Entities/Hatch';
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
 import { Image, ImageOptions_t } from './Entities/Image';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { AlignedDimension, AlignedDimOptions } from './Entities/Dimension/AlignedDimension';
 import { DiameterDimension, DiameterDimOptions } from './Entities/Dimension/DiameterDimension';
 import { RadialDimension, RadialDimOptions } from './Entities/Dimension/RadialDimension';
@@ -45,9 +50,9 @@ export default abstract class EntitiesManager implements DxfInterface {
 		this.layerName = layerName;
 	}
 
-	dxify(dx: Dxifier): void {
+	dxfy(dx: Dxfier): void {
 		for (const entity of this.entities) {
-			entity.dxify(dx);
+			entity.dxfy(dx);
 		}
 	}
 
@@ -83,11 +88,21 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new LinearDimension(first, second, options));
 	}
 
-	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions): AngularDimLines {
+	addAngularLinesDim(
+		first: DLine,
+		second: DLine,
+		location: vec3_t,
+		options?: DimensionOptions
+	): AngularDimLines {
 		return this.addEntity(new AngularDimLines(first, second, location, options));
 	}
 
-	addAngularPointsDim(center: vec3_t, first: vec3_t, second: vec3_t, options?: DimensionOptions): AngularDimPoints {
+	addAngularPointsDim(
+		center: vec3_t,
+		first: vec3_t,
+		second: vec3_t,
+		options?: DimensionOptions
+	): AngularDimPoints {
 		return this.addEntity(new AngularDimPoints(center, first, second, options));
 	}
 
@@ -196,7 +211,13 @@ export default abstract class EntitiesManager implements DxfInterface {
 		return this.addEntity(new Circle(center, radius, options));
 	}
 
-	addArc(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions): Arc {
+	addArc(
+		center: vec3_t,
+		radius: number,
+		startAngle: number,
+		endAngle: number,
+		options?: CommonEntityOptions
+	): Arc {
 		return this.addEntity(new Arc(center, radius, startAngle, endAngle, options));
 	}
 
@@ -231,10 +252,17 @@ export default abstract class EntitiesManager implements DxfInterface {
 		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	): Face {
-		return this.addEntity(new Face(firstCorner, secondCorner, thirdCorner, fourthCorner, options));
+		return this.addEntity(
+			new Face(firstCorner, secondCorner, thirdCorner, fourthCorner, options)
+		);
 	}
 
-	addText(firstAlignementPoint: vec3_t, height: number, value: string, options?: CommonEntityOptions): Text {
+	addText(
+		firstAlignementPoint: vec3_t,
+		height: number,
+		value: string,
+		options?: CommonEntityOptions
+	): Text {
 		return this.addEntity(new Text(firstAlignementPoint, height, value, options));
 	}
 

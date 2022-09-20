@@ -4,5 +4,5 @@
 	"semi": true,
 	"useTabs": true,
 	"bracketSameLine": true,
-	"printWidth": 120
+	"printWidth": 100
 }

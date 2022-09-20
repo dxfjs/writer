@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfVPort extends DxfRecord {
@@ -13,8 +13,8 @@ export default class DxfVPort extends DxfRecord {
 		this.viewCenter = [0, 0];
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		const [x, y] = this.viewCenter;
 		dx.subclassMarker('AcDbViewportTableRecord');
 		dx.name(this.name);

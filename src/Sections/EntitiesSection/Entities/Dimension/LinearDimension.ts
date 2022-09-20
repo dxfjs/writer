@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import { deg2rad } from 'Internals/Utils';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
@@ -39,8 +39,8 @@ export class LinearDimension extends Dimension {
 		return this.angle;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbAlignedDimension');
 		dx.push(12, this.insertionPoint?.x);
 		dx.push(22, this.insertionPoint?.y);

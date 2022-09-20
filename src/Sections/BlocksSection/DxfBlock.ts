@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import EntitiesManager from 'EntitiesSection/EntitiesManager';
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
@@ -37,7 +37,7 @@ export default class DxfBlock extends EntitiesManager {
 		this.layerName = layerName;
 	}
 
-	override dxify(dx: Dxifier): void {
+	override dxfy(dx: Dxfier): void {
 		dx.type('BLOCK');
 		dx.handle(this.handle);
 		dx.push(330, this.ownerObjectHandle);
@@ -49,7 +49,7 @@ export default class DxfBlock extends EntitiesManager {
 		dx.point3d(this.basePoint);
 		dx.name(this.name, 3);
 		dx.push(1, this.xrefPathName);
-		if (this.stringifyEntities) super.dxify(dx);
-		this.endBlk.dxify(dx);
+		if (this.stringifyEntities) super.dxfy(dx);
+		this.endBlk.dxfy(dx);
 	}
 }

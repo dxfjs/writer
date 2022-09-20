@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { BoundingBox } from 'Internals/BoundingBox';
 import { boundingBox_t } from 'Internals/BoundingBox';
 import Entity from 'EntitiesSection/Entity';
@@ -30,8 +30,10 @@ describe('Entity', () => {
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		entity.layerName = 'l_green';
-		const dx = new Dxifier();
-		entity.dxify(dx);
-		expect(dx.stringify()).toBe(`0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\nl_green\n100\nAcDbLine`);
+		const dx = new Dxfier();
+		entity.dxfy(dx);
+		expect(dx.stringify()).toBe(
+			`0\nLINE\n5\n${handle}\n100\nAcDbEntity\n8\nl_green\n100\nAcDbLine`
+		);
 	});
 });

@@ -17,14 +17,23 @@ import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
 import { Units } from 'Internals/Enums';
 import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
 import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
-import { DiameterDimension, DiameterDimOptions } from 'EntitiesSection/Entities/Dimension/DiameterDimension';
-import { RadialDimension, RadialDimOptions } from 'EntitiesSection/Entities/Dimension/RadialDimension';
-import { LinearDimension, LinearDimOptions } from 'EntitiesSection/Entities/Dimension/LinearDimension';
+import {
+	DiameterDimension,
+	DiameterDimOptions,
+} from 'EntitiesSection/Entities/Dimension/DiameterDimension';
+import {
+	RadialDimension,
+	RadialDimOptions,
+} from 'EntitiesSection/Entities/Dimension/RadialDimension';
+import {
+	LinearDimension,
+	LinearDimOptions,
+} from 'EntitiesSection/Entities/Dimension/LinearDimension';
 import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
 import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
 import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
-import DxfLayer from 'TablesSection/Tables/Records/DxfLayer';
+import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
 
 /**
  * The base class for creating the dxf content.
@@ -129,7 +138,11 @@ export class DxfWriter {
 	 * @param options The options of the diameter dimension entity.
 	 * @returns
 	 */
-	public addDiameterDim(first: vec3_t, second: vec3_t, options?: DiameterDimOptions): DiameterDimension {
+	public addDiameterDim(
+		first: vec3_t,
+		second: vec3_t,
+		options?: DiameterDimOptions
+	): DiameterDimension {
 		return this.modelSpace.addDiameterDim(first, second, options);
 	}
 
@@ -140,7 +153,11 @@ export class DxfWriter {
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addRadialDim(first: vec3_t, second: vec3_t, options?: RadialDimOptions): RadialDimension {
+	public addRadialDim(
+		first: vec3_t,
+		second: vec3_t,
+		options?: RadialDimOptions
+	): RadialDimension {
 		return this.modelSpace.addRadialDim(first, second, options);
 	}
 
@@ -151,7 +168,11 @@ export class DxfWriter {
 	 * @param options The options of the radial dimension entity.
 	 * @returns
 	 */
-	public addLinearDim(first: vec3_t, second: vec3_t, options?: LinearDimOptions): LinearDimension {
+	public addLinearDim(
+		first: vec3_t,
+		second: vec3_t,
+		options?: LinearDimOptions
+	): LinearDimension {
 		return this.modelSpace.addLinearDim(first, second, options);
 	}
 
@@ -163,7 +184,12 @@ export class DxfWriter {
 	 * @param options The options of the dimension.
 	 * @returns The added dimension entity.
 	 */
-	addAngularLinesDim(first: DLine, second: DLine, location: vec3_t, options?: DimensionOptions): AngularDimLines {
+	addAngularLinesDim(
+		first: DLine,
+		second: DLine,
+		location: vec3_t,
+		options?: DimensionOptions
+	): AngularDimLines {
 		return this.modelSpace.addAngularLinesDim(first, second, location, options);
 	}
 
@@ -204,7 +230,12 @@ export class DxfWriter {
 	 * @param flags - Layer standard flags (bit-coded values).
 	 * @returns Return the the added layer.
 	 */
-	public addLayer(name: string, color: number, lineType: string, flags = LayerFlags.None): DxfLayer {
+	public addLayer(
+		name: string,
+		color: number,
+		lineType: string,
+		flags = LayerFlags.None
+	): DxfLayer {
 		return this.tables.addLayer(name, color, lineType, flags);
 	}
 
@@ -315,7 +346,13 @@ export class DxfWriter {
 	 * @param options - Arc entity options.
 	 * @returns Return the the added arc.
 	 */
-	public addArc(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions) {
+	public addArc(
+		center: vec3_t,
+		radius: number,
+		startAngle: number,
+		endAngle: number,
+		options?: CommonEntityOptions
+	) {
 		return this.modelSpace.addArc(center, radius, startAngle, endAngle, options);
 	}
 
@@ -400,7 +437,16 @@ export class DxfWriter {
 		rotation: number,
 		options?: ImageOptions_t
 	) {
-		return this.modelSpace.addImage(imagePath, name, insertionPoint, width, height, scale, rotation, options);
+		return this.modelSpace.addImage(
+			imagePath,
+			name,
+			insertionPoint,
+			width,
+			height,
+			scale,
+			rotation,
+			options
+		);
 	}
 
 	/**
@@ -421,7 +467,13 @@ export class DxfWriter {
 		fourthCorner: vec3_t,
 		options?: faceOptions_t
 	) {
-		return this.modelSpace.add3dFace(firstCorner, secondCorner, thirdCorner, fourthCorner, options);
+		return this.modelSpace.add3dFace(
+			firstCorner,
+			secondCorner,
+			thirdCorner,
+			fourthCorner,
+			options
+		);
 	}
 
 	/**
@@ -431,7 +483,12 @@ export class DxfWriter {
 	 * @param value - The default value (the string itself).
 	 * @returns Return the the added text.
 	 */
-	public addText(firstAlignementPoint: vec3_t, height: number, value: string, options?: CommonEntityOptions) {
+	public addText(
+		firstAlignementPoint: vec3_t,
+		height: number,
+		value: string,
+		options?: CommonEntityOptions
+	) {
 		return this.modelSpace.addText(firstAlignementPoint, height, value, options);
 	}
 

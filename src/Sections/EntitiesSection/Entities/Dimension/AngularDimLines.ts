@@ -1,5 +1,5 @@
 import { vec3_t } from 'Internals/Helpers';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
 
 export interface DLine {
@@ -8,7 +8,12 @@ export interface DLine {
 }
 
 export class AngularDimLines extends Dimension {
-	constructor(public first: DLine, public second: DLine, public location: vec3_t, options?: DimensionOptions) {
+	constructor(
+		public first: DLine,
+		public second: DLine,
+		public location: vec3_t,
+		options?: DimensionOptions
+	) {
 		super(options);
 		this.dimensionType = DimensionType.Angular;
 	}
@@ -17,9 +22,9 @@ export class AngularDimLines extends Dimension {
 		this.definitionPoint = this.second.end;
 	}
 
-	override dxify(dx: Dxifier): void {
+	override dxfy(dx: Dxfier): void {
 		this._update();
-		super.dxify(dx);
+		super.dxfy(dx);
 		dx.subclassMarker('AcDb2LineAngularDimension');
 		dx.push(13, this.first.start.x);
 		dx.push(23, this.first.start.y);

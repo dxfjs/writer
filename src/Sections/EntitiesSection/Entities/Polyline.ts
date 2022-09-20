@@ -2,7 +2,7 @@ import Entity, { CommonEntityOptions } from '../Entity';
 import { VertexFlags, Vertex } from './Vertex';
 import SeqEnd from './SeqEnd';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 
 export enum PolylineFlags {
@@ -87,8 +87,8 @@ export class Polyline extends Entity {
 		return BoundingBox.verticesBBox(this.vertices.map((v) => v.point));
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.push(66, 1);
 		dx.point3d(point3d(0, 0, this.elevation));
 		dx.push(39, this.thickness);
@@ -100,7 +100,7 @@ export class Polyline extends Entity {
 		dx.push(73, this.smoothSurfaceM);
 		dx.push(74, this.smoothSurfaceN);
 		dx.push(75, this.surfaceType);
-		this.vertices.forEach((vertex) => vertex.dxify(dx));
-		this._seqend.dxify(dx);
+		this.vertices.forEach((vertex) => vertex.dxfy(dx));
+		this._seqend.dxfy(dx);
 	}
 }

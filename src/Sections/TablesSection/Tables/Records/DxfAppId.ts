@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord from './DxfRecord';
 
 export enum AppIdFlags {
@@ -17,8 +17,8 @@ export default class DxfAppId extends DxfRecord {
 		this.flags = flags ?? AppIdFlags.None;
 	}
 
-	override dxify(dx: Dxifier) {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier) {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbRegAppTableRecord');
 		dx.name(this.name);
 		dx.push(70, this.flags);

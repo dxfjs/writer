@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfVariable from 'HeaderSection/DxfVariable';
 
 describe('DxfHeader class', () => {
 	const header = new DxfVariable('$ACADVER', { 1: 'AC1021' });
 
-	it('Defines dxify()', () => {
-		expect(typeof header.dxify).toBe('function');
+	it('Defines dxfy()', () => {
+		expect(typeof header.dxfy).toBe('function');
 	});
 
 	it('Should have correct name and values', () => {
@@ -15,8 +15,8 @@ describe('DxfHeader class', () => {
 	});
 
 	it('Should return correct dxf string', () => {
-		const dx = new Dxifier();
-		header.dxify(dx);
+		const dx = new Dxfier();
+		header.dxfy(dx);
 		expect(dx.stringify()).toBe('9\n$ACADVER\n1\nAC1021');
 	});
 });

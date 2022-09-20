@@ -1,5 +1,5 @@
 import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import { point3d } from 'Internals/Helpers';
@@ -53,7 +53,7 @@ export default abstract class Entity implements DxfInterface {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.type(this.type);
 		dx.handle(this.handle);
 		dx.push(330, this.ownerBlockRecord);

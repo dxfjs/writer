@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
@@ -10,7 +10,7 @@ export default class DxfEndBlk implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	dxify(dx: Dxifier): void {
+	dxfy(dx: Dxfier): void {
 		dx.type('ENDBLK');
 		dx.handle(this.handle);
 		dx.push(330, this.ownerObjectHandle);

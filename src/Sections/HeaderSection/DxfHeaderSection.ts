@@ -1,6 +1,6 @@
 import DxfVariable, { values_t } from './DxfVariable';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 
 export default class DxfHeaderSection implements DxfInterface {
 	readonly variables: DxfVariable[] = [];
@@ -14,10 +14,10 @@ export default class DxfHeaderSection implements DxfInterface {
 		}
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('HEADER');
 		for (const variable of this.variables) {
-			variable.dxify(dx);
+			variable.dxfy(dx);
 		}
 		dx.end();
 	}

@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfObject from '../DxfObject';
 
 export default class DxfImageDefReactor extends DxfObject {
@@ -11,8 +11,8 @@ export default class DxfImageDefReactor extends DxfObject {
 		this.classVersion = 2;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbRasterImageDefReactor');
 		dx.push(90, this.classVersion);
 		dx.push(330, this.imageHandle);

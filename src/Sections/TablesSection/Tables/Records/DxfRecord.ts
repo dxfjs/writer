@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
@@ -36,7 +36,7 @@ export default class DxfRecord implements DxfInterface {
 		this.handle = Handle.next();
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.type(this.type);
 		dx.handle(this.handle);
 		dx.push(330, this.ownerObjectHandle);

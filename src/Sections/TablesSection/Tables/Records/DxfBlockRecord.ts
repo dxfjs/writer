@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfBlockRecord extends DxfRecord {
@@ -16,8 +16,8 @@ export default class DxfBlockRecord extends DxfRecord {
 		this.scalability = 0;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbBlockTableRecord');
 		dx.name(this.name);
 		dx.push(340, this.layoutObject);

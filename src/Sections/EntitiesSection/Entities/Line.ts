@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 
 export class Line extends Entity {
@@ -17,8 +17,8 @@ export class Line extends Entity {
 		return BoundingBox.lineBBox(this.startPoint, this.endPoint);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(this.startPoint);
 		dx.push(11, this.endPoint.x);
 		dx.push(21, this.endPoint.y);

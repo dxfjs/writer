@@ -49,7 +49,12 @@ describe('DxfWriter', () => {
 
 		dxf.addInsert(circleBlock.name, point3d(0, 0, 0));
 
-		const controlPoints = [point3d(0, 0, 0), point3d(10, 10, 0), point3d(20, 10, 0), point3d(30, 20, 0)];
+		const controlPoints = [
+			point3d(0, 0, 0),
+			point3d(10, 10, 0),
+			point3d(20, 10, 0),
+			point3d(30, 20, 0),
+		];
 
 		dxf.addSpline({
 			controlPoints,
@@ -60,7 +65,12 @@ describe('DxfWriter', () => {
 
 		dxf.addEllipse(point3d(100, 100, 0), point3d(50, 0, 0), 0.5, 0, 2 * Math.PI);
 
-		const face = dxf.add3dFace(point3d(0, 0, 50), point3d(0, 100, 50), point3d(100, 100, 50), point3d(100, 0, 50));
+		const face = dxf.add3dFace(
+			point3d(0, 0, 50),
+			point3d(0, 100, 50),
+			point3d(100, 100, 50),
+			point3d(100, 0, 50)
+		);
 		face.setEdgesVisible(true);
 		face.setFirstEdgeVisible(false);
 		face.setSecondEdgeVisible(true);
@@ -71,9 +81,21 @@ describe('DxfWriter', () => {
 
 		dxf.addCircle(point3d(0, 0, 0), 50);
 
-		dxf.addPolyline3D([{ point: point3d(0, 0, 0) }, { point: point3d(50, 40, 0) }, { point: point3d(70, 63, 2) }]);
+		dxf.addPolyline3D([
+			{ point: point3d(0, 0, 0) },
+			{ point: point3d(50, 40, 0) },
+			{ point: point3d(70, 63, 2) },
+		]);
 
-		dxf.addImage('.\\test - image.png', 'test - image', point3d(700, 600, 0), 1792, 1280, 433.54, 360 - 359.74);
+		dxf.addImage(
+			'.\\test - image.png',
+			'test - image',
+			point3d(700, 600, 0),
+			1792,
+			1280,
+			433.54,
+			360 - 359.74
+		);
 
 		dxf.tables.addView({
 			name: 'testview',

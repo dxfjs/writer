@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
 
@@ -18,8 +18,8 @@ export class RadialDimension extends Dimension {
 		this.leaderLength = options?.leaderLength;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbRadialDimension');
 		dx.push(15, this.first.x);
 		dx.push(25, this.first.y);

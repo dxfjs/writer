@@ -1,6 +1,6 @@
 import DxfDimStyle, { DimStyleFlags } from './Records/DxfDimStyle';
 import DxfTable from '../DxfTable';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 
 export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
 	constructor() {
@@ -15,7 +15,7 @@ export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
 		return r;
 	}
 
-	override dxify(dx: Dxifier) {
+	override dxfy(dx: Dxfier) {
 		dx.type('TABLE');
 		dx.name(this.name);
 		dx.handle(this.handle);
@@ -23,7 +23,7 @@ export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
 		dx.subclassMarker('AcDbSymbolTable');
 		dx.push(70, this.records.length);
 		dx.subclassMarker('AcDbDimStyleTable');
-		for (const record of this.records) record.dxify(dx);
+		for (const record of this.records) record.dxfy(dx);
 		dx.type('ENDTAB');
 	}
 }

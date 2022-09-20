@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { point3d } from 'Internals/Helpers';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { Arc } from 'EntitiesSection/Entities/Arc';
 
 describe('Arc', () => {
@@ -34,8 +34,8 @@ describe('Arc', () => {
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\nARC\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbCircle\n`;
 		entityString += `10\n10\n20\n1250\n30\n63.3\n40\n120\n100\nAcDbArc\n50\n0\n51\n120`;
-		const dx = new Dxifier();
-		entity.dxify(dx);
+		const dx = new Dxfier();
+		entity.dxfy(dx);
 		expect(dx.stringify()).toBe(entityString);
 	});
 });

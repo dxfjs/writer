@@ -2,7 +2,7 @@ import DxfBlock from './DxfBlock';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfTablesSection from 'TablesSection/DxfTablesSection';
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 
 export default class DxfBlocksSection implements DxfInterface {
 	readonly blocks: DxfBlock[] = [];
@@ -25,9 +25,9 @@ export default class DxfBlocksSection implements DxfInterface {
 		return block;
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('BLOCKS');
-		for (const b of this.blocks) b.dxify(dx);
+		for (const b of this.blocks) b.dxfy(dx);
 		dx.end();
 	}
 }

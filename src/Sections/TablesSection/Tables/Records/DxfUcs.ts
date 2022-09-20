@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord from './DxfRecord';
 
 export default class DxfUcs extends DxfRecord {
@@ -9,7 +9,7 @@ export default class DxfUcs extends DxfRecord {
 		this.name = name;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 	}
 }

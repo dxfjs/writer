@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfObject from '../DxfObject';
 
 export default class DxfRasterVariables extends DxfObject {
@@ -6,8 +6,8 @@ export default class DxfRasterVariables extends DxfObject {
 		super('RASTERVARIABLES');
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbRasterVariables');
 		dx.push(70, 0);
 		dx.push(71, 1);

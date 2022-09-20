@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import Entity from '../Entity';
 
 export default class SeqEnd extends Entity {
@@ -6,7 +6,7 @@ export default class SeqEnd extends Entity {
 		super('SEQEND');
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 	}
 }

@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 import { ab, angle, b, xy } from 'Internals/Utils';
 import { Dimension, DimensionOptions, DimensionType } from './Dimension';
@@ -32,8 +32,8 @@ export class AlignedDimension extends Dimension {
 		return angle(this.fisrtPoint, this.secondPoint);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbAlignedDimension');
 		dx.push(12, this.insertionPoint?.x);
 		dx.push(22, this.insertionPoint?.y);

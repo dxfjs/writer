@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d } from 'Internals/Helpers';
 
 export class Point extends Entity {
@@ -19,8 +19,8 @@ export class Point extends Entity {
 		return BoundingBox.pointBBox(point3d(this.x, this.y, this.z));
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(point3d(this.x, this.y, this.z));
 	}
 }

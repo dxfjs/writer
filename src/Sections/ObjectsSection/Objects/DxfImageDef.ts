@@ -1,5 +1,5 @@
 import DxfDefinedApplication from 'Internals/DefinedApplication';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point2d } from 'Internals/Helpers';
 import DxfObject from '../DxfObject';
 
@@ -37,15 +37,15 @@ export default class DxfImageDef extends DxfObject {
 		this.imageReactorHandles.push(id);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		// TODO Need a dynamic way
 		const da = new DxfDefinedApplication('ACAD_REACTORS');
 		da.add(330, this.acadImageDictHandle);
 		for (const handle of this.imageReactorHandles) {
 			da.add(330, handle);
 		}
-		da.dxify(dx);
+		da.dxfy(dx);
 		dx.subclassMarker('AcDbRasterImageDef');
 		dx.push(1, this.path);
 		dx.point2d(point2d(this.width, this.height));

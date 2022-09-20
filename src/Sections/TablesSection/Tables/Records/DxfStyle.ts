@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord, { StyleFlags } from './DxfRecord';
 
 export default class DxfStyle extends DxfRecord {
@@ -18,8 +18,8 @@ export default class DxfStyle extends DxfRecord {
 		this.flags = flags ?? StyleFlags.None;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbTextStyleTableRecord');
 		dx.name(this.name);
 		dx.push(70, this.flags);

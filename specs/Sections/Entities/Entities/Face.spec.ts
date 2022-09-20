@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { point3d } from 'Internals/Helpers';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { Face } from 'EntitiesSection/Entities/Face';
 
 describe('Face', () => {
@@ -9,7 +9,13 @@ describe('Face', () => {
 	};
 
 	it('should return the point given.', () => {
-		const entity = new Face(point3d(0, 0, 50), point3d(3, 0, 0), point3d(0, 2, 0), point3d(90, 0, 0), {});
+		const entity = new Face(
+			point3d(0, 0, 50),
+			point3d(3, 0, 0),
+			point3d(0, 2, 0),
+			point3d(90, 0, 0),
+			{}
+		);
 		dataState.instancesCount++;
 		expect(entity.firstCorner.x).toBe(0);
 		expect(entity.firstCorner.y).toBe(0);
@@ -29,14 +35,20 @@ describe('Face', () => {
 	});
 
 	it('should return the correct dxf string.', () => {
-		const entity = new Face(point3d(0, 0, 50), point3d(3, 0, 0), point3d(0, 2, 0), point3d(90, 0, 0), {});
+		const entity = new Face(
+			point3d(0, 0, 50),
+			point3d(3, 0, 0),
+			point3d(0, 2, 0),
+			point3d(90, 0, 0),
+			{}
+		);
 		dataState.instancesCount++;
 		const handle = dataState.instancesCount.toString(16).toUpperCase();
 		let entityString = `0\n3DFACE\n5\n${handle}\n100\nAcDbEntity\n8\n0\n100\nAcDbFace\n`;
 		entityString += `10\n0\n20\n0\n30\n50\n11\n3\n21\n0\n31\n0\n`;
 		entityString += `12\n0\n22\n2\n32\n0\n13\n90\n23\n0\n33\n0\n70\n0`;
-		const dx = new Dxifier();
-		entity.dxify(dx);
+		const dx = new Dxfier();
+		entity.dxfy(dx);
 		expect(dx.stringify()).toBe(entityString);
 	});
 });

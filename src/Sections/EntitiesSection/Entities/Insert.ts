@@ -1,5 +1,5 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
 
@@ -38,8 +38,8 @@ export class Insert extends Entity {
 		return BoundingBox.pointBBox(this.insertionPoint);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.name(this.blockName);
 		dx.point3d(this.insertionPoint);
 		dx.push(41, this.scaleFactor.x);

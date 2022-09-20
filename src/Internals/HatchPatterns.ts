@@ -1,4 +1,4 @@
-import { Dxifier } from './Dxifier';
+import { Dxfier } from './Dxfier';
 import DxfInterface from './Interfaces/DxfInterface';
 
 export type HatchPatternData_t = {
@@ -25,7 +25,7 @@ export class HatchPattern implements DxfInterface {
 		this.scale = 1;
 	}
 
-	dxify(dx: Dxifier): void {
+	dxfy(dx: Dxfier): void {
 		dx.push(78, this.patternsData.length);
 		for (const p of this.patternsData) {
 			dx.push(53, p.lineAngle);

@@ -1,5 +1,5 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
 
@@ -138,8 +138,8 @@ export class Image extends Entity {
 		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.push(90, this.classVersion);
 		dx.point3d(this.insertionPoint);
 		dx.push(11, this._uVector().x);

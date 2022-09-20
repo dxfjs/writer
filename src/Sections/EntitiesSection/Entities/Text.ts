@@ -1,5 +1,5 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../Entity';
 
@@ -22,8 +22,8 @@ export class Text extends Entity {
 		return BoundingBox.pointBBox(this.position);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(this.position);
 		dx.push(40, this.height);
 		dx.primaryText(this.value);

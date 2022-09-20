@@ -1,5 +1,5 @@
-import { Dxifier } from '../Dxifier';
+import { Dxfier } from '../Dxfier';
 
 export default interface DxfInterface {
-	dxify(dx: Dxifier): void;
+	dxfy(dx: Dxfier): void;
 }

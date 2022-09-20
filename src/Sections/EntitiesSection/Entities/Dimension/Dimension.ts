@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 import Entity, { CommonEntityOptions } from '../../Entity';
 
@@ -78,8 +78,8 @@ export class Dimension extends Entity {
 		return 0;
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.push(2, this.blockName);
 		dx.point3d(this.definitionPoint);
 		dx.push(11, this.middlePoint?.x);

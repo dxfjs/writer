@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 
 export enum VertexFlags {
@@ -44,8 +44,8 @@ export class Vertex extends Entity {
 		return BoundingBox.pointBBox(this.point);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDb3dPolylineVertex');
 		dx.point3d(this.point);
 		dx.push(40, this.startingWidth);

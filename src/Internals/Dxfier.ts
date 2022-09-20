@@ -5,7 +5,7 @@ export type tag_t = {
 	value: number | string;
 };
 
-export class Dxifier {
+export class Dxfier {
 	readonly lines: (string | number)[];
 	constructor() {
 		this.lines = [];

@@ -15,8 +15,8 @@ import DxfAppId, { AppIdFlags } from './Tables/Records/DxfAppId';
 import DxfDimStyle, { DimStyleFlags } from './Tables/Records/DxfDimStyle';
 import DxfVPort from './Tables/Records/DxfVPort';
 import { LayerFlags } from './Tables/Records/DxfRecord';
-import { Dxifier } from 'Internals/Dxifier';
-import DxfLayer from './Tables/Records/DxfLayer';
+import { Dxfier } from 'Internals/Dxfier';
+import { DxfLayer } from './Tables/Records/DxfLayer';
 
 export default class DxfTablesSection implements DxfInterface {
 	readonly vPortTable: DxfVPortTable;
@@ -50,7 +50,8 @@ export default class DxfTablesSection implements DxfInterface {
 	}
 
 	addLayer(name: string, color: number, lineType: string, flags?: LayerFlags): DxfLayer {
-		if (this.ltypeTable.exist(lineType)) return this.layerTable.addLayer(name, color, lineType, flags);
+		if (this.ltypeTable.exist(lineType))
+			return this.layerTable.addLayer(name, color, lineType, flags);
 		throw new Error(`The lineType ${lineType} doesn't exist.`);
 	}
 
@@ -78,17 +79,17 @@ export default class DxfTablesSection implements DxfInterface {
 		return this.vPortTable.addViewPort(name);
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('TABLES');
-		this.vPortTable.dxify(dx);
-		this.ltypeTable.dxify(dx);
-		this.layerTable.dxify(dx);
-		this.styleTable.dxify(dx);
-		this.viewTable.dxify(dx);
-		this.ucsTable.dxify(dx);
-		this.appIdTable.dxify(dx);
-		this.dimStyleTable.dxify(dx);
-		this.blockRecordTable.dxify(dx);
+		this.vPortTable.dxfy(dx);
+		this.ltypeTable.dxfy(dx);
+		this.layerTable.dxfy(dx);
+		this.styleTable.dxfy(dx);
+		this.viewTable.dxfy(dx);
+		this.ucsTable.dxfy(dx);
+		this.appIdTable.dxfy(dx);
+		this.dimStyleTable.dxfy(dx);
+		this.blockRecordTable.dxfy(dx);
 		dx.end();
 	}
 }

@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec2_t, point3d } from 'Internals/Helpers';
 
 export enum LWPolylineFlags {
@@ -40,11 +40,13 @@ export class LWPolyline extends Entity {
 	}
 
 	override boundingBox(): boundingBox_t {
-		return BoundingBox.verticesBBox(this.vertices.map((vertex) => point3d(vertex.point.x, vertex.point.y, 0)));
+		return BoundingBox.verticesBBox(
+			this.vertices.map((vertex) => point3d(vertex.point.x, vertex.point.y, 0))
+		);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.push(90, this.vertices.length);
 		dx.push(70, this.flags || 0);
 

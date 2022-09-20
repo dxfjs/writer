@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec2_t, vec3_t } from 'Internals/Helpers';
 import DxfRecord, { ViewFlags } from './DxfRecord';
 
@@ -62,12 +62,14 @@ export default class DxfView extends DxfRecord {
 		this.isCameraPlottable = args.isCameraPlottable || false;
 
 		args.backgroundObjectHandle && (this.backgroundObjectHandle = args.backgroundObjectHandle);
-		args.liveSectionObjectHandle && (this.liveSectionObjectHandle = args.liveSectionObjectHandle);
-		args.visualStyleObjectHandle && (this.visualStyleObjectHandle = args.visualStyleObjectHandle);
+		args.liveSectionObjectHandle &&
+			(this.liveSectionObjectHandle = args.liveSectionObjectHandle);
+		args.visualStyleObjectHandle &&
+			(this.visualStyleObjectHandle = args.visualStyleObjectHandle);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbViewTableRecord');
 		dx.name(this.name);
 		dx.push(70, this.flags);

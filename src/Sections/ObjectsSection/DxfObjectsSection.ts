@@ -3,7 +3,7 @@ import DxfObject from './DxfObject';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfImageDef from './Objects/DxfImageDef';
 import DxfImageDefReactor from './Objects/DxfImageDefReactor';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 
 export default class DxfObjectsSection implements DxfInterface {
 	root: DxfDictionary = new DxfDictionary();
@@ -40,11 +40,11 @@ export default class DxfObjectsSection implements DxfInterface {
 		this.root.addEntryObject(name, softOwner);
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('OBJECTS');
-		this.root.dxify(dx);
+		this.root.dxfy(dx);
 		for (const obj of this.objects) {
-			obj.dxify(dx);
+			obj.dxfy(dx);
 		}
 		dx.end();
 		dx.type('EOF');

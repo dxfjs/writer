@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { point3d, vec3_t } from 'Internals/Helpers';
 import { deg2rad } from 'Internals/Utils';
 
@@ -22,7 +22,13 @@ export class Arc extends Entity {
 		return point3d(x, y);
 	}
 
-	constructor(center: vec3_t, radius: number, startAngle: number, endAngle: number, options?: CommonEntityOptions) {
+	constructor(
+		center: vec3_t,
+		radius: number,
+		startAngle: number,
+		endAngle: number,
+		options?: CommonEntityOptions
+	) {
 		super('ARC', 'AcDbCircle', options);
 		this.center = center;
 		this.radius = radius;
@@ -34,8 +40,8 @@ export class Arc extends Entity {
 		return BoundingBox.centerRadiusBBox(this.center, this.radius);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(this.center);
 		dx.push(40, this.radius);
 		dx.subclassMarker('AcDbArc');

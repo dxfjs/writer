@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 
 /**
@@ -28,7 +28,7 @@ export default class DxfVariable implements DxfInterface {
 		this.name = name;
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.variable(this.name);
 		const entries = Object.entries(this.values);
 		for (const entry of entries) {

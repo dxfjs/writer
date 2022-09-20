@@ -1,6 +1,6 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import { vec3_t } from 'Internals/Helpers';
 
 export class Ellipse extends Entity {
@@ -33,13 +33,14 @@ export class Ellipse extends Entity {
 		const yEndPointOfMajorAxis = this.endPointOfMajorAxis.y;
 
 		const bigRadius = Math.sqrt(
-			Math.pow(x - (x + xEndPointOfMajorAxis), 2) + Math.pow(y - (y + yEndPointOfMajorAxis), 2)
+			Math.pow(x - (x + xEndPointOfMajorAxis), 2) +
+				Math.pow(y - (y + yEndPointOfMajorAxis), 2)
 		);
 		return BoundingBox.centerRadiusBBox(this.center, bigRadius);
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(this.center);
 		dx.push(11, this.endPointOfMajorAxis.x);
 		dx.push(21, this.endPointOfMajorAxis.y);

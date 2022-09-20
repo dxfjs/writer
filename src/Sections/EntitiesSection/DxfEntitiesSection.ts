@@ -1,4 +1,4 @@
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfBlock from '../BlocksSection/DxfBlock';
 
@@ -13,9 +13,9 @@ export default class DxfEntitiesSection implements DxfInterface {
 		this.modelSpace.setLayerName(layerName);
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.start('ENTITIES');
-		this.modelSpace.entities.forEach((e) => e.dxify(dx));
+		this.modelSpace.entities.forEach((e) => e.dxfy(dx));
 		dx.end();
 	}
 }

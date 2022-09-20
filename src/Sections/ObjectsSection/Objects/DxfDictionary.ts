@@ -1,5 +1,5 @@
 import DxfObject from '../DxfObject';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 
 export type entryObject_t = {
 	name: string;
@@ -24,8 +24,8 @@ export default class DxfDictionary extends DxfObject {
 		});
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.subclassMarker('AcDbDictionary');
 		dx.push(280, this.hardOwnerFlag);
 		dx.push(281, this.duplicateRecordCloningFlag);

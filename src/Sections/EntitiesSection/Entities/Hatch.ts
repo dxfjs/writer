@@ -1,6 +1,6 @@
 import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox';
 import { aciHex } from 'Internals/Colors';
-import { Dxifier } from 'Internals/Dxifier';
+import { Dxfier } from 'Internals/Dxfier';
 import PredefinedHatchPatterns from 'Internals/HatchPatterns';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import TrueColor from 'Internals/TrueColor';
@@ -126,7 +126,7 @@ export class HatchPolylineBoundary implements DxfInterface {
 		this.vertices.push(vertex);
 	}
 
-	dxify(dx: Dxifier): void {
+	dxfy(dx: Dxfier): void {
 		const bulge = this.vertices.find((v) => v.bulge) ? true : false;
 		dx.push(72, Number(bulge));
 		dx.push(73, 1);
@@ -178,11 +178,17 @@ export class HatchBoundaryPaths implements DxfInterface {
 	}
 
 	private isPolyline() {
-		return this.polylineBoundaries && (this.pathTypeFlag & PathTypeFlag.Polyline) === PathTypeFlag.Polyline;
+		return (
+			this.polylineBoundaries &&
+			(this.pathTypeFlag & PathTypeFlag.Polyline) === PathTypeFlag.Polyline
+		);
 	}
 
 	private isEdges() {
-		return this.edgesTypeDatas && (this.pathTypeFlag & PathTypeFlag.Polyline) !== PathTypeFlag.Polyline;
+		return (
+			this.edgesTypeDatas &&
+			(this.pathTypeFlag & PathTypeFlag.Polyline) !== PathTypeFlag.Polyline
+		);
 	}
 
 	addEdgesTypeData(edgesTypeData: HatchEdgesTypeData) {
@@ -191,16 +197,16 @@ export class HatchBoundaryPaths implements DxfInterface {
 		this.edgesTypeDatas.push(edgesTypeData);
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		if (this.isPolyline()) {
 			this.polylineBoundaries.forEach((polyline) => {
 				dx.push(92, this.pathTypeFlag);
-				polyline.dxify(dx);
+				polyline.dxfy(dx);
 			});
 		} else if (this.isEdges()) {
 			this.edgesTypeDatas.forEach((data) => {
 				dx.push(92, this.pathTypeFlag);
-				data.dxify(dx);
+				data.dxfy(dx);
 			});
 		} else {
 			throw new Error('The boundary path is empty!');
@@ -217,7 +223,7 @@ export class HatchLineEdgeData implements DxfInterface {
 		this.end = end;
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.point2d(this.start);
 		dx.push(11, this.end.x);
 		dx.push(21, this.end.y);
@@ -231,7 +237,13 @@ export class HatchArcEdgeData implements DxfInterface {
 	endAngle: number;
 	isCounterClockwise: boolean;
 
-	constructor(center: vec2_t, raduis: number, startAngle: number, endAngle: number, isCounterClockwise: boolean) {
+	constructor(
+		center: vec2_t,
+		raduis: number,
+		startAngle: number,
+		endAngle: number,
+		isCounterClockwise: boolean
+	) {
 		this.center = center;
 		this.raduis = raduis;
 		this.startAngle = startAngle;
@@ -239,7 +251,7 @@ export class HatchArcEdgeData implements DxfInterface {
 		this.isCounterClockwise = isCounterClockwise;
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		dx.point2d(this.center);
 		dx.push(40, this.raduis);
 		dx.push(50, this.startAngle);
@@ -257,13 +269,21 @@ export class HatchEdgesTypeData implements DxfInterface {
 		this.edgesData.push(new HatchLineEdgeData(start, end));
 	}
 
-	addArcEdgeData(center: vec2_t, raduis: number, startAngle: number, endAngle: number, isCounterClockwise: boolean) {
-		this.edgesData.push(new HatchArcEdgeData(center, raduis, startAngle, endAngle, isCounterClockwise));
+	addArcEdgeData(
+		center: vec2_t,
+		raduis: number,
+		startAngle: number,
+		endAngle: number,
+		isCounterClockwise: boolean
+	) {
+		this.edgesData.push(
+			new HatchArcEdgeData(center, raduis, startAngle, endAngle, isCounterClockwise)
+		);
 	}
 
-	dxify(dx: Dxifier) {
+	dxfy(dx: Dxfier) {
 		for (const edge of this.edgesData) {
-			edge.dxify(dx);
+			edge.dxfy(dx);
 		}
 	}
 }
@@ -343,7 +363,7 @@ export class Hatch extends Entity {
 		this.boundaryPath = boundaryPath;
 	}
 
-	private pattern(dx: Dxifier, fill: HatchPatternOptions_t) {
+	private pattern(dx: Dxfier, fill: HatchPatternOptions_t) {
 		const name = fill.name;
 		const angle = fill.angle ?? 0;
 		const scale = fill.scale || 1;
@@ -355,11 +375,11 @@ export class Hatch extends Entity {
 		if (pattern) {
 			pattern.scale = scale;
 			if (angle !== 0) pattern.angle = angle;
-			pattern.dxify(dx);
+			pattern.dxfy(dx);
 		}
 	}
 
-	private gradient(dx: Dxifier, fill: HatchGradientOptions_t) {
+	private gradient(dx: Dxfier, fill: HatchGradientOptions_t) {
 		const firstColor = fill.firstColor;
 		const secondColor = fill.secondColor ?? 7;
 		const angle = fill.angle ?? 0;
@@ -382,7 +402,9 @@ export class Hatch extends Entity {
 		dx.push(470, type);
 	}
 
-	private isPattern(fill: HatchPatternOptions_t | HatchGradientOptions_t): fill is HatchPatternOptions_t {
+	private isPattern(
+		fill: HatchPatternOptions_t | HatchGradientOptions_t
+	): fill is HatchPatternOptions_t {
 		return Object.prototype.hasOwnProperty.call(fill, 'name');
 	}
 
@@ -390,17 +412,20 @@ export class Hatch extends Entity {
 		return BoundingBox.pointBBox(point3d(0, 0, 0));
 	}
 
-	override dxify(dx: Dxifier): void {
-		super.dxify(dx);
+	override dxfy(dx: Dxfier): void {
+		super.dxfy(dx);
 		dx.point3d(point3d(0, 0, this.elevation));
 		dx.push(210, this.extrusion.x);
 		dx.push(220, this.extrusion.y);
 		dx.push(230, this.extrusion.z);
 		dx.name(this.isPattern(this.fill) ? this.fill.name : HatchPredefinedPatterns.SOLID);
-		dx.push(70, this.isPattern(this.fill) ? SolidFillFlag.PatternFill : SolidFillFlag.SolidFill);
+		dx.push(
+			70,
+			this.isPattern(this.fill) ? SolidFillFlag.PatternFill : SolidFillFlag.SolidFill
+		);
 		dx.push(71, AssociativityFlag.NonAssociative);
 		dx.push(91, this.boundaryPath.length);
-		this.boundaryPath.dxify(dx);
+		this.boundaryPath.dxfy(dx);
 		dx.push(75, HatchStyle.Outer);
 		dx.push(76, HatchPatternType.Predifined);
 		if (this.isPattern(this.fill)) {
