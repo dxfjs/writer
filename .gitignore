@@ -11,3 +11,5 @@ temp
 www/.pnpm-debug.log
 docs/.vitepress/dist
 .pnpm-debug.log
+**/*.dwl
+**/*.dwl2
