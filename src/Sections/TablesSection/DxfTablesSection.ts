@@ -41,6 +41,10 @@ export default class DxfTablesSection implements DxfInterface {
 		this.blockRecordTable = new DxfBlockRecordTable();
 	}
 
+	layer(name: string) {
+		return this.layerTable.layer(name);
+	}
+
 	addLType(name: string, descriptive: string, elements: number[], flags?: number) {
 		return this.ltypeTable.addLType(name, descriptive, elements, flags);
 	}

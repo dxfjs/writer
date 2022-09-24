@@ -6,7 +6,7 @@ import DxfImageDefReactor from './Objects/DxfImageDefReactor';
 import { Dxfier } from 'Internals/Dxfier';
 
 export default class DxfObjectsSection implements DxfInterface {
-	root: DxfDictionary = new DxfDictionary();
+	readonly root: DxfDictionary = new DxfDictionary();
 
 	readonly objects: DxfObject[] = [];
 

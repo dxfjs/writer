@@ -21,6 +21,10 @@ export default class DxfLayerTable extends DxfTable<DxfLayer> {
 		return r;
 	}
 
+	layer(name: string) {
+		return this.records.find((layerRecord) => layerRecord.name === name);
+	}
+
 	exist(name: string) {
 		return (
 			this.records.find((layerRecord) => {

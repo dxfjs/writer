@@ -8,6 +8,11 @@
 	"repository": "https://github.com/tarikjabiri/dxf",
 	"author": "Tarik EL JABIRI",
 	"license": "MIT",
+	"homepage": "https://dxf.vercel.app",
+	"bugs": {
+		"url": "https://github.com/dxfjs/writer/issues",
+		"email": "dxfjss@gmail.com"
+	},
 	"scripts": {
 		"test": "vitest",
 		"coverage": "vitest run --coverage",

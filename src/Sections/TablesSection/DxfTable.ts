@@ -7,7 +7,7 @@ export default abstract class DxfTable<T extends DxfRecord> implements DxfInterf
 	maxNumberEntries = 0;
 	readonly handle: string;
 	ownerObjectHandle: string;
-	records: T[];
+	readonly records: T[];
 
 	public constructor(public name: string) {
 		this.ownerObjectHandle = '0';

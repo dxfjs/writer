@@ -10,7 +10,7 @@ export enum ImageDefResolutionUnits {
 }
 
 export default class DxfImageDef extends DxfObject {
-	readonly path: string;
+	path: string;
 	acadImageDictHandle: string;
 	readonly imageReactorHandles: string[];
 	width: number;

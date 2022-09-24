@@ -31,3 +31,5 @@ export * from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 export * from 'EntitiesSection/Entities/Dimension/AngularDimPoints';
 export * from 'EntitiesSection/Entities';
 export * from 'Internals/BoundingBox';
+export * from 'BlocksSection/DxfBlocksSection';
+export * from 'BlocksSection/DxfBlock';

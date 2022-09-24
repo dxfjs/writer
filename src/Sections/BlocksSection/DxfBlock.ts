@@ -15,7 +15,7 @@ export enum BlockFlags {
 	ReferencedXRef = 64,
 }
 
-export default class DxfBlock extends EntitiesManager {
+export class DxfBlock extends EntitiesManager {
 	readonly name: string;
 	readonly endBlk: EndBlk;
 	stringifyEntities = true;

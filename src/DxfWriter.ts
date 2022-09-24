@@ -74,6 +74,22 @@ export class DxfWriter {
 	}
 
 	/**
+	 * Get the layer object by name.
+	 * @param name The name of the layer.
+	 * @returns The layer object.
+	 */
+	layer(name: string) {
+		return this.tables.layer(name);
+	}
+
+	/**
+	 * Sets the zero layer as current layer.
+	 */
+	setZeroLayerAsCurrent() {
+		this.document.setZeroLayerAsCurrent();
+	}
+
+	/**
 	 * Add a block to the blocks tables.
 	 * @param name - The block name.
 	 * @returns The added block.

@@ -3,8 +3,8 @@ import { Colors, Units } from 'Internals/Enums';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import { vec3_t } from 'Internals/Helpers';
-import DxfBlock from 'BlocksSection/DxfBlock';
-import DxfBlocksSection from 'BlocksSection/DxfBlocksSection';
+import { DxfBlock } from 'BlocksSection/DxfBlock';
+import { DxfBlocksSection } from 'BlocksSection/DxfBlocksSection';
 import DxfClassesSection from 'ClassesSection/DxfClassesSection';
 import DxfEntitiesSection from 'EntitiesSection/DxfEntitiesSection';
 import DxfHeaderSection from 'HeaderSection/DxfHeaderSection';
@@ -76,8 +76,8 @@ export class DxfDocument implements DxfInterface {
 	}
 
 	setCurrentLayerName(name: string): void {
-		const layerRecord = this.tables.layerTable.records.find((layer) => layer.name === name);
-		if (!layerRecord) throw new Error(`The '${name} layer doesn't exist!'`);
+		if (!this.tables.layerTable.exist(name))
+			throw new Error(`The '${name} layer doesn't exist!'`);
 		this.currentLayerName = name;
 		this.entities.setLayerName(this.currentLayerName);
 		this.setCLayerVariable();

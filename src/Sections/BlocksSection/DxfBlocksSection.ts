@@ -1,10 +1,10 @@
-import DxfBlock from './DxfBlock';
+import { DxfBlock } from './DxfBlock';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import DxfTablesSection from 'TablesSection/DxfTablesSection';
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
 import { Dxfier } from 'Internals/Dxfier';
 
-export default class DxfBlocksSection implements DxfInterface {
+export class DxfBlocksSection implements DxfInterface {
 	readonly blocks: DxfBlock[] = [];
 	readonly modelSpace: DxfBlock;
 	readonly paperSpace: DxfBlock;

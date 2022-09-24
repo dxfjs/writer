@@ -2,7 +2,7 @@ import { Dxfier } from 'Internals/Dxfier';
 import DxfRecord, { LayerFlags } from './DxfRecord';
 
 export class DxfLayer extends DxfRecord {
-	static layerZeroName: string = '0';
+	static layerZeroName = '0';
 	readonly name: string;
 	colorNumber: number;
 	lineType: string;
