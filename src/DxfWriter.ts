@@ -14,7 +14,7 @@ import {
 	HatchPatternOptions_t,
 } from 'EntitiesSection/Entities/Hatch';
 import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
-import { Units } from 'Internals/Enums';
+import { LineTypes, Units } from 'Internals/Enums';
 import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
 import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
 import {
@@ -249,9 +249,10 @@ export class DxfWriter {
 	public addLayer(
 		name: string,
 		color: number,
-		lineType: string,
+		lineType?: string,
 		flags = LayerFlags.None
 	): DxfLayer {
+		if (!lineType) lineType = LineTypes.Continuous;
 		return this.tables.addLayer(name, color, lineType, flags);
 	}
 

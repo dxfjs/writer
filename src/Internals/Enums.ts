@@ -36,3 +36,7 @@ export enum Units {
 	USSurveyYard = 23,
 	USSurveyMile = 24,
 }
+
+export enum LineTypes {
+	Continuous = 'Continuous',
+}
