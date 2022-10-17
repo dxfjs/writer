@@ -56,7 +56,7 @@ export class Dxfier {
 		this.push(7, textStyle);
 	}
 
-	layerName(layerName: string) {
+	layerName(layerName?: string) {
 		this.push(8, layerName);
 	}
 

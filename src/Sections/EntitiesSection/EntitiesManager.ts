@@ -67,7 +67,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 
 	addEntity<T extends Entity>(entity: T): T {
 		entity.ownerBlockRecord = this.handle;
-		entity.layerName = this.layerName;
+		if (entity.layerName == null) entity.layerName = this.layerName;
 		this.entities.push(entity);
 		return entity;
 	}

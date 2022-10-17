@@ -19,7 +19,7 @@ export default abstract class Entity implements DxfInterface {
 	ownerBlockRecord?: string;
 	trueColor?: string;
 	colorNumber?: number;
-	layerName: string;
+	layerName?: string;
 	visible?: boolean;
 	lineType?: string;
 	lineTypeScale?: number;
@@ -35,7 +35,7 @@ export default abstract class Entity implements DxfInterface {
 	public constructor(type: string, subclassMarker?: string, options?: CommonEntityOptions) {
 		this.type = type;
 		this.subclassMarker = subclassMarker;
-		this.layerName = options?.layerName || '0';
+		this.layerName = options?.layerName;
 		this.handle = Handle.next();
 		this.trueColor = options?.trueColor;
 		this.colorNumber = options?.colorNumber;
