@@ -87,6 +87,16 @@ const members = [
     desc: 'Sponsor',
     org: 'Slate',
     orgLink: 'https://github.com/weareslate'
+  },
+  {
+    avatar: 'https://github.com/mmiscool.png',
+    name: 'Mike Molinari',
+    links: [
+      { icon: 'github', link: 'https://github.com/mmiscool' }
+    ],
+    desc: 'Sponsor',
+    org: 'Autodrop3d',
+    orgLink: 'https://www.autodrop3d.com/'
   }
 ]
 </script>

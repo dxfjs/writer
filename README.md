@@ -43,3 +43,6 @@ const dxfString = dxf.stringify();
 <a href="https://github.com/weareslate" style="display: inline-block; margin-left: 20px">
 <img width="48" src="https://github.com/weareslate.png" style="width:48px" alt="Slate">
 </a>
+<a href="https://github.com/weareslate" style="display: inline-block; margin-left: 20px">
+<img width="48" src="https://github.com/Autodrop3d.png" style="width:48px" alt="Slate">
+</a>
