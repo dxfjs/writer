@@ -43,7 +43,7 @@ const members = [
     links: [
       { icon: 'github', link: 'https://github.com/tarikjabiri' },
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/tarikjabiri' },
-      { icon: 'twitter', link: 'hhttps://twitter.com/TarikEljabiri1' },
+      { icon: 'twitter', link: 'https://twitter.com/TarikEljabiri1' },
       { icon: 'facebook', link: 'https://web.facebook.com/tarike.eljabiri' }
     ],
     sponsor: 'https://github.com/sponsors/dxfjs',
