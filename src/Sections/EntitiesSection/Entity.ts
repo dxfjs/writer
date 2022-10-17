@@ -3,6 +3,7 @@ import { Dxfier } from 'Internals/Dxfier';
 import Handle from 'Internals/Handle';
 import DxfInterface from 'Internals/Interfaces/DxfInterface';
 import { point3d } from 'Internals/Helpers';
+import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
 
 export interface CommonEntityOptions {
 	trueColor?: string;
@@ -59,7 +60,7 @@ export default abstract class Entity implements DxfInterface {
 		dx.push(330, this.ownerBlockRecord);
 		dx.subclassMarker('AcDbEntity');
 		dx.push(420, this.trueColor);
-		dx.layerName(this.layerName);
+		dx.layerName(this.layerName || DxfLayer.layerZeroName);
 		dx.lineType(this.lineType);
 		dx.colorNumber(this.colorNumber);
 		dx.push(48, this.lineTypeScale);
