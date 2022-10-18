@@ -34,6 +34,7 @@ import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyli
 import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
+import { TextOptions } from 'EntitiesSection/Entities';
 
 /**
  * The base class for creating the dxf content.
@@ -498,13 +499,14 @@ export class DxfWriter {
 	 * @param firstAlignementPoint - The first alignment point of the text.
 	 * @param height - The text height.
 	 * @param value - The default value (the string itself).
+	 * @param options - The options of the text entity.
 	 * @returns Return the the added text.
 	 */
 	public addText(
 		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
-		options?: CommonEntityOptions
+		options?: TextOptions
 	) {
 		return this.modelSpace.addText(firstAlignementPoint, height, value, options);
 	}

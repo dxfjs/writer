@@ -36,7 +36,7 @@ import { Arc } from './Entities/Arc';
 import { Spline, SplineArgs_t } from './Entities/Spline';
 import { Ellipse } from './Entities/Ellipse';
 import { Face, faceOptions_t } from './Entities/Face';
-import { Text } from './Entities/Text';
+import { Text, TextOptions } from './Entities/Text';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];
@@ -261,7 +261,7 @@ export default abstract class EntitiesManager implements DxfInterface {
 		firstAlignementPoint: vec3_t,
 		height: number,
 		value: string,
-		options?: CommonEntityOptions
+		options?: TextOptions
 	): Text {
 		return this.addEntity(new Text(firstAlignementPoint, height, value, options));
 	}
