@@ -306,3 +306,13 @@ const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want
 ## `SPLINE`
 
 ## `TEXT`
+
+```js
+import { DxfWriter, point3d } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+// addText(position, height, value, options)
+// options has rotation, obliqueAngle, generationFlags, horizontalAlignment, verticalAlignment, secondAlignmentPoint, relativeXScaleFactor
+dxf.addText(point3d(20, 20, 0), 10, 'DXFTEXT', { rotation: 30, });
+// or
+const text = dxf.addText(point3d(20, 20, 0), 10, 'DXFTEXT', { rotation: 30, }); // If you want a reference to the added text.
+```
