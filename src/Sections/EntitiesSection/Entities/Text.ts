@@ -61,6 +61,7 @@ export class Text extends Entity {
 		this.horizontalAlignment = options?.horizontalAlignment;
 		this.verticalAlignment = options?.verticalAlignment;
 		this.secondAlignmentPoint = options?.secondAlignmentPoint;
+		this.relativeXScaleFactor = options?.relativeXScaleFactor;
 	}
 
 	override boundingBox(): boundingBox_t {
