@@ -187,8 +187,6 @@ export default abstract class EntitiesManager implements DxfInterface {
 		const imageDefReactor = this.objects.addImageDefReactor(image.handle);
 		image.imageDefReactorHandle = imageDefReactor.handle;
 		this.addEntity(image);
-		this.objects.addObject(imageDef);
-		this.objects.addObject(imageDefReactor);
 		const dictionary = this.objects.addDictionary();
 
 		dictionary.addEntryObject(name, imageDef.handle);
