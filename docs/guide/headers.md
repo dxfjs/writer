@@ -6,7 +6,7 @@ layout: doc
 
 ## setting Unit
 
-To set unit use the convenient function `setUnits()`, it is a factory function that sets the unit:
+To set unit use the convenient function `setUnits()`, it is a function that sets the unit:
 
 ```js
 import { DxfWriter, Units } from '@tarikjabiri/dxf';
