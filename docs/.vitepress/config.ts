@@ -45,10 +45,9 @@ export default defineConfig({
 				collapsible: true,
 				items: [
 					{ text: 'Introduction', link: '/guide/' },
-					{ text: 'Variables', link: '/guide/variables' },
+					{ text: 'Header', link: '/guide/header' },
 					{ text: 'Tables', link: '/guide/tables' },
 					{ text: 'Blocks', link: '/guide/blocks' },
-					{ text: 'Headers', link: 'guide/headers'}
 					{ text: 'Entities', link: '/guide/entities' },
 					{ text: 'Objects', link: '/guide/objects' },
 				],
