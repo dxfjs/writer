@@ -48,6 +48,7 @@ export default defineConfig({
 					{ text: 'Variables', link: '/guide/variables' },
 					{ text: 'Tables', link: '/guide/tables' },
 					{ text: 'Blocks', link: '/guide/blocks' },
+					{ text: 'Headers', link: 'guide/headers'}
 					{ text: 'Entities', link: '/guide/entities' },
 					{ text: 'Objects', link: '/guide/objects' },
 				],
