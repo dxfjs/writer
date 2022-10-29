@@ -1,68 +1,65 @@
 {
-	"name": "@tarikjabiri/dxf",
-	"version": "2.5.2",
-	"description": "A JavaScript interface to Dxf written in TypeScript.",
-	"main": "./lib/index.js",
-	"module": "./lib/esm/index.js",
-	"types": "./lib/index.d.ts",
-	"repository": "https://github.com/tarikjabiri/dxf",
-	"author": "Tarik EL JABIRI",
-	"license": "MIT",
-	"homepage": "https://dxf.vercel.app",
-	"bugs": {
-		"url": "https://github.com/dxfjs/writer/issues",
-		"email": "dxfjss@gmail.com"
-	},
-	"scripts": {
-		"test": "vitest",
-		"coverage": "vitest run --coverage",
-		"build": "rollup -c",
-		"example": "node examples/example.js",
-		"docs:dev": "vitepress dev docs",
-		"docs:build": "vitepress build docs",
-		"docs:serve": "vitepress serve docs",
-		"lint": "eslint src --fix",
-		"prettier": "prettier --write .",
-		"dev": "esbuild src/index.ts --format=cjs --bundle --outfile=dist/index.js"
-	},
-	"files": [
-		"lib/**/*"
-	],
-	"devDependencies": {
-		"@rollup/plugin-json": "^5.0.0",
-		"@types/node": "^18.11.0",
-		"@typescript-eslint/eslint-plugin": "^5.40.1",
-		"@typescript-eslint/parser": "^5.40.1",
-		"c8": "^7.12.0",
-		"del": "^7.0.0",
-		"esbuild": "^0.15.11",
-		"eslint": "^8.25.0",
-		"eslint-config-prettier": "^8.5.0",
-		"prettier": "2.7.1",
-		"rollup": "^3.2.3",
-		"rollup-plugin-dts": "^5.0.0",
-		"rollup-plugin-typescript2": "^0.34.1",
-		"ts-node": "^10.9.1",
-		"tslib": "^2.4.0",
-		"typescript": "^4.8.4",
-		"vitepress": "1.0.0-alpha.21",
-		"vitest": "^0.24.3",
-		"vue": "^3.2.41"
-	},
-	"funding": "https://github.com/sponsors/dxfjs",
-	"keywords": [
-		"js-dxf",
-		"ts-dxf",
-		"dxf",
-		"writer",
-		"js",
-		"ts"
-	],
-	"pnpm": {
-		"peerDependencyRules": {
-			"ignoreMissing": [
-				"@algolia/client-search"
-			]
-		}
-	}
+  "name": "@tarikjabiri/dxf",
+  "version": "2.5.2",
+  "description": "A JavaScript interface to Dxf written in TypeScript.",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": "https://github.com/tarikjabiri/dxf",
+  "author": "Tarik EL JABIRI",
+  "license": "MIT",
+  "homepage": "https://dxf.vercel.app",
+  "bugs": {
+    "url": "https://github.com/dxfjs/writer/issues",
+    "email": "dxfjss@gmail.com"
+  },
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build": "rollup -c",
+    "example": "node examples/example.js",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "eslint": "eslint . --fix",
+    "dev": "esbuild src/index.ts --format=cjs --bundle --outfile=dist/index.js"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-json": "^5.0.1",
+    "@types/node": "^18.11.7",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "c8": "^7.12.0",
+    "del": "^7.0.0",
+    "esbuild": "^0.15.12",
+    "eslint": "^8.26.0",
+    "rollup": "^3.2.3",
+    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4",
+    "vitepress": "1.0.0-alpha.26",
+    "vitest": "^0.24.3",
+    "vue": "^3.2.41"
+  },
+  "funding": "https://github.com/sponsors/dxfjs",
+  "keywords": [
+    "js-dxf",
+    "ts-dxf",
+    "dxf",
+    "writer",
+    "js",
+    "ts"
+  ],
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
+  }
 }

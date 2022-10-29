@@ -35,5 +35,5 @@
 		"**/examples/**",
 		"./rollup.config.mjs"
 	],
-	"include": ["./src", "./package.json", "specs"]
+	"include": ["./src", "./package.json"]
 }

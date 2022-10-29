@@ -1,15 +1,15 @@
 export default class Handle {
-	static seed = 0;
+  static seed = 0
 
-	static next(): string {
-		return (++Handle.seed).toString(16).toUpperCase();
-	}
+  static next(): string {
+    return (++Handle.seed).toString(16).toUpperCase()
+  }
 
-	static peek(): string {
-		return (Handle.seed + 1).toString(16).toUpperCase();
-	}
+  static peek(): string {
+    return (Handle.seed + 1).toString(16).toUpperCase()
+  }
 
-	static clear() {
-		Handle.seed = 0;
-	}
+  static clear() {
+    Handle.seed = 0
+  }
 }

@@ -1,8 +1,8 @@
-import { Dxfier } from 'Internals/Dxfier';
-import { point3d, vec3_t } from 'Internals/Helpers';
-import EntitiesManager from 'EntitiesSection/EntitiesManager';
-import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection';
-import EndBlk from './DxfEndBlk';
+import { Dxfier } from 'Internals/Dxfier'
+import { point3d, vec3_t } from 'Internals/Helpers'
+import EntitiesManager from 'EntitiesSection/EntitiesManager'
+import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
+import EndBlk from './DxfEndBlk'
 
 export enum BlockFlags {
 	None = 0,
@@ -16,40 +16,40 @@ export enum BlockFlags {
 }
 
 export class DxfBlock extends EntitiesManager {
-	readonly name: string;
-	readonly endBlk: EndBlk;
-	stringifyEntities = true;
-	ownerObjectHandle?: string;
-	flags: BlockFlags;
-	basePoint: vec3_t;
-	xrefPathName: string;
+  readonly name: string
+  readonly endBlk: EndBlk
+  stringifyEntities = true
+  ownerObjectHandle?: string
+  flags: BlockFlags
+  basePoint: vec3_t
+  xrefPathName: string
 
-	constructor(name: string, objects: DxfObjectsSection) {
-		super(objects, '0');
-		this.name = name;
-		this.flags = BlockFlags.None;
-		this.endBlk = new EndBlk();
-		this.basePoint = point3d(0, 0, 0);
-		this.xrefPathName = '';
-	}
+  constructor(name: string, objects: DxfObjectsSection) {
+    super(objects, '0')
+    this.name = name
+    this.flags = BlockFlags.None
+    this.endBlk = new EndBlk()
+    this.basePoint = point3d(0, 0, 0)
+    this.xrefPathName = ''
+  }
 
-	setLayerName(layerName: string) {
-		this.layerName = layerName;
-	}
+  setLayerName(layerName: string) {
+    this.layerName = layerName
+  }
 
-	override dxfy(dx: Dxfier): void {
-		dx.type('BLOCK');
-		dx.handle(this.handle);
-		dx.push(330, this.ownerObjectHandle);
-		dx.subclassMarker('AcDbEntity');
-		dx.layerName(this.layerName);
-		dx.subclassMarker('AcDbBlockBegin');
-		dx.name(this.name);
-		dx.push(70, this.flags);
-		dx.point3d(this.basePoint);
-		dx.name(this.name, 3);
-		dx.push(1, this.xrefPathName);
-		if (this.stringifyEntities) super.dxfy(dx);
-		this.endBlk.dxfy(dx);
-	}
+  override dxfy(dx: Dxfier): void {
+    dx.type('BLOCK')
+    dx.handle(this.handle)
+    dx.push(330, this.ownerObjectHandle)
+    dx.subclassMarker('AcDbEntity')
+    dx.layerName(this.layerName)
+    dx.subclassMarker('AcDbBlockBegin')
+    dx.name(this.name)
+    dx.push(70, this.flags)
+    dx.point3d(this.basePoint)
+    dx.name(this.name, 3)
+    dx.push(1, this.xrefPathName)
+    if (this.stringifyEntities) super.dxfy(dx)
+    this.endBlk.dxfy(dx)
+  }
 }

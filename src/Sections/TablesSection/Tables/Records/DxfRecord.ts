@@ -1,6 +1,6 @@
-import { Dxfier } from 'Internals/Dxfier';
-import Handle from 'Internals/Handle';
-import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import { Dxfier } from 'Internals/Dxfier'
+import Handle from 'Internals/Handle'
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
 
 export enum LayerFlags {
 	None = 0,
@@ -27,19 +27,19 @@ export enum ViewFlags {
 }
 
 export default class DxfRecord implements DxfInterface {
-	readonly type: string;
-	readonly handle: string;
-	ownerObjectHandle?: string;
+  readonly type: string
+  readonly handle: string
+  ownerObjectHandle?: string
 
-	constructor(type: string) {
-		this.type = type;
-		this.handle = Handle.next();
-	}
+  constructor(type: string) {
+    this.type = type
+    this.handle = Handle.next()
+  }
 
-	dxfy(dx: Dxfier) {
-		dx.type(this.type);
-		dx.handle(this.handle);
-		dx.push(330, this.ownerObjectHandle);
-		dx.subclassMarker('AcDbSymbolTableRecord');
-	}
+  dxfy(dx: Dxfier) {
+    dx.type(this.type)
+    dx.handle(this.handle)
+    dx.push(330, this.ownerObjectHandle)
+    dx.subclassMarker('AcDbSymbolTableRecord')
+  }
 }

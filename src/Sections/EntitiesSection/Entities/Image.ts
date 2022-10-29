@@ -1,7 +1,7 @@
-import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
-import { Dxfier } from 'Internals/Dxfier';
-import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers';
-import Entity, { CommonEntityOptions } from '../Entity';
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
+import { Dxfier } from 'Internals/Dxfier'
+import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers'
+import Entity, { CommonEntityOptions } from '../Entity'
 
 export enum ImageDisplayFlags {
 	ShowImage = 1,
@@ -46,123 +46,123 @@ export type ImageOptions_t = CommonEntityOptions & {
 };
 
 export class Image extends Entity {
-	width: number;
-	height: number;
-	scale: number;
-	rotation: number;
-	insertionPoint: vec3_t;
-	imageDefHandle: string;
-	imageDefReactorHandle?: string;
-	imageDisplayFlags: ImageDisplayFlags;
-	clippingStateFlag: ImageClippingStateFlag;
-	clipModeFlag: ImageClipModeFlag;
-	clippingType: ImageClippingType;
-	#clipBoundaryVertices: vec2_t[];
-	brightness: number;
-	contrast: number;
-	fade: number;
-	ratio: number;
-	classVersion: number;
+  width: number
+  height: number
+  scale: number
+  rotation: number
+  insertionPoint: vec3_t
+  imageDefHandle: string
+  imageDefReactorHandle?: string
+  imageDisplayFlags: ImageDisplayFlags
+  clippingStateFlag: ImageClippingStateFlag
+  clipModeFlag: ImageClipModeFlag
+  clippingType: ImageClippingType
+  #clipBoundaryVertices: vec2_t[]
+  brightness: number
+  contrast: number
+  fade: number
+  ratio: number
+  classVersion: number
 
-	constructor(imageArgs: ImageArgs_t, options?: ImageOptions_t) {
-		super('IMAGE', 'AcDbRasterImage', options);
-		this.width = imageArgs.width;
-		this.height = imageArgs.height;
-		this.scale = imageArgs.scale;
-		this.rotation = imageArgs.rotation;
-		this.insertionPoint = imageArgs.insertionPoint;
-		this.ratio = this.scale / this.width;
-		this.imageDefHandle = imageArgs.imageDefHandle;
-		this.imageDisplayFlags =
+  constructor(imageArgs: ImageArgs_t, options?: ImageOptions_t) {
+    super('IMAGE', 'AcDbRasterImage', options)
+    this.width = imageArgs.width
+    this.height = imageArgs.height
+    this.scale = imageArgs.scale
+    this.rotation = imageArgs.rotation
+    this.insertionPoint = imageArgs.insertionPoint
+    this.ratio = this.scale / this.width
+    this.imageDefHandle = imageArgs.imageDefHandle
+    this.imageDisplayFlags =
 			options?.imageDisplayFlags ||
-			ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
-		this.clippingStateFlag = options?.clippingStateFlag || ImageClippingStateFlag.On;
-		this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside;
-		this.clippingType = options?.clippingType || ImageClippingType.Rectangular;
-		this.brightness = options?.brightness || 50;
-		this.contrast = options?.brightness || 50;
-		this.fade = options?.fade || 0;
-		this.#clipBoundaryVertices = [];
-		this.classVersion = options?.classVersion || 0;
-		this.resetClipping();
-	}
+			ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen
+    this.clippingStateFlag = options?.clippingStateFlag || ImageClippingStateFlag.On
+    this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside
+    this.clippingType = options?.clippingType || ImageClippingType.Rectangular
+    this.brightness = options?.brightness || 50
+    this.contrast = options?.brightness || 50
+    this.fade = options?.fade || 0
+    this.#clipBoundaryVertices = []
+    this.classVersion = options?.classVersion || 0
+    this.resetClipping()
+  }
 
-	/**
+  /**
 	 *
 	 * @param verticies - The clip boundary verticies.
 	 * @param clippingType - The clipping boundary type.
 	 */
-	setClipBoundaryVerticies(verticies: vec2_t[], clippingType: ImageClippingType) {
-		if (clippingType === ImageClippingType.Rectangular) {
-			if (verticies.length == 2) {
-				this.#clipBoundaryVertices = verticies;
-			} else {
-				throw new Error('The number of vertices should be 2 in rectangular clipping !');
-			}
-		} else {
-			if (verticies.length >= 3) {
-				this.#clipBoundaryVertices = verticies;
-			} else {
-				throw new Error('The number of vertices should be >= 3 in polygonal clipping !');
-			}
-		}
-		this.#clipBoundaryVertices = [];
-		this.#clipBoundaryVertices.push(...verticies);
-	}
+  setClipBoundaryVerticies(verticies: vec2_t[], clippingType: ImageClippingType) {
+    if (clippingType === ImageClippingType.Rectangular) {
+      if (verticies.length == 2) {
+        this.#clipBoundaryVertices = verticies
+      } else {
+        throw new Error('The number of vertices should be 2 in rectangular clipping !')
+      }
+    } else {
+      if (verticies.length >= 3) {
+        this.#clipBoundaryVertices = verticies
+      } else {
+        throw new Error('The number of vertices should be >= 3 in polygonal clipping !')
+      }
+    }
+    this.#clipBoundaryVertices = []
+    this.#clipBoundaryVertices.push(...verticies)
+  }
 
-	resetClipping() {
-		const verticies = [point2d(-0.5, -0.5), point2d(this.width - 0.5, this.height - 0.5)];
-		this.setClipBoundaryVerticies(verticies, ImageClippingType.Rectangular);
-	}
+  resetClipping() {
+    const verticies = [point2d(-0.5, -0.5), point2d(this.width - 0.5, this.height - 0.5)]
+    this.setClipBoundaryVerticies(verticies, ImageClippingType.Rectangular)
+  }
 
-	private _vector(): vec2_t {
-		const x = this.ratio * Math.cos((this.rotation * Math.PI) / 180);
-		const y = this.ratio * Math.sin((this.rotation * Math.PI) / 180);
-		return point2d(x, y);
-	}
+  private _vector(): vec2_t {
+    const x = this.ratio * Math.cos((this.rotation * Math.PI) / 180)
+    const y = this.ratio * Math.sin((this.rotation * Math.PI) / 180)
+    return point2d(x, y)
+  }
 
-	private _uVector(): vec3_t {
-		const v = this._vector();
-		return point3d(v.x, -v.y, 0);
-	}
+  private _uVector(): vec3_t {
+    const v = this._vector()
+    return point3d(v.x, -v.y, 0)
+  }
 
-	private _vVector(): vec3_t {
-		const v = this._vector();
-		return point3d(v.y, v.x, 0);
-	}
+  private _vVector(): vec3_t {
+    const v = this._vector()
+    return point3d(v.y, v.x, 0)
+  }
 
-	override boundingBox(): boundingBox_t {
-		const width = this.scale;
-		const height = (this.width / this.height) * this.scale;
-		const diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
-		return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal);
-	}
+  override boundingBox(): boundingBox_t {
+    const width = this.scale
+    const height = (this.width / this.height) * this.scale
+    const diagonal = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2))
+    return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal)
+  }
 
-	override dxfy(dx: Dxfier): void {
-		super.dxfy(dx);
-		dx.push(90, this.classVersion);
-		dx.point3d(this.insertionPoint);
-		dx.push(11, this._uVector().x);
-		dx.push(21, this._uVector().y);
-		dx.push(31, this._uVector().z);
-		dx.push(12, this._vVector().x);
-		dx.push(22, this._vVector().y);
-		dx.push(32, this._vVector().z);
-		dx.push(13, this.width);
-		dx.push(23, this.height);
-		dx.push(340, this.imageDefHandle);
-		dx.push(70, this.imageDisplayFlags);
-		dx.push(280, this.clippingStateFlag);
-		dx.push(281, this.brightness);
-		dx.push(282, this.contrast);
-		dx.push(283, this.fade);
-		dx.push(360, this.imageDefReactorHandle);
-		dx.push(71, this.clippingType);
-		dx.push(91, this.#clipBoundaryVertices.length);
-		this.#clipBoundaryVertices.forEach((v) => {
-			dx.push(14, v.x);
-			dx.push(24, v.y);
-		});
-		dx.push(290, this.clipModeFlag);
-	}
+  override dxfy(dx: Dxfier): void {
+    super.dxfy(dx)
+    dx.push(90, this.classVersion)
+    dx.point3d(this.insertionPoint)
+    dx.push(11, this._uVector().x)
+    dx.push(21, this._uVector().y)
+    dx.push(31, this._uVector().z)
+    dx.push(12, this._vVector().x)
+    dx.push(22, this._vVector().y)
+    dx.push(32, this._vVector().z)
+    dx.push(13, this.width)
+    dx.push(23, this.height)
+    dx.push(340, this.imageDefHandle)
+    dx.push(70, this.imageDisplayFlags)
+    dx.push(280, this.clippingStateFlag)
+    dx.push(281, this.brightness)
+    dx.push(282, this.contrast)
+    dx.push(283, this.fade)
+    dx.push(360, this.imageDefReactorHandle)
+    dx.push(71, this.clippingType)
+    dx.push(91, this.#clipBoundaryVertices.length)
+    this.#clipBoundaryVertices.forEach((v) => {
+      dx.push(14, v.x)
+      dx.push(24, v.y)
+    })
+    dx.push(290, this.clipModeFlag)
+  }
 }
