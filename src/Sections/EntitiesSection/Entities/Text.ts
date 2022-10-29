@@ -49,9 +49,9 @@ export class Text extends Entity {
 	secondAlignmentPoint?: vec3_t;
 	relativeXScaleFactor?: number;
 
-	constructor(position: vec3_t, height: number, value: string, options?: TextOptions) {
+	constructor(firstAlignmentPoint: vec3_t, height: number, value: string, options?: TextOptions) {
 		super('TEXT', 'AcDbText', options);
-		this.position = position;
+		this.position = firstAlignmentPoint;
 		this.height = height;
 		this.value = value;
 		this.textStyle = 'STANDARD';
@@ -80,7 +80,11 @@ export class Text extends Entity {
 		dx.textStyle(this.textStyle);
 		dx.push(71, this.generationFlags);
 		dx.push(72, this.horizontalAlignment);
-		dx.point3d(this.secondAlignmentPoint);
+		if (this.secondAlignmentPoint) {
+			dx.push(11, this.secondAlignmentPoint.x);
+			dx.push(21, this.secondAlignmentPoint.y);
+			dx.push(31, this.secondAlignmentPoint.z);
+		}
 		dx.subclassMarker('AcDbText');
 		dx.push(73, this.verticalAlignment);
 	}
