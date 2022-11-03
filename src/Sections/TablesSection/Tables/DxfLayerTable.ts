@@ -1,6 +1,6 @@
-import DxfTable from '../DxfTable'
-import { DxfLayer } from './Records/DxfLayer'
 import DxfLTypeTable from './DxfLTypeTable'
+import { DxfLayer } from './Records/DxfLayer'
+import DxfTable from '../DxfTable'
 import { LayerFlags } from './Records/DxfRecord'
 
 export default class DxfLayerTable extends DxfTable<DxfLayer> {

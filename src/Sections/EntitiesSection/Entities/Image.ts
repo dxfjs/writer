@@ -1,48 +1,49 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
-import { Dxfier } from 'Internals/Dxfier'
-import { point2d, vec2_t, point3d, vec3_t } from 'Internals/Helpers'
 import Entity, { CommonEntityOptions } from '../Entity'
+import { point2d, point3d, vec2_t, vec3_t } from 'Internals/Helpers'
+
+import { Dxfier } from 'Internals/Dxfier'
 
 export enum ImageDisplayFlags {
-	ShowImage = 1,
-	ShowImageWhenNotAlignedWithScreen = 2,
-	UseClippingBoundary = 4,
-	TransparencyIsOn = 8,
+  ShowImage = 1,
+  ShowImageWhenNotAlignedWithScreen = 2,
+  UseClippingBoundary = 4,
+  TransparencyIsOn = 8,
 }
 
 export enum ImageClippingType {
-	Rectangular = 1,
-	Polygonal = 2,
+  Rectangular = 1,
+  Polygonal = 2,
 }
 
 export enum ImageClippingStateFlag {
-	Off = 0,
-	On = 1,
+  Off = 0,
+  On = 1,
 }
 
 export enum ImageClipModeFlag {
-	Outside = 0,
-	Inside = 1,
+  Outside = 0,
+  Inside = 1,
 }
 
 export type ImageArgs_t = {
-	width: number;
-	height: number;
-	scale: number;
-	rotation: number;
-	insertionPoint: vec3_t;
-	imageDefHandle: string;
+  width: number;
+  height: number;
+  scale: number;
+  rotation: number;
+  insertionPoint: vec3_t;
+  imageDefHandle: string;
 };
 
 export type ImageOptions_t = CommonEntityOptions & {
-	imageDisplayFlags?: ImageDisplayFlags;
-	clippingStateFlag?: ImageClippingStateFlag;
-	clipModeFlag?: ImageClipModeFlag;
-	clippingType?: ImageClippingType;
-	brightness?: number;
-	contrast?: number;
-	fade?: number;
-	classVersion?: number;
+  imageDisplayFlags?: ImageDisplayFlags;
+  clippingStateFlag?: ImageClippingStateFlag;
+  clipModeFlag?: ImageClipModeFlag;
+  clippingType?: ImageClippingType;
+  brightness?: number;
+  contrast?: number;
+  fade?: number;
+  classVersion?: number;
 };
 
 export class Image extends Entity {
@@ -74,8 +75,8 @@ export class Image extends Entity {
     this.ratio = this.scale / this.width
     this.imageDefHandle = imageArgs.imageDefHandle
     this.imageDisplayFlags =
-			options?.imageDisplayFlags ||
-			ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen
+      options?.imageDisplayFlags ||
+      ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen
     this.clippingStateFlag = options?.clippingStateFlag || ImageClippingStateFlag.On
     this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside
     this.clippingType = options?.clippingType || ImageClippingType.Rectangular
@@ -88,10 +89,10 @@ export class Image extends Entity {
   }
 
   /**
-	 *
-	 * @param verticies - The clip boundary verticies.
-	 * @param clippingType - The clipping boundary type.
-	 */
+  \*
+  \* @param verticies - The clip boundary verticies.
+  \* @param clippingType - The clipping boundary type.
+  \*/
   setClipBoundaryVerticies(verticies: vec2_t[], clippingType: ImageClippingType) {
     if (clippingType === ImageClippingType.Rectangular) {
       if (verticies.length == 2) {

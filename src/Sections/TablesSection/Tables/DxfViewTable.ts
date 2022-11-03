@@ -1,5 +1,6 @@
-import DxfTable from '../DxfTable'
 import DxfView, { ViewArgs } from './Records/DxfView'
+
+import DxfTable from '../DxfTable'
 
 export default class DxfViewTable extends DxfTable<DxfView> {
   constructor() {

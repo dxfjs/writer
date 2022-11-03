@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { point2d } from 'Internals/Helpers'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { LWPolyline } from 'EntitiesSection/Entities/LWPolyline'
+import { point2d } from 'Internals/Helpers'
 
 describe('Polyline', () => {
   const dataState = {

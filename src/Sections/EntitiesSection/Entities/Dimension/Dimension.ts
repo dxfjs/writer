@@ -1,6 +1,6 @@
+import Entity, { CommonEntityOptions } from '../../Entity'
 import { Dxfier } from 'Internals/Dxfier'
 import { vec3_t } from 'Internals/Helpers'
-import Entity, { CommonEntityOptions } from '../../Entity'
 
 export enum DimensionType {
 	Default = 0,

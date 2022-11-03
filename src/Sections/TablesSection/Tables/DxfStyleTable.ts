@@ -1,5 +1,5 @@
-import DxfTable from '../DxfTable'
 import DxfStyle from './Records/DxfStyle'
+import DxfTable from '../DxfTable'
 
 export default class DxfStyleTable extends DxfTable<DxfStyle> {
   constructor() {

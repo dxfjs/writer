@@ -1,5 +1,5 @@
-import { Dxfier } from 'Internals/Dxfier'
 import DxfObject from '../DxfObject'
+import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfRasterVariables extends DxfObject {
   constructor() {

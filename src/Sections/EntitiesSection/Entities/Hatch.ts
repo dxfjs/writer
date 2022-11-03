@@ -1,11 +1,12 @@
-import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox'
-import { aciHex } from 'Internals/Colors'
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
+import Entity, { CommonEntityOptions } from '../Entity'
+import { point3d, vec2_t, vec3_t } from 'Internals/Helpers'
+
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 import PredefinedHatchPatterns from 'Internals/HatchPatterns'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import TrueColor from 'Internals/TrueColor'
-import { vec2_t, point3d, vec3_t } from 'Internals/Helpers'
-import Entity, { CommonEntityOptions } from '../Entity'
+import { aciHex } from 'Internals/Colors'
 
 export enum HatchPredefinedPatterns {
 	SOLID = 'SOLID',

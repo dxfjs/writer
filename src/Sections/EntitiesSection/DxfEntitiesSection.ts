@@ -1,6 +1,6 @@
-import { Dxfier } from 'Internals/Dxfier'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { DxfBlock } from '../BlocksSection/DxfBlock'
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfEntitiesSection implements DxfInterface {
   readonly modelSpace: DxfBlock

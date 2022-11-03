@@ -1,7 +1,8 @@
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from '../Entity'
-import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox'
-import { Dxfier } from 'Internals/Dxfier'
 import { point3d, vec3_t } from 'Internals/Helpers'
+
+import { Dxfier } from 'Internals/Dxfier'
 import { deg2rad } from 'Internals/Utils'
 
 export class Arc extends Entity {

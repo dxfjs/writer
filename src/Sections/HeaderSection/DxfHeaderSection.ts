@@ -1,4 +1,5 @@
 import DxfVariable, { values_t } from './DxfVariable'
+
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 

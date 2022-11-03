@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { Ellipse } from 'EntitiesSection/Entities/Ellipse'
+
 import { Dxfier } from 'Internals/Dxfier'
+import { Ellipse } from 'EntitiesSection/Entities/Ellipse'
 import { point3d } from 'Internals/Helpers'
 
 describe('Ellipse', () => {

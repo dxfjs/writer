@@ -1,7 +1,7 @@
 import { DxfBlock } from './DxfBlock'
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
-import DxfTablesSection from 'TablesSection/DxfTablesSection'
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
+import DxfTablesSection from 'TablesSection/DxfTablesSection'
 import { Dxfier } from 'Internals/Dxfier'
 
 export class DxfBlocksSection implements DxfInterface {

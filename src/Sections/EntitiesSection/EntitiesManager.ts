@@ -1,42 +1,37 @@
+import { AlignedDimOptions, AlignedDimension } from './Entities/Dimension/AlignedDimension'
+import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines'
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
+import { DiameterDimOptions, DiameterDimension } from './Entities/Dimension/DiameterDimension'
 import Entity, { CommonEntityOptions } from './Entity'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
-import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox'
-import {
-  LWPolyline,
-  LWPolylineFlags,
-  LWPolylineOptions,
-  LWPolylineVertex,
-} from './Entities/LWPolyline'
-import { bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
-import { rectangleOptions_t } from 'Internals/Helpers'
-import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
-import Handle from 'Internals/Handle'
-import { Insert, insertOptions_t } from './Entities/Insert'
+import { Face, FaceOptions } from './Entities/Face'
 import {
   Hatch,
   HatchBoundaryPaths,
   HatchGradientOptions_t,
   HatchOptions_t,
-  HatchPatternOptions_t,
+  HatchPatternOptions_t
 } from './Entities/Hatch'
-import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
 import { Image, ImageOptions_t } from './Entities/Image'
-import { Dxfier } from 'Internals/Dxfier'
-import { AlignedDimension, AlignedDimOptions } from './Entities/Dimension/AlignedDimension'
-import { DiameterDimension, DiameterDimOptions } from './Entities/Dimension/DiameterDimension'
-import { RadialDimension, RadialDimOptions } from './Entities/Dimension/RadialDimension'
-import { LinearDimension, LinearDimOptions } from './Entities/Dimension/LinearDimension'
-import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines'
-import { DimensionOptions } from './Entities/Dimension/Dimension'
+import { Insert, InsertOptions } from './Entities/Insert'
+import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline'
+import { LinearDimOptions, LinearDimension } from './Entities/Dimension/LinearDimension'
+import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
+import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDimension'
+import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
+import { Spline, SplineArgs_t } from './Entities/Spline'
+import { Text, TextOptions } from './Entities/Text'
+
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints'
+import { Arc } from './Entities/Arc'
+import { Circle } from './Entities/Circle'
+import { DimensionOptions } from './Entities/Dimension/Dimension'
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
+import { Dxfier } from 'Internals/Dxfier'
+import { Ellipse } from './Entities/Ellipse'
+import Handle from 'Internals/Handle'
 import { Line } from './Entities/Line'
 import { Point } from './Entities/Point'
-import { Circle } from './Entities/Circle'
-import { Arc } from './Entities/Arc'
-import { Spline, SplineArgs_t } from './Entities/Spline'
-import { Ellipse } from './Entities/Ellipse'
-import { Face, faceOptions_t } from './Entities/Face'
-import { Text, TextOptions } from './Entities/Text'
 
 export default abstract class EntitiesManager implements DxfInterface {
   readonly entities: Entity[] = []
@@ -114,7 +109,7 @@ export default abstract class EntitiesManager implements DxfInterface {
     return this.addEntity(new LWPolyline(points, options))
   }
 
-  addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: rectangleOptions_t): LWPolyline {
+  addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: RectangleOptions): LWPolyline {
     const vertices: LWPolylineVertex[] = []
     const tX = topLeft.x
     const tY = topLeft.y
@@ -248,7 +243,7 @@ export default abstract class EntitiesManager implements DxfInterface {
     secondCorner: vec3_t,
     thirdCorner: vec3_t,
     fourthCorner: vec3_t,
-    options?: faceOptions_t
+    options?: FaceOptions
   ): Face {
     return this.addEntity(
       new Face(firstCorner, secondCorner, thirdCorner, fourthCorner, options)
@@ -264,7 +259,7 @@ export default abstract class EntitiesManager implements DxfInterface {
     return this.addEntity(new Text(firstAlignementPoint, height, value, options))
   }
 
-  addInsert(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t): Insert {
+  addInsert(blockName: string, insertionPoint: vec3_t, options?: InsertOptions): Insert {
     return this.addEntity(new Insert(blockName, insertionPoint, options || {}))
   }
 

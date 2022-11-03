@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { Dxfier } from 'Internals/Dxfier'
+
 import DxfHeaderSection from 'HeaderSection/DxfHeaderSection'
+import { Dxfier } from 'Internals/Dxfier'
 
 describe('DxfHeader class', () => {
   const header = new DxfHeaderSection()

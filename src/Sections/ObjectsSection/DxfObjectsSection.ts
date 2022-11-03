@@ -1,8 +1,8 @@
 import DxfDictionary from './Objects/DxfDictionary'
-import DxfObject from './DxfObject'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import DxfImageDef from './Objects/DxfImageDef'
 import DxfImageDefReactor from './Objects/DxfImageDefReactor'
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import DxfObject from './DxfObject'
 import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfObjectsSection implements DxfInterface {

@@ -13,7 +13,7 @@ export type chamfer_t = {
 	second?: number;
 };
 
-export type rectangleOptions_t = LWPolylineOptions & {
+export type RectangleOptions = LWPolylineOptions & {
 	chamfer?: chamfer_t;
 	fillet?: number;
 };

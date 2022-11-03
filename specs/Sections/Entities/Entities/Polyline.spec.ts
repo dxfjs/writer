@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { point3d } from 'Internals/Helpers'
+
 import { Polyline } from 'EntitiesSection/Entities/Polyline'
+import { point3d } from 'Internals/Helpers'
 
 describe('Polyline3D', () => {
   it('should return the given parameters.', () => {

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { point3d } from 'Internals/Helpers'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { Line } from 'EntitiesSection/Entities/Line'
+import { point3d } from 'Internals/Helpers'
 
 describe('Line', () => {
   const dataState = {

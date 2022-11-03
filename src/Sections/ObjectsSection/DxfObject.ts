@@ -1,6 +1,6 @@
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
 
 export default class DxfObject implements DxfInterface {
   readonly type: string

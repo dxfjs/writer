@@ -1,5 +1,7 @@
+import { LWPolylineFlags, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline'
 import { describe, expect, it } from 'vitest'
-import { LWPolylineFlags, LWPolylineVertex, point2d, point3d } from '../src'
+import { point2d, point3d } from 'Internals/Helpers'
+
 import { DxfWriter } from 'DxfWriter'
 
 describe('DxfWriter', () => {

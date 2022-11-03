@@ -1,5 +1,5 @@
-import { Dxfier } from 'Internals/Dxfier'
 import DxfRecord from './DxfRecord'
+import { Dxfier } from 'Internals/Dxfier'
 
 export enum AppIdFlags {
 	None = 0,

@@ -1,5 +1,5 @@
-import { Dxfier } from 'Internals/Dxfier'
 import DxfRecord, { LayerFlags } from './DxfRecord'
+import { Dxfier } from 'Internals/Dxfier'
 
 export class DxfLayer extends DxfRecord {
   static layerZeroName = '0'

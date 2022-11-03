@@ -1,15 +1,16 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
-import { Dxfier } from 'Internals/Dxfier'
-import { point3d, vec3_t } from 'Internals/Helpers'
 import Entity, { CommonEntityOptions } from '../Entity'
+import { point3d, vec3_t } from 'Internals/Helpers'
 
-export interface insertOptions_t extends CommonEntityOptions {
-	scaleFactor?: Partial<vec3_t>;
-	rotationAngle?: number;
-	columnCount?: number;
-	rowCount?: number;
-	columnSpacing?: number;
-	rowSpacing?: number;
+import { Dxfier } from 'Internals/Dxfier'
+
+export interface InsertOptions extends CommonEntityOptions {
+  scaleFactor?: Partial<vec3_t>;
+  rotationAngle?: number;
+  columnCount?: number;
+  rowCount?: number;
+  columnSpacing?: number;
+  rowSpacing?: number;
 }
 
 export class Insert extends Entity {
@@ -22,7 +23,7 @@ export class Insert extends Entity {
   columnSpacing: number
   rowSpacing: number
 
-  constructor(blockName: string, insertionPoint: vec3_t, options?: insertOptions_t) {
+  constructor(blockName: string, insertionPoint: vec3_t, options?: InsertOptions) {
     super('INSERT', 'AcDbBlockReference', options)
     this.blockName = blockName
     this.insertionPoint = insertionPoint

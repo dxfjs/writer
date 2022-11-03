@@ -1,5 +1,5 @@
-import { Dxfier } from 'Internals/Dxfier'
 import DxfRecord, { StyleFlags } from './DxfRecord'
+import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfStyle extends DxfRecord {
   readonly name: string

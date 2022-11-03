@@ -1,4 +1,5 @@
 import DxfDimStyle, { DimStyleFlags } from './Records/DxfDimStyle'
+
 import DxfTable from '../DxfTable'
 import { Dxfier } from 'Internals/Dxfier'
 

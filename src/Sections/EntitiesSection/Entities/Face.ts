@@ -1,19 +1,20 @@
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from '../Entity'
-import { boundingBox_t, BoundingBox } from 'Internals/BoundingBox'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { vec3_t } from 'Internals/Helpers'
 
 export enum InvisibleEdgeFlags {
-	None = 0,
-	First = 1,
-	Second = 2,
-	Third = 4,
-	Fourth = 8,
+  None = 0,
+  First = 1,
+  Second = 2,
+  Third = 4,
+  Fourth = 8,
 }
 
-export type faceOptions_t = CommonEntityOptions & {
-	invisibleEdges?: InvisibleEdgeFlags;
-};
+export interface FaceOptions extends CommonEntityOptions {
+  invisibleEdges?: InvisibleEdgeFlags
+}
 
 export class Face extends Entity {
   firstCorner: vec3_t
@@ -27,7 +28,7 @@ export class Face extends Entity {
     secondCorner: vec3_t,
     thirdCorner: vec3_t,
     fourthCorner: vec3_t,
-    options?: faceOptions_t
+    options?: FaceOptions
   ) {
     super('3DFACE', 'AcDbFace', options)
     this.firstCorner = firstCorner
@@ -57,10 +58,10 @@ export class Face extends Entity {
     if (visible) this.invisibleEdges = InvisibleEdgeFlags.None
     else {
       this.invisibleEdges =
-				InvisibleEdgeFlags.First |
-				InvisibleEdgeFlags.Second |
-				InvisibleEdgeFlags.Third |
-				InvisibleEdgeFlags.Fourth
+        InvisibleEdgeFlags.First |
+        InvisibleEdgeFlags.Second |
+        InvisibleEdgeFlags.Third |
+        InvisibleEdgeFlags.Fourth
     }
   }
 

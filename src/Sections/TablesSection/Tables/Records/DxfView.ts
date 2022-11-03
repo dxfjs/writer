@@ -1,6 +1,7 @@
-import { Dxfier } from 'Internals/Dxfier'
-import { vec2_t, vec3_t } from 'Internals/Helpers'
 import DxfRecord, { ViewFlags } from './DxfRecord'
+import { vec2_t, vec3_t } from 'Internals/Helpers'
+
+import { Dxfier } from 'Internals/Dxfier'
 
 export type ViewArgs = {
 	name: string;

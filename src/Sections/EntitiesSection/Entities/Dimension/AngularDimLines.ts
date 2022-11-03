@@ -1,6 +1,7 @@
-import { vec3_t } from 'Internals/Helpers'
-import { Dxfier } from 'Internals/Dxfier'
 import { Dimension, DimensionOptions, DimensionType } from './Dimension'
+
+import { Dxfier } from 'Internals/Dxfier'
+import { vec3_t } from 'Internals/Helpers'
 
 export interface DLine {
 	start: vec3_t;

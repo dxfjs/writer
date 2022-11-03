@@ -1,9 +1,8 @@
-import { Dxfier } from 'Internals/Dxfier'
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { Dxfier } from 'Internals/Dxfier'
 
 /**
  * This is the type for variable values.
- *
  * @example
  * ```js
  * const values = {

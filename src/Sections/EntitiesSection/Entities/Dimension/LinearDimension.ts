@@ -1,7 +1,7 @@
-import { Dxfier } from 'Internals/Dxfier'
-import { point3d, vec3_t } from 'Internals/Helpers'
-import { deg2rad } from 'Internals/Utils'
 import { Dimension, DimensionOptions, DimensionType } from './Dimension'
+import { point3d, vec3_t } from 'Internals/Helpers'
+import { Dxfier } from 'Internals/Dxfier'
+import { deg2rad } from 'Internals/Utils'
 
 export interface LinearDimOptions extends DimensionOptions {
 	insertionPoint?: vec3_t;

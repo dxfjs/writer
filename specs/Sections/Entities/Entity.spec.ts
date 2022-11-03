@@ -1,11 +1,12 @@
-import { describe, expect, it, beforeEach } from 'vitest'
-import { Dxfier } from 'Internals/Dxfier'
+import { beforeEach, describe, expect, it } from 'vitest'
+
 import { BoundingBox } from 'Internals/BoundingBox'
-import { boundingBox_t } from 'Internals/BoundingBox'
+import { Dxfier } from 'Internals/Dxfier'
 import Entity from 'EntitiesSection/Entity'
+import { boundingBox_t } from 'Internals/BoundingBox'
 
 class DummyEntity extends Entity {
-  public override boundingBox(): boundingBox_t {
+  public override  boundingBox(): boundingBox_t {
     return BoundingBox.pointBBox({ x: 0, y: 0, z: 0 })
   }
 }

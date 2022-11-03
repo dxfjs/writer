@@ -1,19 +1,20 @@
-import { Dxfier } from 'Internals/Dxfier'
 import { Colors, Units } from 'Internals/Enums'
-import Handle from 'Internals/Handle'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
-import { vec3_t } from 'Internals/Helpers'
+
+import { AppIdFlags } from 'TablesSection/Tables/Records/DxfAppId'
 import { DxfBlock } from 'BlocksSection/DxfBlock'
 import { DxfBlocksSection } from 'BlocksSection/DxfBlocksSection'
 import DxfClassesSection from 'ClassesSection/DxfClassesSection'
 import DxfEntitiesSection from 'EntitiesSection/DxfEntitiesSection'
 import DxfHeaderSection from 'HeaderSection/DxfHeaderSection'
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
 import DxfTablesSection from 'TablesSection/DxfTablesSection'
-import { AppIdFlags } from 'TablesSection/Tables/Records/DxfAppId'
 import DxfVPort from 'TablesSection/Tables/Records/DxfVPort'
+import { Dxfier } from 'Internals/Dxfier'
+import Handle from 'Internals/Handle'
 import { name as packageName } from '../package.json'
-import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
+import { vec3_t } from 'Internals/Helpers'
 
 export class DxfDocument implements DxfInterface {
   readonly header: DxfHeaderSection

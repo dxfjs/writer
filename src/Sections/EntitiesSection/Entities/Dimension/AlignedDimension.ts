@@ -1,7 +1,8 @@
+import { Dimension, DimensionOptions, DimensionType } from './Dimension'
+import { ab, angle, b, xy } from 'Internals/Utils'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { vec3_t } from 'Internals/Helpers'
-import { ab, angle, b, xy } from 'Internals/Utils'
-import { Dimension, DimensionOptions, DimensionType } from './Dimension'
 
 export interface AlignedDimOptions extends DimensionOptions {
 	insertionPoint?: vec3_t;
@@ -28,7 +29,7 @@ export class AlignedDimension extends Dimension {
     this.definitionPoint = xy([a_, _b], this.fisrtPoint)
   }
 
-  protected override rotate(): number {
+  protected override  rotate(): number {
     return angle(this.fisrtPoint, this.secondPoint)
   }
 

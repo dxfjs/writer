@@ -1,13 +1,13 @@
-import { Dxfier } from './Dxfier'
 import DxfInterface from './Interfaces/DxfInterface'
+import { Dxfier } from './Dxfier'
 
 export type HatchPatternData_t = {
-	lineAngle: number;
-	x: number;
-	y: number;
-	offsetX: number;
-	offsetY: number;
-	dashLengthItems: number[];
+  lineAngle: number;
+  x: number;
+  y: number;
+  offsetX: number;
+  offsetY: number;
+  dashLengthItems: number[];
 };
 
 export class HatchPattern implements DxfInterface {

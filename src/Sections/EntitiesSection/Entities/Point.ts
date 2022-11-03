@@ -1,5 +1,6 @@
-import Entity, { CommonEntityOptions } from '../Entity'
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
+import Entity, { CommonEntityOptions } from '../Entity'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { point3d } from 'Internals/Helpers'
 

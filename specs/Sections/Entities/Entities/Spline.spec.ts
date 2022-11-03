@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { point3d } from 'Internals/Helpers'
+
 import { Spline } from 'EntitiesSection/Entities/Spline'
+import { point3d } from 'Internals/Helpers'
 
 describe('Spline', () => {
   const dataState = {

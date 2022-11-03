@@ -1,6 +1,7 @@
+import { Dimension, DimensionOptions, DimensionType } from './Dimension'
+
 import { Dxfier } from 'Internals/Dxfier'
 import { vec3_t } from 'Internals/Helpers'
-import { Dimension, DimensionOptions, DimensionType } from './Dimension'
 
 export interface RadialDimOptions extends DimensionOptions {
 	leaderLength?: number;

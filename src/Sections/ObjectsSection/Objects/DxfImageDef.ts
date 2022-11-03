@@ -1,7 +1,7 @@
 import DxfDefinedApplication from 'Internals/DefinedApplication'
+import DxfObject from '../DxfObject'
 import { Dxfier } from 'Internals/Dxfier'
 import { point2d } from 'Internals/Helpers'
-import DxfObject from '../DxfObject'
 
 export enum ImageDefResolutionUnits {
 	NoUnits = 0,
