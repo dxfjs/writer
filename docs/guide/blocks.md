@@ -22,6 +22,12 @@ const dxf = new DxfWriter();
 const myBlock = dxf.addBlock("myBlock");
 ```
 
+:::warning
+Blocks names cannot include the following characters: < > / \ " : ; ? * | = `
+
+By default these characters are removed from the given name if exists
+:::
+
 ## Adding entities to the block
 
 To add entities to a block just call the convenient methods to do so:

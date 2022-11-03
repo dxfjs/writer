@@ -134,9 +134,9 @@ Last thing is the length of the array should equal the number of elements. Note 
 ```js
 import { DxfWriter, Colors, LayerFlags } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-const exampleLayer = dxf.addLayer("example", Colors.Red, "Continuous"); // Use this function if you want to store a refrence to layer object.
+const myLayer = dxf.addLayer("example", Colors.Red, "Continuous"); 
 // Or
-dxf.addLayer("example", Colors.Red, "Continuous"); // Always choose unique names.
+const myLayer = dxf.addLayer("example", Colors.Red); // Continuous is the default.
 // Continuous is the name of lineType it could be a lineType you define.
 // You can set some flags like this:
 const exampleLayer = dxf.addLayer(
@@ -147,9 +147,14 @@ const exampleLayer = dxf.addLayer(
 );
 ```
 
-:::info
-- If no flag is set, by default the flag is set to 0 which make the layer thawed.
+
+:::warning
+Layers names cannot include the following characters: < > / \ " : ; ? * | = `
+
+By default these characters are removed from the given name if exists
 :::
+
+If no flag is set, by default the flag is set to 0 which make the layer thawed.
 
 For all possible values see `LayerFlags` and `Colors`.
 
