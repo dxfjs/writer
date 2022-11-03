@@ -2,6 +2,7 @@ import DxfLTypeTable from './DxfLTypeTable'
 import { DxfLayer } from './Records/DxfLayer'
 import DxfTable from '../DxfTable'
 import { LayerFlags } from './Records/DxfRecord'
+import { specialCharsRegex } from 'Internals/Utils'
 
 export default class DxfLayerTable extends DxfTable<DxfLayer> {
   readonly lTypeTable: DxfLTypeTable
@@ -12,6 +13,7 @@ export default class DxfLayerTable extends DxfTable<DxfLayer> {
   }
 
   addLayer(name: string, color: number, lineType: string, flags?: LayerFlags): DxfLayer {
+    name = name.replace(specialCharsRegex, '')
     if (this.exist(name)) throw new Error(`The ${name} Layer already exist!`)
     if (!this.lTypeTable.exist(lineType))
       throw new Error(`The ${name} LineType doesn't exist!`)

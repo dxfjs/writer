@@ -27,7 +27,7 @@ export class DxfBlock extends EntitiesManager {
 
   constructor(name: string, objects: DxfObjectsSection) {
     super(objects, '0')
-    this.name = name
+    this.name = name    
     this.flags = BlockFlags.None
     this.endBlk = new EndBlk()
     this.basePoint = point3d(0, 0, 0)

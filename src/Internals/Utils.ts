@@ -1,5 +1,7 @@
 import { point3d, vec3_t } from './Helpers'
 
+export const specialCharsRegex = /[<>/\\":;?*|=`]/g
+
 export function d(f: vec3_t, s: vec3_t) {
   return Math.sqrt(Math.pow(f.x - s.x, 2) + Math.pow(f.y - s.y, 2))
 }

@@ -3,6 +3,7 @@ import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
 import DxfTablesSection from 'TablesSection/DxfTablesSection'
 import { Dxfier } from 'Internals/Dxfier'
+import { specialCharsRegex } from 'Internals/Utils'
 
 export class DxfBlocksSection implements DxfInterface {
   readonly blocks: DxfBlock[] = []
@@ -12,12 +13,14 @@ export class DxfBlocksSection implements DxfInterface {
 
   constructor(tables: DxfTablesSection, objects: DxfObjectsSection) {
     this.tables = tables
-    this.modelSpace = this.addBlock('*Model_Space', objects)
-    this.paperSpace = this.addBlock('*Paper_Space', objects)
+    this.modelSpace = this.addBlock('*Model_Space', objects, false)
+    this.paperSpace = this.addBlock('*Paper_Space', objects, false)
     this.modelSpace.stringifyEntities = false
   }
 
-  addBlock(name: string, objects: DxfObjectsSection): DxfBlock {
+  addBlock(name: string, objects: DxfObjectsSection, removeSpecialChars = true): DxfBlock {
+    if(removeSpecialChars)
+      name = name.replace(specialCharsRegex, '')
     const blockRecord = this.tables.addBlockRecord(name)
     const block = new DxfBlock(name, objects)
     block.ownerObjectHandle = blockRecord.handle
