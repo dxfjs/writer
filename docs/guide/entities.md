@@ -308,11 +308,19 @@ const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want
 ## `TEXT`
 
 ```js
-import { DxfWriter, point3d } from "@tarikjabiri/dxf";
+import { DxfWriter, point3d, TextHorizontalAlignment, TextVerticalAlignment } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-// addText(position, height, value, options)
-// options has rotation, obliqueAngle, generationFlags, horizontalAlignment, verticalAlignment, secondAlignmentPoint, relativeXScaleFactor
-dxf.addText(point3d(20, 20, 0), 10, 'DXFTEXT', { rotation: 30, });
+dxf.addText(point3d(20, 20), 1, 'GGWP', {
+	rotation: 30,
+	horizontalAlignment: TextHorizontalAlignment.Center,
+	verticalAlignment: TextVerticalAlignment.Middle,
+	secondAlignmentPoint: point3d(20, 20),
+});
 // or
-const text = dxf.addText(point3d(20, 20, 0), 10, 'DXFTEXT', { rotation: 30, }); // If you want a reference to the added text.
+const text = dxf.addText(point3d(20, 20), 1, 'GGWP', {
+	rotation: 30,
+	horizontalAlignment: TextHorizontalAlignment.Center,
+	verticalAlignment: TextVerticalAlignment.Middle,
+	secondAlignmentPoint: point3d(20, 20),
+}); // If you want a reference to the added text.
 ```
