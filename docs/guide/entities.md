@@ -20,9 +20,9 @@ An arc is a portion of the circumference of a circle.
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-dxf.addArc(point3d(0, 0, 0), 10, 0, 45);
+dxf.addArc(point3d(0, 0), 10, 0, 45);
 // or
-const myArc = dxf.addArc(point3d(0, 0, 0), 10, 0, 45); // If you want a reference to the added arc.
+const myArc = dxf.addArc(point3d(0, 0), 10, 0, 45); // If you want a reference to the added arc.
 ```
 
 ## `CIRCLE`
@@ -34,9 +34,9 @@ The distance between any point of the circle and the centre is called the radius
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-dxf.addCircle(point3d(0, 0, 0), 10);
+dxf.addCircle(point3d(0, 0), 10);
 // or
-const myCircle = dxf.addCircle(point3d(0, 0, 0), 10); // If you want a reference to the added circle.
+const myCircle = dxf.addCircle(point3d(0, 0), 10); // If you want a reference to the added circle.
 ```
 
 ## `ELLIPSE`
@@ -48,11 +48,11 @@ As such, it generalizes a circle, which is the special type of ellipse in which 
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-dxf.addEllipse(point3d(100, 100, 0), point3d(50, 0, 0), 0.5, 0, 2 * Math.PI);
+dxf.addEllipse(point3d(100, 100), point3d(50, 0), 0.5, 0, 2 * Math.PI);
 // or
 const myEllipse = dxf.addEllipse(
-  point3d(100, 100, 0),
-  point3d(50, 0, 0),
+  point3d(100, 100),
+  point3d(50, 0),
   0.5,
   0,
   2 * Math.PI
@@ -69,17 +69,17 @@ A 3d face is flat surface with 4 corners.
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 dxf.add3dFace(
-  point3d(0, 0, 0),
-  point3d(0, 100, 0),
-  point3d(100, 100, 0),
-  point3d(100, 0, 0)
+  point3d(0, 0),
+  point3d(0, 100),
+  point3d(100, 100),
+  point3d(100, 0)
 );
 // or
 const my3dFace = dxf.add3dFace(
-  point3d(0, 0, 0),
-  point3d(0, 100, 0),
-  point3d(100, 100, 0),
-  point3d(100, 0, 0)
+  point3d(0, 0),
+  point3d(0, 100),
+  point3d(100, 100),
+  point3d(100, 0)
 ); // If you want a reference to the added 3dface.
 ```
 
@@ -106,10 +106,10 @@ import { DxfWriter,
 } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 dxf.add3dFace(
-  point3d(0, 0, 0),
-  point3d(0, 100, 0),
-  point3d(100, 100, 0),
-  point3d(100, 0, 0),
+  point3d(0, 00),
+  point3d(0, 1000),
+  point3d(100, 1000),
+  point3d(100, 00),
   {
     invisibleEdges: InvisibleEdgeFlags.First | InvisibleEdgeFlags.Fourth,
   }
@@ -219,7 +219,7 @@ const dxf = new DxfWriter();
 dxf.addImage(
   ".\\image-name.png", // Or the absolute path of the image if it isn't int the same folder.
   "image-name",
-  point3d(462419.04, 576568.45, 0), // Insertion point of the bottomLeft corner of the image.
+  point3d(462419.04, 576568.45), // Insertion point of the bottomLeft corner of the image.
   1792, // the width of the image
   1280, // the height of the image
   1, // Scale
@@ -229,7 +229,7 @@ dxf.addImage(
 const myimage = dxf.addImage(
 	'.\\image-name.png', // Or the absolute path of the image if it isn't int the same folder.
 	'image-name',
-	point3d(462419.04, 576568.45, 0), // Insertion point of the bottomLeft corner of the image.
+	point3d(462419.04, 576568.45), // Insertion point of the bottomLeft corner of the image.
 	1792, // the width of the image
 	1280, // the height of the image
 	1, // Scale
@@ -247,12 +247,12 @@ import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 // Define your block
 const myBlock = addBlock("block1");
-myBlock.addCircle(point3d(0, 0, 0), 50);
+myBlock.addCircle(point3d(0, 0), 50);
 myBlock.addRectangle(point2d(-35.3553, 35.3553), point2d(35.3553, -35.3553));
 // Insert it when and where ever you want.
-dxf.addInsert(myBlock.name, point3d(0, 0, 0));
+dxf.addInsert(myBlock.name, point3d(0, 0));
 // or
-const myInsert = dxf.addInsert(myBlock.name, point3d(0, 0, 0)); // If you want a reference to the added insert.
+const myInsert = dxf.addInsert(myBlock.name, point3d(0, 0)); // If you want a reference to the added insert.
 ```
 
 ## `LINE`
@@ -260,9 +260,9 @@ const myInsert = dxf.addInsert(myBlock.name, point3d(0, 0, 0)); // If you want a
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+dxf.addLine(point3d(0, 0), point3d(100, 100));
 // or
-const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added line.
+const line = dxf.addLine(point3d(0, 0), point3d(100, 100)); // If you want a reference to the added line.
 ```
 
 ## `LWPOLYLINE`
@@ -272,23 +272,23 @@ import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
 const vertices = [
   {
-    point: point2d(0, 0, 0),
+    point: point2d(0, 0),
   },
   {
-    point: point2d(100, 100, 0),
+    point: point2d(100, 100),
   },
   {
-    point: point2d(100, 200, 0),
+    point: point2d(100, 200),
   },
   {
-    point: point2d(0, 300, 0),
+    point: point2d(0, 300),
   },
 ];
 dxf.addLWPolyline(vertices, {
   flags: LWPolylineFlags.Closed,
 });
 // or
-const lwpolyline = dxf.addLWPolyline(vertices); // // If you want a reference to the added lwpolyline.
+const lwpolyline = dxf.addLWPolyline(vertices); // If you want a reference to the added lwpolyline.
 ```
 
 ## `POINT`
@@ -296,14 +296,33 @@ const lwpolyline = dxf.addLWPolyline(vertices); // // If you want a reference to
 ```js
 import { DxfWriter, point3d } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
+dxf.addLine(point3d(0, 0), point3d(100, 100));
 // or
-const line = dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0)); // If you want a reference to the added point.
+const line = dxf.addLine(point3d(0, 0), point3d(100, 100)); // If you want a reference to the added point.
 ```
 
 ## `POLYLINE`
 
 ## `SPLINE`
+
+```js
+import { DxfWriter, point3d } from "@tarikjabiri/dxf"
+const dxf = new DxfWriter()
+const mySpline = dxf.addSpline({
+  controlPoints: [
+    point3d(0, 0),
+    point3d(10, 10),
+    point3d(20, 10),
+    point3d(30, 20)
+  ],
+  // You can set these parameters optionally:
+  // fitPoints: [],
+  // degreeCurve: 3,
+  // flags: SplineFlags.Periodic,
+  // knots: [],
+  // weights: []
+})
+```
 
 ## `TEXT`
 
