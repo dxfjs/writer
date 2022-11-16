@@ -157,7 +157,7 @@ edges.addLineEdgeData(point2d(10000, 0), point2d(0, 0));
 // For now LineEdge and ArcEdge are supported
 ```
 
-Create a `HatchBoundaryPath` instance :
+Create a `HatchBoundaryPaths` instance :
 
 ```js
 import { HatchBoundaryPaths } from "@tarikjabiri/dxf";
