@@ -157,11 +157,11 @@ edges.addLineEdgeData(point2d(10000, 0), point2d(0, 0));
 // For now LineEdge and ArcEdge are supported
 ```
 
-Create a `HatchBoundaryPath` instance :
+Create a `HatchBoundaryPaths` instance :
 
 ```js
-import { HatchBoundaryPath } from "@tarikjabiri/dxf";
-const boundary = new HatchBoundaryPath();
+import { HatchBoundaryPaths } from "@tarikjabiri/dxf";
+const boundary = new HatchBoundaryPaths();
 // Add the defined path
 boundary.addPolylineBoundary(polyline); // You can add multiple
 // Or
