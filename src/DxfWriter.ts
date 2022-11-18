@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-import { DxfDocument } from 'DxfDocument';
-import { values_t } from 'HeaderSection/DxfVariable';
-import { CommonEntityOptions } from 'EntitiesSection/Entity';
-import { vec2_t, vec3_t } from 'Internals/Helpers';
-import { rectangleOptions_t } from 'Internals/Helpers';
-import { insertOptions_t } from 'EntitiesSection/Entities/Insert';
-import { SplineArgs_t } from 'EntitiesSection/Entities/Spline';
-import { faceOptions_t } from 'EntitiesSection/Entities/Face';
-import {
-	Hatch,
-	HatchBoundaryPaths,
-	HatchGradientOptions_t,
-	HatchOptions_t,
-	HatchPatternOptions_t,
-} from 'EntitiesSection/Entities/Hatch';
-import { ImageOptions_t } from 'EntitiesSection/Entities/Image';
-import { LineTypes, Units } from 'Internals/Enums';
-import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord';
-import { AlignedDimOptions } from 'EntitiesSection/Entities/Dimension/AlignedDimension';
-import {
-	DiameterDimension,
-	DiameterDimOptions,
-} from 'EntitiesSection/Entities/Dimension/DiameterDimension';
-import {
-	RadialDimension,
-	RadialDimOptions,
-} from 'EntitiesSection/Entities/Dimension/RadialDimension';
-import {
-	LinearDimension,
-	LinearDimOptions,
-} from 'EntitiesSection/Entities/Dimension/LinearDimension';
-import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
-import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
-import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
-import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
-import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
-import { TextOptions } from 'EntitiesSection/Entities';
-import { LeaderOptions, LeaderVertex } from 'EntitiesSection/Entities';
-=======
 import { LineTypes, Units } from 'Internals/Enums'
 import { RectangleOptions, vec2_t, vec3_t } from 'Internals/Helpers'
 
@@ -48,7 +8,6 @@ import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord'
 import { values_t } from 'HeaderSection/DxfVariable'
 
 import * as Entities from 'EntitiesSection/Entities'
->>>>>>> eea7f7cfcc517900c1b4f92db1042c82514d7d46
 
 /**
  * The base class for creating the dxf content.
