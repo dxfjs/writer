@@ -1,16 +1,18 @@
-const { DxfWriter, point2d, ArrowHeadFlag } = require('../dist');
+const { DxfWriter, point3d } = require('../dist');
 const { writeFileSync } = require('fs');
-const dxf = new DxfWriter();
-
-const vertices = [
+const d = new DxfWriter();
+d.setVariable('$DIMTXT', { 40: 10 });
+d.modelSpace.addRadialDim(point3d(0, 0, 0), point3d(100, 0, 0));
+d.addAngularLinesDim(
 	{
-		point: point2d(0, 0, 0),
+		start: point3d(200, 200),
+		end: point3d(200, 300),
 	},
 	{
-		point: point2d(1, 1, 0),
+		start: point3d(300, 100),
+		end: point3d(400, 200),
 	},
-];
-dxf.addLeader(vertices);
-
-const _str = dxf.stringify();
+	point3d(300, 300)
+);
+const _str = d.stringify();
 writeFileSync('examples/example.dxf', _str);
