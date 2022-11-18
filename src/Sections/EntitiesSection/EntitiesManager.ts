@@ -30,11 +30,6 @@ import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from './Entities/Dimension/Dimension';
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints';
 import { Line } from './Entities/Line';
-import { 
-	Leader,
-	LeaderVertex,
-	LeaderOptions,
-} from './Entities/Leader';
 import { Point } from './Entities/Point';
 import { Circle } from './Entities/Circle';
 import { Arc } from './Entities/Arc';
@@ -42,6 +37,11 @@ import { Spline, SplineArgs_t } from './Entities/Spline';
 import { Ellipse } from './Entities/Ellipse';
 import { Face, faceOptions_t } from './Entities/Face';
 import { Text, TextOptions } from './Entities/Text';
+import { 
+	Leader,
+	LeaderVertex,
+	LeaderOptions,
+} from './Entities/Leader';
 
 export default abstract class EntitiesManager implements DxfInterface {
 	readonly entities: Entity[] = [];

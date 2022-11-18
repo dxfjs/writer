@@ -31,11 +31,11 @@ import {
 } from 'EntitiesSection/Entities/Dimension/LinearDimension';
 import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
 import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
-import { LeaderOptions, LeaderVertex } from 'EntitiesSection/Entities';
 import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
 import { TextOptions } from 'EntitiesSection/Entities';
+import { LeaderOptions, LeaderVertex } from 'EntitiesSection/Entities';
 
 /**
  * The base class for creating the dxf content.
