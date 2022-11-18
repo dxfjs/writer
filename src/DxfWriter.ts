@@ -31,6 +31,7 @@ import {
 } from 'EntitiesSection/Entities/Dimension/LinearDimension';
 import { LWPolylineOptions, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline';
 import { PolylineOptions, PolylineVertex } from 'EntitiesSection/Entities/Polyline';
+import { LeaderOptions, LeaderVertex } from 'EntitiesSection/Entities';
 import { AngularDimLines, DLine } from 'EntitiesSection/Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from 'EntitiesSection/Entities/Dimension/Dimension';
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer';
@@ -287,8 +288,8 @@ export class DxfWriter {
 		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
-	public addLeader() {
-		return this.modelSpace.addLeader();
+	public addLeader(points: LeaderVertex[], options?: LeaderOptions) {
+		return this.modelSpace.addLeader(points, options);
 	}
 
 	/**
