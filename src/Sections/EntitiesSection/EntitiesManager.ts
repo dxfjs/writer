@@ -14,6 +14,7 @@ import {
 import { Image, ImageOptions_t } from './Entities/Image'
 import { Insert, InsertOptions } from './Entities/Insert'
 import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline'
+import { Leader, LeaderOptions } from './Entities/Leader'
 import { LinearDimOptions, LinearDimension } from './Entities/Dimension/LinearDimension'
 import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
 import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDimension'
@@ -32,7 +33,6 @@ import { Ellipse } from './Entities/Ellipse'
 import Handle from 'Internals/Handle'
 import { Line } from './Entities/Line'
 import { Point } from './Entities/Point'
-import { Leader, LeaderOptions } from './Entities/Leader'
 
 export default abstract class EntitiesManager implements DxfInterface {
   readonly entities: Entity[] = []
@@ -107,11 +107,11 @@ export default abstract class EntitiesManager implements DxfInterface {
   }
 
   addLeader(points: vec3_t[], options?: LeaderOptions): Leader {
-    return this.addEntity(new Leader(points, options));
+    return this.addEntity(new Leader(points, options))
   }
 
   addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions): LWPolyline {
-    return this.addEntity(new LWPolyline(points, options));
+    return this.addEntity(new LWPolyline(points, options))
   }
 
   addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: RectangleOptions): LWPolyline {

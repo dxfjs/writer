@@ -263,15 +263,13 @@ export class DxfWriter {
    * Add a Leader entity to the dxf.
    * [Dxf Leader](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-396B2369-F89F-47D7-8223-8B7FB794F9F3)
    * 
-   * pass the array of points
+   * @param points - An array of points.
+   * @param options - The options of the leader entity.
    * 
-   * @param points - An array of {@link vec3_t}.
-   * @param options - the options {@link LeaderOptions}
-   * 
-   * @returns Returns the added Leader entity.
+   * @returns Returns the added leader.
    */
   public addLeader(points: vec3_t[], options?: Entities.LeaderOptions) {
-    return this.modelSpace.addLeader(points, options);
+    return this.modelSpace.addLeader(points, options)
   }
 
   /**
