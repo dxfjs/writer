@@ -30,6 +30,7 @@ import { AngularDimLines, DLine } from './Entities/Dimension/AngularDimLines';
 import { DimensionOptions } from './Entities/Dimension/Dimension';
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints';
 import { Line } from './Entities/Line';
+import { Leader } from './Entities/Leader';
 import { Point } from './Entities/Point';
 import { Circle } from './Entities/Circle';
 import { Arc } from './Entities/Arc';
@@ -108,6 +109,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 
 	addLine(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions): Line {
 		return this.addEntity(new Line(startPoint, endPoint, options));
+	}
+
+	addLeader(): Leader {
+		return this.addEntity(new Leader());
 	}
 
 	addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions): LWPolyline {

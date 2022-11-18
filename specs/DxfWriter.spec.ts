@@ -28,6 +28,8 @@ describe('DxfWriter', () => {
 		});
 		dxf.addLine(point3d(0, 0, 0), point3d(100, 100, 0));
 
+		dxf.addLeader();
+
 		dxf.addLType('AXES', '____ _ ', [4, -1, 1, -1]);
 
 		dxf.addRectangle(point2d(400, 400), point2d(600, 200), {

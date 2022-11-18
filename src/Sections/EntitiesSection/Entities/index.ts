@@ -13,6 +13,7 @@ export * from './Hatch';
 export * from './Image';
 export * from './Insert';
 export * from './Line';
+export * from './Leader';
 export * from './LWPolyline';
 export * from './Point';
 export * from './Polyline';

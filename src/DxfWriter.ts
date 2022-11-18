@@ -287,6 +287,10 @@ export class DxfWriter {
 		return this.modelSpace.addLine(startPoint, endPoint, options);
 	}
 
+	public addLeader() {
+		return this.modelSpace.addLeader();
+	}
+
 	/**
 	 * Add a LWPolyline entity to the dxf.
 	 *
