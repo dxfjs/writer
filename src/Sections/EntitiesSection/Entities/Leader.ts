@@ -1,52 +1,48 @@
 import Entity, { CommonEntityOptions } from '../Entity';
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox';
 import { Dxfier } from 'Internals/Dxfier';
-import { vec2_t, point3d } from 'Internals/Helpers';
+import { point3d, vec3_t } from 'Internals/Helpers';
 
-export enum ArrowHeadFlags {
+export enum ArrowHeadFlag {
     Disabed = 0,
     Enabled = 1,
 }
 
-export enum PathType {
+export enum LeaderPathType {
     StraightLine = 0,
     Spline = 1,
 }
 
-export interface LeaderVertex {
-    point: vec2_t;
-}
-
 export interface LeaderOptions extends CommonEntityOptions {
-    flags?: ArrowHeadFlags;
-    pathType?: PathType;
+    flag?: ArrowHeadFlag;
+    leaderPathType?: LeaderPathType;
 }
 
 export class Leader extends Entity {
-    flags: ArrowHeadFlags;
-    pathType: PathType;
-    vertices: LeaderVertex[];
+    flag: ArrowHeadFlag;
+    leaderPathType: LeaderPathType;
+    vertices: vec3_t[];
 
-    public constructor(vertices: LeaderVertex[], options?: LeaderOptions) {
+    public constructor(vertices: vec3_t[], options?: LeaderOptions) {
         super('LEADER', 'AcDbLeader', options);
         this.vertices = vertices;
-        this.flags = options?.flags ?? ArrowHeadFlags.Enabled;
-        this.pathType = options?.pathType ?? PathType.StraightLine;
+        this.flag = options?.flag ?? ArrowHeadFlag.Enabled;
+        this.leaderPathType = options?.leaderPathType ?? LeaderPathType.StraightLine;
     }
 
     override boundingBox(): boundingBox_t {
         return BoundingBox.verticesBBox(
-            this.vertices.map((vertex) => point3d(vertex.point.x, vertex.point.y))
+            this.vertices.map((vertex) => point3d(vertex.x, vertex.y, vertex.z))
         );
     }
 
     override dxfy(dx: Dxfier): void {
         super.dxfy(dx);
-        dx.push(71, this.flags);
-        dx.push(72, this.pathType);
+        dx.push(71, this.flag);
+        dx.push(72, this.leaderPathType);
         dx.push(76, this.vertices.length);
         for (const v of this.vertices) {
-            dx.point2d(v.point);
+            dx.point3d(v);
         }
     }
 }
