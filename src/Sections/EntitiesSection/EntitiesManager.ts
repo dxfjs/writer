@@ -20,6 +20,7 @@ import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDi
 import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
 import { Spline, SplineArgs_t } from './Entities/Spline'
 import { Text, TextOptions } from './Entities/Text'
+
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints'
 import { Arc } from './Entities/Arc'
 import { Circle } from './Entities/Circle'
@@ -31,7 +32,7 @@ import { Ellipse } from './Entities/Ellipse'
 import Handle from 'Internals/Handle'
 import { Line } from './Entities/Line'
 import { Point } from './Entities/Point'
-import { Leader, LeaderOptions, LeaderVertex } from './Entities/Leader'
+import { Leader, LeaderOptions } from './Entities/Leader'
 
 export default abstract class EntitiesManager implements DxfInterface {
   readonly entities: Entity[] = []
@@ -105,7 +106,7 @@ export default abstract class EntitiesManager implements DxfInterface {
     return this.addEntity(new Line(startPoint, endPoint, options))
   }
 
-  addLeader(points: LeaderVertex[], options?: LeaderOptions): Leader {
+  addLeader(points: vec3_t[], options?: LeaderOptions): Leader {
     return this.addEntity(new Leader(points, options));
   }
 

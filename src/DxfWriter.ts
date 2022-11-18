@@ -270,7 +270,7 @@ export class DxfWriter {
    * 
    * @returns Returns the added Leader entity.
    */
-  public addLeader(points: LeaderVertex[], options?: LeaderOptions) {
+  public addLeader(points: vec3_t[], options?: Entities.LeaderOptions) {
     return this.modelSpace.addLeader(points, options);
   }
 
@@ -285,10 +285,10 @@ export class DxfWriter {
    * @param points - An array of {@link LWPolylineVertex}.
    * @param options - The options of LWPolyline entity.
    *
-   * @returns Return the the added lwpolyline.
+   * @returns Return the added lwpolyline.
    */
-  public addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions) {
-    return this.modelSpace.addLWPolyline(points, options);
+  public addLWPolyline(points: Entities.LWPolylineVertex[], options?: Entities.LWPolylineOptions) {
+    return this.modelSpace.addLWPolyline(points, options)
   }
 
   /**
