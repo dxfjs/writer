@@ -1,9 +1,8 @@
-import { Dxfier } from 'Internals/Dxfier';
-import DxfInterface from 'Internals/Interfaces/DxfInterface';
+import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { Dxfier } from 'Internals/Dxfier'
 
 /**
  * This is the type for variable values.
- *
  * @example
  * ```js
  * const values = {
@@ -20,20 +19,20 @@ export type values_t = {
 };
 
 export default class DxfVariable implements DxfInterface {
-	readonly name: string;
-	values: values_t;
+  readonly name: string
+  values: values_t
 
-	constructor(name: string, values: values_t) {
-		this.values = values;
-		this.name = name;
-	}
+  constructor(name: string, values: values_t) {
+    this.values = values
+    this.name = name
+  }
 
-	dxfy(dx: Dxfier) {
-		dx.variable(this.name);
-		const entries = Object.entries(this.values);
-		for (const entry of entries) {
-			const [code, value] = entry;
-			dx.push(parseInt(code), value);
-		}
-	}
+  dxfy(dx: Dxfier) {
+    dx.variable(this.name)
+    const entries = Object.entries(this.values)
+    for (const entry of entries) {
+      const [code, value] = entry
+      dx.push(parseInt(code), value)
+    }
+  }
 }

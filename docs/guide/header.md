@@ -2,7 +2,9 @@
 layout: doc
 ---
 
-# Variables
+# Header
+
+## Variables
 
 Variables contains settings associated with the drawing, defined in the `HEADER` section.
 > All possible [variables](https://help.autodesk.com/view/OARX/2023/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A)
@@ -57,3 +59,15 @@ dxf.setVariable("$PLIMMAX", {
 - If you try to add a variable already added, its values will be updated.
 
 :::
+
+## Setting Units
+
+To set units use the convenient method `setUnits()`:
+
+```js
+import { DxfWriter, Units } from '@tarikjabiri/dxf';
+
+const dxf = new DxfWriter();
+dxf.setUnits(Units.Meters);
+
+```

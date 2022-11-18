@@ -11,6 +11,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn install
-      - run: yarn test
-      - run: yarn build
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.14.1
+      - run: pnpm install
+      - run: pnpm test
+      - run: pnpm build

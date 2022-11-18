@@ -1,15 +1,15 @@
-import { Dxfier } from 'Internals/Dxfier';
-import DxfRecord from './DxfRecord';
+import DxfRecord from './DxfRecord'
+import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfUcs extends DxfRecord {
-	readonly name: string;
+  readonly name: string
 
-	constructor(name: string) {
-		super('UCS');
-		this.name = name;
-	}
+  constructor(name: string) {
+    super('UCS')
+    this.name = name
+  }
 
-	override dxfy(dx: Dxfier): void {
-		super.dxfy(dx);
-	}
+  override dxfy(dx: Dxfier): void {
+    super.dxfy(dx)
+  }
 }
