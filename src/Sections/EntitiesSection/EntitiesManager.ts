@@ -14,6 +14,7 @@ import {
 import { Image, ImageOptions_t } from './Entities/Image'
 import { Insert, InsertOptions } from './Entities/Insert'
 import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline'
+import { Leader, LeaderOptions } from './Entities/Leader'
 import { LinearDimOptions, LinearDimension } from './Entities/Dimension/LinearDimension'
 import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
 import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDimension'
@@ -103,6 +104,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 
   addLine(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions): Line {
     return this.addEntity(new Line(startPoint, endPoint, options))
+  }
+
+  addLeader(points: vec3_t[], options?: LeaderOptions): Leader {
+    return this.addEntity(new Leader(points, options))
   }
 
   addLWPolyline(points: LWPolylineVertex[], options?: LWPolylineOptions): LWPolyline {
