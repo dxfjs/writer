@@ -14,13 +14,15 @@ export enum LeaderPathType {
 }
 
 export interface LeaderOptions extends CommonEntityOptions {
-  flag?: ArrowHeadFlag;
-  leaderPathType?: LeaderPathType;
+  flag?: ArrowHeadFlag
+  leaderPathType?: LeaderPathType
+  dimensionStyleName?: string
 }
 
 export class Leader extends Entity {
   flag: ArrowHeadFlag
   leaderPathType: LeaderPathType
+  dimensionStyleName: string
   vertices: vec3_t[]
 
   public constructor(vertices: vec3_t[], options?: LeaderOptions) {
@@ -28,6 +30,7 @@ export class Leader extends Entity {
     this.vertices = vertices
     this.flag = options?.flag ?? ArrowHeadFlag.Enabled
     this.leaderPathType = options?.leaderPathType ?? LeaderPathType.StraightLine
+    this.dimensionStyleName = options?.dimensionStyleName || 'Standard'
   }
 
   override boundingBox(): boundingBox_t {
@@ -36,6 +39,7 @@ export class Leader extends Entity {
 
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)
+    dx.push(3, this.dimensionStyleName)
     dx.push(71, this.flag)
     dx.push(72, this.leaderPathType)
     dx.push(76, this.vertices.length)
