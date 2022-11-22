@@ -58,20 +58,12 @@ ANGLE.add({
 PredefinedHatchPatterns.set('ANGLE', ANGLE)
 const ANSI31 = new HatchPattern('ANSI31')
 ANSI31.add({
-  lineAngle: 0,
+  lineAngle: 45,
   x: 0,
   y: 0,
   offsetX: 0,
-  offsetY: 6.985,
-  dashLengthItems: [5.08, -1.905],
-})
-ANSI31.add({
-  lineAngle: 90,
-  x: 0,
-  y: 0,
-  offsetX: 0,
-  offsetY: 6.985,
-  dashLengthItems: [5.08, -1.905],
+  offsetY: 1.25,
+  dashLengthItems: [],
 })
 PredefinedHatchPatterns.set('ANSI31', ANSI31)
 const ANSI32 = new HatchPattern('ANSI32')
