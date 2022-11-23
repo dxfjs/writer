@@ -48,12 +48,20 @@ export class HatchPattern implements DxfInterface {
 const PredefinedHatchPatterns: Map<string, HatchPattern> = new Map()
 const ANGLE = new HatchPattern('ANGLE')
 ANGLE.add({
-  lineAngle: 45,
+  lineAngle: 0,
   x: 0,
   y: 0,
-  offsetX: 0,
-  offsetY: 0.125,
-  dashLengthItems: [],
+  offsetX: 0.275,
+  offsetY: 0.2,
+  dashLengthItems: [-0.075],
+})
+ANGLE.add({
+  lineAngle: 90,
+  x: 0,
+  y: 0,
+  offsetX: 0.275,
+  offsetY: 0.2,
+  dashLengthItems: [-0.075],
 })
 PredefinedHatchPatterns.set('ANGLE', ANGLE)
 const ANSI31 = new HatchPattern('ANSI31')
