@@ -352,6 +352,18 @@ export class Hatch extends Entity {
   extrusion: vec3_t
   readonly boundaryPath: HatchBoundaryPaths
 
+  private get patternName() {
+    let _patternName = HatchPredefinedPatterns.SOLID
+    if(this.isPattern(this.fill)) _patternName = this.fill.name
+    return _patternName
+  }
+
+  private get solidFillFlag() {
+    if(this.patternName === HatchPredefinedPatterns.SOLID)
+      return SolidFillFlag.SolidFill
+    else return SolidFillFlag.PatternFill
+  }
+
   constructor(
     boundaryPath: HatchBoundaryPaths,
     fill: HatchPatternOptions_t | HatchGradientOptions_t,
@@ -406,11 +418,11 @@ export class Hatch extends Entity {
   private isPattern(
     fill: HatchPatternOptions_t | HatchGradientOptions_t
   ): fill is HatchPatternOptions_t {
-    return Object.prototype.hasOwnProperty.call(fill, 'name')
+    return 'name' in fill
   }
 
   override boundingBox(): boundingBox_t {
-    return BoundingBox.pointBBox(point3d(0, 0, 0))
+    return BoundingBox.pointBBox(point3d(0, 0))
   }
 
   override dxfy(dx: Dxfier): void {
@@ -419,18 +431,16 @@ export class Hatch extends Entity {
     dx.push(210, this.extrusion.x)
     dx.push(220, this.extrusion.y)
     dx.push(230, this.extrusion.z)
-    dx.name(this.isPattern(this.fill) ? this.fill.name : HatchPredefinedPatterns.SOLID)
-    dx.push(
-      70,
-      this.isPattern(this.fill) ? SolidFillFlag.PatternFill : SolidFillFlag.SolidFill
-    )
+    dx.name(this.patternName)
+    dx.push( 70, this.solidFillFlag)
     dx.push(71, AssociativityFlag.NonAssociative)
     dx.push(91, this.boundaryPath.length)
     this.boundaryPath.dxfy(dx)
     dx.push(75, HatchStyle.Outer)
     dx.push(76, HatchPatternType.Predifined)
     if (this.isPattern(this.fill)) {
-      this.pattern(dx, this.fill)
+      if(this.solidFillFlag === SolidFillFlag.PatternFill)
+        this.pattern(dx, this.fill)
       dx.push(47, 1)
       dx.push(98, 0)
     } else {
