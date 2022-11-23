@@ -176,8 +176,8 @@ Next you define the fill pattern solid or gradient :
 
 ```js
 import { pattern, gradient, GradientType } from "@tarikjabiri/dxf";
-// Solid
-const mysolid = pattern({
+// Pattern
+const mypattern = pattern({
   name: HatchPredefinedPatterns.STEEL,
   // Other properties you can define optionally
   // angle?: number;
@@ -194,6 +194,10 @@ const mygradient = gradient({
   // definition?: number;
   // tint?: number;
 });
+// Solid
+const solid = pattern({
+  name: HatchPredefinedPatterns.SOLID
+});
 ```
 
 Now you have a boundary path and a fill pattern, you can add the hatch :
@@ -201,11 +205,26 @@ Now you have a boundary path and a fill pattern, you can add the hatch :
 ```js
 import { DxfWriter } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-// You can call addHatch from dxf object
-dxf.addHatch(boundary, mygradient);
+const hatch = dxf.addHatch(boundary, mypattern);
 // Or
-const hatch = dxf.addHatch(boundary, mygradient); // If you want a reference to the added hatch.
+const hatch = dxf.addHatch(boundary, mygradient);
+// Or
+const hatch = dxf.addHatch(boundary, solid);
 ```
+
+:::tip
+You change the color of the pattern like this:
+```js{6,8}
+import { DxfWriter } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const hatch = dxf.addHatch(boundary, mypattern);
+// Or
+const hatch = dxf.addHatch(boundary, solid);
+hatch.colorNumber = 3;
+// Or change the color of the layer, or the layer itself
+hatch.layerName = someLayer.name; // With the wanted color.
+```
+:::
 
 :::warning
 - This way you can add only non-associative hatches.
