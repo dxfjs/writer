@@ -258,6 +258,7 @@ const acicolors: [[string, string, string], number, [string, string, string]][] 
 ]
 
 export function aciHex(aci: number) {
+  let color = ''
   const c = acicolors.find((l) => {
     const [, _aci] = l
     return _aci === aci
