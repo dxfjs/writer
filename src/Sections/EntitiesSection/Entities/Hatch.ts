@@ -324,12 +324,18 @@ export enum GradientType {
 	INVCURVED = 'INVCURVED',
 }
 
+export enum HatchType {
+  SOLID = 0,
+  GRADIENT = 1,
+}
+
 export type HatchGradientOptions_t = {
 	firstColor: number;
 	secondColor?: number;
 	angle?: number;
 	definition?: number;
 	tint?: number;
+  hatchType?: HatchType;
 	type?: GradientType;
 };
 
@@ -381,13 +387,14 @@ export class Hatch extends Entity {
   }
 
   private gradient(dx: Dxfier, fill: HatchGradientOptions_t) {
-    const firstColor = fill.firstColor
+    const firstColor = fill.firstColor ?? 7
     const secondColor = fill.secondColor ?? 7
     const angle = fill.angle ?? 0
     const definition = fill.definition || 0
     const tint = fill.tint ?? 1
+    const hatchType = fill.hatchType ?? 1
     const type = fill.type || GradientType.LINEAR
-    dx.push(450, 1)
+    dx.push(450, hatchType)
     dx.push(451, 0)
     dx.push(460, angle)
     dx.push(461, definition)
