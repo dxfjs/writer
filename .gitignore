@@ -5,7 +5,8 @@
 yarn.lock
 package-lock.json
 pnpm-lock.yaml
-examples/example.dxf
+**/*.dxf
+**/*.bak
 coverage
 temp
 www/.pnpm-debug.log
