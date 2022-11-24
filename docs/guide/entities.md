@@ -223,6 +223,11 @@ const hatch = dxf.addHatch(boundary, solid);
 hatch.colorNumber = 3;
 // Or change the color of the layer, or the layer itself
 hatch.layerName = someLayer.name; // With the wanted color.
+// Or by passing the options
+const hatch = dxf.addHatch(boundary, solid, {
+	colorNumber: 3,
+	layerName: someLayer.name,
+});
 ```
 :::
 
