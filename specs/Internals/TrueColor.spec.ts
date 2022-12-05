@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import TrueColor from '../../src/Internals/TrueColor'
+
+import { TrueColor } from '../../src/Internals/TrueColor'
 
 describe('TrueColor class', () => {
   it('The fromHex() should return the coorect decimal', () => {

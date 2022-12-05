@@ -5,7 +5,7 @@ import { point3d, vec2_t, vec3_t } from 'Internals/Helpers'
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 import PredefinedHatchPatterns from 'Internals/HatchPatterns'
-import TrueColor from 'Internals/TrueColor'
+import { TrueColor } from 'Internals/TrueColor'
 import { aciHex } from 'Internals/Colors'
 
 export enum HatchPredefinedPatterns {
