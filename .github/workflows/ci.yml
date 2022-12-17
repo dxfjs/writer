@@ -1,19 +1,24 @@
-name: CI
+name: Continuous Integration
 
 on: [push, pull_request]
 
 jobs:
   test-build:
-    name: CI
+    name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - uses: pnpm/action-setup@v2
         with:
-          version: 7.14.1
+          version: 7.18.2
       - run: pnpm install
-      - run: pnpm test
+      - run: pnpm test -- --coverage
       - run: pnpm build
+      - name: Upload coverage reports to Codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
