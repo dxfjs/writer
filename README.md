@@ -4,6 +4,7 @@ A Javascript dxf generator, written in Typescript.
 
 ![ci](https://github.com/tarikjabiri/dxf/actions/workflows/ci.yml/badge.svg)
 ![publish](https://github.com/tarikjabiri/dxf/actions/workflows/cd.yml/badge.svg)
+[![codecov](https://codecov.io/gh/dxfjs/writer/branch/master/graph/badge.svg?token=P5QJAUXZTA)](https://codecov.io/gh/dxfjs/writer)
 
 ![GitHub](https://img.shields.io/github/license/dxfjs/writer?color=%2334D058&label=License&logo=Open%20Access&logoColor=%23959DA5)
 ![npm (scoped)](https://img.shields.io/npm/v/@tarikjabiri/dxf?color=%2334D058&logo=npm)
