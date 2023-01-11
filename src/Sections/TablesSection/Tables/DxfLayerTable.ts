@@ -24,6 +24,7 @@ export default class DxfLayerTable extends DxfTable<DxfLayer> {
   }
 
   layer(name: string) {
+    name = name.replace(specialCharsRegex, '')
     return this.records.find((layerRecord) => layerRecord.name === name)
   }
 

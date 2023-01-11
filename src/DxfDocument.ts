@@ -14,6 +14,7 @@ import DxfVPort from 'TablesSection/Tables/Records/DxfVPort'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
 import { name as packageName } from '../package.json'
+import { specialCharsRegex } from 'Internals/Utils'
 import { vec3_t } from 'Internals/Helpers'
 
 export class DxfDocument implements DxfInterface {
@@ -77,9 +78,7 @@ export class DxfDocument implements DxfInterface {
   }
 
   setCurrentLayerName(name: string): void {
-    if (!this.tables.layerTable.exist(name))
-      throw new Error(`The '${name} layer doesn't exist!'`)
-    this.currentLayerName = name
+    this.currentLayerName = name.replace(specialCharsRegex, '')
     this.entities.setLayerName(this.currentLayerName)
     this.setCLayerVariable()
   }
