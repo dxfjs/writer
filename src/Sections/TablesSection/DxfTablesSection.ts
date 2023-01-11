@@ -55,9 +55,7 @@ export default class DxfTablesSection implements DxfInterface {
   }
 
   addLayer(name: string, color: number, lineType: string, flags?: LayerFlags): DxfLayer {
-    if (this.ltypeTable.exist(lineType))
-      return this.layerTable.addLayer(name, color, lineType, flags)
-    throw new Error(`The lineType ${lineType} doesn't exist.`)
+    return this.layerTable.addLayer(name, color, lineType, flags)
   }
 
   addStyle(name: string): DxfStyle {
