@@ -2,6 +2,7 @@ import { LWPolylineFlags, LWPolylineVertex } from 'EntitiesSection/Entities/LWPo
 import { describe, expect, it } from 'vitest'
 import { point2d, point3d } from 'Internals/Helpers'
 
+import { Colors } from 'Internals/Enums'
 import { DxfWriter } from 'DxfWriter'
 
 describe('DxfWriter', () => {
@@ -117,6 +118,16 @@ describe('DxfWriter', () => {
 
     dxf.addText(point3d(0, 0, 0), 5, 'test')
 
+    const test = dxf.addLayer('test', Colors.Blue)
+    const newTest = dxf.addLayer('test', Colors.Red)
+
+    dxf.addLayer('ggg', Colors.Black, 'not-exist')
+    const e = dxf.tables.layerTable.exist('ggg')
+    const ne = dxf.tables.layerTable.exist('not-exist')
+
+    expect(e).toBe(true)
+    expect(ne).toBe(false)
+    expect(newTest).toBe(test)
     expect(dxf.stringify()).toMatchSnapshot()
   })
 })
