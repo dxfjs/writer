@@ -1,8 +1,8 @@
+import { Colors, Units } from 'Internals/Enums'
 import { LWPolylineFlags, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline'
 import { describe, expect, it } from 'vitest'
 import { point2d, point3d } from 'Internals/Helpers'
 
-import { Colors } from 'Internals/Enums'
 import { DxfWriter } from 'DxfWriter'
 
 describe('DxfWriter', () => {
@@ -124,6 +124,28 @@ describe('DxfWriter', () => {
     dxf.addLayer('ggg', Colors.Black, 'not-exist')
     const e = dxf.tables.layerTable.exist('ggg')
     const ne = dxf.tables.layerTable.exist('not-exist')
+
+    dxf.header
+    dxf.entities
+    dxf.currentLayer
+    dxf.units
+    dxf.layer('ggg')
+    dxf.setZeroLayerAsCurrent()
+    dxf.setVariable('$DIMTXT', { 40: 10 })
+    dxf.addDimStyle('test')
+    dxf.addAlignedDim(point3d(0, 0), point3d(50, 50))
+    dxf.addDiameterDim(point3d(0, 0), point3d(50, 50))
+    dxf.addRadialDim(point3d(0, 0), point3d(50, 50))
+    dxf.addLinearDim(point3d(0, 0), point3d(50, 50))
+
+    const dline = {
+      start: point3d(0, 0),
+      end: point3d(50, 50)
+    }
+    dxf.addAngularLinesDim(dline, dline, point3d(50, 50))
+
+    dxf.setCurrentLayerName('not-exist-exist')
+    dxf.setUnits(Units.Unitless)
 
     expect(e).toBe(true)
     expect(ne).toBe(false)
