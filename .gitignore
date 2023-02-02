@@ -2,9 +2,6 @@
 /lib/
 /dist/
 /.idea/
-yarn.lock
-package-lock.json
-pnpm-lock.yaml
 **/*.dxf
 **/*.bak
 coverage

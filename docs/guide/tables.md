@@ -131,10 +131,12 @@ Last thing is the length of the array should equal the number of elements. Note 
 
 ## `LAYER`
 
+Layers names cannot include the following characters: `` <>/\":;?*|=` ``. By default these characters are removed from the given name if exists.
+
 ```js
 import { DxfWriter, Colors, LayerFlags } from "@tarikjabiri/dxf";
 const dxf = new DxfWriter();
-const myLayer = dxf.addLayer("example", Colors.Red, "Continuous"); 
+const myLayer = dxf.addLayer("example", Colors.Red, "Continuous");
 // Or
 const myLayer = dxf.addLayer("example", Colors.Red); // Continuous is the default.
 // Continuous is the name of lineType it could be a lineType you define.
@@ -147,12 +149,16 @@ const exampleLayer = dxf.addLayer(
 );
 ```
 
+Version >= 2.6.3
 
-:::warning
-Layers names cannot include the following characters: < > / \ " : ; ? * | = `
+The `addLayer()` and `setCurrentLayerName()` methods will no longer throw if the layer or the line type do not exist.
 
-By default these characters are removed from the given name if exists
-:::
+Calling `addLayer()`:
+* With an existing layer name the existing one is returned.
+* With no existing line type name the `Continuous` line type will be used by default.
+
+Calling `setCurrentLayerName()`:
+* With no existing layer name it's ok, as programs create the no existing layers with default values.
 
 If no flag is set, by default the flag is set to 0 which make the layer thawed.
 

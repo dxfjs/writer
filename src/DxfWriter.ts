@@ -212,7 +212,6 @@ export class DxfWriter {
 
   /**
    * Add a new Layer to the dxf.
-   * @throws
    * @param name - The name of the layer.
    * @param color - The color number. See [AutoCAD Color Index](https://gohtx.com/acadcolors.php).
    * @param lineType - The lineType name.
@@ -231,7 +230,6 @@ export class DxfWriter {
 
   /**
    * Set the current layer name of the dxf.
-   * @throws
    * @param name - The layer name.
    */
   public setCurrentLayerName(name: string) {
