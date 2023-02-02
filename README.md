@@ -48,3 +48,6 @@ const dxfString = dxf.stringify();
 <a href="https://github.com/Autodrop3d" style="display: inline-block; margin-left: 20px">
 <img width="48" src="https://github.com/Autodrop3d.png" style="width:48px" alt="Slate">
 </a>
+<a href="https://mikey.nz/" style="display: inline-block; margin-left: 20px">
+<img width="48" src="https://github.com/ahdinosaur.png" style="width:48px" alt="Mikey">
+</a>

@@ -6,11 +6,17 @@ layout: doc
 
 ## Installation
 
+Using `npm`
+
 ```bash
 npm i @tarikjabiri/dxf
-// Or
+```
+Using `yarn`
+```bash
 yarn add @tarikjabiri/dxf
-// Or
+```
+Using `pnpm`
+```bash
 pnpm add @tarikjabiri/dxf
 ```
 
