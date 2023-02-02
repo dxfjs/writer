@@ -14,8 +14,15 @@ export default class DxfLTypeTable extends DxfTable<DxfLType> {
     )
   }
 
+  ltype(name: string) {
+    return this.records.find(r => r.name === name)
+  }
+
   addLType(name: string, descriptive: string, elements: number[], flags?: number) {
-    if (this.exist(name)) throw new Error(`The ${name} LType already exist!`)
+    const found = this.ltype(name)
+    if(found) {
+      return found
+    }
     const r = new DxfLType(name, descriptive, elements, flags)
     r.ownerObjectHandle = this.handle
     this.records.push(r)

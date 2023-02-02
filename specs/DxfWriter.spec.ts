@@ -1,9 +1,12 @@
+import { AttachmentPoint, TextLineSpacingStyle } from 'EntitiesSection/Entities/Dimension/Dimension'
 import { Colors, Units } from 'Internals/Enums'
 import { LWPolylineFlags, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline'
 import { describe, expect, it } from 'vitest'
 import { point2d, point3d } from 'Internals/Helpers'
 
+import { DimStyleFlags } from 'TablesSection/Tables/Records/DxfDimStyle'
 import { DxfWriter } from 'DxfWriter'
+import { ImageDefResolutionUnits } from 'ObjectsSection/Objects/DxfImageDef'
 
 describe('DxfWriter', () => {
   it('should cover all code source', () => {
@@ -97,8 +100,13 @@ describe('DxfWriter', () => {
       1792,
       1280,
       433.54,
-      360 - 359.74
+      360 - 359.74,
     )
+
+    const id = dxf.document.objects.addImageDef('jhdjshfsd')
+    id.resolutionUnits = ImageDefResolutionUnits.Inch
+
+    dxf.document.objects.addEntryToRoot('test', 'FF')
 
     dxf.tables.addView({
       name: 'testview',
@@ -116,6 +124,26 @@ describe('DxfWriter', () => {
       viewWidth: 20.01,
     })
 
+    const v = dxf.tables.addView({
+      name: 'view2',
+      backClipping: 0,
+      frontClipping: 0,
+      isUCSAssociated: true,
+      lensLength: 50.0,
+      renderMode: 0,
+      targetPoint: point3d(0, 0, 0),
+      twistAngle: 0,
+      viewCenter: point2d(40.36, 15.86),
+      viewDirection: point3d(0, 0, 1),
+      viewHeight: 17.91,
+      viewMode: 0,
+      viewWidth: 20.01,
+      liveSectionObjectHandle: 'dd',
+      visualStyleObjectHandle: 'ff',
+      backgroundObjectHandle: 'AA'
+    })
+    v.isCameraPlottable = true
+
     dxf.addText(point3d(0, 0, 0), 5, 'test')
 
     const test = dxf.addLayer('test', Colors.Blue)
@@ -132,11 +160,37 @@ describe('DxfWriter', () => {
     dxf.layer('ggg')
     dxf.setZeroLayerAsCurrent()
     dxf.setVariable('$DIMTXT', { 40: 10 })
-    dxf.addDimStyle('test')
+    const dim = dxf.addDimStyle('test')
+    dim.flags = DimStyleFlags.None
     dxf.addAlignedDim(point3d(0, 0), point3d(50, 50))
+    dxf.addAlignedDim(point3d(0, 0), point3d(50, 50), {
+      offset: 10,
+      insertionPoint: point3d(0, 0),
+      rotation: 'auto',
+      attachmentPoint: AttachmentPoint.MiddleCenter,
+      textLineSpacingStyle: TextLineSpacingStyle.AtLeast
+    })
     dxf.addDiameterDim(point3d(0, 0), point3d(50, 50))
-    dxf.addRadialDim(point3d(0, 0), point3d(50, 50))
+    dxf.addDiameterDim(point3d(0, 0), point3d(50, 50), { leaderLength: 40 })
+    dxf.addRadialDim(point3d(0, 0), point3d(50, 50), { leaderLength: 400 })
     dxf.addLinearDim(point3d(0, 0), point3d(50, 50))
+    dxf.addLinearDim(point3d(0, 0), point3d(50, 50), {
+      offset: 10,
+      insertionPoint: point3d(0, 0),
+      angle: 30,
+      linearType: 1,
+      rotation: 'auto',
+      middlePoint: point3d(0, 0)
+    })
+    dxf.addLinearDim(point3d(0, 0), point3d(50, 50), {
+      offset: 10,
+      insertionPoint: point3d(0, 0),
+      linearType: 1,
+      rotation: 'auto'
+    })
+    dxf.document.entities.modelSpace.addAngularPointsDim(
+      point3d(0, 0), point3d(50, 50), point3d(50, 0)
+    )
 
     const dline = {
       start: point3d(0, 0),
@@ -146,6 +200,12 @@ describe('DxfWriter', () => {
 
     dxf.setCurrentLayerName('not-exist-exist')
     dxf.setUnits(Units.Unitless)
+
+    dxf.tables.addUcs('ucs')
+    dxf.tables.addAppId('testest')
+
+    dxf.addLType('test', '---', [1, 1, 1])
+    dxf.addLType('test', '---', [3, 3, 3])
 
     expect(e).toBe(true)
     expect(ne).toBe(false)

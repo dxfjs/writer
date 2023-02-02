@@ -45,7 +45,7 @@ export interface DimensionOptions extends CommonEntityOptions {
 	styleName?: string;
 }
 
-export class Dimension extends Entity {
+export abstract class Dimension extends Entity {
   blockName?: string
   definitionPoint?: vec3_t
   middlePoint?: vec3_t
@@ -74,9 +74,7 @@ export class Dimension extends Entity {
     this.styleName = options?.styleName
   }
 
-  protected rotate(): number {
-    return 0
-  }
+  protected abstract rotate(): number
 
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)

@@ -28,7 +28,7 @@ export default class DxfVariable implements DxfInterface {
   }
 
   dxfy(dx: Dxfier) {
-    dx.variable(this.name)
+    dx.variableName(this.name)
     const entries = Object.entries(this.values)
     for (const entry of entries) {
       const [code, value] = entry

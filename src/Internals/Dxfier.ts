@@ -28,7 +28,7 @@ export class Dxfier {
     this.push(0, 'ENDSEC')
   }
 
-  variable(name: string) {
+  variableName(name: string) {
     this.push(9, name)
   }
 
@@ -58,10 +58,6 @@ export class Dxfier {
 
   layerName(layerName?: string) {
     this.push(8, layerName)
-  }
-
-  variableName(variableName: string) {
-    this.push(9, variableName)
   }
 
   point2d(point?: vec2_t) {

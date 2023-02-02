@@ -6,10 +6,7 @@ export type boundingBox_t = {
 };
 
 export const createBoundingBox = (tl: vec3_t, br: vec3_t): boundingBox_t => {
-  return {
-    tl: tl,
-    br: br,
-  }
+  return { tl, br }
 }
 
 export class BoundingBox {
@@ -28,10 +25,10 @@ export class BoundingBox {
   }
 
   /**
-  \* @param sp The start point.
-  \* @param ep The end point.
-  \* @returns
-  \*/
+   * @param sp The start point.
+   * @param ep The end point.
+   * @returns
+   */
   static lineBBox(sp: vec3_t, ep: vec3_t) {
     const maxX = sp.x > ep.x ? sp.x : ep.x
     const minX = sp.x < ep.x ? sp.x : ep.x
