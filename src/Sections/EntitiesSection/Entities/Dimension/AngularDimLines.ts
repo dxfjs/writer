@@ -9,6 +9,7 @@ export interface DLine {
 }
 
 export class AngularDimLines extends Dimension {
+
   constructor(
 		public first: DLine,
 		public second: DLine,
@@ -17,6 +18,10 @@ export class AngularDimLines extends Dimension {
   ) {
     super(options)
     this.dimensionType = DimensionType.Angular
+  }
+
+  protected override rotate(): number {
+    return 0
   }
 
   private _update() {
