@@ -28,12 +28,13 @@ hero:
 ---
 
 <script setup>
-import { 
+import {
   VPTeamPage,
   VPTeamPageTitle,
   VPTeamMembers,
   VPTeamPageSection
 } from 'vitepress/theme'
+
 const members = [
   {
     avatar: 'https://www.github.com/tarikjabiri.png',
@@ -97,6 +98,16 @@ const members = [
     desc: 'Sponsor',
     org: 'Autodrop3d',
     orgLink: 'https://www.autodrop3d.com/'
+  },
+  {
+    avatar: 'https://github.com/ahdinosaur.png',
+    name: 'Mikey',
+    links: [
+      { icon: 'github', link: 'https://github.com/ahdinosaur' }
+    ],
+    desc: 'Sponsor',
+    org: 'Village Kit',
+    orgLink: 'https://villagekit.com/'
   }
 ]
 </script>
