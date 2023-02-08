@@ -6,19 +6,17 @@ layout: doc
 
 ## Installation
 
-Using `npm`
-
-```bash
-npm i @tarikjabiri/dxf
-```
-Using `yarn`
-```bash
-yarn add @tarikjabiri/dxf
-```
-Using `pnpm`
-```bash
+:::code-group
+```sh [pnpm]
 pnpm add @tarikjabiri/dxf
 ```
+```sh [npm]
+npm i @tarikjabiri/dxf
+```
+```sh [yarn]
+yarn add @tarikjabiri/dxf
+```
+:::
 
 ## Quick start
 
