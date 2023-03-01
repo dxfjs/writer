@@ -55,10 +55,10 @@ export default abstract class Entity implements DxfInterface {
     return BoundingBox.pointBBox(point3d(0, 0, 0))
   }
 
-  dxfy(dx: Dxfier) {
+  dxfy(dx: Dxfier, fixOwner?: string) {
     dx.type(this.type)
     dx.handle(this.handle)
-    dx.push(330, this.ownerBlockRecord)
+    dx.push(330, fixOwner || this.ownerBlockRecord)
     dx.subclassMarker('AcDbEntity')
     dx.push(420, this.trueColor)
     dx.layerName(this.layerName || DxfLayer.layerZeroName)

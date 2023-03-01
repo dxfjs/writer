@@ -24,6 +24,8 @@ import { Text, TextOptions } from './Entities/Text'
 
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints'
 import { Arc } from './Entities/Arc'
+import { Attdef } from './Entities/Attdef'
+import { Attrib } from './Entities/Attrib'
 import { Circle } from './Entities/Circle'
 import { DimensionOptions } from './Entities/Dimension/Dimension'
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
@@ -33,6 +35,7 @@ import { Ellipse } from './Entities/Ellipse'
 import Handle from 'Internals/Handle'
 import { Line } from './Entities/Line'
 import { Point } from './Entities/Point'
+import SeqEnd from '../EntitiesSection/Entities/SeqEnd'
 
 export default abstract class EntitiesManager implements DxfInterface {
   readonly entities: Entity[] = []
@@ -66,6 +69,17 @@ export default abstract class EntitiesManager implements DxfInterface {
     if (entity.layerName == null) entity.layerName = this.layerName
     this.entities.push(entity)
     return entity
+  }
+
+  addAttrib(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, ownerInsert: Insert, options?: TextOptions) {
+    ownerInsert.attributesFollowFlag = 1
+    const attrib = this.addEntity(new Attrib(firstAlignmentPoint, height, tag, value, options))
+    this.addEntity(new SeqEnd(ownerInsert.handle))
+    return attrib
+  }
+
+  addAttdef(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, options?: TextOptions) {
+    return this.addEntity(new Attdef(firstAlignmentPoint, height, tag, value, options))
   }
 
   addAlignedDim(first: vec3_t, second: vec3_t, options?: AlignedDimOptions) {

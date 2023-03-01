@@ -22,6 +22,7 @@ export class Insert extends Entity {
   rowCount: number
   columnSpacing: number
   rowSpacing: number
+  attributesFollowFlag: number
 
   constructor(blockName: string, insertionPoint: vec3_t, options?: InsertOptions) {
     super('INSERT', 'AcDbBlockReference', options)
@@ -33,6 +34,7 @@ export class Insert extends Entity {
     this.rowCount = options?.rowCount || 1
     this.columnSpacing = options?.columnSpacing ?? 0
     this.rowSpacing = options?.rowSpacing ?? 0
+    this.attributesFollowFlag = options?.rowSpacing ?? 0
   }
 
   override boundingBox(): boundingBox_t {
@@ -47,6 +49,7 @@ export class Insert extends Entity {
     dx.push(42, this.scaleFactor.y)
     dx.push(43, this.scaleFactor.z)
     dx.push(50, this.rotationAngle)
+    dx.push(66, this.attributesFollowFlag)
     dx.push(70, this.columnCount)
     dx.push(71, this.rowCount)
     dx.push(44, this.columnSpacing)
