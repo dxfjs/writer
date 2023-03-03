@@ -74,7 +74,8 @@ export default abstract class EntitiesManager implements DxfInterface {
   addAttrib(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, ownerInsert: Insert, options?: TextOptions) {
     ownerInsert.attributesFollowFlag = 1
     const attrib = this.addEntity(new Attrib(firstAlignmentPoint, height, tag, value, options))
-    this.addEntity(new SeqEnd(ownerInsert.handle))
+    const seqEnd = this.addEntity(new SeqEnd())
+    seqEnd.ownerBlockRecord = ownerInsert.handle
     return attrib
   }
 

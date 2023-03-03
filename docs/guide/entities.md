@@ -38,11 +38,11 @@ const blockA = doc.addBlock('blockNameA');
 const blockB = doc.addBlock('blockNameB');
 const msp = doc.modelSpace;
 {
-  const insertA = msp.addInsert('blockNameA', point3d(0, 0))
+  const insertA = msp.addInsert(blockA.name, point3d(0, 0))
   const attribA = msp.addAttrib(point3d(0,0), 100, 'attributeName', 'attributeValue', insertA)
 }
 {
-  const insertB = msp.addInsert('blockNameB', point3d(0, 0))
+  const insertB = msp.addInsert(blockB.name, point3d(0, 0))
   const attribB = msp.addAttrib(point3d(0,0), 100, 'attributeName', 'attributeValue', insertB)
 }
 ```
