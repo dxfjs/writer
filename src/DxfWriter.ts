@@ -74,7 +74,7 @@ export class DxfWriter {
 
   /**
    * Add a header variable to the dxf if not exist.
-   * If exist it will updates values.
+   * If exist it will update values.
    *
    * @example
    * ```js
@@ -83,7 +83,7 @@ export class DxfWriter {
    * dxf.setVariable("$EXTMAX", {10: 500, 20: 500, 30: 0});
    * ```
    * @param name - The name of the variable. Ex: $ANGDIR, $EXTMAX, ...
-   * @param values - The values correspanding to the variable.
+   * @param values - The values corresponding to the variable.
    */
   public setVariable(name: string, values: values_t) {
     this.header.setVariable(name, values)
@@ -122,7 +122,7 @@ export class DxfWriter {
   }
 
   /**
-   * Add an diameter dimension entity to the dxf.
+   * Add a diameter dimension entity to the dxf.
    * @param first The first definition point for diameter dimensions.
    * @param second The second definition point for diameter dimensions.
    * @param options The options of the diameter dimension entity.
@@ -137,7 +137,7 @@ export class DxfWriter {
   }
 
   /**
-   * Add an radial dimension entity to the dxf.
+   * Add a radial dimension entity to the dxf.
    * @param first The first definition point for radius dimensions.
    * @param second The second definition point for radius dimensions.
    * @param options The options of the radial dimension entity.
@@ -290,9 +290,9 @@ export class DxfWriter {
   /**
    * Add a Rectangle as closed LWPolyline entity to the dxf.
    * In DXF Reference there is no entity called Rectangle or Polygon.
-   * To represent this entities (Rectangle and Polygon) use Polyline entity (Closed).
+   * To represent these entities (Rectangle and Polygon) use Polyline entity (Closed).
    *
-   * @param topLeft - The topleft corner of the rectangle.
+   * @param topLeft - The top left corner of the rectangle.
    * @param bottomRight - The bottom right corner of the rectangle.
    * @param options - The options to apply to the rectangle.
    * @returns Return the added lwpolyline.
@@ -341,9 +341,9 @@ export class DxfWriter {
    *
    * @param center - The center of the arc.
    * @param radius - The radius of the arc.
-   * @param startAngle - The start of the angle (begining of arc) in degrees Anticlockwise.
+   * @param startAngle - The start of the angle (beginning of arc) in degrees Anticlockwise.
    * @param endAngle - The end of the angle (end of arc) in degrees Anticlockwise.
-   * Angles always start from X-axis towards anticlockwise.
+   * Angles always start from The X-axis towards anticlockwise.
    * @param options - Arc entity options.
    * @returns Return the added arc.
    */
@@ -365,7 +365,7 @@ export class DxfWriter {
    * complex 3D organic free-form surface or solid. Because of their flexibility and accuracy,
    * NURBS models can be used in any process, from illustration and animation to manufacturing.
    *
-   * For more informations see : [NURBS](https://www.rhino3d.com/features/nurbs/) and
+   * For more information see : [NURBS](https://www.rhino3d.com/features/nurbs/) and
    * [Dxf Spline](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74)
    *
    * @param splineArgs - The Spline arguments. See {@link SplineArgs}.
@@ -384,6 +384,7 @@ export class DxfWriter {
    * @param ratioOfMinorAxisToMajorAxis - The ratio of minor axis to major axis.
    * @param startParameter - The start parameter (this value is 0.0 for a full ellipse).
    * @param endParameter - The end parameter (this value is 2pi for a full ellipse).
+   * @param options
    * @returns Return the added ellipse.
    */
   public addEllipse(
@@ -410,13 +411,13 @@ export class DxfWriter {
    * ```js
    * const dxf = new DxfWriter();
    * dxf.addImage(
-   * 	'.\\test.png', // Or the absolute path if not in the same folder.
-   * 	'test', // The name of the image.
-   * 	point3d(10, 10, 0), // The insertion point.
-   * 	600, // The width of the image in pixels.
-   * 	600, //The height of the image in pixels.
-   * 	1, // The scale to be applied to the image.
-   * 	0 //The scale to be applied to the image.
+   *    '.\\test.png', // Or the absolute path if not in the same folder.
+   *    'test', // The name of the image.
+   *    point3d(10, 10, 0), // The insertion point.
+   *    600, // The width of the image in pixels.
+   *    600, //The height of the image in pixels.
+   *    1, // The scale to be applied to the image.
+   *    0 //The scale to be applied to the image.
    * );
    * ```
    * @param imagePath - The path of the image.
@@ -426,6 +427,7 @@ export class DxfWriter {
    * @param height - The height of the image in pixels.
    * @param scale - The scale to be applied to the image.
    * @param rotation - The rotation angle (Degrees) to be applied to the image.
+   * @param options
    * @returns Return the added image.
    */
   public addImage(
@@ -458,7 +460,7 @@ export class DxfWriter {
    * @param thirdCorner - The first corner of the 3d face.
    * @param fourthCorner - The first corner of the 3d face. \
    * If you want only three corners, make this is the same as the third corner
-   * @param options - The options of the 3dFace antity.
+   * @param options - The options of the 3dFace entity.
    * @returns Return the added face.
    */
   public add3dFace(
@@ -479,19 +481,45 @@ export class DxfWriter {
 
   /**
    * Add a text entity to the dxf.
-   * @param firstAlignementPoint - The first alignment point of the text.
+   * @param firstAlignmentPoint - The first alignment point of the text.
    * @param height - The text height.
    * @param value - The default value (the string itself).
    * @param options - The options of the text entity.
    * @returns Return the added text.
    */
   public addText(
-    firstAlignementPoint: vec3_t,
+    firstAlignmentPoint: vec3_t,
     height: number,
     value: string,
     options?: Entities.TextOptions
   ) {
-    return this.modelSpace.addText(firstAlignementPoint, height, value, options)
+    return this.modelSpace.addText(firstAlignmentPoint, height, value, options)
+  }
+
+  /**
+   * Add an attdef entity to the dxf.
+   *
+   * @param firstAlignmentPoint
+   * @param height
+   * @param tag
+   * @param value
+   * @param options
+   */
+  public addAttdef(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, options?: Entities.TextOptions) {
+    return this.modelSpace.addAttdef(firstAlignmentPoint, height, tag, value, options)
+  }
+
+  /**
+   * Add an attrib entity to the dxf.
+   * @param firstAlignmentPoint
+   * @param height
+   * @param tag
+   * @param value
+   * @param ownerInsert
+   * @param options
+   */
+  public addAttrib(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, ownerInsert: Entities.Insert, options?: Entities.TextOptions) {
+    return this.modelSpace.addAttrib(firstAlignmentPoint, height, tag, value, ownerInsert, options)
   }
 
   /**
