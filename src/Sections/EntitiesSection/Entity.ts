@@ -9,9 +9,6 @@ import { point3d, vec3_t } from 'Internals/Helpers'
 export interface CommonEntityOptions {
   trueColor?: string;
   colorNumber?: number;
-  /**
-   * The extrusion is optional and defaults to 0,0,1. It could also be left empty.
-   */
   extrusion?: vec3_t;
   layerName?: string;
   visible?: boolean;
@@ -29,9 +26,6 @@ export default abstract class Entity implements DxfInterface {
   visible?: boolean
   lineType?: string
   lineTypeScale?: number
-  /**
-   * The extrusion is optional and defaults to 0,0,1. It could also be left empty.
-   */
   extrusion?: vec3_t
   readonly handle: string
 
@@ -56,10 +50,10 @@ export default abstract class Entity implements DxfInterface {
   }
 
   /**
-  \* Get the boundingBox of an entity.
-  \*
-  \* @returns The boundingBox of an entity.
-  \*/
+   * Get the boundingBox of an entity.
+   *
+   * @returns The boundingBox of an entity.
+   */
   public boundingBox(): boundingBox_t {
     return BoundingBox.pointBBox(point3d(0, 0, 0))
   }
@@ -76,11 +70,8 @@ export default abstract class Entity implements DxfInterface {
     dx.push(48, this.lineTypeScale)
     dx.visibilty(this.visible)
     dx.subclassMarker(this.subclassMarker)
-    if (this.extrusion)
-    {
-      dx.push(210, this.extrusion.x)
-      dx.push(220, this.extrusion.y)
-      dx.push(230, this.extrusion.z)
-    }
+    dx.push(210, this.extrusion?.x)
+    dx.push(220, this.extrusion?.y)
+    dx.push(230, this.extrusion?.z)
   }
 }
