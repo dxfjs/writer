@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import { version } from '../../package.json'
+import { version } from '../../package.json';
 
 export default defineConfig({
 	title: 'dxfjs',
@@ -8,6 +8,7 @@ export default defineConfig({
 	head: [
 		['meta', { name: 'theme-color', content: '#4caf50' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+		['script', {defer: "", src: '/_vercel/insights/script.js'}],
 	],
 	markdown: {
 		toc: { level: [2] },
@@ -42,7 +43,6 @@ export default defineConfig({
 		sidebar: [
 			{
 				text: 'Guide',
-				collapsible: true,
 				items: [
 					{ text: 'Introduction', link: '/guide/' },
 					{ text: 'Header', link: '/guide/header' },
