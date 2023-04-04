@@ -25,6 +25,28 @@ dxf.addArc(point3d(0, 0), 10, 0, 45);
 const myArc = dxf.addArc(point3d(0, 0), 10, 0, 45); // If you want a reference to the added arc.
 ```
 
+## `ATTRIB`
+
+The ATTRIB ([DXF Reference](https://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-7DD8B495-C3F8-48CD-A766-14F9D7D0DD9B)) entity represents a text value associated with a tag. In most cases an ATTRIB is appended to an Insert entity, but it can also be used as a standalone entity.
+
+Attrib should go right after Insert:
+```js
+import { DxfWriter, point3d } from "@tarikjabiri/dxf";
+const dxf = new DxfWriter();
+const doc = dxf.document;
+const blockA = doc.addBlock('blockNameA');
+const blockB = doc.addBlock('blockNameB');
+const msp = doc.modelSpace;
+{
+  const insertA = msp.addInsert(blockA.name, point3d(0, 0))
+  const attribA = msp.addAttrib(point3d(0,0), 100, 'attributeName', 'attributeValue', insertA)
+}
+{
+  const insertB = msp.addInsert(blockB.name, point3d(0, 0))
+  const attribB = msp.addAttrib(point3d(0,0), 100, 'attributeName', 'attributeValue', insertB)
+}
+```
+
 ## `CIRCLE`
 
 A circle is a shape consisting of all points in a plane that are at a given distance from a given point, the centre.
