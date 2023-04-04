@@ -1,6 +1,6 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from '../Entity'
-import { point3d, vec2_t, vec3_t } from 'Internals/Helpers'
+import { point3d, vec2_t } from 'Internals/Helpers'
 
 import DxfInterface from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
@@ -335,7 +335,6 @@ export type HatchGradientOptions_t = {
 
 export type HatchOptions_t = CommonEntityOptions & {
 	elevation?: number;
-	extrusion?: vec3_t;
 };
 
 export function gradient(fill: HatchGradientOptions_t) {
@@ -349,7 +348,6 @@ export function pattern(fill: HatchPatternOptions_t) {
 export class Hatch extends Entity {
   fill: HatchPatternOptions_t | HatchGradientOptions_t
   elevation: number
-  extrusion: vec3_t
   readonly boundaryPath: HatchBoundaryPaths
 
   private get patternName() {
@@ -428,9 +426,6 @@ export class Hatch extends Entity {
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)
     dx.point3d(point3d(0, 0, this.elevation))
-    dx.push(210, this.extrusion.x)
-    dx.push(220, this.extrusion.y)
-    dx.push(230, this.extrusion.z)
     dx.name(this.patternName)
     dx.push( 70, this.solidFillFlag)
     dx.push(71, AssociativityFlag.NonAssociative)
