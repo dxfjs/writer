@@ -1,8 +1,8 @@
-import {BoundingBox, boundingBox_t} from '../../../Internals/BoundingBox'
-import {TextGenerationFlags, TextHorizontalAlignment, TextOptions, TextVerticalAlignment} from '../../EntitiesSection/Entities/Text'
-import {Dxfier} from '../../../Internals/Dxfier'
+import {BoundingBox, boundingBox_t} from 'Internals/BoundingBox'
+import {TextGenerationFlags, TextHorizontalAlignment, TextOptions, TextVerticalAlignment} from 'EntitiesSection/Entities/Text'
+import {Dxfier} from 'Internals/Dxfier'
 import Entity from '../Entity'
-import {vec3_t} from '../../../Internals/Helpers'
+import {vec3_t} from 'Internals/Helpers'
 
 export class Attrib extends Entity {
   tag: string
@@ -25,13 +25,13 @@ export class Attrib extends Entity {
     this.value = value
     this.tag = tag
     this.textStyle = 'STANDARD'
-    this.rotation = options === null || options === void 0 ? void 0 : options.rotation
-    this.obliqueAngle = options === null || options === void 0 ? void 0 : options.obliqueAngle
-    this.generationFlags = options === null || options === void 0 ? void 0 : options.generationFlags
-    this.horizontalAlignment = options === null || options === void 0 ? void 0 : options.horizontalAlignment
-    this.verticalAlignment = options === null || options === void 0 ? void 0 : options.verticalAlignment
-    this.secondAlignmentPoint = options === null || options === void 0 ? void 0 : options.secondAlignmentPoint
-    this.relativeXScaleFactor = options === null || options === void 0 ? void 0 : options.relativeXScaleFactor
+    this.rotation = options?.rotation
+    this.obliqueAngle = options?.obliqueAngle
+    this.generationFlags = options?.generationFlags
+    this.horizontalAlignment = options?.horizontalAlignment
+    this.verticalAlignment = options?.verticalAlignment
+    this.secondAlignmentPoint = options?.secondAlignmentPoint
+    this.relativeXScaleFactor = options?.relativeXScaleFactor
   }
 
   override boundingBox(): boundingBox_t {
