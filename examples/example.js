@@ -1,4 +1,4 @@
-const { DxfWriter, point3d, Colors, HatchType, HatchPolylineBoundary, HatchBoundaryPaths, gradient, vertex } = require('../dist');
+const { DxfWriter, point3d, MTextAttachmentPoint, MTextDrawingDirection, MTextLineSpacingStyle } = require('../dist');
 const { writeFileSync } = require('fs');
 
 const dxf = new DxfWriter();
@@ -17,23 +17,13 @@ const dxf = new DxfWriter();
 
 // dxf.setZeroLayerAsCurrent()
 
-const polyline = new HatchPolylineBoundary();
-polyline.add(vertex(0, 0));
-polyline.add(vertex(0, 20));
-polyline.add(vertex(10, 20));
-polyline.add(vertex(10, 0));
 
-const boundary = new HatchBoundaryPaths();
-// Add the defined path
-boundary.addPolylineBoundary(polyline);
-
-const mysolid = gradient({
-    // hatchType: HatchType.SOLID,
-    firstColor: 2,
-    secondColor: 2,
-})
-
-const hatch = dxf.addHatch(boundary, mysolid);
-
+dxf.addMText(point3d(20, 20), 0.2, 'GGWP vbajsbvlj fdvjhbsdfvjhbw akkfjvldf', {
+    rotation: 30,
+	attachmentPoint: MTextAttachmentPoint.MiddleCenter,
+    drawingDirection: MTextDrawingDirection.ByStyle,
+    lineSpacingStyle: MTextLineSpacingStyle.AtLeast,
+    width: 2,
+});
 const _str = dxf.stringify();
 writeFileSync('examples/example.dxf', _str);
