@@ -7,7 +7,7 @@ import { vec3_t } from 'Internals/Helpers'
 // TODO: we need to add columns in mtext
 
 export enum MTextAttachmentPoint {
-	TopLeft = 1,
+  TopLeft = 1,
   TopCenter = 2,
   TopRight = 3,
   MiddleLeft = 4,
@@ -19,22 +19,22 @@ export enum MTextAttachmentPoint {
 }
 
 export enum MTextDrawingDirection {
-	LeftToRight = 1,
-	TopToBottom = 3,
-	ByStyle = 5, // the flow direction is inherited from the associated text style
+  LeftToRight = 1,
+  TopToBottom = 3,
+  ByStyle = 5, // the flow direction is inherited from the associated text style
 }
 
 export enum MTextLineSpacingStyle {
-	AtLeast = 1,
+  AtLeast = 1,
   Exact = 2,
 }
 
 export interface MTextOptions extends CommonEntityOptions {
-	rotation?: number;
-	attachmentPoint?: MTextAttachmentPoint;
-	drawingDirection?: MTextDrawingDirection;
-	lineSpacingStyle?: MTextLineSpacingStyle;
-	width?: number;
+  rotation?: number;
+  attachmentPoint?: MTextAttachmentPoint;
+  drawingDirection?: MTextDrawingDirection;
+  lineSpacingStyle?: MTextLineSpacingStyle;
+  width?: number;
 }
 
 export class MText extends Entity {

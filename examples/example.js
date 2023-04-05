@@ -20,7 +20,7 @@ const dxf = new DxfWriter();
 
 dxf.addMText(point3d(20, 20), 0.2, 'GGWP vbajsbvlj fdvjhbsdfvjhbw akkfjvldf', {
     rotation: 30,
-	attachmentPoint: MTextAttachmentPoint.MiddleCenter,
+    attachmentPoint: MTextAttachmentPoint.MiddleCenter,
     drawingDirection: MTextDrawingDirection.ByStyle,
     lineSpacingStyle: MTextLineSpacingStyle.AtLeast,
     width: 2,
