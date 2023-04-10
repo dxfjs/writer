@@ -20,6 +20,7 @@ import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
 import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDimension'
 import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
 import { Spline, SplineArgs_t } from './Entities/Spline'
+import { Table, TableOptions } from './Entities/Table'
 import { Text, TextOptions } from './Entities/Text'
 
 import { AngularDimPoints } from './Entities/Dimension/AngularDimPoints'
@@ -281,6 +282,10 @@ export default abstract class EntitiesManager implements DxfInterface {
 
   addInsert(blockName: string, insertionPoint: vec3_t, options?: InsertOptions): Insert {
     return this.addEntity(new Insert(blockName, insertionPoint, options || {}))
+  }
+
+  addTable(blockName: string, position: vec3_t, noOfRows: number, noOfColumn: number, rowHeights: number[], columnHeights: number[], tableOptions: TableOptions) {
+    return this.addEntity(new Table(blockName, position, noOfRows, noOfColumn, rowHeights, columnHeights, tableOptions))
   }
 
   boundingBox(): boundingBox_t {
