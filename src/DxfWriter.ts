@@ -553,7 +553,7 @@ export class DxfWriter {
 
   /**
    * Add a table entity to the dxf
-   * 
+   *
    * @param blockName - The name of the block
    * @param position - The point where the Table is to be placed
    * @param noOfRows - The no of rows
@@ -563,7 +563,7 @@ export class DxfWriter {
    * @param tableOptions - the option of the Table entity
    * @returns Returns the added Table
    */
-  public addTable(blockName: string, position: vec3_t, noOfRows: number, noOfColumn: number, rowHeights: number[], columnHeights: number[], tableOptions: TableOptions) {
+  public addTable(blockName: string, position: vec3_t, noOfRows: number, noOfColumn: number, rowHeights: number[], columnHeights: number[], tableOptions: Entities.TableOptions) {
     return this.modelSpace.addTable(blockName, position, noOfRows, noOfColumn, rowHeights, columnHeights, tableOptions)
   }
 
