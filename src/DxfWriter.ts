@@ -523,6 +523,23 @@ export class DxfWriter {
   }
 
   /**
+   * Add a Mtext entity to the dxf.
+   * @param firstAlignementPoint - The first alignment point of the Mtext.
+   * @param height - The Mtext height.
+   * @param value - The default value (the string itself).
+   * @param options - The options of the Mtext entity.
+   * @returns Return the added Mtext.
+   */
+  public addMText(
+    firstAlignementPoint: vec3_t,
+    height: number,
+    value: string,
+    options?: Entities.MTextOptions
+  ) {
+    return this.modelSpace.addMText(firstAlignementPoint, height, value, options)
+  }
+
+  /**
    * Add an insert entity to the dxf.
    *
    * @param blockName - The name of the block to insert.
