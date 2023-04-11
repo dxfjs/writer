@@ -105,5 +105,12 @@ dxf.addTable(myBlock.name, point3d(0, 0, 0), 3, 3, [0.45, 0.36, 0.36], [2.5, 2.5
 
 // dxf.addInsert(myBlock.name, point3d(0, 0));
 
+dxf.addMText(point3d(20, 20), 0.2, 'GGWP vbajsbvlj fdvjhbsdfvjhbw akkfjvldf', {
+    rotation: 30,
+    attachmentPoint: MTextAttachmentPoint.MiddleCenter,
+    drawingDirection: MTextDrawingDirection.ByStyle,
+    lineSpacingStyle: MTextLineSpacingStyle.AtLeast,
+    width: 2,
+});
 const _str = dxf.stringify();
 writeFileSync('examples/example.dxf', _str);

@@ -16,6 +16,7 @@ import { Insert, InsertOptions } from './Entities/Insert'
 import { LWPolyline, LWPolylineFlags, LWPolylineOptions, LWPolylineVertex } from './Entities/LWPolyline'
 import { Leader, LeaderOptions } from './Entities/Leader'
 import { LinearDimOptions, LinearDimension } from './Entities/Dimension/LinearDimension'
+import { MText, MTextOptions } from './Entities/MText'
 import { Polyline, PolylineOptions, PolylineVertex } from './Entities/Polyline'
 import { RadialDimOptions, RadialDimension } from './Entities/Dimension/RadialDimension'
 import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
@@ -278,6 +279,15 @@ export default abstract class EntitiesManager implements DxfInterface {
     options?: TextOptions
   ): Text {
     return this.addEntity(new Text(firstAlignementPoint, height, value, options))
+  }
+
+  addMText(
+    firstAlignementPoint: vec3_t,
+    height: number,
+    value: string,
+    options?: MTextOptions
+  ): MText {
+    return this.addEntity(new MText(firstAlignementPoint, height, value, options))
   }
 
   addInsert(blockName: string, insertionPoint: vec3_t, options?: InsertOptions): Insert {
