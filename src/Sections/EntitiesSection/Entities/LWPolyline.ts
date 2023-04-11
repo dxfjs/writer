@@ -66,5 +66,8 @@ export class LWPolyline extends Entity {
       dx.push(41, v.endWidth)
       dx.push(42, v.bulge)
     }
+    dx.push(210, this.extrusion?.x)
+    dx.push(220, this.extrusion?.y)
+    dx.push(230, this.extrusion?.z)
   }
 }
