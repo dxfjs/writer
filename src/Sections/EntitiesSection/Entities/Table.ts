@@ -1,6 +1,7 @@
-import Entity, { CommonEntityOptions } from "EntitiesSection/Entity";
-import { Dxfier } from "Internals/Dxfier";
-import { BoundingBox, boundingBox_t, point3d, vec3_t } from "index";
+import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
+import Entity, { CommonEntityOptions } from 'EntitiesSection/Entity'
+import { point3d, vec3_t } from 'Internals/Helpers'
+import { Dxfier } from 'Internals/Dxfier'
 
 export interface TableOptions extends CommonEntityOptions {
   horizontalDirectionVector: vec3_t
@@ -52,7 +53,7 @@ export class Cell {
     this.cellText = options?.cellText
   }
 
-  dxfy(dx) {
+  dxfy(dx: Dxfier) {
     dx.push(171, this.cellType)
     dx.push(173, this.cellMerged)
     dx.push(174, this.cellAutoFitFlag)
