@@ -1,4 +1,4 @@
-# writer
+# writer [![Verified on Openbase](https://badges.openbase.com/js/verified/@tarikjabiri/dxf.svg?style=openbase&token=C/1uHA0bNDQFUKrzrn23YQaNpCza+ZeDOe948Hvmi+s=)](https://openbase.com/js/@tarikjabiri/dxf?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
 
 A Javascript dxf generator, written in Typescript.
 
