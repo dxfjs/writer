@@ -34,7 +34,7 @@ export class AngularDimLines extends Dimension {
     dx.subclassMarker('AcDb2LineAngularDimension')
     dx.point3d(this.first.start, 3)
     dx.point3d(this.first.end, 4)
-    dx.point3d(this.second.end, 5)
+    dx.point3d(this.second.start, 5)
     dx.point3d(this.location, 6)
   }
 }
