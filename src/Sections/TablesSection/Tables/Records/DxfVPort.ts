@@ -36,7 +36,7 @@ export default class DxfVPort extends DxfRecord {
     dx.push(17, 0)
     dx.push(27, 0)
     dx.push(37, 0)
-    dx.push(40, this.viewHeight)
+    dx.push(40, this.viewHeight || 200)
     dx.push(41, 2) // TODO ?????????
     dx.push(42, 50)
     dx.push(43, 0)
