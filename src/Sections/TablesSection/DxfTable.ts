@@ -1,4 +1,4 @@
-import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces'
 import DxfRecord from './Tables/Records/DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'

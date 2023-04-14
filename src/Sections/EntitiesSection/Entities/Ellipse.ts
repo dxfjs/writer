@@ -40,8 +40,7 @@ export class Ellipse extends Entity {
     return BoundingBox.centerRadiusBBox(this.center, bigRadius)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(this.center)
     dx.point3d(this.endPointOfMajorAxis, 1)
     dx.push(40, this.ratioOfMinorAxisToMajorAxis)

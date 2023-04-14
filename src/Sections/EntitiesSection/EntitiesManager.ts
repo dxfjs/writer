@@ -1,7 +1,7 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from './Entity'
 import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
-import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces'
 import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'

@@ -71,8 +71,7 @@ export class Spline extends Entity {
     return BoundingBox.verticesBBox([...this.controlPoints, ...this.fitPoints])
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(70, this.flags)
     dx.push(71, this.degreeCurve)
     dx.push(72, this.knots.length)

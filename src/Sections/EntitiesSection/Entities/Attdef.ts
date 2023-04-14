@@ -44,8 +44,7 @@ export class Attdef extends Entity{
     return BoundingBox.pointBBox(this.position)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(this.position)
     dx.push(40, this.height)
     dx.primaryText(this.value)

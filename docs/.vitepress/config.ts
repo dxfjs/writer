@@ -52,6 +52,12 @@ export default defineConfig({
 					{ text: 'Objects', link: '/guide/objects' },
 				],
 			},
+			{
+				text: 'Tutoriels',
+				items: [
+					{ text: 'About Extended Data', link: '/tutoriels/xdata' },
+				],
+			},
 		],
 		footer: {
 			message: 'Released under the MIT License.',

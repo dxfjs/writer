@@ -31,8 +31,7 @@ export class ArcDimension extends Dimension {
     return 0
   }
 
-  override dxfy(dx: Dxfier) {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier) {
     dx.subclassMarker('AcDbArcDimension')
 
     dx.point3d(this.startPoint, 3)

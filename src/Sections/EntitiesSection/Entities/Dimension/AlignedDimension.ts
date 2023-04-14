@@ -33,8 +33,7 @@ export class AlignedDimension extends Dimension {
     return angle(this.fisrtPoint, this.secondPoint)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.subclassMarker('AcDbAlignedDimension')
     dx.point3d(this.insertionPoint, 2)
     dx.point3d(this.fisrtPoint, 3)

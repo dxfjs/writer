@@ -18,8 +18,7 @@ export class Line extends Entity {
     return BoundingBox.lineBBox(this.startPoint, this.endPoint)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(this.startPoint)
     dx.point3d(this.endPoint, 1)
   }

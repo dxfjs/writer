@@ -37,8 +37,7 @@ export class Leader extends Entity {
     return BoundingBox.verticesBBox(this.vertices)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(3, this.dimensionStyleName)
     dx.push(71, this.flag)
     dx.push(72, this.leaderPathType)

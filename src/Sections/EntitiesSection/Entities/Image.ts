@@ -151,8 +151,7 @@ export class Image extends Entity {
     return BoundingBox.centerRadiusBBox(this.insertionPoint, diagonal)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(90, this.classVersion)
     dx.point3d(this.insertionPoint)
     dx.point3d(this._uVector(), 1)

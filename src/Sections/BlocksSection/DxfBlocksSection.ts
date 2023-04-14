@@ -1,5 +1,5 @@
 import { DxfBlock } from './DxfBlock'
-import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces'
 import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import DxfTablesSection from 'TablesSection/DxfTablesSection'
 import { Dxfier } from 'Internals/Dxfier'

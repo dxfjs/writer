@@ -46,8 +46,7 @@ export class LWPolyline extends Entity {
     )
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(90, this.vertices.length)
     dx.push(70, this.flags || 0)
 

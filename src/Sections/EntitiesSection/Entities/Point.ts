@@ -20,8 +20,7 @@ export class Point extends Entity {
     return BoundingBox.pointBBox(point3d(this.x, this.y, this.z))
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(point3d(this.x, this.y, this.z))
   }
 }

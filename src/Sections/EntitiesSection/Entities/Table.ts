@@ -92,8 +92,7 @@ export class Table extends Entity {
     return BoundingBox.pointBBox(this.position)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.name(this.blockName)
     dx.point3d(this.position)
     dx.subclassMarker('AcDbTable')

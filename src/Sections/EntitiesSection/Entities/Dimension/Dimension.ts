@@ -76,8 +76,7 @@ export abstract class Dimension extends Entity {
 
   protected abstract rotate(): number
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(2, this.blockName)
     dx.point3d(this.definitionPoint)
     dx.point3d(this.middlePoint, 1)
