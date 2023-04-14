@@ -1,5 +1,5 @@
 import DxfDefinedApplication from 'Internals/DefinedApplication'
-import DxfObject from '../DxfObject'
+import { DxfObject } from '../DxfObject'
 import { Dxfier } from 'Internals/Dxfier'
 import { point2d } from 'Internals/Helpers'
 
@@ -9,7 +9,7 @@ export enum ImageDefResolutionUnits {
 	Inch = 5,
 }
 
-export default class DxfImageDef extends DxfObject {
+export class DxfImageDef extends DxfObject {
   path: string
   acadImageDictHandle: string
   readonly imageReactorHandles: string[]

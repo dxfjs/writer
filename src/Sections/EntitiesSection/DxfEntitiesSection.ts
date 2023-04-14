@@ -1,8 +1,8 @@
 import { DxfBlock } from '../BlocksSection/DxfBlock'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfEntitiesSection implements DxfInterface {
+export class DxfEntitiesSection implements DxfInterface {
   readonly modelSpace: DxfBlock
 
   constructor(modelSpace: DxfBlock) {

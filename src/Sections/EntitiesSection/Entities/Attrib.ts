@@ -49,11 +49,7 @@ export class Attrib extends Entity {
     dx.textStyle(this.textStyle)
     dx.push(71, this.generationFlags)
     dx.push(72, this.horizontalAlignment)
-    if (this.secondAlignmentPoint) {
-      dx.push(11, this.secondAlignmentPoint.x)
-      dx.push(21, this.secondAlignmentPoint.y)
-      dx.push(31, this.secondAlignmentPoint.z)
-    }
+    dx.point3d(this.secondAlignmentPoint, 1)
     dx.push(73, this.verticalAlignment)
     dx.subclassMarker('AcDbAttribute')
     dx.push(280, 0)

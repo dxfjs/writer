@@ -21,8 +21,6 @@ export class Line extends Entity {
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)
     dx.point3d(this.startPoint)
-    dx.push(11, this.endPoint.x)
-    dx.push(21, this.endPoint.y)
-    dx.push(31, this.endPoint.z)
+    dx.point3d(this.endPoint, 1)
   }
 }

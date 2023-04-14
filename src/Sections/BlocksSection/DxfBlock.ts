@@ -1,24 +1,24 @@
 import { point3d, vec3_t } from 'Internals/Helpers'
 
-import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
+import { DxfEndBlk } from './DxfEndBlk'
+import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import { Dxfier } from 'Internals/Dxfier'
-import EndBlk from './DxfEndBlk'
 import EntitiesManager from 'EntitiesSection/EntitiesManager'
 
 export enum BlockFlags {
-	None = 0,
-	AnonymousBlock = 1,
-	HasNonConstantAttribute = 2,
-	XRef = 4,
-	XRefOverlay = 8,
-	ExternallyDependent = 16,
-	ResolvedXRef = 32,
-	ReferencedXRef = 64,
+  None = 0,
+  AnonymousBlock = 1,
+  HasNonConstantAttribute = 2,
+  XRef = 4,
+  XRefOverlay = 8,
+  ExternallyDependent = 16,
+  ResolvedXRef = 32,
+  ReferencedXRef = 64,
 }
 
 export class DxfBlock extends EntitiesManager {
   readonly name: string
-  readonly endBlk: EndBlk
+  readonly endBlk: DxfEndBlk
   stringifyEntities = true
   ownerObjectHandle?: string
   flags: BlockFlags
@@ -29,7 +29,7 @@ export class DxfBlock extends EntitiesManager {
     super(objects, '0')
     this.name = name
     this.flags = BlockFlags.None
-    this.endBlk = new EndBlk()
+    this.endBlk = new DxfEndBlk()
     this.basePoint = point3d(0, 0, 0)
     this.xrefPathName = ''
   }

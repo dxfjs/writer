@@ -1,7 +1,7 @@
-import DxfObject from '../DxfObject'
+import { DxfObject } from '../DxfObject'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfRasterVariables extends DxfObject {
+export class DxfRasterVariables extends DxfObject {
   constructor() {
     super('RASTERVARIABLES')
   }

@@ -12,15 +12,15 @@ export const createBoundingBox = (tl: vec3_t, br: vec3_t): boundingBox_t => {
 export class BoundingBox {
   static centerRadiusBBox(center: vec3_t, radius: number) {
     return createBoundingBox(
-      point3d(center.x - radius, center.y + radius, 0),
-      point3d(center.x + radius, center.y - radius, 0)
+      point3d(center.x - radius, center.y + radius),
+      point3d(center.x + radius, center.y - radius)
     )
   }
 
   static pointBBox(point: vec3_t) {
     return createBoundingBox(
-      point3d(point.x - 100, point.y + 100, 0),
-      point3d(point.x + 100, point.y - 100, 0)
+      point3d(point.x - 100, point.y + 100),
+      point3d(point.x + 100, point.y - 100)
     )
   }
 
@@ -36,7 +36,10 @@ export class BoundingBox {
     const minY = sp.y < ep.y ? sp.y : ep.y
     const maxZ = sp.z > ep.z ? sp.z : ep.z
     const minZ = sp.z < ep.z ? sp.z : ep.z
-    return createBoundingBox(point3d(minX, maxY, minZ), point3d(maxX, minY, maxZ))
+    return createBoundingBox(
+      point3d(minX, maxY, minZ),
+      point3d(maxX, minY, maxZ)
+    )
   }
 
   static verticesBBox(vertices: vec3_t[]) {
@@ -51,11 +54,15 @@ export class BoundingBox {
       if (_xMin > x) _xMin = x
       if (_yMin > y) _yMin = y
     }
-    return createBoundingBox(point3d(_xMin, _yMax, 0), point3d(_xMax, _yMin, 0))
+    return createBoundingBox(
+      point3d(_xMin, _yMax),
+      point3d(_xMax, _yMin)
+    )
   }
 
   static boundingBox(boundingBoxes: boundingBox_t[]): boundingBox_t {
-    if (boundingBoxes.length === 0) return BoundingBox.pointBBox(point3d(0, 0, 0))
+    if (boundingBoxes.length === 0)
+      return BoundingBox.pointBBox(point3d())
     const _vertices = []
     for (let i = 0; i < boundingBoxes.length; i++) {
       const _bbox = boundingBoxes[i]

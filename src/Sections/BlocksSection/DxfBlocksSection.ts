@@ -1,6 +1,6 @@
 import { DxfBlock } from './DxfBlock'
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
-import DxfObjectsSection from 'ObjectsSection/DxfObjectsSection'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import DxfTablesSection from 'TablesSection/DxfTablesSection'
 import { Dxfier } from 'Internals/Dxfier'
 import { specialCharsRegex } from 'Internals/Utils'

@@ -2,7 +2,7 @@ import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from '../Entity'
 import { point3d, vec2_t } from 'Internals/Helpers'
 
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 import PredefinedHatchPatterns from 'Internals/HatchPatterns'
 import { TrueColor } from 'Internals/TrueColor'

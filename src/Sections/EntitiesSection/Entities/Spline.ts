@@ -86,10 +86,6 @@ export class Spline extends Entity {
     if(this.weights.length > 0) this.weights.forEach((w) => dx.push(41, w))
     else dx.push(41, 1)
     this.controlPoints.forEach((cp) => dx.point3d(cp))
-    this.fitPoints.forEach((fp) => {
-      dx.push(11, fp.x)
-      dx.push(21, fp.y)
-      dx.push(31, fp.z)
-    })
+    this.fitPoints.forEach((fp) => dx.point3d(fp, 1))
   }
 }

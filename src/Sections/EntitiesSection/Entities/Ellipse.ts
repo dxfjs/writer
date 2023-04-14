@@ -43,9 +43,7 @@ export class Ellipse extends Entity {
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)
     dx.point3d(this.center)
-    dx.push(11, this.endPointOfMajorAxis.x)
-    dx.push(21, this.endPointOfMajorAxis.y)
-    dx.push(31, this.endPointOfMajorAxis.z)
+    dx.point3d(this.endPointOfMajorAxis, 1)
     dx.push(40, this.ratioOfMinorAxisToMajorAxis)
     dx.push(41, this.startParameter)
     dx.push(42, this.endParameter)

@@ -76,8 +76,10 @@ export class Image extends Entity {
     this.imageDefHandle = imageArgs.imageDefHandle
     this.imageDisplayFlags =
       options?.imageDisplayFlags ||
-      ImageDisplayFlags.ShowImage | ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen
-    this.clippingStateFlag = options?.clippingStateFlag || ImageClippingStateFlag.On
+      ImageDisplayFlags.ShowImage |
+        ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen
+    this.clippingStateFlag =
+      options?.clippingStateFlag || ImageClippingStateFlag.On
     this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside
     this.clippingType = options?.clippingType || ImageClippingType.Rectangular
     this.brightness = options?.brightness || 50
@@ -93,18 +95,25 @@ export class Image extends Entity {
   \* @param verticies - The clip boundary verticies.
   \* @param clippingType - The clipping boundary type.
   \*/
-  setClipBoundaryVerticies(verticies: vec2_t[], clippingType: ImageClippingType) {
+  setClipBoundaryVerticies(
+    verticies: vec2_t[],
+    clippingType: ImageClippingType
+  ) {
     if (clippingType === ImageClippingType.Rectangular) {
       if (verticies.length == 2) {
         this.#clipBoundaryVertices = verticies
       } else {
-        throw new Error('The number of vertices should be 2 in rectangular clipping !')
+        throw new Error(
+          'The number of vertices should be 2 in rectangular clipping !'
+        )
       }
     } else {
       if (verticies.length >= 3) {
         this.#clipBoundaryVertices = verticies
       } else {
-        throw new Error('The number of vertices should be >= 3 in polygonal clipping !')
+        throw new Error(
+          'The number of vertices should be >= 3 in polygonal clipping !'
+        )
       }
     }
     this.#clipBoundaryVertices = []
@@ -112,7 +121,10 @@ export class Image extends Entity {
   }
 
   resetClipping() {
-    const verticies = [point2d(-0.5, -0.5), point2d(this.width - 0.5, this.height - 0.5)]
+    const verticies = [
+      point2d(-0.5, -0.5),
+      point2d(this.width - 0.5, this.height - 0.5),
+    ]
     this.setClipBoundaryVerticies(verticies, ImageClippingType.Rectangular)
   }
 
@@ -143,12 +155,8 @@ export class Image extends Entity {
     super.dxfy(dx)
     dx.push(90, this.classVersion)
     dx.point3d(this.insertionPoint)
-    dx.push(11, this._uVector().x)
-    dx.push(21, this._uVector().y)
-    dx.push(31, this._uVector().z)
-    dx.push(12, this._vVector().x)
-    dx.push(22, this._vVector().y)
-    dx.push(32, this._vVector().z)
+    dx.point3d(this._uVector(), 1)
+    dx.point3d(this._vVector(), 2)
     dx.push(13, this.width)
     dx.push(23, this.height)
     dx.push(340, this.imageDefHandle)
@@ -160,10 +168,7 @@ export class Image extends Entity {
     dx.push(360, this.imageDefReactorHandle)
     dx.push(71, this.clippingType)
     dx.push(91, this.#clipBoundaryVertices.length)
-    this.#clipBoundaryVertices.forEach((v) => {
-      dx.push(14, v.x)
-      dx.push(24, v.y)
-    })
+    this.#clipBoundaryVertices.forEach((v) => dx.point2d(v, 4))
     dx.push(290, this.clipModeFlag)
   }
 }

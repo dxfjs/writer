@@ -60,15 +60,14 @@ export class Dxfier {
     this.push(8, layerName)
   }
 
-  point2d(point?: vec2_t) {
-    this.push(10, point?.x)
-    this.push(20, point?.y)
+  point2d(point?: vec2_t, digit = 0) {
+    this.push(10 + digit, point?.x)
+    this.push(20 + digit, point?.y)
   }
 
-  point3d(point?: vec3_t) {
-    this.push(10, point?.x)
-    this.push(20, point?.y)
-    this.push(30, point?.z)
+  point3d(point?: vec3_t, digit = 0) {
+    this.point2d(point, digit)
+    this.push(30 + digit, point?.z)
   }
 
   elevation(elevation?: number) {
