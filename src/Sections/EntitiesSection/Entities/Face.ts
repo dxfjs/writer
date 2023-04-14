@@ -82,8 +82,7 @@ export class Face extends Entity {
     ])
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(this.firstCorner)
     dx.point3d(this.secondCorner, 1)
     dx.point3d(this.thirdCorner, 2)

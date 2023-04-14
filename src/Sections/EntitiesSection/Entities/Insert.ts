@@ -41,8 +41,7 @@ export class Insert extends Entity {
     return BoundingBox.pointBBox(this.insertionPoint)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.name(this.blockName)
     dx.point3d(this.insertionPoint)
     dx.push(41, this.scaleFactor.x)

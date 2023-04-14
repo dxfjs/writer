@@ -17,8 +17,7 @@ export class Circle extends Entity {
     return BoundingBox.centerRadiusBBox(this.center, this.radius)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(this.center)
     dx.push(40, this.radius)
   }

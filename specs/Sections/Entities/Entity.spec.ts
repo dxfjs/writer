@@ -6,6 +6,8 @@ import Entity from 'EntitiesSection/Entity'
 import { boundingBox_t } from 'Internals/BoundingBox'
 
 class DummyEntity extends Entity {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  protected override dxfyChild(dx: Dxfier): void {}
   public override  boundingBox(): boundingBox_t {
     return BoundingBox.pointBBox({ x: 0, y: 0, z: 0 })
   }

@@ -45,8 +45,7 @@ export class Vertex extends Entity {
     return BoundingBox.pointBBox(this.point)
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.subclassMarker('AcDb3dPolylineVertex')
     dx.point3d(this.point)
     dx.push(40, this.startingWidth)

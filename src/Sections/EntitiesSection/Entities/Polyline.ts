@@ -88,8 +88,7 @@ export class Polyline extends Entity {
     return BoundingBox.verticesBBox(this.vertices.map((v) => v.point))
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.push(66, 1)
     dx.point3d(point3d(0, 0, this.elevation))
     dx.push(39, this.thickness)

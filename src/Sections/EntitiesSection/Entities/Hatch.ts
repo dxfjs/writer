@@ -2,7 +2,7 @@ import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from '../Entity'
 import { point3d, vec2_t } from 'Internals/Helpers'
 
-import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces'
 import { Dxfier } from 'Internals/Dxfier'
 import PredefinedHatchPatterns from 'Internals/HatchPatterns'
 import { TrueColor } from 'Internals/TrueColor'
@@ -423,8 +423,7 @@ export class Hatch extends Entity {
     return BoundingBox.pointBBox(point3d(0, 0))
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(point3d(0, 0, this.elevation))
     dx.name(this.patternName)
     dx.push( 70, this.solidFillFlag)

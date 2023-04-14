@@ -23,8 +23,7 @@ export class DiameterDimension extends Dimension {
     return 0
   }
 
-  override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
+  protected override dxfyChild(dx: Dxfier): void {
     dx.subclassMarker('AcDbDiametricDimension')
     dx.point3d(this.first, 5)
     dx.push(40, this.leaderLength)

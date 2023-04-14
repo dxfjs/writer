@@ -1,6 +1,6 @@
 import DxfVariable, { values_t } from './DxfVariable'
 
-import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces'
 import { Dxfier } from 'Internals/Dxfier'
 
 export default class DxfHeaderSection implements DxfInterface {
