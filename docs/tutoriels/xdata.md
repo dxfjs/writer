@@ -56,7 +56,7 @@ xdataTest.binaryData('.....')
 
 ## Add a database handle
 ```ts
-xdataTest.databaseHandle('.....')
+xdataTest.databaseHandle('1A16235')
 ```
 
 ## Add a 3 reals
@@ -86,7 +86,7 @@ xdataTest.real(100.34)
 
 ## Add a distance
 ```ts
-xdataTest.real(1002.56)
+xdataTest.distance(1002.56)
 ```
 
 ## Add a scale factor
