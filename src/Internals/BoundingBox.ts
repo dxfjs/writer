@@ -34,7 +34,9 @@ export class BoundingBox {
     const minX = sp.x < ep.x ? sp.x : ep.x
     const maxY = sp.y > ep.y ? sp.y : ep.y
     const minY = sp.y < ep.y ? sp.y : ep.y
-    return createBoundingBox(point3d(minX, maxY, 0), point3d(maxX, minY, 0))
+    const maxZ = sp.z > ep.z ? sp.z : ep.z
+    const minZ = sp.z < ep.z ? sp.z : ep.z
+    return createBoundingBox(point3d(minX, maxY, minZ), point3d(maxX, minY, maxZ))
   }
 
   static verticesBBox(vertices: vec3_t[]) {
