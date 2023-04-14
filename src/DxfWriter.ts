@@ -1,13 +1,11 @@
 import { LineTypes, Units } from 'Internals/Enums'
 import { RectangleOptions, vec2_t, vec3_t } from 'Internals/Helpers'
-
-import { CommonEntityOptions } from 'EntitiesSection/Entity'
 import { DxfDocument } from 'DxfDocument'
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
 import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord'
 import { values_t } from 'HeaderSection/DxfVariable'
 
-import * as Entities from 'EntitiesSection/Entities'
+import * as Entities from './Sections/EntitiesSection'
 
 /**
  * The base class for creating the dxf content.
@@ -117,7 +115,11 @@ export class DxfWriter {
    * @param options The options of the aligned dimension entity.
    * @returns
    */
-  public addAlignedDim(first: vec3_t, second: vec3_t, options?: Entities.AlignedDimOptions) {
+  public addAlignedDim(
+    first: vec3_t,
+    second: vec3_t,
+    options?: Entities.AlignedDimOptions
+  ) {
     return this.modelSpace.addAlignedDim(first, second, options)
   }
 
@@ -253,7 +255,11 @@ export class DxfWriter {
    * @param options - The options of the line entity.
    * @returns Return the added line.
    */
-  public addLine(startPoint: vec3_t, endPoint: vec3_t, options?: CommonEntityOptions) {
+  public addLine(
+    startPoint: vec3_t,
+    endPoint: vec3_t,
+    options?: Entities.CommonEntityOptions
+  ) {
     return this.modelSpace.addLine(startPoint, endPoint, options)
   }
 
@@ -283,7 +289,10 @@ export class DxfWriter {
    *
    * @returns Return the added lwpolyline.
    */
-  public addLWPolyline(points: Entities.LWPolylineVertex[], options?: Entities.LWPolylineOptions) {
+  public addLWPolyline(
+    points: Entities.LWPolylineVertex[],
+    options?: Entities.LWPolylineOptions
+  ) {
     return this.modelSpace.addLWPolyline(points, options)
   }
 
@@ -297,7 +306,11 @@ export class DxfWriter {
    * @param options - The options to apply to the rectangle.
    * @returns Return the added lwpolyline.
    */
-  public addRectangle(topLeft: vec2_t, bottomRight: vec2_t, options?: RectangleOptions) {
+  public addRectangle(
+    topLeft: vec2_t,
+    bottomRight: vec2_t,
+    options?: RectangleOptions
+  ) {
     return this.modelSpace.addRectangle(topLeft, bottomRight, options)
   }
 
@@ -307,7 +320,10 @@ export class DxfWriter {
    * @param options - The options to apply to the polyline.
    * @returns Return the added polyline.
    */
-  public addPolyline3D(vertices: Entities.PolylineVertex[], options?: Entities.PolylineOptions) {
+  public addPolyline3D(
+    vertices: Entities.PolylineVertex[],
+    options?: Entities.PolylineOptions
+  ) {
     return this.modelSpace.addPolyline3D(vertices, options)
   }
 
@@ -320,7 +336,12 @@ export class DxfWriter {
    * @param options - The options to apply to the point.
    * @returns Return the added point.
    */
-  public addPoint(x: number, y: number, z: number, options?: CommonEntityOptions) {
+  public addPoint(
+    x: number,
+    y: number,
+    z: number,
+    options?: Entities.CommonEntityOptions
+  ) {
     return this.modelSpace.addPoint(x, y, z, options)
   }
 
@@ -332,7 +353,11 @@ export class DxfWriter {
    * @param options - The Circle entity options;
    * @returns Return the added circle.
    */
-  public addCircle(center: vec3_t, radius: number, options?: CommonEntityOptions) {
+  public addCircle(
+    center: vec3_t,
+    radius: number,
+    options?: Entities.CommonEntityOptions
+  ) {
     return this.modelSpace.addCircle(center, radius, options)
   }
 
@@ -352,9 +377,15 @@ export class DxfWriter {
     radius: number,
     startAngle: number,
     endAngle: number,
-    options?: CommonEntityOptions
+    options?: Entities.CommonEntityOptions
   ) {
-    return this.modelSpace.addArc(center, radius, startAngle, endAngle, options)
+    return this.modelSpace.addArc(
+      center,
+      radius,
+      startAngle,
+      endAngle,
+      options
+    )
   }
 
   /**
@@ -372,7 +403,10 @@ export class DxfWriter {
    * @param options - The options of the spline entity.
    * @returns Return the added spline.
    */
-  public addSpline(splineArgs: Entities.SplineArgs_t, options?: CommonEntityOptions) {
+  public addSpline(
+    splineArgs: Entities.SplineArgs_t,
+    options?: Entities.CommonEntityOptions
+  ) {
     return this.modelSpace.addSpline(splineArgs, options)
   }
 
@@ -393,7 +427,7 @@ export class DxfWriter {
     ratioOfMinorAxisToMajorAxis: number,
     startParameter: number,
     endParameter: number,
-    options?: CommonEntityOptions
+    options?: Entities.CommonEntityOptions
   ) {
     return this.modelSpace.addEllipse(
       center,
@@ -505,8 +539,20 @@ export class DxfWriter {
    * @param value
    * @param options
    */
-  public addAttdef(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, options?: Entities.TextOptions) {
-    return this.modelSpace.addAttdef(firstAlignmentPoint, height, tag, value, options)
+  public addAttdef(
+    firstAlignmentPoint: vec3_t,
+    height: number,
+    tag: string,
+    value: string,
+    options?: Entities.TextOptions
+  ) {
+    return this.modelSpace.addAttdef(
+      firstAlignmentPoint,
+      height,
+      tag,
+      value,
+      options
+    )
   }
 
   /**
@@ -518,8 +564,22 @@ export class DxfWriter {
    * @param ownerInsert
    * @param options
    */
-  public addAttrib(firstAlignmentPoint: vec3_t, height: number, tag: string, value: string, ownerInsert: Entities.Insert, options?: Entities.TextOptions) {
-    return this.modelSpace.addAttrib(firstAlignmentPoint, height, tag, value, ownerInsert, options)
+  public addAttrib(
+    firstAlignmentPoint: vec3_t,
+    height: number,
+    tag: string,
+    value: string,
+    ownerInsert: Entities.Insert,
+    options?: Entities.TextOptions
+  ) {
+    return this.modelSpace.addAttrib(
+      firstAlignmentPoint,
+      height,
+      tag,
+      value,
+      ownerInsert,
+      options
+    )
   }
 
   /**
@@ -536,7 +596,12 @@ export class DxfWriter {
     value: string,
     options?: Entities.MTextOptions
   ) {
-    return this.modelSpace.addMText(firstAlignementPoint, height, value, options)
+    return this.modelSpace.addMText(
+      firstAlignementPoint,
+      height,
+      value,
+      options
+    )
   }
 
   /**
@@ -547,7 +612,11 @@ export class DxfWriter {
    * @param options - The options of the Insert entity.
    * @returns Return the added insert.
    */
-  public addInsert(blockName: string, insertionPoint: vec3_t, options?: Entities.InsertOptions) {
+  public addInsert(
+    blockName: string,
+    insertionPoint: vec3_t,
+    options?: Entities.InsertOptions
+  ) {
     return this.modelSpace.addInsert(blockName, insertionPoint, options)
   }
 
@@ -563,8 +632,24 @@ export class DxfWriter {
    * @param tableOptions - the option of the Table entity
    * @returns Returns the added Table
    */
-  public addTable(blockName: string, position: vec3_t, noOfRows: number, noOfColumn: number, rowHeights: number[], columnHeights: number[], tableOptions: Entities.TableOptions) {
-    return this.modelSpace.addTable(blockName, position, noOfRows, noOfColumn, rowHeights, columnHeights, tableOptions)
+  public addTable(
+    blockName: string,
+    position: vec3_t,
+    noOfRows: number,
+    noOfColumn: number,
+    rowHeights: number[],
+    columnHeights: number[],
+    tableOptions: Entities.TableOptions
+  ) {
+    return this.modelSpace.addTable(
+      blockName,
+      position,
+      noOfRows,
+      noOfColumn,
+      rowHeights,
+      columnHeights,
+      tableOptions
+    )
   }
 
   /**

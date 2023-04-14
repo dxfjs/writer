@@ -1,10 +1,9 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
-
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { point3d, vec3_t } from 'Internals/Helpers'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
 import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
-import { point3d, vec3_t } from 'Internals/Helpers'
 
 export interface CommonEntityOptions {
   trueColor?: string;
@@ -31,8 +30,7 @@ export default abstract class Entity implements DxfInterface {
 
   /**
    * Entity class is the base class of all enities.
-   * [DXF Entities](http://help.autodesk.com/view/OARX/2018/ENU/?guid=GUID-7D07C886-FD1D-4A0C-A7AB-B4D21F18E484)
-   * @param type - The type of the entity example : LINE, POLYLINE, ARC, CIRCLE ....
+   * @param type - The type of the entity example : LINE, POLYLINE, ....
    * @param subclassMarker - The subclass marker of the entity.
    * @param options - The common options of all entities.
    */
@@ -51,11 +49,10 @@ export default abstract class Entity implements DxfInterface {
 
   /**
    * Get the boundingBox of an entity.
-   *
    * @returns The boundingBox of an entity.
    */
   public boundingBox(): boundingBox_t {
-    return BoundingBox.pointBBox(point3d(0, 0, 0))
+    return BoundingBox.pointBBox(point3d())
   }
 
   dxfy(dx: Dxfier) {

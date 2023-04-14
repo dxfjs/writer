@@ -85,15 +85,9 @@ export class Face extends Entity {
   override dxfy(dx: Dxfier): void {
     super.dxfy(dx)
     dx.point3d(this.firstCorner)
-    dx.push(11, this.secondCorner.x)
-    dx.push(21, this.secondCorner.y)
-    dx.push(31, this.secondCorner.z)
-    dx.push(12, this.thirdCorner.x)
-    dx.push(22, this.thirdCorner.y)
-    dx.push(32, this.thirdCorner.z)
-    dx.push(13, this.fourthCorner.x)
-    dx.push(23, this.fourthCorner.y)
-    dx.push(33, this.fourthCorner.z)
+    dx.point3d(this.secondCorner, 1)
+    dx.point3d(this.thirdCorner, 2)
+    dx.point3d(this.fourthCorner, 3)
     dx.push(70, this.invisibleEdges)
   }
 }

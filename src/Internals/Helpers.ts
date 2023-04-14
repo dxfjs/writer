@@ -41,8 +41,8 @@ export type vec2_t = {
  * @param z The Z coordinate of the point. By default 0.
  * @returns The vec3_t point.
  */
-export function point3d(x: number, y: number, z?: number): vec3_t {
-  return { x, y, z: z ?? 0 }
+export function point3d(x?: number, y?: number, z?: number): vec3_t {
+  return { x: x ?? 0, y: y ?? 0, z: z ?? 0 }
 }
 
 /**
@@ -50,8 +50,8 @@ export function point3d(x: number, y: number, z?: number): vec3_t {
  * @param y The Y coordinate of the point.
  * @returns The vec2_t point.
  */
-export function point2d(x: number, y: number): vec2_t {
-  return { x, y }
+export function point2d(x?: number, y?: number): vec2_t {
+  return { x: x ?? 0, y: y ?? 0 }
 }
 
 export function rad2deg(v: number) {

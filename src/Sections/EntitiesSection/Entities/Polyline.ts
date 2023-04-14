@@ -4,7 +4,7 @@ import { Vertex, VertexFlags } from './Vertex'
 import { point3d, vec3_t } from 'Internals/Helpers'
 
 import { Dxfier } from 'Internals/Dxfier'
-import SeqEnd from './SeqEnd'
+import { SeqEnd } from './SeqEnd'
 
 export enum PolylineFlags {
 	None = 0,

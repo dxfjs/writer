@@ -1,5 +1,5 @@
 import { Dxfier, tag_t } from './Dxfier'
-import DxfInterface from './Interfaces/DxfInterface'
+import { DxfInterface } from './Interfaces/DxfInterface'
 
 export default class DxfDefinedApplication implements DxfInterface {
   readonly name: string

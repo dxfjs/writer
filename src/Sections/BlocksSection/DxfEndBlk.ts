@@ -1,8 +1,8 @@
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
 
-export default class DxfEndBlk implements DxfInterface {
+export class DxfEndBlk implements DxfInterface {
   readonly handle: string
   ownerObjectHandle?: string
 

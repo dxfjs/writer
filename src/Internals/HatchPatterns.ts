@@ -1,4 +1,4 @@
-import DxfInterface from './Interfaces/DxfInterface'
+import { DxfInterface } from './Interfaces/DxfInterface'
 import { Dxfier } from './Dxfier'
 
 export type HatchPatternData_t = {

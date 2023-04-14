@@ -1,4 +1,4 @@
-import DxfInterface from 'Internals/Interfaces/DxfInterface'
+import { DxfInterface } from 'Internals/Interfaces/DxfInterface'
 import { Dxfier } from 'Internals/Dxfier'
 
 /**
@@ -30,9 +30,9 @@ export default class DxfVariable implements DxfInterface {
   dxfy(dx: Dxfier) {
     dx.variableName(this.name)
     const entries = Object.entries(this.values)
-    for (const entry of entries) {
+    entries.forEach(entry => {
       const [code, value] = entry
       dx.push(parseInt(code), value)
-    }
+    })
   }
 }

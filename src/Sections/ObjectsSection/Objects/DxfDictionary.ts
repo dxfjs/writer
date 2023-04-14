@@ -1,4 +1,4 @@
-import DxfObject from '../DxfObject'
+import { DxfObject } from '../DxfObject'
 import { Dxfier } from 'Internals/Dxfier'
 
 export type entryObject_t = {
@@ -6,7 +6,7 @@ export type entryObject_t = {
 	entryObjectHandle: string;
 };
 
-export default class DxfDictionary extends DxfObject {
+export class DxfDictionary extends DxfObject {
   readonly entries: entryObject_t[] = []
 
   hardOwnerFlag?: number

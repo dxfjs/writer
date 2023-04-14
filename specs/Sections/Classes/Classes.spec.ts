@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import DxfClassesSection from 'ClassesSection/DxfClassesSection'
+import { DxfClassesSection } from 'ClassesSection/DxfClassesSection'
 import { Dxfier } from 'Internals/Dxfier'
 
 describe('Classes', () => {
