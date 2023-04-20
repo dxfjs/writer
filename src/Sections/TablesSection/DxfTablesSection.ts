@@ -1,25 +1,28 @@
-import DxfAppId, { AppIdFlags } from './Tables/Records/DxfAppId'
-import DxfDimStyle, { DimStyleFlags } from './Tables/Records/DxfDimStyle'
-import DxfView, { ViewArgs } from './Tables/Records/DxfView'
+import {
+  AppIdFlags,
+  DimStyleFlags,
+  DxfAppId,
+  DxfAppIdTable,
+  DxfBlockRecordTable,
+  DxfDimStyle,
+  DxfDimStyleTable,
+  DxfLTypeTable,
+  DxfLayer,
+  DxfLayerTable,
+  DxfStyle,
+  DxfStyleTable,
+  DxfUcs,
+  DxfUcsTable,
+  DxfVPort,
+  DxfVPortTable,
+  DxfView,
+  DxfViewTable,
+  LayerFlags,
+  ViewArgs,
+} from './Tables'
+import { DxfInterface, Dxfier } from 'Internals'
 
-import DxfAppIdTable from './Tables/DxfAppIdTable'
-import DxfBlockRecordTable from './Tables/DxfBlockRecordTable'
-import DxfDimStyleTable from './Tables/DxfDimStyleTable'
-import { DxfInterface } from 'Internals/Interfaces'
-import DxfLTypeTable from './Tables/DxfLTypeTable'
-import { DxfLayer } from './Tables/Records/DxfLayer'
-import DxfLayerTable from './Tables/DxfLayerTable'
-import DxfStyle from './Tables/Records/DxfStyle'
-import DxfStyleTable from './Tables/DxfStyleTable'
-import DxfUcs from './Tables/Records/DxfUcs'
-import DxfUcsTable from './Tables/DxfUcsTable'
-import DxfVPort from './Tables/Records/DxfVPort'
-import DxfVPortTable from './Tables/DxfVPortTable'
-import DxfViewTable from './Tables/DxfViewTable'
-import { Dxfier } from 'Internals/Dxfier'
-import { LayerFlags } from './Tables/Records/DxfRecord'
-
-export default class DxfTablesSection implements DxfInterface {
+export class DxfTablesSection implements DxfInterface {
   readonly vPortTable: DxfVPortTable
   readonly ltypeTable: DxfLTypeTable
   readonly layerTable: DxfLayerTable
@@ -46,7 +49,12 @@ export default class DxfTablesSection implements DxfInterface {
     return this.layerTable.layer(name)
   }
 
-  addLType(name: string, descriptive: string, elements: number[], flags?: number) {
+  addLType(
+    name: string,
+    descriptive: string,
+    elements: number[],
+    flags?: number
+  ) {
     return this.ltypeTable.addLType(name, descriptive, elements, flags)
   }
 
@@ -54,7 +62,12 @@ export default class DxfTablesSection implements DxfInterface {
     return this.blockRecordTable.addBlockRecord(name)
   }
 
-  addLayer(name: string, color: number, lineType: string, flags?: LayerFlags): DxfLayer {
+  addLayer(
+    name: string,
+    color: number,
+    lineType: string,
+    flags?: LayerFlags
+  ): DxfLayer {
     return this.layerTable.addLayer(name, color, lineType, flags)
   }
 

@@ -40,6 +40,7 @@ export class LinearDimension extends Dimension {
   }
 
   protected override dxfyChild(dx: Dxfier): void {
+    super.dxfyChild(dx)
     dx.subclassMarker('AcDbAlignedDimension')
     dx.point3d(this.insertionPoint, 2)
     dx.point3d(this.fisrtPoint, 3)

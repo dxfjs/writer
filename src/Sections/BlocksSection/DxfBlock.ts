@@ -1,9 +1,8 @@
 import { point3d, vec3_t } from 'Internals/Helpers'
-
 import { DxfEndBlk } from './DxfEndBlk'
 import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import { Dxfier } from 'Internals/Dxfier'
-import EntitiesManager from 'EntitiesSection/EntitiesManager'
+import { EntitiesManager } from 'EntitiesSection/EntitiesManager'
 
 export enum BlockFlags {
   None = 0,

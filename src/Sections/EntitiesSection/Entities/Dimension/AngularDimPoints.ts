@@ -19,6 +19,7 @@ export class AngularDimPoints extends Dimension {
   }
 
   protected override dxfyChild(dx: Dxfier): void {
+    super.dxfyChild(dx)
     dx.subclassMarker('AcDb3PointAngularDimension')
     dx.point3d(this.first, 3)
     dx.point3d(this.second, 4)

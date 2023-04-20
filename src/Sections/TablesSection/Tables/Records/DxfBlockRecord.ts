@@ -1,7 +1,7 @@
-import DxfRecord from './DxfRecord'
+import { DxfRecord } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfBlockRecord extends DxfRecord {
+export class DxfBlockRecord extends DxfRecord {
   readonly name: string
   insertionUnits: number
   explodability: number

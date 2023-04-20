@@ -1,3 +1,9 @@
+import {
+  DxfBlocksSection,
+  DxfEntitiesSection,
+  DxfHeaderSection,
+  DxfTablesSection,
+} from 'Sections'
 import { LineTypes, Units } from 'Internals/Enums'
 import { RectangleOptions, vec2_t, vec3_t } from 'Internals/Helpers'
 import { DxfDocument } from 'DxfDocument'
@@ -13,19 +19,19 @@ import * as Entities from './Sections/EntitiesSection'
 export class DxfWriter {
   readonly document: DxfDocument
 
-  get header() {
+  get header(): DxfHeaderSection {
     return this.document.header
   }
 
-  get tables() {
+  get tables(): DxfTablesSection {
     return this.document.tables
   }
 
-  get blocks() {
+  get blocks(): DxfBlocksSection {
     return this.document.blocks
   }
 
-  get entities() {
+  get entities(): DxfEntitiesSection {
     return this.document.entities
   }
 

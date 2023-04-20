@@ -1,7 +1,7 @@
-import DxfTable from '../DxfTable'
-import DxfUcs from './Records/DxfUcs'
+import { DxfTable } from '../DxfTable'
+import { DxfUcs } from './Records'
 
-export default class DxfUcsTable extends DxfTable<DxfUcs> {
+export class DxfUcsTable extends DxfTable<DxfUcs> {
   constructor() {
     super('UCS')
   }

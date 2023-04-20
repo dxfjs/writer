@@ -1,9 +1,8 @@
-import { DxfInterface } from 'Internals/Interfaces'
-import DxfRecord from './Tables/Records/DxfRecord'
-import { Dxfier } from 'Internals/Dxfier'
+import { DxfInterface, Dxfier } from 'Internals'
+import { DxfRecord } from './Tables'
 import Handle from 'Internals/Handle'
 
-export default abstract class DxfTable<T extends DxfRecord> implements DxfInterface {
+export abstract class DxfTable<T extends DxfRecord> implements DxfInterface {
   maxNumberEntries = 0
   readonly handle: string
   ownerObjectHandle: string

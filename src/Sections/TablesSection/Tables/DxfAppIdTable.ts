@@ -1,8 +1,7 @@
-import DxfAppId, { AppIdFlags } from './Records/DxfAppId'
+import { AppIdFlags, DxfAppId } from './Records'
+import { DxfTable } from '../DxfTable'
 
-import DxfTable from '../DxfTable'
-
-export default class AppIdTable extends DxfTable<DxfAppId> {
+export class DxfAppIdTable extends DxfTable<DxfAppId> {
   constructor() {
     super('APPID')
   }

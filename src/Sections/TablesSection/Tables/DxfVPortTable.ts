@@ -1,7 +1,7 @@
-import DxfTable from '../DxfTable'
-import DxfVPort from './Records/DxfVPort'
+import { DxfTable } from '../DxfTable'
+import { DxfVPort } from './Records'
 
-export default class DxfVPortTable extends DxfTable<DxfVPort> {
+export class DxfVPortTable extends DxfTable<DxfVPort> {
   constructor() {
     super('VPORT')
   }

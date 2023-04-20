@@ -18,7 +18,7 @@ export type values_t = {
 	[code: number]: number | string;
 };
 
-export default class DxfVariable implements DxfInterface {
+export class DxfVariable implements DxfInterface {
   readonly name: string
   values: values_t
 

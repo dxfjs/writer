@@ -7,7 +7,7 @@ import { Dxfier } from 'Internals/Dxfier'
 import Handle from 'Internals/Handle'
 import * as Entities from './Entities'
 
-export default abstract class EntitiesManager implements DxfInterface {
+export abstract class EntitiesManager implements DxfInterface {
   readonly entities: Entity[] = []
   readonly handle: string
   private readonly objects: DxfObjectsSection

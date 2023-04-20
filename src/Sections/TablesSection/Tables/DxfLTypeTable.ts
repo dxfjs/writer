@@ -1,7 +1,7 @@
-import DxfLType from './Records/DxfLType'
-import DxfTable from '../DxfTable'
+import { DxfLType } from './Records'
+import { DxfTable } from '../DxfTable'
 
-export default class DxfLTypeTable extends DxfTable<DxfLType> {
+export class DxfLTypeTable extends DxfTable<DxfLType> {
   constructor() {
     super('LTYPE')
   }
@@ -20,7 +20,7 @@ export default class DxfLTypeTable extends DxfTable<DxfLType> {
 
   addLType(name: string, descriptive: string, elements: number[], flags?: number) {
     const found = this.ltype(name)
-    if(found) {
+    if (found) {
       return found
     }
     const r = new DxfLType(name, descriptive, elements, flags)

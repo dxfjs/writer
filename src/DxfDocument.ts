@@ -1,17 +1,19 @@
-import { Colors, Units } from 'Internals/Enums'
-
-import { AppIdFlags } from 'TablesSection/Tables/Records/DxfAppId'
-import { DxfBlock } from 'BlocksSection/DxfBlock'
-import { DxfBlocksSection } from 'BlocksSection/DxfBlocksSection'
-import { DxfClassesSection } from 'ClassesSection/DxfClassesSection'
-import { DxfEntitiesSection } from 'EntitiesSection/DxfEntitiesSection'
-import DxfHeaderSection from 'HeaderSection/DxfHeaderSection'
-import { DxfInterface } from 'Internals/Interfaces'
-import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
-import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
-import DxfTablesSection from 'TablesSection/DxfTablesSection'
-import DxfVPort from 'TablesSection/Tables/Records/DxfVPort'
-import { Dxfier } from 'Internals/Dxfier'
+import {
+  AppIdFlags,
+  DxfBlock,
+  DxfBlocksSection,
+  DxfClassesSection,
+  DxfDimStyle,
+  DxfEntitiesSection,
+  DxfHeaderSection,
+  DxfLayer,
+  DxfObjectsSection,
+  DxfStyle,
+  DxfTablesSection,
+  DxfVPort,
+} from 'Sections'
+import { Colors, Units } from 'Internals'
+import { DxfInterface, Dxfier } from 'Internals'
 import Handle from 'Internals/Handle'
 import { name as packageName } from '../package.json'
 import { specialCharsRegex } from 'Internals/Utils'
@@ -24,9 +26,14 @@ export class DxfDocument implements DxfInterface {
   readonly blocks: DxfBlocksSection
   readonly entities: DxfEntitiesSection
   readonly objects: DxfObjectsSection
-  readonly activeVPort: DxfVPort
+
   readonly modelSpace: DxfBlock
   readonly paperSpace: DxfBlock
+
+  readonly activeVPort: DxfVPort
+  readonly styleStandard: DxfStyle
+  readonly dimStyleStandard: DxfDimStyle
+
   currentLayerName: string
   currentUnits: Units
 
@@ -49,10 +56,10 @@ export class DxfDocument implements DxfInterface {
     this.tables.addLType('ByLayer', '', [])
     const ltc = this.tables.addLType('Continuous', 'Solid line', [])
     this.tables.addLayer(DxfLayer.layerZeroName, Colors.White, ltc.name)
-    const styleStandard = this.tables.addStyle('Standard')
+    this.styleStandard = this.tables.addStyle('Standard')
     this.tables.addAppId('ACAD', AppIdFlags.None)
-    const dimStyleStandard = this.tables.addDimStyle('Standard')
-    dimStyleStandard.DIMTXSTY = styleStandard.handle
+    this.dimStyleStandard = this.tables.addDimStyle('Standard')
+    this.dimStyleStandard.DIMTXSTY = this.styleStandard.handle
     this.activeVPort = this.tables.addVPort('*Active')
 
     this.modelSpace = this.blocks.modelSpace

@@ -1,4 +1,4 @@
-import DxfRecord, { LayerFlags } from './DxfRecord'
+import { DxfRecord, LayerFlags } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
 export class DxfLayer extends DxfRecord {

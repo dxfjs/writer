@@ -1,7 +1,7 @@
-import DxfBlockRecord from './Records/DxfBlockRecord'
-import DxfTable from '../DxfTable'
+import { DxfBlockRecord } from './Records'
+import { DxfTable } from '../DxfTable'
 
-export default class DxfBlockRecordTable extends DxfTable<DxfBlockRecord> {
+export class DxfBlockRecordTable extends DxfTable<DxfBlockRecord> {
   constructor() {
     super('BLOCK_RECORD')
   }

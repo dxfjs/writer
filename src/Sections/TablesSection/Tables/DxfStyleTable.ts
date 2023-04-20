@@ -1,7 +1,7 @@
-import DxfStyle from './Records/DxfStyle'
-import DxfTable from '../DxfTable'
+import { DxfStyle } from './Records'
+import { DxfTable } from '../DxfTable'
 
-export default class DxfStyleTable extends DxfTable<DxfStyle> {
+export class DxfStyleTable extends DxfTable<DxfStyle> {
   constructor() {
     super('STYLE')
   }

@@ -30,6 +30,7 @@ export class AngularDimLines extends Dimension {
 
   protected override dxfyChild(dx: Dxfier): void {
     this._update()
+    super.dxfyChild(dx)
     dx.subclassMarker('AcDb2LineAngularDimension')
     dx.point3d(this.first.start, 3)
     dx.point3d(this.first.end, 4)

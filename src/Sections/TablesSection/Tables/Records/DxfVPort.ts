@@ -1,7 +1,7 @@
-import DxfRecord from './DxfRecord'
+import { DxfRecord } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfVPort extends DxfRecord {
+export class DxfVPort extends DxfRecord {
   readonly name: string
   viewHeight: number
   viewCenter: [number, number]

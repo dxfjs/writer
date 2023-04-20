@@ -1,7 +1,7 @@
-import DxfRecord, { StyleFlags } from './DxfRecord'
+import { DxfRecord, StyleFlags } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfStyle extends DxfRecord {
+export class DxfStyle extends DxfRecord {
   readonly name: string
   fixedTextHeight = 0
   widthFactor = 1
