@@ -1,7 +1,7 @@
-import DxfRecord from './DxfRecord'
+import { DxfRecord } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfUcs extends DxfRecord {
+export class DxfUcs extends DxfRecord {
   readonly name: string
 
   constructor(name: string) {

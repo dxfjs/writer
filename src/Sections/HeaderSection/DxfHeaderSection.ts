@@ -1,9 +1,7 @@
-import DxfVariable, { values_t } from './DxfVariable'
+import { DxfInterface, Dxfier } from 'Internals'
+import {DxfVariable,  values_t } from './DxfVariable'
 
-import { DxfInterface } from 'Internals/Interfaces'
-import { Dxfier } from 'Internals/Dxfier'
-
-export default class DxfHeaderSection implements DxfInterface {
+export class DxfHeaderSection implements DxfInterface {
   readonly variables: DxfVariable[] = []
 
   setVariable(name: string, values: values_t) {

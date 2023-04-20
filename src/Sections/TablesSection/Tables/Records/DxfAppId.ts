@@ -1,13 +1,13 @@
-import DxfRecord from './DxfRecord'
+import { DxfRecord } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
 export enum AppIdFlags {
-	None = 0,
-	XRefDependent = 16,
-	XRefResolved = 32,
+  None = 0,
+  XRefDependent = 16,
+  XRefResolved = 32,
 }
 
-export default class DxfAppId extends DxfRecord {
+export class DxfAppId extends DxfRecord {
   name: string
   flags: AppIdFlags
 

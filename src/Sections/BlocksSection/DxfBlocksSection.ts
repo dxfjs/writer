@@ -1,8 +1,6 @@
+import { DxfInterface, Dxfier } from 'Internals'
+import { DxfObjectsSection, DxfTablesSection } from 'Sections'
 import { DxfBlock } from './DxfBlock'
-import { DxfInterface } from 'Internals/Interfaces'
-import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
-import DxfTablesSection from 'TablesSection/DxfTablesSection'
-import { Dxfier } from 'Internals/Dxfier'
 import { specialCharsRegex } from 'Internals/Utils'
 
 export class DxfBlocksSection implements DxfInterface {
@@ -18,9 +16,12 @@ export class DxfBlocksSection implements DxfInterface {
     this.modelSpace.stringifyEntities = false
   }
 
-  addBlock(name: string, objects: DxfObjectsSection, removeSpecialChars = true): DxfBlock {
-    if(removeSpecialChars)
-      name = name.replace(specialCharsRegex, '')
+  addBlock(
+    name: string,
+    objects: DxfObjectsSection,
+    removeSpecialChars = true
+  ): DxfBlock {
+    if (removeSpecialChars) name = name.replace(specialCharsRegex, '')
     const blockRecord = this.tables.addBlockRecord(name)
     const block = new DxfBlock(name, objects)
     block.ownerObjectHandle = blockRecord.handle

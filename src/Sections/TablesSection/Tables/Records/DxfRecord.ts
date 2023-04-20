@@ -26,7 +26,7 @@ export enum ViewFlags {
 	XRefResolved = 32,
 }
 
-export default class DxfRecord implements DxfInterface {
+export class DxfRecord implements DxfInterface {
   readonly type: string
   readonly handle: string
   ownerObjectHandle?: string

@@ -18,6 +18,7 @@ export default defineConfig({
       HeaderSection: r('./src/Sections/HeaderSection/'),
       ObjectsSection: r('./src/Sections/ObjectsSection/'),
       TablesSection: r('./src/Sections/TablesSection/'),
+      Sections: r('./src/Sections/'),
     },
   },
 })

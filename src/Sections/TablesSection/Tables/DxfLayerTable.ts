@@ -1,11 +1,10 @@
-import DxfLTypeTable from './DxfLTypeTable'
-import { DxfLayer } from './Records/DxfLayer'
-import DxfTable from '../DxfTable'
-import { LayerFlags } from './Records/DxfRecord'
+import { DxfLayer, LayerFlags } from './Records'
+import { DxfLTypeTable } from './DxfLTypeTable'
+import { DxfTable } from '../DxfTable'
 import { LineTypes } from 'Internals/Enums'
 import { specialCharsRegex } from 'Internals/Utils'
 
-export default class DxfLayerTable extends DxfTable<DxfLayer> {
+export class DxfLayerTable extends DxfTable<DxfLayer> {
   readonly lTypeTable: DxfLTypeTable
 
   constructor(lineTypeTable: DxfLTypeTable) {

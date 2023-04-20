@@ -8,7 +8,7 @@ export enum DimStyleFlags {
 	XRefRefesolved = 32,
 }
 
-export default class DxfDimStyle implements DxfInterface {
+export class DxfDimStyle implements DxfInterface {
   name: string
   flags: DimStyleFlags
   readonly handle: string

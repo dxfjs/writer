@@ -1,7 +1,7 @@
-import DxfRecord from './DxfRecord'
+import { DxfRecord } from './DxfRecord'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfLType extends DxfRecord {
+export class DxfLType extends DxfRecord {
   readonly name: string
   readonly descriptive: string
   readonly elements: number[]

@@ -1,12 +1,15 @@
-import { AttachmentPoint, TextLineSpacingStyle } from 'EntitiesSection/Entities/Dimension/Dimension'
-import { Colors, Units } from 'Internals/Enums'
-import { LWPolylineFlags, LWPolylineVertex } from 'EntitiesSection/Entities/LWPolyline'
+import {
+  AttachmentPoint,
+  DimStyleFlags,
+  ImageDefResolutionUnits,
+  LWPolylineFlags,
+  LWPolylineVertex,
+  TextLineSpacingStyle,
+} from 'Sections'
+import { Colors, Units, point2d, point3d } from 'Internals'
 import { describe, expect, it } from 'vitest'
-import { point2d, point3d } from 'Internals/Helpers'
-
-import { DimStyleFlags } from 'TablesSection/Tables/Records/DxfDimStyle'
 import { DxfWriter } from 'DxfWriter'
-import { ImageDefResolutionUnits } from 'ObjectsSection/Objects/DxfImageDef'
+import { writeFileSync } from 'fs'
 
 describe('DxfWriter', () => {
   it('should cover all code source', () => {
@@ -51,7 +54,10 @@ describe('DxfWriter', () => {
 
     const circleBlock = dxf.addBlock('circle')
     circleBlock.addCircle(point3d(0, 0, 0), 50)
-    circleBlock.addRectangle(point2d(-35.3553, 35.3553), point2d(35.3553, -35.3553))
+    circleBlock.addRectangle(
+      point2d(-35.3553, 35.3553),
+      point2d(35.3553, -35.3553)
+    )
 
     dxf.addInsert(circleBlock.name, point3d(0, 0, 0))
 
@@ -69,7 +75,13 @@ describe('DxfWriter', () => {
 
     dxf.addArc(point3d(0, 0, 0), 10, 0, 45)
 
-    dxf.addEllipse(point3d(100, 100, 0), point3d(50, 0, 0), 0.5, 0, 2 * Math.PI)
+    dxf.addEllipse(
+      point3d(100, 100, 0),
+      point3d(50, 0, 0),
+      0.5,
+      0,
+      2 * Math.PI
+    )
 
     const face = dxf.add3dFace(
       point3d(0, 0, 50),
@@ -100,7 +112,7 @@ describe('DxfWriter', () => {
       1792,
       1280,
       433.54,
-      360 - 359.74,
+      360 - 359.74
     )
 
     const id = dxf.document.objects.addImageDef('jhdjshfsd')
@@ -140,7 +152,7 @@ describe('DxfWriter', () => {
       viewWidth: 20.01,
       liveSectionObjectHandle: 'dd',
       visualStyleObjectHandle: 'ff',
-      backgroundObjectHandle: 'AA'
+      backgroundObjectHandle: 'AA',
     })
     v.isCameraPlottable = true
 
@@ -168,7 +180,7 @@ describe('DxfWriter', () => {
       insertionPoint: point3d(0, 0),
       rotation: 'auto',
       attachmentPoint: AttachmentPoint.MiddleCenter,
-      textLineSpacingStyle: TextLineSpacingStyle.AtLeast
+      textLineSpacingStyle: TextLineSpacingStyle.AtLeast,
     })
     dxf.addDiameterDim(point3d(0, 0), point3d(50, 50))
     dxf.addDiameterDim(point3d(0, 0), point3d(50, 50), { leaderLength: 40 })
@@ -180,21 +192,23 @@ describe('DxfWriter', () => {
       angle: 30,
       linearType: 1,
       rotation: 'auto',
-      middlePoint: point3d(0, 0)
+      middlePoint: point3d(0, 0),
     })
     dxf.addLinearDim(point3d(0, 0), point3d(50, 50), {
       offset: 10,
       insertionPoint: point3d(0, 0),
       linearType: 1,
-      rotation: 'auto'
+      rotation: 'auto',
     })
     dxf.document.entities.modelSpace.addAngularPointsDim(
-      point3d(0, 0), point3d(50, 50), point3d(50, 0)
+      point3d(0, 0),
+      point3d(50, 50),
+      point3d(50, 0)
     )
 
     const dline = {
       start: point3d(0, 0),
-      end: point3d(50, 50)
+      end: point3d(50, 50),
     }
     dxf.addAngularLinesDim(dline, dline, point3d(50, 50))
 
@@ -206,6 +220,9 @@ describe('DxfWriter', () => {
 
     dxf.addLType('test', '---', [1, 1, 1])
     dxf.addLType('test', '---', [3, 3, 3])
+
+    const _str = dxf.stringify()
+    writeFileSync('examples/tests.dxf', _str)
 
     expect(e).toBe(true)
     expect(ne).toBe(false)

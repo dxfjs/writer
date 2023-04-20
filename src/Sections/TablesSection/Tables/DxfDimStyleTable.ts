@@ -1,9 +1,8 @@
-import DxfDimStyle, { DimStyleFlags } from './Records/DxfDimStyle'
-
-import DxfTable from '../DxfTable'
+import { DimStyleFlags, DxfDimStyle } from './Records'
+import { DxfTable } from '../DxfTable'
 import { Dxfier } from 'Internals/Dxfier'
 
-export default class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
+export class DxfDimStyleTable extends DxfTable<DxfDimStyle> {
   constructor() {
     super('DIMSTYLE')
     this.ownerObjectHandle = '0'

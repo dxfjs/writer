@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import DxfVariable from 'HeaderSection/DxfVariable'
+import { DxfVariable } from 'HeaderSection/DxfVariable'
 import { Dxfier } from 'Internals/Dxfier'
 
 describe('DxfHeader class', () => {

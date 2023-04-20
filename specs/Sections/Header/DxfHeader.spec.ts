@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import DxfHeaderSection from 'HeaderSection/DxfHeaderSection'
+import { DxfHeaderSection } from 'HeaderSection/DxfHeaderSection'
 import { Dxfier } from 'Internals/Dxfier'
 
 describe('DxfHeader class', () => {
@@ -55,7 +55,7 @@ describe('DxfHeader class', () => {
     header.dxfy(dx)
     const dxfStr = dx.stringify()
     const expected =
-			'0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1027\n9\n$EXTMAX\n10\n10\n20\n20\n30\n31\n0\nENDSEC'
+      '0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1027\n9\n$EXTMAX\n10\n10\n20\n20\n30\n31\n0\nENDSEC'
     expect(dxfStr).toBe(expected)
   })
 })

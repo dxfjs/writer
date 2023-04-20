@@ -1,30 +1,30 @@
-import DxfRecord, { ViewFlags } from './DxfRecord'
+import { DxfRecord, ViewFlags } from './DxfRecord'
 import { vec2_t, vec3_t } from 'Internals/Helpers'
 
 import { Dxfier } from 'Internals/Dxfier'
 
 export type ViewArgs = {
-	name: string;
-	flags?: ViewFlags;
-	viewHeight: number;
-	viewCenter: vec2_t;
-	viewWidth: number;
-	viewDirection: vec3_t;
-	targetPoint: vec3_t;
-	lensLength: number;
-	frontClipping: number;
-	backClipping: number;
-	twistAngle: number;
-	viewMode: number;
-	renderMode: number;
-	isUCSAssociated: boolean;
-	isCameraPlottable?: boolean;
-	backgroundObjectHandle?: string;
-	liveSectionObjectHandle?: string;
-	visualStyleObjectHandle?: string;
-};
+  name: string
+  flags?: ViewFlags
+  viewHeight: number
+  viewCenter: vec2_t
+  viewWidth: number
+  viewDirection: vec3_t
+  targetPoint: vec3_t
+  lensLength: number
+  frontClipping: number
+  backClipping: number
+  twistAngle: number
+  viewMode: number
+  renderMode: number
+  isUCSAssociated: boolean
+  isCameraPlottable?: boolean
+  backgroundObjectHandle?: string
+  liveSectionObjectHandle?: string
+  visualStyleObjectHandle?: string
+}
 
-export default class DxfView extends DxfRecord {
+export class DxfView extends DxfRecord {
   name: string
   flags: ViewFlags
   viewHeight: number
@@ -64,9 +64,9 @@ export default class DxfView extends DxfRecord {
 
     args.backgroundObjectHandle && (this.backgroundObjectHandle = args.backgroundObjectHandle)
     args.liveSectionObjectHandle &&
-			(this.liveSectionObjectHandle = args.liveSectionObjectHandle)
+      (this.liveSectionObjectHandle = args.liveSectionObjectHandle)
     args.visualStyleObjectHandle &&
-			(this.visualStyleObjectHandle = args.visualStyleObjectHandle)
+      (this.visualStyleObjectHandle = args.visualStyleObjectHandle)
   }
 
   override dxfy(dx: Dxfier): void {
