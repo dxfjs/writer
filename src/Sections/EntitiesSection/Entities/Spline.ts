@@ -51,14 +51,10 @@ export class Spline extends Entity {
     const eknl = dc + cpl + 1 // Expected knots length.
 
     if (this.knots.length === 0) {
-      for (let i = 0; i < edc; i++) {
-        this.knots.push(0)
-      }
-      for (let i = 1; i < cpl - dc; i++) {
-        this.knots.push(i)
-      }
-      for (let i = 0; i < edc; i++) {
-        this.knots.push(cpl - dc)
+      let k = 0
+      for (let i = 0; i < eknl; i++) {
+        if (i <= dc || i >= cpl + 1) this.knots.push(k)
+        else this.knots.push(++k)
       }
     }
 
