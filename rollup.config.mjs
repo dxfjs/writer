@@ -1,56 +1,50 @@
-import typescript from 'rollup-plugin-typescript2'
-import dts from 'rollup-plugin-dts'
-import { deleteAsync } from 'del'
-import json from '@rollup/plugin-json'
-import { readFileSync } from 'fs'
-const { compilerOptions } = JSON.parse(readFileSync(new URL('./tsconfig.json', import.meta.url)))
+import del from "./plugins/rollup-plugin-delete.mjs";
+import dts from "rollup-plugin-dts";
+import json from "@rollup/plugin-json";
+import { readFileSync } from "fs";
+import terser from "@rollup/plugin-terser";
+import typescript from "rollup-plugin-typescript2";
 
-function folderDelete(folders) {
-  return {
-    name: 'folderDelete',
-    buildEnd() {
-      deleteAsync(folders, {})
-    },
-  }
-}
+const { compilerOptions } = JSON.parse(readFileSync("./tsconfig.json"));
+const { main, module } = JSON.parse(readFileSync("./package.json"));
 
-const esModule = {
-  file: 'lib/esm/index.js',
-  format: 'es',
-}
+const output = [
+  {
+    file: module,
+    format: "es",
+  },
+  {
+    file: main,
+    format: "cjs",
+  },
+];
 
-const commonJs = {
-  file: 'lib/index.js',
-  format: 'cjs',
-}
-
-const typescriptOptions = {
-  tsconfig: 'tsconfig.build.json',
+const ts = typescript({
+  tsconfig: "tsconfig.build.json",
   useTsconfigDeclarationDir: true,
-  
-}
+});
 
-const jsonOptions = {
+const jsn = json({
   preferConst: true,
-}
+});
 
 export default [
   {
-    input: 'src/index.ts',
-    output: [esModule, commonJs],
-    plugins: [json(jsonOptions), typescript(typescriptOptions)],
+    input: "src/index.ts",
+    output,
+    plugins: [del(["./lib"], []), terser(), jsn, ts],
   },
   {
-    input: './lib/src/index.d.ts',
-    output: [{ file: 'lib/index.d.ts', format: 'es' }],
+    input: "./lib/src/index.d.ts",
+    output: [{ file: "lib/index.d.ts", format: "es" }],
     plugins: [
-      folderDelete(['./lib/src']),
       dts({
         compilerOptions: {
-          baseUrl: './lib/src',
+          baseUrl: "./lib/src",
           paths: compilerOptions.paths,
         },
       }),
+      del([], ["./lib/src"]),
     ],
   },
-]
+];
