@@ -1,14 +1,15 @@
-/node_modules/
-/lib/
-/dist/
-/.idea/
+# Folders
+*node_modules*
+*lib*
+*dist*
 *cache*
+
+coverage
+
+.idea
+
+# Files
 **/*.dxf
 **/*.bak
-coverage
-temp
-www/.pnpm-debug.log
-docs/.vitepress/dist
-.pnpm-debug.log
 **/*.dwl
 **/*.dwl2
