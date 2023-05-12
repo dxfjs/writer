@@ -1,4 +1,4 @@
-import { Point3D, Taggable } from "types";
+import { Point3D, Taggable } from "../types";
 import {
   XAppDefined,
   XHandle,

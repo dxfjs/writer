@@ -1,4 +1,4 @@
-import { Point2D, Point3D, Stringifiable } from "types";
+import { Point2D, Point3D, Stringifiable } from "../types";
 
 export class XTagsManager implements Stringifiable {
   readonly lines: (string | number)[];

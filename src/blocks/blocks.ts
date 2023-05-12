@@ -1,6 +1,6 @@
 import { BlockOptions, XBlock } from "./block";
 import { XHandle, XTagsManager } from "../utils";
-import { Taggable } from "types";
+import { Taggable } from "../types";
 
 export class XBlocks implements Taggable {
   readonly handle: XHandle;

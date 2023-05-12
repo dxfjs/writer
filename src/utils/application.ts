@@ -1,4 +1,4 @@
-import { Tag, Taggable } from "types";
+import { Tag, Taggable } from "../types";
 import { XTagsManager } from "./tags";
 
 export class XAppDefined implements Taggable {

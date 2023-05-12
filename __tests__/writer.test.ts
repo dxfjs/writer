@@ -1,5 +1,5 @@
 import { LWPolylineFlags, XWriter, point } from "../src";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 
 describe("XWriter class", () => {
   const writer = new XWriter();
@@ -73,7 +73,6 @@ describe("XWriter class", () => {
       styleName: tarikStyle.name,
     });
     w.document.modelSpace.bbox();
-    if (!existsSync("output")) mkdirSync("output", { recursive: true });
-    writeFileSync("output/default.dxf", w.stringify());
+    writeFileSync("examples/default.dxf", w.stringify());
   });
 });
