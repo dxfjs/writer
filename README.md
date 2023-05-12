@@ -4,7 +4,7 @@ A Javascript dxf generator, written in Typescript.
 
 ![ci](https://github.com/tarikjabiri/dxf/actions/workflows/ci.yml/badge.svg)
 ![publish](https://github.com/tarikjabiri/dxf/actions/workflows/cd.yml/badge.svg)
-[![codecov](https://codecov.io/gh/dxfjs/writer/branch/main/graph/badge.svg?token=P5QJAUXZTA)](https://codecov.io/gh/dxfjs/writer)
+[![codecov](https://codecov.io/gh/dxfjs/writer/branch/next/graph/badge.svg?token=P5QJAUXZTA)](https://codecov.io/gh/dxfjs/writer)
 
 
 ![GitHub](https://img.shields.io/github/license/dxfjs/writer?color=%2334D058&label=License&logo=Open%20Access&logoColor=%23959DA5)
@@ -25,12 +25,21 @@ pnpm add @tarikjabiri/dxf
 
 ## Getting started
 
-```javascript
-import { DxfWriter, point3d } from "@tarikjabiri/dxf";
-const dxf = new DxfWriter();
-dxf.addLine(point3d(0, 0), point3d(100, 100));
-// To get the dxf string just call the stringify() method
-const dxfString = dxf.stringify();
+```js
+import { XWriter, point } from "@tarikjabiri/dxf";
+
+const writer = new XWriter();
+const modelSpace = writer.document.modelSpace;
+
+// Add entites to the model space
+modelSpace.addLine({
+  start: point(),
+  end: point(100, 100),
+  // Other options...
+});
+
+// To get the dxf content just call the stringify() method
+const content = writer.stringify();
 ```
 
 ## More informations
