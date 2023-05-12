@@ -1,5 +1,5 @@
 import { XAppDefined, XHandle, XTagsManager } from "../utils";
-import { Taggable } from "types";
+import { Taggable } from "../types";
 
 export class XEndBlk implements Taggable {
   readonly handleSeed: string;

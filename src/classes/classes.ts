@@ -1,4 +1,4 @@
-import { Taggable } from "types";
+import { Taggable } from "../types";
 import { XTagsManager } from "../utils";
 
 export class XClasses implements Taggable {

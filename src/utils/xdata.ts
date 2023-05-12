@@ -1,6 +1,5 @@
-import { Point3D, Tag } from "types";
+import { Point3D, Tag, Taggable } from "../types";
 import { stringChunksSplit, tag } from "./functions";
-import { Taggable } from "types";
 import { XTagsManager } from "./tags";
 
 export class XData implements Taggable {

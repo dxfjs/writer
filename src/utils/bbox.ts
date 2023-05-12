@@ -1,4 +1,4 @@
-import { Point3D } from "types";
+import { Point3D } from "../types";
 import { point } from "./functions";
 
 export interface BoundingBox {

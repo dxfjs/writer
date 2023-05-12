@@ -122,7 +122,7 @@ export abstract class XEntity implements Taggable {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected tagifyChild(mg: XTagsManager): void {}
+  protected tagifyChild(_mg: XTagsManager): void {}
 
   tagify(mg: XTagsManager): void {
     mg.add(0, this.type);
