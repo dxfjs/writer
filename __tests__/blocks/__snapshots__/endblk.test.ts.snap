@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`XEndBlk class > should create an endblk instance 1`] = `
+"0
+ENDBLK
+5
+1
+330
+0
+100
+AcDbEntity
+8
+0
+100
+AcDbBlockEnd"
+`;

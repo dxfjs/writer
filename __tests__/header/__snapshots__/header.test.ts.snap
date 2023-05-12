@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`XHeader class > should be able to add a variable 1`] = `
+"0
+SECTION
+2
+HEADER
+9
+$ACADVER
+1
+AC1021
+9
+$HANDSEED
+5
+1
+9
+$ANGDIR
+70
+0
+0
+ENDSEC"
+`;
+
+exports[`XHeader class > should create a header section with defaults 1`] = `
+"0
+SECTION
+2
+HEADER
+9
+$ACADVER
+1
+AC1021
+9
+$HANDSEED
+5
+1
+0
+ENDSEC"
+`;
