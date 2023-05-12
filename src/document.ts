@@ -1,11 +1,11 @@
-import { BlockOptions, XBlocks } from "blocks";
+import { BlockOptions, XBlocks } from "./blocks";
 import { Units, XHandle, XTagsManager } from "./utils";
 import { Stringifiable } from "./types";
-import { XClasses } from "classes";
-import { XEntities } from "entities";
-import { XHeader } from "header";
-import { XObjects } from "objects";
-import { XTables } from "tables";
+import { XClasses } from "./classes";
+import { XEntities } from "./entities";
+import { XHeader } from "./header";
+import { XObjects } from "./objects";
+import { XTables } from "./tables";
 
 export class XDocument implements Stringifiable {
   readonly handle: XHandle;

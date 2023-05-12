@@ -14,18 +14,7 @@
 		"resolveJsonModule": true,
 		"checkJs": true,
 		"noEmit": true,
-		"types": ["vitest/globals"],
-		"paths": {
-			"DxfWriter": ["DxfWriter"],
-			"DxfDocument": ["DxfDocument"],
-			"Internals/*": ["Internals/*"],
-			"BlocksSection/*": ["Sections/BlocksSection/*"],
-			"ClassesSection/*": ["Sections/ClassesSection/*"],
-			"EntitiesSection/*": ["Sections/EntitiesSection/*"],
-			"HeaderSection/*": ["Sections/HeaderSection/*"],
-			"ObjectsSection/*": ["Sections/ObjectsSection/*"],
-			"TablesSection/*": ["Sections/TablesSection/*"]
-		}
+		"types": ["vitest/globals"]
 	},
 	"exclude": [
 		"**/node_modules/**",
@@ -35,5 +24,5 @@
 		"**/examples/**",
 		"./rollup.config.mjs"
 	],
-	"include": ["./src", "./package.json", "specs"]
+	"include": ["./src", "./package.json", "__tests__"]
 }

@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`XObjects class > should create an objects section 1`] = `
+"0
+SECTION
+2
+OBJECTS
+0
+DICTIONARY
+5
+1
+330
+0
+100
+AcDbDictionary
+281
+1
+3
+ACAD_GROUP
+350
+2
+0
+DICTIONARY
+5
+2
+330
+1
+100
+AcDbDictionary
+281
+0
+0
+ENDSEC"
+`;
