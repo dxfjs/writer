@@ -8,7 +8,7 @@ export * from "./insert";
 export * from "./line";
 export * from "./lwpolyline";
 export * from "./manager";
-// export * from "./mtext";
+export * from "./mtext";
 export * from "./point";
 export * from "./polyline";
 export * from "./ray";
