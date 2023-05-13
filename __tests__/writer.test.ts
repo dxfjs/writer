@@ -1,4 +1,4 @@
-import { LWPolylineFlags, XWriter, point } from "../src";
+import { Colors, LWPolylineFlags, XWriter, point } from "../src";
 import { writeFileSync } from "fs";
 
 describe("XWriter class", () => {
@@ -71,6 +71,28 @@ describe("XWriter class", () => {
       value: "Hello World!",
       height: 10,
       styleName: tarikStyle.name,
+    });
+    const mtext = w.document.modelSpace.addMText({
+      insertionPoint: point(0, 50),
+      height: 10,
+      styleName: tarikStyle.name,
+      referenceRectangleWidth: 200,
+      referenceRectangleHeight: 50,
+    });
+    mtext.add({
+      value: "Tarik",
+      fontFamily: "JetBrainsMono Nerd Font",
+      italic: true,
+      bold: true,
+      colorNumber: Colors.Cyan,
+      center: true,
+    });
+    mtext.add({
+      value: "EL JABIRI",
+      fontFamily: "JetBrainsMono Nerd Font Mono",
+      bold: true,
+      colorNumber: Colors.Green,
+      underline: true,
     });
     w.document.modelSpace.bbox();
     writeFileSync("examples/default.dxf", w.stringify());

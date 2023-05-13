@@ -4,6 +4,7 @@ import { CircleOptions, XCircle } from "./circle";
 import { InsertOptions, XInsert } from "./insert";
 import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
 import { LineOptions, XLine } from "./line";
+import { MTextOptions, XMText } from ".";
 import { PointOptions, XPoint } from "./point";
 import { PolylineOptions, XPolyline } from "./polyline";
 import { RayOptions, XRay } from "./ray";
@@ -61,6 +62,10 @@ export class EntitiesManager implements Taggable {
 
   addLWPolyline(options: LWPolylineOptions) {
     return this.add(new XLWPolyline(options, this.handle));
+  }
+
+  addMText(options: MTextOptions) {
+    return this.add(new XMText(options, this.handle));
   }
 
   addPoint(options: PointOptions) {
