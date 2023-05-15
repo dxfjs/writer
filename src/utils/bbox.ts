@@ -22,10 +22,11 @@ export function bbox(min?: Point3D, max?: Point3D): BoundingBox {
 }
 
 export class XBBox {
-  static point(p: Point3D) {
+  static point(p: Point3D, radius?: number) {
+    radius = radius ?? 100;
     return bbox(
-      point(p.x - 100, p.y - 100, p.z - 100),
-      point(p.x + 100, p.y + 100, p.z + 100)
+      point(p.x - radius, p.y - radius, p.z - radius),
+      point(p.x + radius, p.y + radius, p.z + radius)
     );
   }
 
