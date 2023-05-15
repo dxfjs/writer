@@ -1,4 +1,4 @@
-import { Colors, LWPolylineFlags, XWriter, point } from "../src";
+import { Colors, InvisibleEdge, LWPolylineFlags, XWriter, point } from "../src";
 import { writeFileSync } from "fs";
 
 describe("XWriter class", () => {
@@ -102,6 +102,13 @@ describe("XWriter class", () => {
     w.document.modelSpace.addEllipse({
       center: point(),
       endpoint: point(100),
+    });
+    w.document.modelSpace.addFace({
+      first: point(),
+      second: point(100),
+      third: point(100, 100),
+      fourth: point(0, 100),
+      flags: InvisibleEdge.First
     });
     w.document.modelSpace.bbox();
     writeFileSync("examples/default.dxf", w.stringify());

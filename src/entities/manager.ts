@@ -2,6 +2,7 @@ import { AlignedDimensionOptions, XAlignedDimension } from "./dimension";
 import { ArcOptions, XArc } from "./arc";
 import { CircleOptions, XCircle } from "./circle";
 import { EllipseOptions, XEllipse } from "./ellipse";
+import { FaceOptions, XFace } from "./face";
 import { InsertOptions, XInsert } from "./insert";
 import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
 import { LineOptions, XLine } from "./line";
@@ -55,6 +56,10 @@ export class EntitiesManager implements Taggable {
 
   addEllipse(options: EllipseOptions) {
     return this.add(new XEllipse(options, this.handle));
+  }
+
+  addFace(options: FaceOptions) {
+    return this.add(new XFace(options, this.handle));
   }
 
   addInsert(options: InsertOptions) {
