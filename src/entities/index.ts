@@ -1,6 +1,7 @@
 export * from "./arc";
 export * from "./circle";
 export * from "./dimension";
+export * from "./ellipse";
 export * from "./entities";
 export * from "./entity";
 export * from "./hatch";

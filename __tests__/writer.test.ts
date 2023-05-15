@@ -94,6 +94,15 @@ describe("XWriter class", () => {
       colorNumber: Colors.Green,
       underline: true,
     });
+    w.document.modelSpace.addEllipse({
+      center: point(),
+      endpoint: point(20, 50),
+      ratio: 0.5,
+    });
+    w.document.modelSpace.addEllipse({
+      center: point(),
+      endpoint: point(100),
+    });
     w.document.modelSpace.bbox();
     writeFileSync("examples/default.dxf", w.stringify());
   });
