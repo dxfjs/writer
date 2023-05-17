@@ -8,12 +8,15 @@ export class DxfBlocksSection implements DxfInterface {
   readonly modelSpace: DxfBlock
   readonly paperSpace: DxfBlock
   readonly tables: DxfTablesSection
+  readonly objects: DxfObjectsSection
+
+  private paperSpaceSeed = 0
 
   constructor(tables: DxfTablesSection, objects: DxfObjectsSection) {
     this.tables = tables
+    this.objects = objects
     this.modelSpace = this.addBlock('*Model_Space', objects, false)
     this.paperSpace = this.addBlock('*Paper_Space', objects, false)
-    this.modelSpace.stringifyEntities = false
   }
 
   addBlock(
@@ -29,9 +32,14 @@ export class DxfBlocksSection implements DxfInterface {
     return block
   }
 
+  addPaperSpace(): DxfBlock {
+    const name = `*Paper_Space${this.paperSpaceSeed++}`
+    return this.addBlock(name, this.objects, false)
+  }
+
   dxfy(dx: Dxfier) {
     dx.start('BLOCKS')
-    for (const b of this.blocks) b.dxfy(dx)
+    this.blocks.forEach(b => b.dxfy(dx))
     dx.end()
   }
 }

@@ -18,11 +18,22 @@ export enum BlockFlags {
 export class DxfBlock extends EntitiesManager {
   readonly name: string
   readonly endBlk: DxfEndBlk
-  stringifyEntities = true
   ownerObjectHandle?: string
   flags: BlockFlags
   basePoint: vec3_t
   xrefPathName: string
+
+  get isPaperSpace() {
+    return this.name.startsWith('*Paper_Space')
+  }
+
+  get isModelSpace() {
+    return this.name.startsWith('*Model_Space')
+  }
+
+  get isModelOrPaperSpace() {
+    return this.isModelSpace || this.isPaperSpace
+  }
 
   constructor(name: string, objects: DxfObjectsSection) {
     super(objects, '0')
@@ -49,7 +60,7 @@ export class DxfBlock extends EntitiesManager {
     dx.point3d(this.basePoint)
     dx.name(this.name, 3)
     dx.push(1, this.xrefPathName)
-    if (this.stringifyEntities) super.dxfy(dx)
+    if (!this.isModelOrPaperSpace) super.dxfy(dx)
     this.endBlk.dxfy(dx)
   }
 }
