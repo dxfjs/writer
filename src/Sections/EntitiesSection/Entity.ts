@@ -22,6 +22,7 @@ export default abstract class Entity implements DxfInterface {
   ownerBlockRecord?: string
   trueColor?: string
   colorNumber?: number
+  inPaperSpace: boolean
   layerName?: string
   visible?: boolean
   lineType?: string
@@ -47,6 +48,7 @@ export default abstract class Entity implements DxfInterface {
     this.layerName = options?.layerName
     this.handle = Handle.next()
     this.trueColor = options?.trueColor
+    this.inPaperSpace = false
     this.colorNumber = options?.colorNumber
     this.visible = options?.visible
     this.lineType = options?.lineType
@@ -77,6 +79,7 @@ export default abstract class Entity implements DxfInterface {
     dx.handle(this.handle)
     dx.push(330, this.ownerBlockRecord)
     dx.subclassMarker('AcDbEntity')
+    if(this.inPaperSpace) dx.push(67, Number(this.inPaperSpace))
     dx.push(420, this.trueColor)
     dx.layerName(this.layerName || DxfLayer.layerZeroName)
     dx.lineType(this.lineType)

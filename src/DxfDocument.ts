@@ -44,7 +44,7 @@ export class DxfDocument implements DxfInterface {
     this.tables = new DxfTablesSection()
     this.objects = new DxfObjectsSection()
     this.blocks = new DxfBlocksSection(this.tables, this.objects)
-    this.entities = new DxfEntitiesSection(this.blocks.modelSpace)
+    this.entities = new DxfEntitiesSection(this.blocks)
     this.currentLayerName = DxfLayer.layerZeroName
     this.currentUnits = Units.Unitless
 
