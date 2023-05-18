@@ -121,7 +121,7 @@ export abstract class XEntity implements Taggable {
     return XBBox.point(point());
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-empty-function , @typescript-eslint/no-unused-vars
   protected tagifyChild(_mg: XTagsManager): void {}
 
   tagify(mg: XTagsManager): void {

@@ -81,3 +81,7 @@ export function polar(origin: Point2D, angle: number, distance: number) {
     origin.y + distance * Math.sin(rad(angle))
   );
 }
+
+export function onezero(value?: boolean) {
+  return value ? 1 : 0;
+}

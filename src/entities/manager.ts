@@ -6,6 +6,7 @@ import { EllipseOptions, XEllipse } from "./ellipse";
 import { FaceOptions, XFace } from "./face";
 import { InsertOptions, XInsert } from "./insert";
 import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
+import { LeaderOptions, XLeader } from "./leader";
 import { LineOptions, XLine } from "./line";
 import { MTextOptions, XMText } from "./mtext";
 import { PointOptions, XPoint } from "./point";
@@ -67,6 +68,10 @@ export class EntitiesManager implements Taggable {
 
   addInsert(options: InsertOptions) {
     return this.add(new XInsert(options, this.handle));
+  }
+
+  addLeader(options: LeaderOptions) {
+    return this.add(new XLeader(options, this.handle));
   }
 
   addLine(options: LineOptions) {
