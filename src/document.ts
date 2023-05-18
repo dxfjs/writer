@@ -31,7 +31,7 @@ export class XDocument implements Stringifiable {
     this.header = new XHeader(this.handle);
     this.classes = new XClasses();
     this.tables = new XTables(this.handle);
-    this.blocks = new XBlocks(this.handle);
+    this.blocks = new XBlocks(this.tables, this.handle);
     this.entities = new XEntities(this.blocks);
     this.objects = new XObjects(this.handle);
 
@@ -48,10 +48,7 @@ export class XDocument implements Stringifiable {
   }
 
   addPaperSpace() {
-    const p = this.tables.addPaperSpace();
-    return this.blocks.addBlock({
-      name: p.name,
-    });
+    return this.blocks.addPaperSpace();
   }
 
   addVariable(name: string) {
