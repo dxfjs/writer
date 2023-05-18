@@ -1,5 +1,5 @@
 import { BlockOptions, XBlocks } from "./blocks";
-import { Units, XHandle, XTagsManager } from "./utils";
+import { Units, XBBox, XHandle, XTagsManager, point2d } from "./utils";
 import { Stringifiable } from "./types";
 import { XClasses } from "./classes";
 import { XEntities } from "./entities";
@@ -57,6 +57,7 @@ export class XDocument implements Stringifiable {
 
   stringify(): string {
     const mg = new XTagsManager();
+    this.fitIn();
     this.header.tagify(mg);
     this.classes.tagify(mg);
     this.tables.tagify(mg);
@@ -65,5 +66,15 @@ export class XDocument implements Stringifiable {
     this.objects.tagify(mg);
     mg.add(0, "EOF");
     return mg.stringify();
+  }
+
+  private fitIn() {
+    const bbox = this.modelSpace.bbox();
+    const center = XBBox.center(bbox);
+    const height = XBBox.height(bbox);
+    this.tables.vportActive.lowerLeft = point2d(bbox.minX, bbox.minY);
+    this.tables.vportActive.upperRight = point2d(bbox.maxX, bbox.maxY);
+    this.tables.vportActive.center = center;
+    this.tables.vportActive.height = height;
   }
 }

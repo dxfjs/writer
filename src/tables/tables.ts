@@ -4,10 +4,10 @@ import { DimStyleEntry, DimStyleOptions, XDimStyle } from "./dimstyle";
 import { LTypeEntry, LTypeOptions, XLType } from "./ltype";
 import { LayerEntry, LayerOptions, XLayer } from "./layer";
 import { StyleEntry, StyleOptions, XStyle } from "./style";
+import { VPortEntry, VPortOptions, XVPort } from "./vport";
 import { XHandle, XTagsManager } from "../utils";
 import { Taggable } from "../types";
 import { XUcs } from "./ucs";
-import { XVPort } from "./vport";
 import { XView } from "./view";
 
 export class XTables implements Taggable {
@@ -29,6 +29,7 @@ export class XTables implements Taggable {
   readonly zeroLayer: LayerEntry;
   readonly ltypeContinous: LTypeEntry;
   readonly styleStandard: StyleEntry;
+  readonly vportActive: VPortEntry;
 
   private static paperSpaceSeed = 0;
 
@@ -57,6 +58,7 @@ export class XTables implements Taggable {
     });
     this.styleStandard = this.addStyle({ name: "Standard" });
     this.dimStyleStandard.options.DIMTXSTY = this.styleStandard.handleSeed;
+    this.vportActive = this.addVPort({ name: "*Active" });
   }
 
   addAppId(options: AppIdOptions) {
@@ -87,6 +89,10 @@ export class XTables implements Taggable {
 
   addStyle(options: StyleOptions) {
     return this.style.add(options);
+  }
+
+  addVPort(options: VPortOptions) {
+    return this.vport.add(options);
   }
 
   tagify(mg: XTagsManager): void {

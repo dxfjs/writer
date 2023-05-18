@@ -7,6 +7,7 @@ export * from "./entity";
 export * from "./face";
 export * from "./hatch";
 export * from "./insert";
+export * from "./leader";
 export * from "./line";
 export * from "./lwpolyline";
 export * from "./manager";

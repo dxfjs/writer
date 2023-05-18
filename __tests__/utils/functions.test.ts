@@ -1,5 +1,7 @@
 import {
+  angle,
   extrusion,
+  onezero,
   openUniformKnots,
   point,
   point2d,
@@ -65,5 +67,21 @@ describe("openUniformKnots function", () => {
 describe("uniformKnots function", () => {
   it("should return the correct knot vector", () => {
     expect(uniformKnots(7, 3)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  });
+});
+
+describe("angle function", () => {
+  it("should return the correct angle", () => {
+    expect(angle(point(), point(10, 10))).toBe(45);
+    expect(angle(point(), point(-10, -10))).toBe(225);
+  });
+});
+
+describe("onezero function", () => {
+  it("should return 1 or 0", () => {
+    expect(onezero()).toBe(0);
+    expect(onezero(false)).toBe(0);
+    expect(onezero(undefined)).toBe(0);
+    expect(onezero(true)).toBe(1);
   });
 });

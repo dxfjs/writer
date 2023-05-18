@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager } from "../utils";
 import { EntityOptions, XEntity } from "./entity";
+import { XHandle, XTagsManager } from "../utils";
 import { Point3D } from "../types";
 
 export const VertexFlags = {
@@ -61,10 +61,6 @@ export class XVertex extends XEntity implements Point3D {
     this.thirdVertexIndex = options.thirdVertexIndex;
     this.fourthVertexIndex = options.fourthVertexIndex;
     this.identifier = options.identifier;
-  }
-
-  override bbox(): BoundingBox {
-    return XBBox.point(this);
   }
 
   private vertexSubclassMarker(): string {

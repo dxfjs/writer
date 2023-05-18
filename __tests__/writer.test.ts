@@ -1,5 +1,7 @@
+import "../examples";
 import { Colors, InvisibleEdge, LWPolylineFlags, XWriter, point } from "../src";
 import { writeFileSync } from "fs";
+
 
 describe("XWriter class", () => {
   const writer = new XWriter();
@@ -59,7 +61,7 @@ describe("XWriter class", () => {
       controls: [point(), point(10, 10), point(20, 10), point(30, 20)],
     });
     const p = w.document.modelSpace.addPolyline({});
-    p.add(point());
+    p.add({});
     p.add(point(-10, -10));
     p.add(point(-20, -10));
     p.add(point(-30, -20));
@@ -112,9 +114,12 @@ describe("XWriter class", () => {
       second: point(100),
       third: point(100, 100),
       fourth: point(0, 100),
-      flags: InvisibleEdge.First
+      flags: InvisibleEdge.First,
     });
     w.document.addPaperSpace();
+    w.document.modelSpace.addLeader({
+      vertices: [point(), point(100, 100)],
+    });
     w.document.modelSpace.bbox();
 
     expect(w.document.paperSpace.isPaperSpace).toBeTruthy();
