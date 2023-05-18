@@ -1,6 +1,7 @@
 import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
 import Entity, { CommonEntityOptions } from './Entity'
 import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
+import { DxfBlockRecord } from 'TablesSection/Tables/Records/DxfBlockRecord'
 import { DxfInterface } from 'Internals/Interfaces'
 import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import { Dxfier } from 'Internals/Dxfier'
@@ -8,14 +9,16 @@ import Handle from 'Internals/Handle'
 import * as Entities from './Entities'
 
 export abstract class EntitiesManager implements DxfInterface {
+  readonly blockRecord: DxfBlockRecord
   readonly entities: Entity[] = []
   readonly handle: string
   private readonly objects: DxfObjectsSection
   layerName: string
 
-  constructor(objects: DxfObjectsSection, layerName: string) {
+  constructor(objects: DxfObjectsSection, blockRecord: DxfBlockRecord, layerName: string) {
     this.handle = Handle.next()
     this.objects = objects
+    this.blockRecord = blockRecord
     this.layerName = layerName
   }
 
@@ -35,7 +38,8 @@ export abstract class EntitiesManager implements DxfInterface {
   }
 
   addEntity<T extends Entity>(entity: T): T {
-    entity.ownerBlockRecord = this.handle
+    entity.ownerBlockRecord = this.blockRecord.handle
+    if(this.blockRecord.isPaperSpace) entity.inPaperSpace = true
     if (entity.layerName == null) entity.layerName = this.layerName
     this.entities.push(entity)
     return entity

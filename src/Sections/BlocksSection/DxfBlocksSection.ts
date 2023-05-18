@@ -26,8 +26,7 @@ export class DxfBlocksSection implements DxfInterface {
   ): DxfBlock {
     if (removeSpecialChars) name = name.replace(specialCharsRegex, '')
     const blockRecord = this.tables.addBlockRecord(name)
-    const block = new DxfBlock(name, objects)
-    block.ownerObjectHandle = blockRecord.handle
+    const block = new DxfBlock(name, blockRecord, objects)
     this.blocks.push(block)
     return block
   }

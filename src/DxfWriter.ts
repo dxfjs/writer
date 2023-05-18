@@ -77,6 +77,15 @@ export class DxfWriter {
   }
 
   /**
+   * Add new paper space block to the blocks tables.
+   * @returns The added block.
+   */
+  addPaperSpace() {
+    return this.blocks.addPaperSpace()
+  }
+
+
+  /**
    * Add a header variable to the dxf if not exist.
    * If exist it will update values.
    *

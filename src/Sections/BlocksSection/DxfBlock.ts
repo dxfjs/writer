@@ -1,4 +1,5 @@
 import { point3d, vec3_t } from 'Internals/Helpers'
+import { DxfBlockRecord } from 'TablesSection/Tables/Records/DxfBlockRecord'
 import { DxfEndBlk } from './DxfEndBlk'
 import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
 import { Dxfier } from 'Internals/Dxfier'
@@ -35,11 +36,12 @@ export class DxfBlock extends EntitiesManager {
     return this.isModelSpace || this.isPaperSpace
   }
 
-  constructor(name: string, objects: DxfObjectsSection) {
-    super(objects, '0')
+  constructor(name: string, blockRecord: DxfBlockRecord, objects: DxfObjectsSection) {
+    super(objects, blockRecord, '0')
     this.name = name
     this.flags = BlockFlags.None
     this.endBlk = new DxfEndBlk()
+    this.ownerObjectHandle = blockRecord.handle
     this.basePoint = point3d(0, 0, 0)
     this.xrefPathName = ''
   }
@@ -60,7 +62,7 @@ export class DxfBlock extends EntitiesManager {
     dx.point3d(this.basePoint)
     dx.name(this.name, 3)
     dx.push(1, this.xrefPathName)
-    if (!this.isModelOrPaperSpace) super.dxfy(dx)
+    if (!this.isModelSpace && this.name !== '*Paper_Space') super.dxfy(dx)
     this.endBlk.dxfy(dx)
   }
 }
