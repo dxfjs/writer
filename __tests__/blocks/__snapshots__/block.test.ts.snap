@@ -4,7 +4,7 @@ exports[`XBlock class > should create an empty block 1`] = `
 "0
 BLOCK
 5
-1
+2
 330
 0
 100
@@ -30,7 +30,7 @@ AcDbBlockBegin
 0
 ENDBLK
 5
-2
+3
 330
 0
 100
@@ -45,7 +45,7 @@ exports[`XBlock class > should create an empty block 2`] = `
 "0
 BLOCK
 5
-1
+2
 330
 0
 100
@@ -71,7 +71,7 @@ AcDbBlockBegin
 0
 ENDBLK
 5
-2
+3
 330
 0
 100

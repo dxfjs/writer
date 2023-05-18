@@ -9,11 +9,11 @@ describe("XWriter class", () => {
 
   it("should output the dxf content", () => {
     const w = new XWriter();
+    w.document.addVariable("$DIMTXT").add(40, 10);
     w.document.modelSpace.addLine({
       start: point(),
       end: point(100, 100),
     });
-    //Error 372 in drawing header on line 14.
     w.document.modelSpace.addAlignedDimension({
       start: point(),
       end: point(100, 100),
@@ -29,6 +29,10 @@ describe("XWriter class", () => {
       radius: 100,
       startAngle: 90,
       endAngle: 180,
+    });
+    w.document.modelSpace.addCircle({
+      center: point(),
+      radius: 100,
     });
     const tarik = w.document.addBlock({
       name: "Tarik",
@@ -110,7 +114,10 @@ describe("XWriter class", () => {
       fourth: point(0, 100),
       flags: InvisibleEdge.First
     });
+    w.document.addPaperSpace();
     w.document.modelSpace.bbox();
+
+    expect(w.document.paperSpace.isPaperSpace).toBeTruthy();
     writeFileSync("examples/default.dxf", w.stringify());
   });
 });

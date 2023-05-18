@@ -1,5 +1,6 @@
 import { AlignedDimensionOptions, XAlignedDimension } from "./dimension";
 import { ArcOptions, XArc } from "./arc";
+import { BlockRecordEntry, LayerEntry } from "../tables";
 import { CircleOptions, XCircle } from "./circle";
 import { EllipseOptions, XEllipse } from "./ellipse";
 import { FaceOptions, XFace } from "./face";
@@ -13,18 +14,19 @@ import { RayOptions, XRay } from "./ray";
 import { SplineOptions, XSpline } from "./spline";
 import { TextOptions, XText } from "./text";
 import { XBBox, XHandle, XTagsManager } from "../utils";
-import { LayerEntry } from "../tables";
 import { Taggable } from "../types";
 import { XEntity } from "./entity";
 
 export class EntitiesManager implements Taggable {
+  readonly blockRecord: BlockRecordEntry;
   readonly handle: XHandle;
   readonly handleSeed: string;
   readonly entities: XEntity[];
 
   currentLayerName: string;
 
-  constructor(handle: XHandle) {
+  constructor(BlockRecordEntry: BlockRecordEntry, handle: XHandle) {
+    this.blockRecord = BlockRecordEntry;
     this.handle = handle;
     this.handleSeed = handle.next();
     this.entities = [];
@@ -36,8 +38,9 @@ export class EntitiesManager implements Taggable {
   }
 
   add<TEntity extends XEntity>(entity: TEntity) {
-    entity.ownerBlockRecordObjectHandle = this.handleSeed;
+    entity.ownerBlockRecordObjectHandle = this.blockRecord.handleSeed;
     if (entity.layerName == null) entity.layerName = this.currentLayerName;
+    if (this.blockRecord.isPaperSpace) entity.inPaperSpace = true;
     this.entities.push(entity);
     return entity;
   }

@@ -1,15 +1,23 @@
-import { EntitiesManager, XHandle, XTagsManager, point } from "../../src";
+import {
+  BlockRecordEntry,
+  EntitiesManager,
+  XHandle,
+  XTagsManager,
+  point,
+} from "../../src";
 
 describe("EntitiesManager class", () => {
+  const handle = new XHandle();
+  const br = new BlockRecordEntry({ name: "*Model_Space" }, handle);
   it("should create an empty varaible", () => {
-    const mg = new EntitiesManager(new XHandle());
+    const mg = new EntitiesManager(br, handle);
     const m = new XTagsManager();
     mg.tagify(m);
     expect(m.stringify()).toBe("");
   });
 
   it("should be able to add a line entity", () => {
-    const mg = new EntitiesManager(new XHandle());
+    const mg = new EntitiesManager(br, handle);
     mg.addLine({
       start: point(),
       end: point(100, 100),

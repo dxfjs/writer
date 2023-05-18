@@ -1,10 +1,6 @@
 import { Point3D, Taggable } from "../types";
-import {
-  XAppDefined,
-  XHandle,
-  XTagsManager,
-  point,
-} from "../utils";
+import { XAppDefined, XHandle, XTagsManager, point } from "../utils";
+import { BlockRecordEntry } from "../tables";
 import { EntitiesManager } from "../entities";
 import { XEndBlk } from "./endblk";
 
@@ -43,15 +39,20 @@ export class XBlock extends EntitiesManager implements Taggable {
 
   readonly endblk: XEndBlk;
 
-  get isModelOrPaperSpace() {
-    return (
-      this.name.startsWith("*Model_Space") ||
-      this.name.startsWith("*Paper_Space")
-    );
+  get isModelSpace() {
+    return this.name.startsWith("*Model_Space");
   }
 
-  constructor(options: BlockOptions, handle: XHandle) {
-    super(handle);
+  get isPaperSpace() {
+    return this.name.startsWith("*Paper_Space");
+  }
+
+  constructor(
+    options: BlockOptions,
+    handle: XHandle,
+    blockRecord: BlockRecordEntry
+  ) {
+    super(blockRecord, handle);
     this.applications = [];
 
     this.ownerObjectHandle = "0";
@@ -90,7 +91,7 @@ export class XBlock extends EntitiesManager implements Taggable {
     mg.add(3, this.secondName);
     mg.add(1, this.xrefPathName);
     mg.add(4, this.description);
-    if (!this.isModelOrPaperSpace) super.tagify(mg);
+    if (!this.isModelSpace && this.name !== "*Paper_Space") super.tagify(mg);
     this.endblk.tagify(mg);
   }
 }

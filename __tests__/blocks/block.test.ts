@@ -1,12 +1,13 @@
-import { XBlock, XHandle, XTagsManager } from "../../src";
+import { BlockRecordEntry, XBlock, XHandle, XTagsManager } from "../../src";
 
 describe("XBlock class", () => {
+  const handle = new XHandle();
+  const options = { name: "*Model_Space" };
   it("should create an empty block", () => {
     const block = new XBlock(
-      {
-        name: "*Model_Space",
-      },
-      new XHandle()
+      options,
+      handle,
+      new BlockRecordEntry(options, handle)
     );
     block.addAppDefined("ACAD_REACTORS");
     const mg = new XTagsManager();
@@ -19,10 +20,9 @@ describe("XBlock class", () => {
 
   it("should create defined application", () => {
     const block = new XBlock(
-      {
-        name: "*Model_Space",
-      },
-      new XHandle()
+      options,
+      handle,
+      new BlockRecordEntry(options, handle)
     );
     const reactors = block.addAppDefined("ACAD_REACTORS");
     expect(reactors.name).toBe("ACAD_REACTORS");

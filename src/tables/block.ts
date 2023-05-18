@@ -20,6 +20,11 @@ export class BlockRecordEntry extends Entry {
   bitmapPreview?: string;
   acadXData: XData;
 
+
+  get isPaperSpace() {
+    return this.name.startsWith("*Paper_Space");
+  }
+
   constructor(options: BlockRecordOptions, handle: XHandle) {
     super("BLOCK_RECORD", handle);
     this.name = options.name;
