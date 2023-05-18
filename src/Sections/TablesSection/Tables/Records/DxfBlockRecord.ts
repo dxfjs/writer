@@ -8,6 +8,10 @@ export class DxfBlockRecord extends DxfRecord {
   scalability: number
   layoutObject?: string
 
+  get isPaperSpace() {
+    return this.name.startsWith('*Paper_Space')
+  }
+
   constructor(name: string) {
     super('BLOCK_RECORD')
     this.name = name

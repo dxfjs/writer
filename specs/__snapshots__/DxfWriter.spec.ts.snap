@@ -864,7 +864,7 @@ CIRCLE
 5
 23
 330
-21
+20
 100
 AcDbEntity
 8
@@ -884,7 +884,7 @@ LWPOLYLINE
 5
 24
 330
-21
+20
 100
 AcDbEntity
 8
@@ -938,7 +938,7 @@ POINT
 5
 1A
 330
-D
+C
 100
 AcDbEntity
 8
@@ -956,7 +956,7 @@ LWPOLYLINE
 5
 1B
 330
-D
+C
 100
 AcDbEntity
 8
@@ -996,7 +996,7 @@ LINE
 5
 1C
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1020,7 +1020,7 @@ LWPOLYLINE
 5
 1E
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1064,7 +1064,7 @@ LWPOLYLINE
 5
 1F
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1128,7 +1128,7 @@ INSERT
 5
 25
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1166,7 +1166,7 @@ SPLINE
 5
 26
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1258,7 +1258,7 @@ ARC
 5
 27
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1284,7 +1284,7 @@ ELLIPSE
 5
 28
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1314,7 +1314,7 @@ AcDbEllipse
 5
 29
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1352,7 +1352,7 @@ CIRCLE
 5
 2A
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1372,7 +1372,7 @@ POLYLINE
 5
 2B
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1478,7 +1478,7 @@ IMAGE
 5
 31
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1542,7 +1542,7 @@ TEXT
 5
 37
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1568,7 +1568,7 @@ DIMENSION
 5
 3B
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1598,7 +1598,7 @@ DIMENSION
 5
 3C
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1644,7 +1644,7 @@ DIMENSION
 5
 3D
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1674,7 +1674,7 @@ DIMENSION
 5
 3E
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1706,7 +1706,7 @@ DIMENSION
 5
 3F
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1738,7 +1738,7 @@ DIMENSION
 5
 40
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1772,7 +1772,7 @@ DIMENSION
 5
 41
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1828,7 +1828,7 @@ DIMENSION
 5
 42
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1878,7 +1878,7 @@ DIMENSION
 5
 43
 330
-D
+C
 100
 AcDbEntity
 8
@@ -1914,7 +1914,7 @@ DIMENSION
 5
 44
 330
-D
+C
 100
 AcDbEntity
 8
