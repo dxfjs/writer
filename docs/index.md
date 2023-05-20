@@ -1,30 +1,22 @@
 ---
 layout: home
-features:
-  - icon: 🎉
-    title: Many features
-    details: Blocks, Hatchs, Image, Insert and more...
-  - icon: 🛠️
-    title: Simple and Customizable
-    details: All entities are customizable.
 
-title: '@tarikjabiri/dxf'
-titleTemplate: A JavaScript dxf generator written in TypeScript.
+title: "@tarikjabiri/dxf"
+titleTemplate: A DXF writer written in TypeScript..
 
 hero:
-  name: '@tarikjabiri/dxf'
-  text: A DXF writer.
-  tagline: A JavaScript interface to dxf written in TypeScript.
+  name: "@tarikjabiri/dxf"
+  text: A DXF writer written in TypeScript.
   image:
     src: /logo.svg
-    alt: '@tarikjabiri/dxf'
+    alt: "dxfjs"
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/
+      link: /start
     - theme: alt
       text: View on GitHub
-      link: https://github.com/tarikjabiri/dxf
+      link: https://github.com/dxfjs/writer
 ---
 
 <script setup>
@@ -50,73 +42,30 @@ const members = [
     sponsor: 'https://github.com/sponsors/dxfjs',
     org: 'dxfjs',
     orgLink: 'https://github.com/dxfjs'
-  },
-  {
-    avatar: 'https://www.github.com/ognjen-petrovic.png',
-    name: 'Ognjen Petrovic',
-    desc: 'Collaborator',
-    links: [
-      { icon: 'github', link: 'https://github.com/ognjen-petrovic' }
-    ]
-  },
-  {
-    avatar: 'https://www.github.com/jean9696.png',
-    name: 'Jean Dessane',
-    desc: 'Contributor',
-    links: [
-      { icon: 'github', link: 'https://github.com/jean9696' }
-    ]
-  },
-  {
-    avatar: 'https://www.github.com/frederic-schwarz.png',
-    name: 'Frederic Schwarz',
-    title: 'Co-founder',
-    links: [
-      { icon: 'github', link: 'https://github.com/frederic-schwarz' }
-    ],
-    desc: 'Sponsor',
-    org: 'Archilogic',
-    orgLink: 'https://github.com/archilogic-com'
-  },
-  {
-    avatar: 'https://github.com/ashleycoker.png',
-    name: 'Ashley Coker',
-    title: 'CEO',
-    links: [
-      { icon: 'github', link: 'https://github.com/ashleycoker' }
-    ],
-    desc: 'Sponsor',
-    org: 'Slate',
-    orgLink: 'https://github.com/weareslate'
-  },
-  {
-    avatar: 'https://github.com/mmiscool.png',
-    name: 'Mike Molinari',
-    links: [
-      { icon: 'github', link: 'https://github.com/mmiscool' }
-    ],
-    desc: 'Sponsor',
-    org: 'Autodrop3d',
-    orgLink: 'https://www.autodrop3d.com/'
-  },
-  {
-    avatar: 'https://github.com/ahdinosaur.png',
-    name: 'Mikey',
-    links: [
-      { icon: 'github', link: 'https://github.com/ahdinosaur' }
-    ],
-    desc: 'Sponsor',
-    org: 'Village Kit',
-    orgLink: 'https://villagekit.com/'
   }
 ]
 </script>
-<VPTeamPageSection style="margin-top: 1em;">
-  <template #title>Members, Contributors & Sponsors</template>
-  <template #lead>This project made possible because of all wonderful peoples</template>
+<VPTeamPageSection>
+  <template #title>Maintainers, Sponsors & Contributors</template>
   <template #members>
     <VPTeamMembers size="small" :members="members" />
   </template>
 </VPTeamPageSection>
 
+<br>
+<div style="display: flex; justify-content: center;">
+<a href="/_media/sponsors.svg" target="_blank" rel="noopener noreferrer">
 
+![Sponsors](_media/sponsors.svg)
+
+</a>
+</div>
+
+<br>
+<div style="display: flex; justify-content: center;">
+<a href="/_media/contributors.svg" target="_blank" rel="noopener noreferrer">
+
+![Contributors](_media/contributors.svg)
+
+</a>
+</div>
