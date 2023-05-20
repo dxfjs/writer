@@ -11,6 +11,7 @@ export * from "./leader";
 export * from "./line";
 export * from "./lwpolyline";
 export * from "./manager";
+export * from "./mleader";
 export * from "./mtext";
 export * from "./point";
 export * from "./polyline";

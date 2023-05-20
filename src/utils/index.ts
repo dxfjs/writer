@@ -5,4 +5,5 @@ export * from "./constants";
 export * from "./functions";
 export * from "./handle";
 export * from "./tags";
+export * from "./text";
 export * from "./xdata";
