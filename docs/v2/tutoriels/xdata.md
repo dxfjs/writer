@@ -8,7 +8,7 @@ Extended data allows for the inclusion of additional information that is not exp
 
 ## Register application id
 
-To use XDATA in a DXF file, you need to first register an [APPID](/guide/tables.html#appid) in the tables section of the file:
+To use XDATA in a DXF file, you need to first register an [APPID](/v2/guide/tables.html#appid) in the tables section of the file:
 
 ```ts
 const appIdTest = dxf.tables.addAppId("TEST_APPID")
