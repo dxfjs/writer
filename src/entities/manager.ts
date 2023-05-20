@@ -8,6 +8,7 @@ import { InsertOptions, XInsert } from "./insert";
 import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
 import { LeaderOptions, XLeader } from "./leader";
 import { LineOptions, XLine } from "./line";
+import { MLeaderOptions, XMLeader } from "./mleader";
 import { MTextOptions, XMText } from "./mtext";
 import { PointOptions, XPoint } from "./point";
 import { PolylineOptions, XPolyline } from "./polyline";
@@ -80,6 +81,10 @@ export class EntitiesManager implements Taggable {
 
   addLWPolyline(options: LWPolylineOptions) {
     return this.add(new XLWPolyline(options, this.handle));
+  }
+
+  addMLeader(options: MLeaderOptions) {
+    return this.add(new XMLeader(options, this.handle));
   }
 
   addMText(options: MTextOptions) {
