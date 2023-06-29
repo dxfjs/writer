@@ -21,6 +21,7 @@ export interface CellOptions extends CommonEntityOptions {
   cellBorderHeight?: number
   cellRotationValue?: number
   cellText: string
+  cellTextHeight: number
 }
 
 export class Cell {
@@ -31,6 +32,7 @@ export class Cell {
   cellBorderHeight: number
   cellRotationValue: number
   cellText?: string
+  cellTextHeight?: number
 
   constructor(options: CellOptions) {
     this.cellType = options?.cellType || CellType.Text
@@ -40,6 +42,7 @@ export class Cell {
     this.cellBorderHeight = options?.cellBorderHeight ?? 1
     this.cellRotationValue = options?.cellRotationValue ?? 0
     this.cellText = options?.cellText
+    this.cellTextHeight = options?.cellTextHeight
   }
 
   dxfy(dx: Dxfier) {
@@ -49,6 +52,8 @@ export class Cell {
     dx.push(175, this.cellBorderWidth)
     dx.push(176, this.cellBorderHeight)
     dx.push(145, this.cellRotationValue)
+    dx.push(91, 262176) // Cell override flag the flag vale is 262176.
+    dx.push(140, this.cellTextHeight) // overriden text height.
     dx.push(301, 'CELL_VALUE')
     dx.push(90, this.cellText ? 4 : 0)
     dx.push(1, this.cellText)
