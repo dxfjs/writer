@@ -425,6 +425,9 @@ export class Hatch extends Entity {
 
   protected override dxfyChild(dx: Dxfier): void {
     dx.point3d(point3d(0, 0, this.elevation))
+    dx.push(210, this.extrusion?.x)
+    dx.push(220, this.extrusion?.y)
+    dx.push(230, this.extrusion?.z)
     dx.name(this.patternName)
     dx.push( 70, this.solidFillFlag)
     dx.push(71, AssociativityFlag.NonAssociative)
