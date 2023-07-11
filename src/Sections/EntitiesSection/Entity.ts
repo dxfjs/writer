@@ -87,9 +87,11 @@ export default abstract class Entity implements DxfInterface {
     dx.push(48, this.lineTypeScale)
     dx.visibilty(this.visible)
     dx.subclassMarker(this.subclassMarker)
-    dx.push(210, this.extrusion?.x)
-    dx.push(220, this.extrusion?.y)
-    dx.push(230, this.extrusion?.z)
+    if (this.type !== "HATCH") {
+      dx.push(210, this.extrusion?.x)
+      dx.push(220, this.extrusion?.y)
+      dx.push(230, this.extrusion?.z)
+    }
     this.dxfyChild(dx)
     this.xdatas.forEach(xdata => xdata.dxfy(dx))
   }
