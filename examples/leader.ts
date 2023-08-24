@@ -1,5 +1,5 @@
 import { Colors, PathType, XWriter, point } from "../src";
-import { save } from "./utils";
+import { fileURLToPath, save } from "./utils";
 
 const writer = new XWriter();
 const modelSpace = writer.document.modelSpace;
@@ -23,4 +23,4 @@ modelSpace.addLeader({
   colorNumber: Colors.Red,
 });
 
-save(writer.stringify(), __filename);
+save(writer.stringify(), fileURLToPath(import.meta.url));

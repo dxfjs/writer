@@ -4,6 +4,7 @@ import { BlockRecordEntry, LayerEntry } from "../tables";
 import { CircleOptions, XCircle } from "./circle";
 import { EllipseOptions, XEllipse } from "./ellipse";
 import { FaceOptions, XFace } from "./face";
+import { HatchOptions, XHatch } from "./hatch";
 import { InsertOptions, XInsert } from "./insert";
 import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
 import { LeaderOptions, XLeader } from "./leader";
@@ -65,6 +66,10 @@ export class EntitiesManager implements Taggable {
 
   addFace(options: FaceOptions) {
     return this.add(new XFace(options, this.handle));
+  }
+
+  addHatch(options: HatchOptions) {
+    return this.add(new XHatch(options, this.handle));
   }
 
   addInsert(options: InsertOptions) {

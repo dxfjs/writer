@@ -1,5 +1,5 @@
 import { Colors, TextOptions, XWriter, point } from "../src";
-import { save } from "./utils";
+import { fileURLToPath, save } from "./utils";
 
 const writer = new XWriter();
 const paperSpace = writer.document.paperSpace;
@@ -32,4 +32,4 @@ paperSpace0.addText(textOptions);
 paperSpace1.addText(textOptions);
 
 
-save(writer.stringify(), __filename);
+save(writer.stringify(), fileURLToPath(import.meta.url));

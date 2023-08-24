@@ -1,3 +1,4 @@
+import "./hatch";
 import "./leader";
 import "./mleader";
 import "./mtext";
