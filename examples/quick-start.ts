@@ -1,5 +1,5 @@
 import { Colors, XWriter, point } from "../src";
-import { save } from "./utils";
+import { fileURLToPath, save } from "./utils";
 
 const writer = new XWriter();
 const modelSpace = writer.document.modelSpace;
@@ -24,4 +24,4 @@ const line = modelSpace.addLine({
 
 line.lineTypeScale = 5;
 
-save(writer.stringify(), __filename);
+save(writer.stringify(), fileURLToPath(import.meta.url));
