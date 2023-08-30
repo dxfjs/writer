@@ -19,6 +19,7 @@ import { TextOptions, XText } from "./text";
 import { XBBox, XHandle, XTagsManager } from "../utils";
 import { Taggable } from "../types";
 import { XEntity } from "./entity";
+import { MeshOptions, XMesh } from "./mesh";
 
 export class EntitiesManager implements Taggable {
   readonly blockRecord: BlockRecordEntry;
@@ -86,6 +87,10 @@ export class EntitiesManager implements Taggable {
 
   addLWPolyline(options: LWPolylineOptions) {
     return this.add(new XLWPolyline(options, this.handle));
+  }
+
+  addMesh(options: MeshOptions) {
+    return this.add(new XMesh(options, this.handle));
   }
 
   addMLeader(options: MLeaderOptions) {
