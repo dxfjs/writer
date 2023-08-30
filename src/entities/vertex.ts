@@ -20,10 +20,8 @@ export interface VertexOptions extends EntityOptions, Partial<Point3D> {
   bulge?: number;
   flags?: number;
   tangentDirection?: number;
-  firstVertexIndex?: number;
-  secondVertexIndex?: number;
-  thirdVertexIndex?: number;
-  fourthVertexIndex?: number;
+  indices?: number[];
+  faceRecord?: boolean;
   identifier?: number;
 }
 
@@ -36,13 +34,12 @@ export class XVertex extends XEntity implements Point3D {
   bulge: number;
   flags: number;
   tangentDirection?: number;
-  firstVertexIndex?: number;
-  secondVertexIndex?: number;
-  thirdVertexIndex?: number;
-  fourthVertexIndex?: number;
+  indices?: number[];
+  faceRecord?: boolean;
   identifier?: number;
 
   override get subClassMarker(): string {
+    if (this.faceRecord) return "AcDbFaceRecord";
     return "AcDbVertex";
   }
 
@@ -56,21 +53,18 @@ export class XVertex extends XEntity implements Point3D {
     this.bulge = options.bulge ?? 0;
     this.flags = options.flags ?? VertexFlags.None;
     this.tangentDirection = options.tangentDirection;
-    this.firstVertexIndex = options.firstVertexIndex;
-    this.secondVertexIndex = options.secondVertexIndex;
-    this.thirdVertexIndex = options.thirdVertexIndex;
-    this.fourthVertexIndex = options.fourthVertexIndex;
+    this.indices = options.indices;
+    this.faceRecord = options.faceRecord;
     this.identifier = options.identifier;
   }
 
-  private vertexSubclassMarker(): string {
+  private vertexSubclassMarker() {
+    if (this.faceRecord) return undefined;
     if (this.flags & VertexFlags.Polyline3DVertex) {
       return "AcDb3dPolylineVertex";
     } else if (this.flags & VertexFlags.PolyfaceMeshVertex) {
       return "AcDbPolyFaceMeshVertex";
-    } else {
-      return "AcDb2dVertex";
-    }
+    } else return "AcDb2dVertex";
   }
 
   protected override tagifyChild(mg: XTagsManager): void {
@@ -81,10 +75,12 @@ export class XVertex extends XEntity implements Point3D {
     mg.add(42, this.bulge);
     mg.add(70, this.flags);
     mg.add(50, this.tangentDirection);
-    mg.add(71, this.firstVertexIndex);
-    mg.add(72, this.secondVertexIndex);
-    mg.add(73, this.thirdVertexIndex);
-    mg.add(74, this.fourthVertexIndex);
+    if (this.faceRecord && this.indices) {
+      mg.add(71, this.indices.at(0));
+      mg.add(72, this.indices.at(1));
+      mg.add(73, this.indices.at(2));
+      mg.add(74, this.indices.at(3));
+    }
     mg.add(91, this.identifier);
   }
 }
