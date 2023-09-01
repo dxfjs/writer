@@ -1,8 +1,8 @@
-import { Point3D, Taggable } from "../types";
 import { AppDefined, Handle, TagsManager, point } from "../utils";
+import { Point3D, Taggable } from "../types";
 import { BlockRecordEntry } from "../tables";
-import { EntitiesManager } from "../entities";
 import { EndBlk } from "./endblk";
+import { EntitiesManager } from "../entities";
 
 export const BlockFlags = {
   None: 0,

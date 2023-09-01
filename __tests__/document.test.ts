@@ -1,4 +1,4 @@
-import { Units, Document } from "../src";
+import { Document, Units } from "../src";
 
 describe("XDocument class", () => {
   it("should create dxf document", () => {

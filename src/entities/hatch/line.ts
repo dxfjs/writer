@@ -1,4 +1,4 @@
-import { BoundingBox, BBox, TagsManager, point } from "../../utils";
+import { BBox, BoundingBox, TagsManager, point } from "../../utils";
 import { HatchEdge, HatchEdgeType } from "./edges";
 import { Point2D } from "../../types";
 

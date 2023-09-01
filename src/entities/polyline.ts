@@ -1,13 +1,13 @@
 import {
-  BoundingBox,
   BBox,
+  BoundingBox,
   Handle,
   TagsManager,
   extrusion,
   point,
 } from "../utils";
-import { EntityOptions, Entity } from "./entity";
-import {  VertexOptions, Vertex } from "./vertex";
+import { Entity, EntityOptions } from "./entity";
+import {  Vertex, VertexOptions } from "./vertex";
 import { Point3D } from "../types";
 import { SeqEnd } from "./seqend";
 

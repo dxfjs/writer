@@ -1,11 +1,11 @@
 import {
-  BoundingBox,
   BBox,
+  BoundingBox,
   Handle,
   TagsManager,
   openUniformKnots,
 } from "../utils";
-import { EntityOptions, Entity } from "./entity";
+import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const SplineFlags = {

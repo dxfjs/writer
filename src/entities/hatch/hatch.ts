@@ -1,17 +1,17 @@
 import {
-  BoundingBox,
   BBox,
+  BoundingBox,
   Handle,
   TagsManager,
   extrusion,
   onezero,
   point,
 } from "../../utils";
-import { EntityOptions, Entity } from "../entity";
+import { Entity, EntityOptions } from "../entity";
 import { HatchPattern, SOLID } from "./pattern";
+import { HatchBoundaryPath } from "./boundary";
 import { HatchGradient } from "./gradient";
 import { Point3D } from "../../types";
-import { HatchBoundaryPath } from "./boundary";
 
 export const AssociativityFlag = {
   NonAssociative: 0,

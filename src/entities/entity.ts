@@ -1,10 +1,10 @@
 import {
-  BoundingBox,
   AppDefined,
   BBox,
-  XData,
+  BoundingBox,
   Handle,
   TagsManager,
+  XData,
   point,
   stringByteSize,
   stringChunksSplit,

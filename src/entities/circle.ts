@@ -1,11 +1,11 @@
 import {
-  BoundingBox,
   BBox,
+  BoundingBox,
   Handle,
   TagsManager,
   extrusion,
 } from "../utils";
-import { EntityOptions, Entity } from "./entity";
+import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "../types";
 
 export interface CircleOptions extends EntityOptions {

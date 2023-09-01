@@ -1,7 +1,7 @@
-import { BlockOptions, Block } from "./block";
+import { Block, BlockOptions } from "./block";
 import { Handle, TagsManager } from "../utils";
-import { Taggable } from "../types";
 import { Tables } from "../tables";
+import { Taggable } from "../types";
 
 export class Blocks implements Taggable {
   readonly tables: Tables;

@@ -1,10 +1,10 @@
+import { BBox, Handle, TagsManager, Units, point2d } from "./utils";
 import { BlockOptions, Blocks } from "./blocks";
-import { Units, BBox, Handle, TagsManager, point2d } from "./utils";
-import { Stringifiable } from "./types";
 import { Classes } from "./classes";
 import { Entities } from "./entities";
 import { Header } from "./header";
 import { Objects } from "./objects";
+import { Stringifiable } from "./types";
 import { Tables } from "./tables";
 
 export class Document implements Stringifiable {

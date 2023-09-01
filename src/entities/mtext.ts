@@ -1,5 +1,5 @@
-import { BoundingBox, BBox, Handle, TagsManager, extrusion } from "../utils";
-import { EntityOptions, Entity } from "./entity";
+import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "../utils";
+import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const AttachmentPoint = {

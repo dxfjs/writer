@@ -1,4 +1,4 @@
-import { BoundingBox, BBox, TagsManager } from "../../utils";
+import { BBox, BoundingBox, TagsManager } from "../../utils";
 import { Taggable } from "../../types";
 
 export const HatchEdgeType = {

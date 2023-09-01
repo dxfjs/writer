@@ -1,12 +1,12 @@
 import {
-  BoundingBox,
   BBox,
+  BoundingBox,
   Handle,
   TagsManager,
   extrusion,
   point,
 } from "../utils";
-import { EntityOptions, Entity } from "./entity";
+import { Entity, EntityOptions } from "./entity";
 import { Point2D, Point3D } from "../types";
 
 export interface LWPolylineVertex extends Point2D {

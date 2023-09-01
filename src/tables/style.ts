@@ -1,4 +1,4 @@
-import { XData, Handle, TagsManager } from "../utils";
+import { Handle, TagsManager, XData } from "../utils";
 import { Entry } from "./entry";
 import { Table } from "./table";
 
