@@ -1,6 +1,6 @@
-import { XHandle, XTagsManager } from "../utils";
+import { Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export const AppIdFlags = {
   None: 0,
@@ -18,13 +18,13 @@ export class AppIdEntry extends Entry {
   readonly name: string;
   flags: number;
 
-  constructor(options: AppIdOptions, handle: XHandle) {
+  constructor(options: AppIdOptions, handle: Handle) {
     super("APPID", handle);
     this.name = options.name;
     this.flags = options.flags ?? AppIdFlags.None;
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbRegAppTableRecord");
     mg.add(2, this.name);
@@ -32,8 +32,8 @@ export class AppIdEntry extends Entry {
   }
 }
 
-export class XAppId extends XTable {
-  constructor(handle: XHandle) {
+export class AppId extends Table {
+  constructor(handle: Handle) {
     super("APPID", handle);
   }
 

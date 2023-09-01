@@ -1,7 +1,7 @@
 import { Tag, Taggable } from "../types";
-import { XTagsManager } from "../utils";
+import { TagsManager } from "../utils";
 
-export class XVariable implements Taggable {
+export class Variable implements Taggable {
   readonly tags: Tag[];
 
   constructor(public readonly name: string) {
@@ -17,7 +17,7 @@ export class XVariable implements Taggable {
     this.tags.length = 0;
   }
 
-  tagify(mg: XTagsManager) {
+  tagify(mg: TagsManager) {
     if (this.tags.length > 0) {
       mg.add(9, this.name);
       this.tags.forEach((t) => mg.add(t.code, t.value));

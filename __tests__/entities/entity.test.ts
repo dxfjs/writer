@@ -1,13 +1,13 @@
-import { XEntity, XHandle, XTagsManager } from "../../src";
+import { Entity, Handle, TagsManager } from "../../src";
 
-class DummyEntity extends XEntity {}
+class DummyEntity extends Entity {}
 
-describe("XEntity class", () => {
+describe("Entity class", () => {
   it("should have the default values", () => {
-    const dummy = new DummyEntity("LINE", new XHandle());
+    const dummy = new DummyEntity("LINE", new Handle());
     const xdata = dummy.addXData("XDATA_TEST");
     xdata.layerName("0");
-    const mg = new XTagsManager();
+    const mg = new TagsManager();
     dummy.tagify(mg);
     dummy.proxyEntityGraphics = "test";
     mg.clear();
@@ -16,14 +16,14 @@ describe("XEntity class", () => {
   });
 
   it("should return the visibility", () => {
-    const dummy = new DummyEntity("LINE", new XHandle());
+    const dummy = new DummyEntity("LINE", new Handle());
     expect(dummy.visibility).toBe(0);
     dummy.visible = false;
     expect(dummy.visibility).toBe(1);
   });
 
   it("should return existing defined application", () => {
-    const dummy = new DummyEntity("LINE", new XHandle());
+    const dummy = new DummyEntity("LINE", new Handle());
     const reactors = dummy.addAppDefined("ACAD_REACTORS");
     const xdictionary = dummy.addAppDefined("ACAD_XDICTIONARY");
     expect(reactors.name).toBe("ACAD_REACTORS");
@@ -33,13 +33,13 @@ describe("XEntity class", () => {
   });
 
   it("should create new defined application", () => {
-    const dummy = new DummyEntity("LINE", new XHandle());
+    const dummy = new DummyEntity("LINE", new Handle());
     const test = dummy.addAppDefined("ACAD_TEST");
     expect(test.name).toBe("ACAD_TEST");
   });
 
-  it("should create new xdata", () => {
-    const dummy = new DummyEntity("LINE", new XHandle());
+  it("should create new XData", () => {
+    const dummy = new DummyEntity("LINE", new Handle());
     const xdata = dummy.addXData("XDATA_TEST");
     expect(xdata.name).toBe("XDATA_TEST");
     const test = dummy.addXData("XDATA_TEST");

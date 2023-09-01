@@ -1,6 +1,6 @@
-import { XData, XHandle, XTagsManager } from "../utils";
+import { XData, Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export const TEXT_ITALIC = 16777250;
 export const TEXT_BOLD = 33554466;
@@ -51,7 +51,7 @@ export class StyleEntry extends Entry {
 
   readonly xdata: XData;
 
-  constructor(options: StyleOptions, handle: XHandle) {
+  constructor(options: StyleOptions, handle: Handle) {
     super("STYLE", handle);
     this.name = options.name;
     this.flags = options.flags ?? StyleFlags.None;
@@ -69,7 +69,7 @@ export class StyleEntry extends Entry {
     this.xdata = new XData("ACAD");
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbTextStyleTableRecord");
     mg.add(2, this.name);
@@ -94,8 +94,8 @@ export class StyleEntry extends Entry {
   }
 }
 
-export class XStyle extends XTable {
-  constructor(handle: XHandle) {
+export class Style extends Table {
+  constructor(handle: Handle) {
     super("STYLE", handle);
   }
 

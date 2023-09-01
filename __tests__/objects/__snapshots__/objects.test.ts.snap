@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XObjects class > should create an objects section 1`] = `
+exports[`Objects class > should create an objects section 1`] = `
 "0
 SECTION
 2

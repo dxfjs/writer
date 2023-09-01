@@ -1,4 +1,4 @@
-import { XAppDefined, XHandle, XTagsManager } from "../utils";
+import { AppDefined, Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
 
 export const EntryCommonFlags = {
@@ -14,13 +14,13 @@ export abstract class Entry implements Taggable {
 
   protected handleCode: number;
 
-  readonly applications: XAppDefined[];
-  readonly reactors: XAppDefined;
-  readonly xdictionary: XAppDefined;
+  readonly applications: AppDefined[];
+  readonly reactors: AppDefined;
+  readonly xdictionary: AppDefined;
 
   constructor(
     private readonly type: string,
-    handle: XHandle,
+    handle: Handle,
     handleCode?: number
   ) {
     this.handleSeed = handle.next();
@@ -37,12 +37,12 @@ export abstract class Entry implements Taggable {
     const f = this.applications.find((a) => a.name === name);
     if (f) return f;
 
-    const a = new XAppDefined(name);
+    const a = new AppDefined(name);
     this.applications.push(a);
     return a;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(0, this.type);
     mg.add(this.handleCode, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));

@@ -1,4 +1,4 @@
-import { XTagsManager, rad } from "../../utils";
+import { TagsManager, rad } from "../../utils";
 import { Taggable } from "../../types";
 
 export const HatchGradientType = {
@@ -39,7 +39,7 @@ export class HatchGradient implements Taggable {
     this.type = options.type || HatchGradientType.Linear;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(450, 1);
     mg.add(451, 0);
     mg.add(460, rad(this.angle));

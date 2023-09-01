@@ -1,7 +1,7 @@
 import { Tag, Taggable } from "../types";
-import { XTagsManager } from "./tags";
+import { TagsManager } from "./tags";
 
-export class XAppDefined implements Taggable {
+export class AppDefined implements Taggable {
   readonly values: Tag[];
 
   constructor(public readonly name: string) {
@@ -16,7 +16,7 @@ export class XAppDefined implements Taggable {
     this.values.length = 0;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     if (this.values.length > 0) {
       mg.add(102, `{${this.name}`);
       this.values.forEach((tag) => mg.add(tag.code, tag.value));

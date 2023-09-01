@@ -1,10 +1,10 @@
-import { XBlocks, XEntities, XHandle, XTables, XTagsManager } from "../../src";
+import { Blocks, Entities, Handle, Tables, TagsManager } from "../../src";
 
 describe("XEntities class", () => {
-  const handle = new XHandle();
+  const handle = new Handle();
   it("should create an empty entities section", () => {
-    const entities = new XEntities(new XBlocks(new XTables(handle), handle));
-    const mg = new XTagsManager();
+    const entities = new Entities(new Blocks(new Tables(handle), handle));
+    const mg = new TagsManager();
     entities.tagify(mg);
     expect(mg.stringify()).toBe("0\nSECTION\n2\nENTITIES\n0\nENDSEC");
   });

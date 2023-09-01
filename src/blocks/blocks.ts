@@ -1,18 +1,18 @@
-import { BlockOptions, XBlock } from "./block";
-import { XHandle, XTagsManager } from "../utils";
+import { BlockOptions, Block } from "./block";
+import { Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
-import { XTables } from "../tables";
+import { Tables } from "../tables";
 
-export class XBlocks implements Taggable {
-  readonly tables: XTables;
-  readonly handle: XHandle;
-  readonly blocks: XBlock[];
-  readonly modelSpace: XBlock;
-  readonly paperSpace: XBlock;
+export class Blocks implements Taggable {
+  readonly tables: Tables;
+  readonly handle: Handle;
+  readonly blocks: Block[];
+  readonly modelSpace: Block;
+  readonly paperSpace: Block;
 
   private paperSpaceSeed = 0;
 
-  constructor(tables: XTables, handle: XHandle) {
+  constructor(tables: Tables, handle: Handle) {
     this.tables = tables;
     this.handle = handle;
     this.blocks = [];
@@ -22,7 +22,7 @@ export class XBlocks implements Taggable {
 
   addBlock(options: BlockOptions) {
     const br = this.tables.addBlockRecord({ name: options.name });
-    const b = new XBlock(options, this.handle, br);
+    const b = new Block(options, this.handle, br);
     this.blocks.push(b);
     return b;
   }
@@ -32,7 +32,7 @@ export class XBlocks implements Taggable {
     return this.addBlock({ name });
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.sectionStart("BLOCKS");
     this.blocks.forEach((b) => b.tagify(mg));
     mg.sectionEnd();

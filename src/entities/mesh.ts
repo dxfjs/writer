@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface MeshOptions extends EntityOptions {
@@ -8,7 +8,7 @@ export interface MeshOptions extends EntityOptions {
   faces?: number[][];
 }
 
-export class XMesh extends XEntity {
+export class Mesh extends Entity {
   vertices: Point3D[];
   size: number;
   faces: number[][];
@@ -18,7 +18,7 @@ export class XMesh extends XEntity {
     return "AcDbSubDMesh";
   }
 
-  constructor(options: MeshOptions, handle: XHandle) {
+  constructor(options: MeshOptions, handle: Handle) {
     super("MESH", handle, options);
     this.vertices = options.vertices || [];
     this.size = options.size ?? 3;
@@ -26,10 +26,10 @@ export class XMesh extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.points(this.vertices);
+    return BBox.points(this.vertices);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(71, 2);
     mg.add(72, 0);
     mg.add(91, 0);

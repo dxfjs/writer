@@ -4,13 +4,13 @@ import {
   HatchGradientType,
   HatchPattern,
   HatchPolyline,
-  XWriter,
+  Writer,
   point,
   point2d,
 } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 const cyan = writer.document.tables.addLayer({

@@ -1,15 +1,15 @@
-import { XAppDefined, XHandle, XTagsManager } from "../utils";
+import { AppDefined, Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
 
-export class XEndBlk implements Taggable {
+export class EndBlk implements Taggable {
   readonly handleSeed: string;
 
-  readonly applications: XAppDefined[];
+  readonly applications: AppDefined[];
 
   ownerObjectHandle: string;
   layerName: string;
 
-  constructor(handle: XHandle) {
+  constructor(handle: Handle) {
     this.handleSeed = handle.next();
 
     this.applications = [];
@@ -22,12 +22,12 @@ export class XEndBlk implements Taggable {
     const f = this.applications.find((a) => a.name === name);
     if (f) return f;
 
-    const a = new XAppDefined(name);
+    const a = new AppDefined(name);
     this.applications.push(a);
     return a;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(0, "ENDBLK");
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));

@@ -1,4 +1,4 @@
-import { BoundingBox, XBBox, XTagsManager } from "../../utils";
+import { BoundingBox, BBox, TagsManager } from "../../utils";
 import { Taggable } from "../../types";
 
 export const HatchEdgeType = {
@@ -26,10 +26,10 @@ export class HatchEdges implements Taggable {
   }
 
   bbox(): BoundingBox {
-    return XBBox.boxes(this.edges.map((e) => e.bbox()));
+    return BBox.boxes(this.edges.map((e) => e.bbox()));
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(93, this.edges.length);
     this.edges.forEach((e) => e.tagify(mg));
   }

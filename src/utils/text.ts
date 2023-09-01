@@ -8,7 +8,7 @@ export interface StyledTextOptions {
   center?: boolean;
 }
 
-export class XStyledText {
+export class StyledText {
   private text: string;
   paragraph: boolean;
 
@@ -44,8 +44,8 @@ export class XStyledText {
   }
 }
 
-export class XTextBuilder {
-  readonly texts: XStyledText[];
+export class TextBuilder {
+  readonly texts: StyledText[];
 
   get value(): string {
     return this.texts.map((t) => t.value).join("");
@@ -56,7 +56,7 @@ export class XTextBuilder {
   }
 
   add(options?: StyledTextOptions, paragraph?: boolean) {
-    const txt = new XStyledText(paragraph);
+    const txt = new StyledText(paragraph);
     txt.add(options);
     this.texts.push(txt);
     return txt;

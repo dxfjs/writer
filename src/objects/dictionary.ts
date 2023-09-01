@@ -1,4 +1,4 @@
-import { XHandle, XTagsManager } from "../utils";
+import { Handle, TagsManager } from "../utils";
 import { XObject } from "./object";
 
 export const DuplicateRecordFlags = {
@@ -15,13 +15,13 @@ export interface ObjectEntry {
   handleSeed: string;
 }
 
-export class XDictionary extends XObject {
+export class Dictionary extends XObject {
   hardOwnerFlag?: number;
   duplicateRecordFlag: number;
 
   entries: ObjectEntry[];
 
-  constructor(handle: XHandle) {
+  constructor(handle: Handle) {
     super("DICTIONARY", handle);
     this.duplicateRecordFlag = DuplicateRecordFlags.NotApplicable;
     this.entries = [];
@@ -31,7 +31,7 @@ export class XDictionary extends XObject {
     this.entries.push({ name, handleSeed: handleSeed });
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbDictionary");
     mg.add(280, this.hardOwnerFlag);

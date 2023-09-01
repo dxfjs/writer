@@ -1,16 +1,16 @@
 import "../examples";
-import { Colors, InvisibleEdge, LWPolylineFlags, XWriter, point } from "../src";
+import { Colors, InvisibleEdge, LWPolylineFlags, Writer, point } from "../src";
 import { writeFileSync } from "fs";
 
 
 describe("XWriter class", () => {
-  const writer = new XWriter();
+  const writer = new Writer();
   it("should match snapshot", () => {
     expect(writer.stringify()).toMatchSnapshot();
   });
 
   it("should output the dxf content", () => {
-    const w = new XWriter();
+    const w = new Writer();
     w.document.addVariable("$DIMTXT").add(40, 10);
     w.document.modelSpace.addLine({
       start: point(),

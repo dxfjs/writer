@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager, extrusion } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager, extrusion } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface EllipseOptions extends EntityOptions {
@@ -11,7 +11,7 @@ export interface EllipseOptions extends EntityOptions {
   end?: number;
 }
 
-export class XEllipse extends XEntity {
+export class Ellipse extends Entity {
   center: Point3D;
   endpoint: Point3D;
   extrusion: Point3D;
@@ -23,7 +23,7 @@ export class XEllipse extends XEntity {
     return "AcDbEllipse";
   }
 
-  constructor(options: EllipseOptions, handle: XHandle) {
+  constructor(options: EllipseOptions, handle: Handle) {
     super("ELLIPSE", handle, options);
     this.center = options.center;
     this.endpoint = options.endpoint;
@@ -36,10 +36,10 @@ export class XEllipse extends XEntity {
   override bbox(): BoundingBox {
     const { x, y, z } = this.endpoint;
     const radius = Math.sqrt(x * x + y * y + z * z);
-    return XBBox.point(this.center, radius);
+    return BBox.point(this.center, radius);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(this.center);
     mg.point(this.endpoint, 1);
     mg.point(this.extrusion, 200);

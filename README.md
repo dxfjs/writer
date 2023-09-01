@@ -26,9 +26,9 @@ pnpm add @tarikjabiri/dxf
 ## Getting started
 
 ```js
-import { XWriter, point } from "@tarikjabiri/dxf";
+import { Writer, point } from "@tarikjabiri/dxf";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 // Add entites to the model space

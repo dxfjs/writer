@@ -1,8 +1,8 @@
 import { Point3D, Taggable } from "../types";
-import { XAppDefined, XHandle, XTagsManager, point } from "../utils";
+import { AppDefined, Handle, TagsManager, point } from "../utils";
 import { BlockRecordEntry } from "../tables";
 import { EntitiesManager } from "../entities";
-import { XEndBlk } from "./endblk";
+import { EndBlk } from "./endblk";
 
 export const BlockFlags = {
   None: 0,
@@ -25,8 +25,8 @@ export interface BlockOptions {
   description?: string;
 }
 
-export class XBlock extends EntitiesManager implements Taggable {
-  readonly applications: XAppDefined[];
+export class Block extends EntitiesManager implements Taggable {
+  readonly applications: AppDefined[];
 
   ownerObjectHandle: string;
   layerName: string;
@@ -37,7 +37,7 @@ export class XBlock extends EntitiesManager implements Taggable {
   xrefPathName: string;
   description?: string;
 
-  readonly endblk: XEndBlk;
+  readonly endblk: EndBlk;
 
   get isModelSpace() {
     return this.name.startsWith("*Model_Space");
@@ -49,7 +49,7 @@ export class XBlock extends EntitiesManager implements Taggable {
 
   constructor(
     options: BlockOptions,
-    handle: XHandle,
+    handle: Handle,
     blockRecord: BlockRecordEntry
   ) {
     super(blockRecord, handle);
@@ -64,7 +64,7 @@ export class XBlock extends EntitiesManager implements Taggable {
     this.xrefPathName = options.xrefPathName || "";
     this.description = options.description;
 
-    this.endblk = new XEndBlk(handle);
+    this.endblk = new EndBlk(handle);
     this.endblk.ownerObjectHandle = this.ownerObjectHandle;
   }
 
@@ -72,12 +72,12 @@ export class XBlock extends EntitiesManager implements Taggable {
     const f = this.applications.find((a) => a.name === name);
     if (f) return f;
 
-    const a = new XAppDefined(name);
+    const a = new AppDefined(name);
     this.applications.push(a);
     return a;
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     mg.add(0, "BLOCK");
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));

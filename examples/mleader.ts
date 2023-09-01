@@ -1,7 +1,7 @@
-import { Colors, XTextBuilder, XWriter, point } from "../src";
+import { Colors, TextBuilder, Writer, point } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 const magenta = writer.document.tables.addLayer({
@@ -9,7 +9,7 @@ const magenta = writer.document.tables.addLayer({
   colorNumber: Colors.Magenta,
 });
 
-const builder = new XTextBuilder();
+const builder = new TextBuilder();
 const p1 = builder.add({
   value: "Hello World!",
   fontFamily: "JetBrainsMono Nerd Font",

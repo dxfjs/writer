@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XTables class > should create a tables section 1`] = `
+exports[`Tables class > should create a tables section 1`] = `
 "0
 SECTION
 2

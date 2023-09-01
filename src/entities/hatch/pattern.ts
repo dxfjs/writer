@@ -1,5 +1,5 @@
 import { Point2D, Taggable } from "../../types";
-import { XTagsManager, onezero } from "../../utils";
+import { TagsManager, onezero } from "../../utils";
 
 export const SOLID = "SOLID";
 
@@ -23,7 +23,7 @@ export class HatchPatternData implements Taggable {
     this.dashLengths = options.dashLengths;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(53, this.angle);
     mg.add(43, this.base.x);
     mg.add(44, this.base.y);
@@ -63,7 +63,7 @@ export class HatchPattern implements Taggable {
     return d;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     if (this.name === SOLID) return;
     mg.add(52, this.angle);
     mg.add(41, this.scale);

@@ -1,6 +1,6 @@
-import { XHandle, XTagsManager } from "../utils";
+import { Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export const DimStyleFlags = {
   None: 0,
@@ -82,14 +82,14 @@ export interface DimStyleOptions {
 export class DimStyleEntry extends Entry {
   options: DimStyleOptions;
 
-  constructor(options: DimStyleOptions, handle: XHandle) {
+  constructor(options: DimStyleOptions, handle: Handle) {
     super("DIMSTYLE", handle);
     this.handleCode = 105;
     options.flags ??= DimStyleFlags.None;
     this.options = options;
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbDimStyleTableRecord");
     mg.add(2, this.options.name);
@@ -162,8 +162,8 @@ export class DimStyleEntry extends Entry {
   }
 }
 
-export class XDimStyle extends XTable {
-  constructor(handle: XHandle) {
+export class DimStyle extends Table {
+  constructor(handle: Handle) {
     super("DIMSTYLE", handle);
   }
 
@@ -171,7 +171,7 @@ export class XDimStyle extends XTable {
     return this.addEntry(new DimStyleEntry(options, this.handle));
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     mg.add(0, "TABLE");
     mg.add(2, this.name);
     mg.add(5, this.handleSeed);

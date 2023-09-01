@@ -1,16 +1,16 @@
-import { XAppDefined, XHandle, XTagsManager } from "../utils";
+import { AppDefined, Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
 
 export abstract class XObject implements Taggable {
   readonly handleSeed: string;
 
-  readonly applications: XAppDefined[];
-  readonly reactors: XAppDefined;
-  readonly xdictionary: XAppDefined;
+  readonly applications: AppDefined[];
+  readonly reactors: AppDefined;
+  readonly xdictionary: AppDefined;
 
   ownerObjectHandle: string;
 
-  constructor(public readonly type: string, handle: XHandle) {
+  constructor(public readonly type: string, handle: Handle) {
     this.handleSeed = handle.next();
     this.ownerObjectHandle = "0";
 
@@ -23,12 +23,12 @@ export abstract class XObject implements Taggable {
     const f = this.applications.find((a) => a.name === name);
     if (f) return f;
 
-    const a = new XAppDefined(name);
+    const a = new AppDefined(name);
     this.applications.push(a);
     return a;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(0, this.type);
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));

@@ -1,7 +1,7 @@
-import { Colors, TextOptions, XWriter, point } from "../src";
+import { Colors, TextOptions, Writer, point } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const paperSpace = writer.document.paperSpace;
 const paperSpace0 = writer.document.blocks.addPaperSpace();
 const paperSpace1 = writer.document.blocks.addPaperSpace();

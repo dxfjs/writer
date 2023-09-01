@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const InvisibleEdge = {
@@ -18,7 +18,7 @@ export interface FaceOptions extends EntityOptions {
   flags?: Union<typeof InvisibleEdge>;
 }
 
-export class XFace extends XEntity {
+export class Face extends Entity {
   first: Point3D;
   second: Point3D;
   third: Point3D;
@@ -29,7 +29,7 @@ export class XFace extends XEntity {
     return "AcDbFace";
   }
 
-  constructor(options: FaceOptions, handle: XHandle) {
+  constructor(options: FaceOptions, handle: Handle) {
     super("3DFACE", handle, options);
     this.first = options.first;
     this.second = options.second;
@@ -39,10 +39,10 @@ export class XFace extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.points([this.first, this.second, this.third, this.fourth]);
+    return BBox.points([this.first, this.second, this.third, this.fourth]);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(this.first);
     mg.point(this.second, 1);
     mg.point(this.third, 2);

@@ -1,17 +1,17 @@
-import { DuplicateRecordFlags, XDictionary } from "./dictionary";
-import { XHandle, XTagsManager } from "../utils";
+import { DuplicateRecordFlags, Dictionary } from "./dictionary";
+import { Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
 import { XObject } from "./object";
 
-export class XObjects implements Taggable {
-  readonly handle: XHandle;
+export class Objects implements Taggable {
+  readonly handle: Handle;
   readonly objects: XObject[];
-  readonly root: XDictionary;
+  readonly root: Dictionary;
 
-  constructor(handle: XHandle) {
+  constructor(handle: Handle) {
     this.handle = handle;
     this.objects = [];
-    this.root = new XDictionary(handle);
+    this.root = new Dictionary(handle);
     this.root.duplicateRecordFlag = DuplicateRecordFlags.KeepExisting;
     this.root.add("ACAD_GROUP", this.addDictionary().handleSeed);
   }
@@ -22,12 +22,12 @@ export class XObjects implements Taggable {
   }
 
   addDictionary() {
-    const d = new XDictionary(this.handle);
+    const d = new Dictionary(this.handle);
     d.ownerObjectHandle = this.root.handleSeed;
     return this.add(d);
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.sectionStart("OBJECTS");
     this.root.tagify(mg);
     this.objects.forEach((o) => o.tagify(mg));

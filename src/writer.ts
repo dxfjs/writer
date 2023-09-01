@@ -1,11 +1,11 @@
 import { Stringifiable } from "./types";
-import { XDocument } from "./document";
+import { Document } from "./document";
 
-export class XWriter implements Stringifiable {
-  readonly document: XDocument;
+export class Writer implements Stringifiable {
+  readonly document: Document;
 
   public constructor() {
-    this.document = new XDocument();
+    this.document = new Document();
   }
 
   stringify(): string {

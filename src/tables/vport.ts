@@ -1,7 +1,7 @@
-import { XHandle, XTagsManager } from "../utils";
+import { Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
 import { Point2D } from "../types";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export interface VPortOptions {
   name: string;
@@ -18,7 +18,7 @@ export class VPortEntry extends Entry {
   center?: Point2D;
   height?: number;
 
-  constructor(options: VPortOptions, handle: XHandle) {
+  constructor(options: VPortOptions, handle: Handle) {
     super("VPORT", handle);
     this.name = options.name;
     this.lowerLeft = options.lowerLeft;
@@ -27,7 +27,7 @@ export class VPortEntry extends Entry {
     this.height = options.height;
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbViewportTableRecord");
     mg.add(2, this.name);
@@ -48,8 +48,8 @@ export class VPortEntry extends Entry {
   }
 }
 
-export class XVPort extends XTable {
-  constructor(handle: XHandle) {
+export class VPort extends Table {
+  constructor(handle: Handle) {
     super("VPORT", handle);
   }
 

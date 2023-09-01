@@ -1,8 +1,8 @@
-import { Entry, XHandle } from "../../src";
+import { Entry, Handle } from "../../src";
 
 class DummyEntry extends Entry {
   constructor() {
-    super("APPID", new XHandle());
+    super("APPID", new Handle());
   }
 }
 

@@ -1,4 +1,4 @@
-import { BoundingBox, XBBox, XTagsManager, onezero, point } from "../../utils";
+import { BoundingBox, BBox, TagsManager, onezero, point } from "../../utils";
 import { Point2D, Taggable } from "../../types";
 
 export interface HatchPolylineVertex extends Point2D {
@@ -24,10 +24,10 @@ export class HatchPolyline implements Taggable {
   }
 
   bbox(): BoundingBox {
-    return XBBox.points(this.vertices.map((v) => point(v.x, v.y)));
+    return BBox.points(this.vertices.map((v) => point(v.x, v.y)));
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(72, onezero(this.hasBulge()));
     mg.add(73, onezero(this.isClosed));
     mg.add(93, this.vertices.length);

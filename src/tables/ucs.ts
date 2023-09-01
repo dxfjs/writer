@@ -1,8 +1,8 @@
-import { XHandle } from "../utils";
-import { XTable } from "./table";
+import { Handle } from "../utils";
+import { Table } from "./table";
 
-export class XUcs extends XTable {
-  constructor(handle: XHandle) {
+export class Ucs extends Table {
+  constructor(handle: Handle) {
     super("UCS", handle);
   }
 }

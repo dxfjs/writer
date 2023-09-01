@@ -1,17 +1,17 @@
 import {
   BlockRecordEntry,
   EntitiesManager,
-  XHandle,
-  XTagsManager,
+  Handle,
+  TagsManager,
   point,
 } from "../../src";
 
 describe("EntitiesManager class", () => {
-  const handle = new XHandle();
+  const handle = new Handle();
   const br = new BlockRecordEntry({ name: "*Model_Space" }, handle);
   it("should create an empty varaible", () => {
     const mg = new EntitiesManager(br, handle);
-    const m = new XTagsManager();
+    const m = new TagsManager();
     mg.tagify(m);
     expect(m.stringify()).toBe("");
   });
@@ -22,7 +22,7 @@ describe("EntitiesManager class", () => {
       start: point(),
       end: point(100, 100),
     });
-    const m = new XTagsManager();
+    const m = new TagsManager();
     mg.tagify(m);
     expect(m.stringify()).toMatchFileSnapshot("__snapshots__line.test.ts.snap");
   });

@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager, extrusion } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager, extrusion } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface LineOptions extends EntityOptions {
@@ -9,7 +9,7 @@ export interface LineOptions extends EntityOptions {
   extrusion?: Point3D;
 }
 
-export class XLine extends XEntity {
+export class Line extends Entity {
   thickness: number;
   end: Point3D;
   endPoint: Point3D;
@@ -19,7 +19,7 @@ export class XLine extends XEntity {
     return "AcDbLine";
   }
 
-  constructor(options: LineOptions, handle: XHandle) {
+  constructor(options: LineOptions, handle: Handle) {
     super("LINE", handle, options);
     this.thickness = options.thickness ?? 0;
     this.end = options.start;
@@ -28,10 +28,10 @@ export class XLine extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.line(this.end, this.endPoint);
+    return BBox.line(this.end, this.endPoint);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(39, this.thickness);
     mg.point(this.end);
     mg.point(this.endPoint, 1);

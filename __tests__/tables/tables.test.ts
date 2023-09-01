@@ -1,20 +1,20 @@
-import { XHandle, XTables, XTagsManager } from "../../src";
+import { Handle, Tables, TagsManager } from "../../src";
 
-describe("XTables class", () => {
+describe("Tables class", () => {
   it("should create a tables section", () => {
-    const tables = new XTables(new XHandle());
+    const tables = new Tables(new Handle());
     tables.addLType({
       name: "DASHDOT",
       descriptive: "__ . ",
       elements: [1, 1, -1, 0, -1],
     });
-    const mg = new XTagsManager();
+    const mg = new TagsManager();
     tables.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();
   });
 
   it("should add paper spaces", () => {
-    const tables = new XTables(new XHandle());
+    const tables = new Tables(new Handle());
     expect(tables.addPaperSpace().name).toBe("*Paper_Space0");
     expect(tables.addPaperSpace().name).toBe("*Paper_Space1");
     expect(tables.addPaperSpace().name).toBe("*Paper_Space2");

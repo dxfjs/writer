@@ -1,11 +1,11 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   openUniformKnots,
 } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const SplineFlags = {
@@ -29,7 +29,7 @@ export interface SplineOptions extends EntityOptions {
   fits?: Point3D[];
 }
 
-export class XSpline extends XEntity {
+export class Spline extends Entity {
   normal?: Point3D;
   flags: Union<typeof SplineFlags>;
   degree: number;
@@ -56,7 +56,7 @@ export class XSpline extends XEntity {
     return this.knots.length;
   }
 
-  constructor(options: SplineOptions, handle: XHandle) {
+  constructor(options: SplineOptions, handle: Handle) {
     super("SPLINE", handle, options);
     this.normal = options.normal;
     this.flags = options.flags ?? SplineFlags.None;
@@ -72,10 +72,10 @@ export class XSpline extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.boxes([XBBox.points(this.controls), XBBox.points(this.fits)]);
+    return BBox.boxes([BBox.points(this.controls), BBox.points(this.fits)]);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(this.normal, 200);
     mg.add(70, this.flags);
     mg.add(71, this.degree);

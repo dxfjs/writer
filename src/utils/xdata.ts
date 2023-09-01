@@ -1,6 +1,6 @@
 import { Point3D, Tag, Taggable } from "../types";
 import { stringChunksSplit, tag } from "./functions";
-import { XTagsManager } from "./tags";
+import { TagsManager } from "./tags";
 
 export class XData implements Taggable {
   readonly tags: Tag[];
@@ -83,7 +83,7 @@ export class XData implements Taggable {
     this.tags.push(tag(1071, long));
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(1001, this.name);
     mg.add(1002, "{");
     this.tags.forEach((t) => mg.add(t.code, t.value));

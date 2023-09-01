@@ -1,12 +1,12 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   extrusion,
   point,
 } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface InsertOptions extends EntityOptions {
@@ -22,7 +22,7 @@ export interface InsertOptions extends EntityOptions {
   extrusion?: Point3D;
 }
 
-export class XInsert extends XEntity {
+export class Insert extends Entity {
   attributesFollowFlag?: number;
   blockName: string;
   insertionPoint: Point3D;
@@ -38,7 +38,7 @@ export class XInsert extends XEntity {
     return "AcDbBlockReference";
   }
 
-  constructor(options: InsertOptions, handle: XHandle) {
+  constructor(options: InsertOptions, handle: Handle) {
     super("INSERT", handle, options);
     this.attributesFollowFlag = options.attributesFollowFlag;
     this.blockName = options.blockName;
@@ -53,10 +53,10 @@ export class XInsert extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.point(this.insertionPoint);
+    return BBox.point(this.insertionPoint);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(66, this.attributesFollowFlag);
     mg.add(2, this.blockName);
     mg.point(this.insertionPoint);

@@ -1,6 +1,6 @@
-import { EntityOptions, XEntity } from "../entity";
+import { EntityOptions, Entity } from "../entity";
 import { Point3D, Union } from "../../types";
-import { XHandle, XTagsManager, extrusion } from "../../utils";
+import { Handle, TagsManager, extrusion } from "../../utils";
 
 export const DimensionType = {
   None: 0,
@@ -47,7 +47,7 @@ export interface DimensionOptions extends EntityOptions {
   dimStyleName?: string;
 }
 
-export class XDimension extends XEntity {
+export class Dimension extends Entity {
   blockName?: string;
   definitionPoint?: Point3D;
   middlePoint?: Point3D;
@@ -66,7 +66,7 @@ export class XDimension extends XEntity {
     return "AcDbDimension";
   }
 
-  constructor(options: DimensionOptions, handle: XHandle) {
+  constructor(options: DimensionOptions, handle: Handle) {
     super("DIMENSION", handle, options);
     this.blockName = options.blockName;
     this.definitionPoint = options.definitionPoint;
@@ -84,7 +84,7 @@ export class XDimension extends XEntity {
     this.dimStyleName = options.dimStyleName;
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(2, this.blockName);
     mg.point(this.definitionPoint);
     mg.point(this.middlePoint, 1);
