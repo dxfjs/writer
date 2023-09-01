@@ -1,7 +1,7 @@
-import { Colors, PolylineFlags, VertexFlags, XWriter } from "../src";
+import { Colors, PolylineFlags, VertexFlags, Writer } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 const cyan = writer.document.tables.addLayer({

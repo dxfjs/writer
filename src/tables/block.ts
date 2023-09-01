@@ -1,6 +1,6 @@
-import { Units, XData, XHandle, XTagsManager } from "../utils";
+import { Units, XData, Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export interface BlockRecordOptions {
   name: string;
@@ -25,7 +25,7 @@ export class BlockRecordEntry extends Entry {
     return this.name.startsWith("*Paper_Space");
   }
 
-  constructor(options: BlockRecordOptions, handle: XHandle) {
+  constructor(options: BlockRecordOptions, handle: Handle) {
     super("BLOCK_RECORD", handle);
     this.name = options.name;
     this.layoutObjectHandle = options.layoutObjectHandle || "0";
@@ -35,7 +35,7 @@ export class BlockRecordEntry extends Entry {
     this.acadXData = new XData("ACAD");
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbBlockTableRecord");
     mg.add(2, this.name);
@@ -48,8 +48,8 @@ export class BlockRecordEntry extends Entry {
   }
 }
 
-export class XBlockRecord extends XTable {
-  constructor(handle: XHandle) {
+export class BlockRecord extends Table {
+  constructor(handle: Handle) {
     super("BLOCK_RECORD", handle);
   }
 

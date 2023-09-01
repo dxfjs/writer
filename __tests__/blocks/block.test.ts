@@ -1,16 +1,16 @@
-import { BlockRecordEntry, XBlock, XHandle, XTagsManager } from "../../src";
+import { BlockRecordEntry, Block, Handle, TagsManager } from "../../src";
 
-describe("XBlock class", () => {
-  const handle = new XHandle();
+describe("Block class", () => {
+  const handle = new Handle();
   const options = { name: "*Model_Space" };
   it("should create an empty block", () => {
-    const block = new XBlock(
+    const block = new Block(
       options,
       handle,
       new BlockRecordEntry(options, handle)
     );
     block.addAppDefined("ACAD_REACTORS");
-    const mg = new XTagsManager();
+    const mg = new TagsManager();
     block.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();
     mg.clear();
@@ -19,7 +19,7 @@ describe("XBlock class", () => {
   });
 
   it("should create defined application", () => {
-    const block = new XBlock(
+    const block = new Block(
       options,
       handle,
       new BlockRecordEntry(options, handle)

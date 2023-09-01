@@ -1,5 +1,5 @@
-import { EntityOptions, XEntity } from "./entity";
-import { XHandle, XTagsManager } from "../utils";
+import { EntityOptions, Entity } from "./entity";
+import { Handle, TagsManager } from "../utils";
 import { Point3D } from "../types";
 
 export const VertexFlags = {
@@ -25,7 +25,7 @@ export interface VertexOptions extends EntityOptions, Partial<Point3D> {
   identifier?: number;
 }
 
-export class XVertex extends XEntity implements Point3D {
+export class Vertex extends Entity implements Point3D {
   z: number;
   x: number;
   y: number;
@@ -43,7 +43,7 @@ export class XVertex extends XEntity implements Point3D {
     return "AcDbVertex";
   }
 
-  constructor(options: VertexOptions, handle: XHandle) {
+  constructor(options: VertexOptions, handle: Handle) {
     super("VERTEX", handle, options);
     this.x = options.x ?? 0;
     this.y = options.y ?? 0;
@@ -67,7 +67,7 @@ export class XVertex extends XEntity implements Point3D {
     } else return "AcDb2dVertex";
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(100, this.vertexSubclassMarker());
     mg.point(this);
     mg.add(40, this.startingWidth);

@@ -1,6 +1,6 @@
-import { Colors, LineTypes, XHandle, XTagsManager } from "../utils";
+import { Colors, LineTypes, Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
-import { XTable } from "./table";
+import { Table } from "./table";
 
 export const LayerFlags = {
   None: 0,
@@ -32,7 +32,7 @@ export class LayerEntry extends Entry {
 
   static readonly layerZeroName = "0";
 
-  constructor(options: LayerOptions, handle: XHandle) {
+  constructor(options: LayerOptions, handle: Handle) {
     super("LAYER", handle);
     this.name = options.name;
     this.flags = options.flags ?? LayerFlags.None;
@@ -41,7 +41,7 @@ export class LayerEntry extends Entry {
     this.plotStyleNameObjectHandle = "0";
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbLayerTableRecord");
     mg.add(2, this.name);
@@ -55,8 +55,8 @@ export class LayerEntry extends Entry {
   }
 }
 
-export class XLayer extends XTable {
-  constructor(handle: XHandle) {
+export class Layer extends Table {
+  constructor(handle: Handle) {
     super("LAYER", handle);
   }
 

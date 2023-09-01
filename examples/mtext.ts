@@ -1,7 +1,7 @@
-import { Colors, XTextBuilder, XWriter, point } from "../src";
+import { Colors, TextBuilder, Writer, point } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 const yellow = writer.document.tables.addLayer({
@@ -9,7 +9,7 @@ const yellow = writer.document.tables.addLayer({
   colorNumber: Colors.Yellow,
 });
 
-const builder = new XTextBuilder();
+const builder = new TextBuilder();
 const p1 = builder.add(
   {
     value: "Hello World!",
@@ -41,7 +41,7 @@ modelSpace.addMText({
   layerName: yellow.name,
 });
 
-const builder2 = new XTextBuilder();
+const builder2 = new TextBuilder();
 
 builder2.add(
   {

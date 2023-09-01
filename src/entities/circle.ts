@@ -1,11 +1,11 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   extrusion,
 } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface CircleOptions extends EntityOptions {
@@ -15,7 +15,7 @@ export interface CircleOptions extends EntityOptions {
   extrusion?: Point3D;
 }
 
-export class XCircle extends XEntity {
+export class Circle extends Entity {
   thickness?: number;
   center: Point3D;
   radius: number;
@@ -25,7 +25,7 @@ export class XCircle extends XEntity {
     return "AcDbCircle";
   }
 
-  constructor(options: CircleOptions, handle: XHandle) {
+  constructor(options: CircleOptions, handle: Handle) {
     super("CIRCLE", handle, options);
     this.thickness = options.thickness;
     this.center = options.center;
@@ -34,10 +34,10 @@ export class XCircle extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.point(this.center);
+    return BBox.point(this.center);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(39, this.thickness);
     mg.point(this.center);
     mg.add(40, this.radius);

@@ -1,4 +1,4 @@
-import { BoundingBox, XBBox, XTagsManager, onezero, point } from "../../utils";
+import { BoundingBox, BBox, TagsManager, onezero, point } from "../../utils";
 import { HatchEdge, HatchEdgeType } from "./edges";
 import { Point2D } from "../../types";
 
@@ -34,10 +34,10 @@ export class HatchEllipse implements HatchEdge {
     const { x, y } = this.endpoint;
     const radius = Math.sqrt(x * x + y * y);
     const c = point(this.center.x, this.center.y);
-    return XBBox.point(c, radius);
+    return BBox.point(c, radius);
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(72, this.type);
     mg.point2d(this.center);
     mg.point2d(this.endpoint, 1);

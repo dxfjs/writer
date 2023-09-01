@@ -1,6 +1,6 @@
 import { Entry, EntryCommonFlags } from "./entry";
-import { XHandle, XTagsManager } from "../utils";
-import { XTable } from "./table";
+import { Handle, TagsManager } from "../utils";
+import { Table } from "./table";
 
 export interface LTypeOptions {
   name: string;
@@ -15,7 +15,7 @@ export class LTypeEntry extends Entry {
   descriptive: string;
   readonly elements: number[];
 
-  constructor(options: LTypeOptions, handle: XHandle) {
+  constructor(options: LTypeOptions, handle: Handle) {
     super("LTYPE", handle);
     this.name = options.name;
     this.flags = options.flags ?? EntryCommonFlags.None;
@@ -27,7 +27,7 @@ export class LTypeEntry extends Entry {
     return this.elements.reduce((prev, curr) => prev + Math.abs(curr), 0);
   }
 
-  override tagify(mg: XTagsManager): void {
+  override tagify(mg: TagsManager): void {
     super.tagify(mg);
     mg.add(100, "AcDbLinetypeTableRecord");
     mg.add(2, this.name);
@@ -43,8 +43,8 @@ export class LTypeEntry extends Entry {
   }
 }
 
-export class XLType extends XTable {
-  constructor(handle: XHandle) {
+export class LType extends Table {
+  constructor(handle: Handle) {
     super("LTYPE", handle);
   }
 

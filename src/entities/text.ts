@@ -1,6 +1,6 @@
-import { EntityOptions, XEntity } from "./entity";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D, Union } from "../types";
-import { XHandle, XTagsManager, extrusion } from "../utils";
+import { Handle, TagsManager, extrusion } from "../utils";
 import { TextGenerationFlags } from "../tables";
 
 export const TextHorizontalJustification = {
@@ -35,7 +35,7 @@ export interface TextOptions extends EntityOptions {
   verticalJustification?: Union<typeof TextVerticalJustification>;
 }
 
-export class XText extends XEntity {
+export class Text extends Entity {
   thickness?: number;
   firstAlignmentPoint: Point3D;
   height: number;
@@ -54,7 +54,7 @@ export class XText extends XEntity {
     return "AcDbText";
   }
 
-  constructor(options: TextOptions, handle: XHandle) {
+  constructor(options: TextOptions, handle: Handle) {
     super("TEXT", handle, options);
     this.thickness = options.thickness;
     this.firstAlignmentPoint = options.firstAlignmentPoint;
@@ -71,7 +71,7 @@ export class XText extends XEntity {
     this.verticalJustification = options.verticalJustification;
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(39, this.thickness);
     mg.point(this.firstAlignmentPoint);
     mg.add(40, this.height);

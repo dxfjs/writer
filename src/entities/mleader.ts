@@ -1,5 +1,5 @@
-import { EntityOptions, XEntity } from "./entity";
-import { XHandle, XTagsManager, onezero, point } from "../utils";
+import { EntityOptions, Entity } from "./entity";
+import { Handle, TagsManager, onezero, point } from "../utils";
 import { Point3D } from "../types";
 
 export interface MLeaderOptions extends EntityOptions {
@@ -20,7 +20,7 @@ export interface MLeaderOptions extends EntityOptions {
   vertices: Point3D[];
 }
 
-export class XMLeader extends XEntity {
+export class MLeader extends Entity {
   contentScale: number;
   basePosition?: Point3D;
   textHeight: number;
@@ -43,7 +43,7 @@ export class XMLeader extends XEntity {
     return "AcDbMLeader";
   }
 
-  constructor(options: MLeaderOptions, handle: XHandle) {
+  constructor(options: MLeaderOptions, handle: Handle) {
     super("MULTILEADER", handle, options);
     this.contentScale = options.contentScale ?? 1;
     this.basePosition = options.basePosition;
@@ -68,7 +68,7 @@ export class XMLeader extends XEntity {
     }
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(300, "CONTEXT_DATA{");
     mg.add(40, this.contentScale);
     mg.point(this.basePosition);

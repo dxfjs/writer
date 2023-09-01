@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager, onezero } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager, onezero } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const PathType = {
@@ -37,7 +37,7 @@ export interface LeaderOptions extends EntityOptions {
   annotationOffset?: Point3D;
 }
 
-export class XLeader extends XEntity {
+export class Leader extends Entity {
   dimStyleName?: string;
   arrowhead?: boolean;
   pathType?: Union<typeof PathType>;
@@ -58,7 +58,7 @@ export class XLeader extends XEntity {
     return "AcDbLeader";
   }
 
-  constructor(options: LeaderOptions, handle: XHandle) {
+  constructor(options: LeaderOptions, handle: Handle) {
     super("LEADER", handle, options);
     this.dimStyleName = options.dimStyleName;
     this.arrowhead = options.arrowhead;
@@ -78,10 +78,10 @@ export class XLeader extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.points(this.vertices);
+    return BBox.points(this.vertices);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(3, this.dimStyleName);
     mg.add(71, onezero(this.arrowhead));
     mg.add(72, this.pathType);

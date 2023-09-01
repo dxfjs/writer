@@ -1,26 +1,26 @@
-import { AppIdEntry, AppIdOptions, XAppId } from "./appid";
-import { BlockRecordEntry, BlockRecordOptions, XBlockRecord } from "./block";
-import { DimStyleEntry, DimStyleOptions, XDimStyle } from "./dimstyle";
-import { LTypeEntry, LTypeOptions, XLType } from "./ltype";
-import { LayerEntry, LayerOptions, XLayer } from "./layer";
-import { StyleEntry, StyleOptions, XStyle } from "./style";
-import { VPortEntry, VPortOptions, XVPort } from "./vport";
-import { XHandle, XTagsManager } from "../utils";
+import { AppIdEntry, AppIdOptions, AppId } from "./appid";
+import { BlockRecordEntry, BlockRecordOptions, BlockRecord } from "./block";
+import { DimStyleEntry, DimStyleOptions, DimStyle } from "./dimstyle";
+import { LTypeEntry, LTypeOptions, LType } from "./ltype";
+import { LayerEntry, LayerOptions, Layer } from "./layer";
+import { StyleEntry, StyleOptions, Style } from "./style";
+import { VPortEntry, VPortOptions, VPort } from "./vport";
+import { Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
-import { XUcs } from "./ucs";
-import { XView } from "./view";
+import { Ucs } from "./ucs";
+import { View } from "./view";
 
-export class XTables implements Taggable {
-  readonly handle: XHandle;
-  readonly appId: XAppId;
-  readonly blockRecord: XBlockRecord;
-  readonly dimStyle: XDimStyle;
-  readonly layer: XLayer;
-  readonly ltype: XLType;
-  readonly style: XStyle;
-  readonly view: XView;
-  readonly ucs: XUcs;
-  readonly vport: XVPort;
+export class Tables implements Taggable {
+  readonly handle: Handle;
+  readonly appId: AppId;
+  readonly blockRecord: BlockRecord;
+  readonly dimStyle: DimStyle;
+  readonly layer: Layer;
+  readonly ltype: LType;
+  readonly style: Style;
+  readonly view: View;
+  readonly ucs: Ucs;
+  readonly vport: VPort;
 
   readonly appIdAcad: AppIdEntry;
   readonly blockRecordModelSpace: BlockRecordEntry;
@@ -33,17 +33,17 @@ export class XTables implements Taggable {
 
   private static paperSpaceSeed = 0;
 
-  constructor(handle: XHandle) {
+  constructor(handle: Handle) {
     this.handle = handle;
-    this.appId = new XAppId(handle);
-    this.blockRecord = new XBlockRecord(handle);
-    this.dimStyle = new XDimStyle(handle);
-    this.layer = new XLayer(handle);
-    this.ltype = new XLType(handle);
-    this.style = new XStyle(handle);
-    this.view = new XView(handle);
-    this.ucs = new XUcs(handle);
-    this.vport = new XVPort(handle);
+    this.appId = new AppId(handle);
+    this.blockRecord = new BlockRecord(handle);
+    this.dimStyle = new DimStyle(handle);
+    this.layer = new Layer(handle);
+    this.ltype = new LType(handle);
+    this.style = new Style(handle);
+    this.view = new View(handle);
+    this.ucs = new Ucs(handle);
+    this.vport = new VPort(handle);
 
     this.appIdAcad = this.addAppId({ name: "ACAD" });
     this.blockRecordModelSpace = this.addBlockRecord({ name: "*Model_Space" });
@@ -71,7 +71,7 @@ export class XTables implements Taggable {
 
   addPaperSpace() {
     return this.addBlockRecord({
-      name: `*Paper_Space${XTables.paperSpaceSeed++}`,
+      name: `*Paper_Space${Tables.paperSpaceSeed++}`,
     });
   }
 
@@ -95,7 +95,7 @@ export class XTables implements Taggable {
     return this.vport.add(options);
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.sectionStart("TABLES");
     this.appId.tagify(mg);
     this.blockRecord.tagify(mg);

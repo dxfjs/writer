@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XEndBlk class > should create an endblk instance 1`] = `
+exports[`EndBlk class > should create an endblk instance 1`] = `
 "0
 ENDBLK
 5

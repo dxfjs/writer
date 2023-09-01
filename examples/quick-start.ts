@@ -1,7 +1,7 @@
-import { Colors, XWriter, point } from "../src";
+import { Colors, Writer, point } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-const writer = new XWriter();
+const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
 const green = writer.document.tables.addLayer({

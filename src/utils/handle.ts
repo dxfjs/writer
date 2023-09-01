@@ -1,4 +1,4 @@
-export class XHandle {
+export class Handle {
   private seed: number;
 
   constructor() {

@@ -1,4 +1,4 @@
-import { BoundingBox, XBBox, XTagsManager, point } from "../../utils";
+import { BoundingBox, BBox, TagsManager, point } from "../../utils";
 import { HatchEdge, HatchEdgeType } from "./edges";
 import { Point2D } from "../../types";
 
@@ -21,10 +21,10 @@ export class HatchLine implements HatchEdge {
   bbox(): BoundingBox {
     const s = point(this.start.x, this.start.y);
     const e = point(this.end.x, this.end.y);
-    return XBBox.points([s, e]);
+    return BBox.points([s, e]);
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(72, this.type);
     mg.point2d(this.start);
     mg.point2d(this.end, 1);

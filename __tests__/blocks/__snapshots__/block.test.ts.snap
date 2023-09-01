@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XBlock class > should create an empty block 1`] = `
+exports[`Block class > should create an empty block 1`] = `
 "0
 BLOCK
 5
@@ -41,7 +41,7 @@ AcDbEntity
 AcDbBlockEnd"
 `;
 
-exports[`XBlock class > should create an empty block 2`] = `
+exports[`Block class > should create an empty block 2`] = `
 "0
 BLOCK
 5

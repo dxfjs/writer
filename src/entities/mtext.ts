@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager, extrusion } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager, extrusion } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D, Union } from "../types";
 
 export const AttachmentPoint = {
@@ -68,7 +68,7 @@ export interface MTextValueOptions {
   underline?: boolean;
 }
 
-export class XMText extends XEntity {
+export class MText extends Entity {
   insertionPoint: Point3D;
   height: number;
   referenceRectangleWidth?: number;
@@ -102,7 +102,7 @@ export class XMText extends XEntity {
     return "AcDbMText";
   }
 
-  constructor(options: MTextOptions, handle: XHandle) {
+  constructor(options: MTextOptions, handle: Handle) {
     super("MTEXT", handle, options);
     this.insertionPoint = options.insertionPoint;
     this.height = options.height;
@@ -146,10 +146,10 @@ export class XMText extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.point(this.insertionPoint);
+    return BBox.point(this.insertionPoint);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(this.insertionPoint);
     mg.add(40, this.height);
     mg.add(41, this.referenceRectangleWidth);

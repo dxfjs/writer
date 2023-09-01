@@ -1,7 +1,7 @@
-import { XHandle } from "../../src";
+import { Handle } from "../../src";
 
-describe("XHandle class", () => {
-  const handle = new XHandle();
+describe("Handle class", () => {
+  const handle = new Handle();
   it("should return the next handle", () => {
     expect(handle.next()).toBe("1");
     expect(handle.next()).toBe("2");
@@ -15,7 +15,7 @@ describe("XHandle class", () => {
   });
 
   it("should return the correct hex value", () => {
-    const handle = new XHandle();
+    const handle = new Handle();
     for (let i = 0; i < 42; i++) handle.next();
     expect(handle.next()).toBe("2B");
     expect(handle.next()).toBe("2C");

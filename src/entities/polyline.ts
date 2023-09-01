@@ -1,15 +1,15 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   extrusion,
   point,
 } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
-import {  VertexOptions, XVertex } from "./vertex";
+import { EntityOptions, Entity } from "./entity";
+import {  VertexOptions, Vertex } from "./vertex";
 import { Point3D } from "../types";
-import { XSeqEnd } from "./seqend";
+import { SeqEnd } from "./seqend";
 
 export const PolylineFlags = {
   None: 0,
@@ -30,21 +30,21 @@ export interface PolylineOptions extends EntityOptions {
   startWidth?: number;
   endWidth?: number;
   extrusion?: Point3D;
-  vertices?: XVertex[];
-  faces?: XVertex[];
+  vertices?: Vertex[];
+  faces?: Vertex[];
 }
 
-export class XPolyline extends XEntity {
+export class Polyline extends Entity {
   elevation?: number;
   thickness?: number;
   flags: number;
   startWidth?: number;
   endWidth?: number;
   extrusion: Point3D;
-  vertices: XVertex[];
-  faces: XVertex[];
+  vertices: Vertex[];
+  faces: Vertex[];
 
-  readonly seqend: XSeqEnd;
+  readonly seqend: SeqEnd;
 
   override get subClassMarker(): string {
     if (this.flags & PolylineFlags.Polyline3D) return "AcDb3dPolyline";
@@ -52,7 +52,7 @@ export class XPolyline extends XEntity {
     else return "AcDb2dPolyline";
   }
 
-  constructor(options: PolylineOptions, handle: XHandle) {
+  constructor(options: PolylineOptions, handle: Handle) {
     super("POLYLINE", handle, options);
     this.elevation = options.elevation;
     this.thickness = options.thickness;
@@ -63,11 +63,11 @@ export class XPolyline extends XEntity {
     this.vertices = options.vertices || [];
     this.faces = options.faces || [];
 
-    this.seqend = new XSeqEnd(handle);
+    this.seqend = new SeqEnd(handle);
   }
 
   add(options: VertexOptions) {
-    const v = new XVertex(options, this.handle);
+    const v = new Vertex(options, this.handle);
     v.ownerBlockRecordObjectHandle = this.ownerBlockRecordObjectHandle;
     v.layerName = this.layerName;
     if (v.faceRecord) this.faces.push(v);
@@ -76,10 +76,10 @@ export class XPolyline extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.points(this.vertices);
+    return BBox.points(this.vertices);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(point(0, 0, this.elevation));
     mg.add(39, this.thickness);
     mg.add(70, this.flags);

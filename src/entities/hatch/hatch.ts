@@ -1,17 +1,17 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   extrusion,
   onezero,
   point,
 } from "../../utils";
-import { EntityOptions, XEntity } from "../entity";
+import { EntityOptions, Entity } from "../entity";
 import { HatchPattern, SOLID } from "./pattern";
 import { HatchGradient } from "./gradient";
 import { Point3D } from "../../types";
-import { XHatchBoundaryPath } from "./boundary";
+import { HatchBoundaryPath } from "./boundary";
 
 export const AssociativityFlag = {
   NonAssociative: 0,
@@ -36,11 +36,11 @@ export interface HatchOptions extends EntityOptions {
   fill: HatchPattern | HatchGradient;
 }
 
-export class XHatch extends XEntity {
+export class Hatch extends Entity {
   elevation: number;
   extrusion: Point3D;
   associativity: number;
-  boundaries: XHatchBoundaryPath[];
+  boundaries: HatchBoundaryPath[];
   style: number;
   patternType: number;
   fill: HatchPattern | HatchGradient;
@@ -58,7 +58,7 @@ export class XHatch extends XEntity {
     return "AcDbHatch";
   }
 
-  constructor(options: HatchOptions, handle: XHandle) {
+  constructor(options: HatchOptions, handle: Handle) {
     super("HATCH", handle, options);
     this.elevation = options.elevation ?? 0;
     this.extrusion = options.extrusion ?? extrusion();
@@ -70,16 +70,16 @@ export class XHatch extends XEntity {
   }
 
   add() {
-    const b = new XHatchBoundaryPath();
+    const b = new HatchBoundaryPath();
     this.boundaries.push(b);
     return b;
   }
 
   override bbox(): BoundingBox {
-    return XBBox.boxes(this.boundaries.map((b) => b.bbox()));
+    return BBox.boxes(this.boundaries.map((b) => b.bbox()));
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.point(point(0, 0, this.elevation));
     mg.point(this.extrusion, 200);
     mg.add(2, this.patternName);

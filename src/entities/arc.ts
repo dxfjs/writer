@@ -1,5 +1,5 @@
-import { BoundingBox, XBBox, XHandle, XTagsManager } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { BoundingBox, BBox, Handle, TagsManager } from "../utils";
+import { EntityOptions, Entity } from "./entity";
 import { Point3D } from "../types";
 
 export interface ArcOptions extends EntityOptions {
@@ -10,7 +10,7 @@ export interface ArcOptions extends EntityOptions {
   endAngle: number;
 }
 
-export class XArc extends XEntity {
+export class Arc extends Entity {
   thickness?: number;
   center: Point3D;
   radius: number;
@@ -21,7 +21,7 @@ export class XArc extends XEntity {
     return "AcDbCircle";
   }
 
-  constructor(options: ArcOptions, handle: XHandle) {
+  constructor(options: ArcOptions, handle: Handle) {
     super("ARC", handle, options);
     this.thickness = options.thickness;
     this.center = options.center;
@@ -31,10 +31,10 @@ export class XArc extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.point(this.center);
+    return BBox.point(this.center);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(39, this.thickness);
     mg.point(this.center);
     mg.add(40, this.radius);

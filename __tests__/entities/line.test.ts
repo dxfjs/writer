@@ -1,15 +1,15 @@
-import { XHandle, XLine, XTagsManager, point } from "../../src";
+import { Handle, Line, TagsManager, point } from "../../src";
 
 describe("XLine class", () => {
   it("should create a line entity", () => {
-    const line = new XLine(
+    const line = new Line(
       {
         start: point(),
         end: point(100, 100),
       },
-      new XHandle()
+      new Handle()
     );
-    const mg = new XTagsManager();
+    const mg = new TagsManager();
     line.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();
   });

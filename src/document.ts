@@ -1,20 +1,20 @@
-import { BlockOptions, XBlocks } from "./blocks";
-import { Units, XBBox, XHandle, XTagsManager, point2d } from "./utils";
+import { BlockOptions, Blocks } from "./blocks";
+import { Units, BBox, Handle, TagsManager, point2d } from "./utils";
 import { Stringifiable } from "./types";
-import { XClasses } from "./classes";
-import { XEntities } from "./entities";
-import { XHeader } from "./header";
-import { XObjects } from "./objects";
-import { XTables } from "./tables";
+import { Classes } from "./classes";
+import { Entities } from "./entities";
+import { Header } from "./header";
+import { Objects } from "./objects";
+import { Tables } from "./tables";
 
-export class XDocument implements Stringifiable {
-  readonly handle: XHandle;
-  readonly header: XHeader;
-  readonly classes: XClasses;
-  readonly blocks: XBlocks;
-  readonly entities: XEntities;
-  readonly tables: XTables;
-  readonly objects: XObjects;
+export class Document implements Stringifiable {
+  readonly handle: Handle;
+  readonly header: Header;
+  readonly classes: Classes;
+  readonly blocks: Blocks;
+  readonly entities: Entities;
+  readonly tables: Tables;
+  readonly objects: Objects;
 
   units: number;
 
@@ -27,13 +27,13 @@ export class XDocument implements Stringifiable {
   }
 
   constructor() {
-    this.handle = new XHandle();
-    this.header = new XHeader(this.handle);
-    this.classes = new XClasses();
-    this.tables = new XTables(this.handle);
-    this.blocks = new XBlocks(this.tables, this.handle);
-    this.entities = new XEntities(this.blocks);
-    this.objects = new XObjects(this.handle);
+    this.handle = new Handle();
+    this.header = new Header(this.handle);
+    this.classes = new Classes();
+    this.tables = new Tables(this.handle);
+    this.blocks = new Blocks(this.tables, this.handle);
+    this.entities = new Entities(this.blocks);
+    this.objects = new Objects(this.handle);
 
     this.units = Units.Unitless;
   }
@@ -56,7 +56,7 @@ export class XDocument implements Stringifiable {
   }
 
   stringify(): string {
-    const mg = new XTagsManager();
+    const mg = new TagsManager();
     this.fitIn();
     this.header.tagify(mg);
     this.classes.tagify(mg);
@@ -70,8 +70,8 @@ export class XDocument implements Stringifiable {
 
   private fitIn() {
     const bbox = this.modelSpace.bbox();
-    const center = XBBox.center(bbox);
-    const height = XBBox.height(bbox);
+    const center = BBox.center(bbox);
+    const height = BBox.height(bbox);
     this.tables.vportActive.lowerLeft = point2d(bbox.minX, bbox.minY);
     this.tables.vportActive.upperRight = point2d(bbox.maxX, bbox.maxY);
     this.tables.vportActive.center = center;

@@ -1,21 +1,21 @@
-import { XAppDefined, XHandle, XTagsManager } from "../utils";
+import { AppDefined, Handle, TagsManager } from "../utils";
 import { Entry } from "./entry";
 import { Taggable } from "../types";
 
-export class XTable implements Taggable {
-  readonly handle: XHandle;
+export class Table implements Taggable {
+  readonly handle: Handle;
   readonly handleSeed: string;
   ownerObjectHandle: string;
   protected entries: Entry[];
 
-  readonly xdictionary: XAppDefined;
+  readonly xdictionary: AppDefined;
 
-  constructor(public readonly name: string, handle: XHandle) {
+  constructor(public readonly name: string, handle: Handle) {
     this.handle = handle;
     this.handleSeed = handle.next();
     this.ownerObjectHandle = "0";
     this.entries = [];
-    this.xdictionary = new XAppDefined("ACAD_XDICTIONARY");
+    this.xdictionary = new AppDefined("ACAD_XDICTIONARY");
   }
 
   addEntry<E extends Entry>(entry: E) {
@@ -24,7 +24,7 @@ export class XTable implements Taggable {
     return entry;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(0, "TABLE");
     mg.add(2, this.name);
     mg.add(5, this.handleSeed);

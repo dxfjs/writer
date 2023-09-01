@@ -1,4 +1,4 @@
-import { BoundingBox, XBBox, XTagsManager } from "../../utils";
+import { BoundingBox, BBox, TagsManager } from "../../utils";
 import { HatchArc, HatchArcOptions } from "./arc";
 import { HatchEllipse, HatchEllipseOptions } from "./ellipse";
 import { HatchLine, HatchLineOptions } from "./line";
@@ -15,7 +15,7 @@ export const BoundaryPathFlag = {
   Outermost: 16,
 } as const;
 
-export class XHatchBoundaryPath implements Taggable {
+export class HatchBoundaryPath implements Taggable {
   flag: number;
   polylines: HatchPolyline[];
   edges: HatchEdges;
@@ -45,12 +45,12 @@ export class XHatchBoundaryPath implements Taggable {
   }
 
   bbox(): BoundingBox {
-    const p = XBBox.boxes(this.polylines.map((p) => p.bbox()));
+    const p = BBox.boxes(this.polylines.map((p) => p.bbox()));
     const e = this.edges.bbox();
-    return XBBox.boxes([p, e]);
+    return BBox.boxes([p, e]);
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(92, this.flag);
     if (this.flag & BoundaryPathFlag.Polyline) {
       this.polylines.forEach((p) => p.tagify(mg));

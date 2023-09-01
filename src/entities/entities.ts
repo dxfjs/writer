@@ -1,9 +1,9 @@
 import { Taggable } from "../types";
-import { XBlocks } from "../blocks";
-import { XTagsManager } from "../utils";
+import { Blocks } from "../blocks";
+import { TagsManager } from "../utils";
 
-export class XEntities implements Taggable {
-  readonly blocks: XBlocks;
+export class Entities implements Taggable {
+  readonly blocks: Blocks;
 
   get modelSpace() {
     return this.blocks.modelSpace;
@@ -13,11 +13,11 @@ export class XEntities implements Taggable {
     return this.blocks.paperSpace;
   }
 
-  constructor(blocks: XBlocks) {
+  constructor(blocks: Blocks) {
     this.blocks = blocks;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.sectionStart("ENTITIES");
     this.paperSpace.entities.forEach((e) => e.tagify(mg));
     this.modelSpace.entities.forEach((e) => e.tagify(mg));

@@ -1,35 +1,35 @@
-import { AlignedDimensionOptions, XAlignedDimension } from "./dimension";
-import { ArcOptions, XArc } from "./arc";
+import { AlignedDimensionOptions, AlignedDimension } from "./dimension";
+import { ArcOptions, Arc } from "./arc";
 import { BlockRecordEntry, LayerEntry } from "../tables";
-import { CircleOptions, XCircle } from "./circle";
-import { EllipseOptions, XEllipse } from "./ellipse";
-import { FaceOptions, XFace } from "./face";
-import { HatchOptions, XHatch } from "./hatch";
-import { InsertOptions, XInsert } from "./insert";
-import { LWPolylineOptions, XLWPolyline } from "./lwpolyline";
-import { LeaderOptions, XLeader } from "./leader";
-import { LineOptions, XLine } from "./line";
-import { MLeaderOptions, XMLeader } from "./mleader";
-import { MTextOptions, XMText } from "./mtext";
-import { PointOptions, XPoint } from "./point";
-import { PolylineOptions, XPolyline } from "./polyline";
-import { RayOptions, XRay } from "./ray";
-import { SplineOptions, XSpline } from "./spline";
-import { TextOptions, XText } from "./text";
-import { XBBox, XHandle, XTagsManager } from "../utils";
+import { CircleOptions, Circle } from "./circle";
+import { EllipseOptions, Ellipse } from "./ellipse";
+import { FaceOptions, Face } from "./face";
+import { HatchOptions, Hatch } from "./hatch";
+import { InsertOptions, Insert } from "./insert";
+import { LWPolylineOptions, LWPolyline } from "./lwpolyline";
+import { LeaderOptions, Leader } from "./leader";
+import { LineOptions, Line } from "./line";
+import { MLeaderOptions, MLeader } from "./mleader";
+import { MTextOptions, MText } from "./mtext";
+import { PointOptions, Point } from "./point";
+import { PolylineOptions, Polyline } from "./polyline";
+import { RayOptions, Ray } from "./ray";
+import { SplineOptions, Spline } from "./spline";
+import { TextOptions, Text } from "./text";
+import { BBox, Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
-import { XEntity } from "./entity";
-import { MeshOptions, XMesh } from "./mesh";
+import { Entity } from "./entity";
+import { MeshOptions, Mesh } from "./mesh";
 
 export class EntitiesManager implements Taggable {
   readonly blockRecord: BlockRecordEntry;
-  readonly handle: XHandle;
+  readonly handle: Handle;
   readonly handleSeed: string;
-  readonly entities: XEntity[];
+  readonly entities: Entity[];
 
   currentLayerName: string;
 
-  constructor(BlockRecordEntry: BlockRecordEntry, handle: XHandle) {
+  constructor(BlockRecordEntry: BlockRecordEntry, handle: Handle) {
     this.blockRecord = BlockRecordEntry;
     this.handle = handle;
     this.handleSeed = handle.next();
@@ -38,10 +38,10 @@ export class EntitiesManager implements Taggable {
   }
 
   bbox() {
-    return XBBox.boxes(this.entities.map((e) => e.bbox()));
+    return BBox.boxes(this.entities.map((e) => e.bbox()));
   }
 
-  add<TEntity extends XEntity>(entity: TEntity) {
+  add<TEntity extends Entity>(entity: TEntity) {
     entity.ownerBlockRecordObjectHandle = this.blockRecord.handleSeed;
     if (entity.layerName == null) entity.layerName = this.currentLayerName;
     if (this.blockRecord.isPaperSpace) entity.inPaperSpace = true;
@@ -50,78 +50,78 @@ export class EntitiesManager implements Taggable {
   }
 
   addArc(options: ArcOptions) {
-    return this.add(new XArc(options, this.handle));
+    return this.add(new Arc(options, this.handle));
   }
 
   addAlignedDimension(options: AlignedDimensionOptions) {
-    return this.add(new XAlignedDimension(options, this.handle));
+    return this.add(new AlignedDimension(options, this.handle));
   }
 
   addCircle(options: CircleOptions) {
-    return this.add(new XCircle(options, this.handle));
+    return this.add(new Circle(options, this.handle));
   }
 
   addEllipse(options: EllipseOptions) {
-    return this.add(new XEllipse(options, this.handle));
+    return this.add(new Ellipse(options, this.handle));
   }
 
   addFace(options: FaceOptions) {
-    return this.add(new XFace(options, this.handle));
+    return this.add(new Face(options, this.handle));
   }
 
   addHatch(options: HatchOptions) {
-    return this.add(new XHatch(options, this.handle));
+    return this.add(new Hatch(options, this.handle));
   }
 
   addInsert(options: InsertOptions) {
-    return this.add(new XInsert(options, this.handle));
+    return this.add(new Insert(options, this.handle));
   }
 
   addLeader(options: LeaderOptions) {
-    return this.add(new XLeader(options, this.handle));
+    return this.add(new Leader(options, this.handle));
   }
 
   addLine(options: LineOptions) {
-    return this.add(new XLine(options, this.handle));
+    return this.add(new Line(options, this.handle));
   }
 
   addLWPolyline(options: LWPolylineOptions) {
-    return this.add(new XLWPolyline(options, this.handle));
+    return this.add(new LWPolyline(options, this.handle));
   }
 
   addMesh(options: MeshOptions) {
-    return this.add(new XMesh(options, this.handle));
+    return this.add(new Mesh(options, this.handle));
   }
 
   addMLeader(options: MLeaderOptions) {
-    return this.add(new XMLeader(options, this.handle));
+    return this.add(new MLeader(options, this.handle));
   }
 
   addMText(options: MTextOptions) {
-    return this.add(new XMText(options, this.handle));
+    return this.add(new MText(options, this.handle));
   }
 
   addPoint(options: PointOptions) {
-    return this.add(new XPoint(options, this.handle));
+    return this.add(new Point(options, this.handle));
   }
 
   addPolyline(options: PolylineOptions) {
-    return this.add(new XPolyline(options, this.handle));
+    return this.add(new Polyline(options, this.handle));
   }
 
   addRay(options: RayOptions) {
-    return this.add(new XRay(options, this.handle));
+    return this.add(new Ray(options, this.handle));
   }
 
   addSpline(options: SplineOptions) {
-    return this.add(new XSpline(options, this.handle));
+    return this.add(new Spline(options, this.handle));
   }
 
   addText(options: TextOptions) {
-    return this.add(new XText(options, this.handle));
+    return this.add(new Text(options, this.handle));
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     this.entities.forEach((e) => e.tagify(mg));
   }
 }

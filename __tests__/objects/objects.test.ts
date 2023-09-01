@@ -1,9 +1,9 @@
-import { XHandle, XObjects, XTagsManager } from "../../src";
+import { Handle, Objects, TagsManager } from "../../src";
 
-describe("XObjects class", () => {
+describe("Objects class", () => {
   it("should create an objects section", () => {
-    const objects = new XObjects(new XHandle());
-    const mg = new XTagsManager();
+    const objects = new Objects(new Handle());
+    const mg = new TagsManager();
     objects.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();
   });

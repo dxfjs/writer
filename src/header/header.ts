@@ -1,12 +1,12 @@
-import { XHandle, XTagsManager } from "../utils";
+import { Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
-import { XVariable } from "./variable";
+import { Variable } from "./variable";
 
-export class XHeader implements Taggable {
-  readonly handle: XHandle;
-  readonly variables: XVariable[];
+export class Header implements Taggable {
+  readonly handle: Handle;
+  readonly variables: Variable[];
 
-  constructor(handle: XHandle) {
+  constructor(handle: Handle) {
     this.handle = handle;
     this.variables = [];
     this.add("$ACADVER").add(1, "AC1021");
@@ -17,7 +17,7 @@ export class XHeader implements Taggable {
     const f = this.variables.find((v) => v.name === name);
     if (f) return f;
 
-    const v = new XVariable(name);
+    const v = new Variable(name);
     this.variables.push(v);
     return v;
   }
@@ -26,7 +26,7 @@ export class XHeader implements Taggable {
     return this.variables.find((v) => v.name === name) != null;
   }
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     this.handseed();
     mg.sectionStart("HEADER");
     this.variables.forEach((v) => v.tagify(mg));

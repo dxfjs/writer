@@ -21,7 +21,7 @@ export function bbox(min?: Point3D, max?: Point3D): BoundingBox {
   };
 }
 
-export class XBBox {
+export class BBox {
   static point(p: Point3D, radius?: number) {
     radius = radius ?? 100;
     return bbox(
@@ -42,7 +42,7 @@ export class XBBox {
   }
 
   static points(points: Point3D[]) {
-    if (points.length === 0) return XBBox.point(point());
+    if (points.length === 0) return BBox.point(point());
     const box = bbox();
     points.forEach((p) => {
       if (box.maxX < p.x) box.maxX = p.x;
@@ -56,13 +56,13 @@ export class XBBox {
   }
 
   static boxes(boxes: BoundingBox[]) {
-    if (boxes.length === 0) return XBBox.point(point());
+    if (boxes.length === 0) return BBox.point(point());
     const points: Point3D[] = [];
     boxes.forEach((box) => {
       points.push(point(box.maxX, box.maxY, box.maxZ));
       points.push(point(box.minX, box.minY, box.minZ));
     });
-    return XBBox.points(points);
+    return BBox.points(points);
   }
 
   static center(box: BoundingBox) {

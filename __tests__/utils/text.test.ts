@@ -1,8 +1,8 @@
-import { Colors, XStyledText, XTextBuilder } from "../../src";
+import { Colors, StyledText, TextBuilder } from "../../src";
 
 describe("XStyledText class", () => {
   it("should create a styled text", () => {
-    const styledText = new XStyledText();
+    const styledText = new StyledText();
     styledText.add({
       value: "Hello World!",
       fontFamily: "Arial",
@@ -20,7 +20,7 @@ describe("XStyledText class", () => {
   });
 
   it("should return an empty string", () => {
-    const styledText = new XStyledText();
+    const styledText = new StyledText();
     styledText.add({
       value: "",
       fontFamily: "Arial",
@@ -36,7 +36,7 @@ describe("XStyledText class", () => {
 
 describe("XTextBuilder class", () => {
   it("should create a text builder", () => {
-    const builder = new XTextBuilder();
+    const builder = new TextBuilder();
     const p1 = builder.add(
       {
         value: "Hello",

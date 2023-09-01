@@ -1,8 +1,8 @@
-import { XEntity } from "./entity";
-import { XHandle } from "../utils";
+import { Entity } from "./entity";
+import { Handle } from "../utils";
 
-export class XSeqEnd extends XEntity {
-  constructor(handle: XHandle) {
+export class SeqEnd extends Entity {
+  constructor(handle: Handle) {
     super("SEQEND", handle);
   }
 }

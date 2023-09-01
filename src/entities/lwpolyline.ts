@@ -1,12 +1,12 @@
 import {
   BoundingBox,
-  XBBox,
-  XHandle,
-  XTagsManager,
+  BBox,
+  Handle,
+  TagsManager,
   extrusion,
   point,
 } from "../utils";
-import { EntityOptions, XEntity } from "./entity";
+import { EntityOptions, Entity } from "./entity";
 import { Point2D, Point3D } from "../types";
 
 export interface LWPolylineVertex extends Point2D {
@@ -30,7 +30,7 @@ export const LWPolylineFlags = {
   Plinegen: 128,
 } as const;
 
-export class XLWPolyline extends XEntity {
+export class LWPolyline extends Entity {
   vertices: LWPolylineVertex[];
   flags: number;
   constantWidth: number;
@@ -42,7 +42,7 @@ export class XLWPolyline extends XEntity {
     return "AcDbPolyline";
   }
 
-  constructor(options: LWPolylineOptions, handle: XHandle) {
+  constructor(options: LWPolylineOptions, handle: Handle) {
     super("LWPOLYLINE", handle, options);
     this.vertices = options.vertices || [];
     this.flags = options.flags ?? LWPolylineFlags.None;
@@ -57,10 +57,10 @@ export class XLWPolyline extends XEntity {
   }
 
   override bbox(): BoundingBox {
-    return XBBox.points(this.vertices.map((v) => point(v.x, v.y)));
+    return BBox.points(this.vertices.map((v) => point(v.x, v.y)));
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     mg.add(90, this.vertices.length);
     mg.add(70, this.flags);
     mg.add(43, this.constantWidth);

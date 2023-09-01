@@ -1,5 +1,6 @@
 import "./hatch";
 import "./leader";
+import "./lwpolyline";
 import "./mleader";
 import "./mesh";
 import "./mtext";

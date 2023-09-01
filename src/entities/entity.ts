@@ -1,10 +1,10 @@
 import {
   BoundingBox,
-  XAppDefined,
-  XBBox,
+  AppDefined,
+  BBox,
   XData,
-  XHandle,
-  XTagsManager,
+  Handle,
+  TagsManager,
   point,
   stringByteSize,
   stringChunksSplit,
@@ -29,8 +29,8 @@ export interface EntityOptions {
   shadowMode?: number;
 }
 
-export abstract class XEntity implements Taggable {
-  readonly handle: XHandle;
+export abstract class Entity implements Taggable {
+  readonly handle: Handle;
   readonly handleSeed: string;
   readonly type: string;
 
@@ -51,10 +51,10 @@ export abstract class XEntity implements Taggable {
   plotStyleObjectHandle?: string;
   shadowMode?: number;
 
-  readonly applications: XAppDefined[];
+  readonly applications: AppDefined[];
 
-  readonly reactors: XAppDefined;
-  readonly xdictionary: XAppDefined;
+  readonly reactors: AppDefined;
+  readonly xdictionary: AppDefined;
 
   readonly xdatas: XData[];
 
@@ -68,7 +68,7 @@ export abstract class XEntity implements Taggable {
 
   constructor(
     type: string,
-    handle: XHandle,
+    handle: Handle,
     options?: EntityOptions
   ) {
     this.handle = handle;
@@ -103,7 +103,7 @@ export abstract class XEntity implements Taggable {
     const f = this.applications.find((a) => a.name === name);
     if (f) return f;
 
-    const a = new XAppDefined(name);
+    const a = new AppDefined(name);
     this.applications.push(a);
     return a;
   }
@@ -118,13 +118,13 @@ export abstract class XEntity implements Taggable {
   }
 
   bbox(): BoundingBox {
-    return XBBox.point(point());
+    return BBox.point(point());
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function , @typescript-eslint/no-unused-vars
-  protected tagifyChild(_mg: XTagsManager): void {}
+  protected tagifyChild(_mg: TagsManager): void {}
 
-  tagify(mg: XTagsManager): void {
+  tagify(mg: TagsManager): void {
     mg.add(0, this.type);
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));

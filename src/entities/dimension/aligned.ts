@@ -1,5 +1,5 @@
-import { DimensionOptions, DimensionType, XDimension } from "./dimension";
-import { XHandle, XTagsManager, angle, point, polar } from "../../utils";
+import { DimensionOptions, DimensionType, Dimension } from "./dimension";
+import { Handle, TagsManager, angle, point, polar } from "../../utils";
 import { Point3D } from "../../types";
 
 export interface AlignedDimensionOptions extends DimensionOptions {
@@ -9,12 +9,12 @@ export interface AlignedDimensionOptions extends DimensionOptions {
   offset?: number;
 }
 
-export class XAlignedDimension extends XDimension {
+export class AlignedDimension extends Dimension {
   insertion?: Point3D;
   start: Point3D;
   end: Point3D;
 
-  constructor(options: AlignedDimensionOptions, handle: XHandle) {
+  constructor(options: AlignedDimensionOptions, handle: Handle) {
     super(options, handle);
     this.dimensionType = DimensionType.Aligned;
     this.insertion = options.insertion;
@@ -23,7 +23,7 @@ export class XAlignedDimension extends XDimension {
     this.offset(options.offset);
   }
 
-  protected override tagifyChild(mg: XTagsManager): void {
+  protected override tagifyChild(mg: TagsManager): void {
     super.tagifyChild(mg);
     mg.add(100, "AcDbAlignedDimension");
     mg.point(this.insertion, 2);

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XBlocks class > should create a blocks section 1`] = `
+exports[`Blocks class > should create a blocks section 1`] = `
 "0
 SECTION
 2

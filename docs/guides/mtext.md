@@ -17,7 +17,7 @@ modelSpace.addMText({
 The `XTextBuilder` provide an esay interface to build `MText content`.
 
 ```ts
-const builder = new XTextBuilder();
+const builder = new TextBuilder();
 const txt = builder.add({
   value: "Hello World!",
   fontFamily: "Arial",
