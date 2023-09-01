@@ -1,4 +1,4 @@
-import { XData, TagsManager, point } from "../../src";
+import { TagsManager, XData, point } from "../../src";
 
 describe("XData class", () => {
   it("should create an empty xdata", () => {

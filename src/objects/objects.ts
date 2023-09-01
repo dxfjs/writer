@@ -1,4 +1,4 @@
-import { DuplicateRecordFlags, Dictionary } from "./dictionary";
+import { Dictionary, DuplicateRecordFlags } from "./dictionary";
 import { Handle, TagsManager } from "../utils";
 import { Taggable } from "../types";
 import { XObject } from "./object";

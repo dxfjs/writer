@@ -1,4 +1,4 @@
-import { EntityOptions, Entity } from "./entity";
+import { Entity, EntityOptions } from "./entity";
 import { Handle, TagsManager } from "../utils";
 import { Point3D } from "../types";
 

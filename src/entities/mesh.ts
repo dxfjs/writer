@@ -1,5 +1,5 @@
-import { BoundingBox, BBox, Handle, TagsManager } from "../utils";
-import { EntityOptions, Entity } from "./entity";
+import { BBox, BoundingBox, Handle, TagsManager } from "../utils";
+import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "../types";
 
 export interface MeshOptions extends EntityOptions {

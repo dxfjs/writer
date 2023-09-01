@@ -1,4 +1,4 @@
-import { DimensionOptions, DimensionType, Dimension } from "./dimension";
+import { Dimension, DimensionOptions, DimensionType } from "./dimension";
 import { Handle, TagsManager, angle, point, polar } from "../../utils";
 import { Point3D } from "../../types";
 

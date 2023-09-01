@@ -1,4 +1,4 @@
-import { BoundingBox, BBox, TagsManager } from "../../utils";
+import { BBox, BoundingBox, TagsManager } from "../../utils";
 import { HatchArc, HatchArcOptions } from "./arc";
 import { HatchEllipse, HatchEllipseOptions } from "./ellipse";
 import { HatchLine, HatchLineOptions } from "./line";

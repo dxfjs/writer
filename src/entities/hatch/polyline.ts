@@ -1,4 +1,4 @@
-import { BoundingBox, BBox, TagsManager, onezero, point } from "../../utils";
+import { BBox, BoundingBox, TagsManager, onezero, point } from "../../utils";
 import { Point2D, Taggable } from "../../types";
 
 export interface HatchPolylineVertex extends Point2D {
