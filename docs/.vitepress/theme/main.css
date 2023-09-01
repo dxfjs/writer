@@ -1,14 +1,3 @@
-:root {
-	--vp-c-green: #4caf50;
-	--vp-c-green-light: #66bb6a;
-	--vp-c-green-lighter: #81c784;
-	--vp-c-green-dark: #388e3c;
-	--vp-c-green-darker: #2e7d32;
-
-	--vp-home-hero-name-color: transparent;
-	--vp-home-hero-name-background: #4caf50;
-}
-
 iframe {
 	border-radius: 8px;
 }
