@@ -1,3 +1,4 @@
+import "./dimension";
 import "./hatch";
 import "./leader";
 import "./lwpolyline";

@@ -15,7 +15,7 @@ export const DimensionType = {
   UserDefined: 128,
 } as const;
 
-export const DimAttachmentPoint = {
+export const DimAttachment = {
   TopLeft: 1,
   TopCenter: 2,
   TopRight: 3,
@@ -34,9 +34,9 @@ export const DimTextLineSpacingStyle = {
 
 export interface DimensionOptions extends EntityOptions {
   blockName?: string;
-  definitionPoint?: Point3D;
-  middlePoint?: Point3D;
-  attachmentPoint?: Union<typeof DimAttachmentPoint>;
+  definition?: Point3D;
+  middle?: Point3D;
+  attachment?: Union<typeof DimAttachment>;
   textLineSpacingStyle?: Union<typeof DimTextLineSpacingStyle>;
   textLineSpacingFactor?: number;
   measurement?: number;
@@ -49,10 +49,10 @@ export interface DimensionOptions extends EntityOptions {
 
 export class Dimension extends Entity {
   blockName?: string;
-  definitionPoint?: Point3D;
-  middlePoint?: Point3D;
+  definition?: Point3D;
+  middle?: Point3D;
   dimensionType: Union<typeof DimensionType>;
-  attachmentPoint: Union<typeof DimAttachmentPoint>;
+  attachment: Union<typeof DimAttachment>;
   textLineSpacingStyle?: Union<typeof DimTextLineSpacingStyle>;
   textLineSpacingFactor?: number;
   measurement?: number;
@@ -69,11 +69,10 @@ export class Dimension extends Entity {
   constructor(options: DimensionOptions, handle: Handle) {
     super("DIMENSION", handle, options);
     this.blockName = options.blockName;
-    this.definitionPoint = options.definitionPoint;
-    this.middlePoint = options.middlePoint;
+    this.definition = options.definition;
+    this.middle = options.middle;
     this.dimensionType = DimensionType.None;
-    this.attachmentPoint =
-      options.attachmentPoint ?? DimAttachmentPoint.MiddleCenter;
+    this.attachment = options.attachment ?? DimAttachment.MiddleCenter;
     this.textLineSpacingStyle = options.textLineSpacingStyle;
     this.textLineSpacingFactor = options.textLineSpacingFactor;
     this.measurement = options.measurement;
@@ -86,10 +85,10 @@ export class Dimension extends Entity {
 
   protected override tagifyChild(mg: TagsManager): void {
     mg.add(2, this.blockName);
-    mg.point(this.definitionPoint);
-    mg.point(this.middlePoint, 1);
+    mg.point(this.definition);
+    mg.point(this.middle, 1);
     mg.add(70, this.dimensionType);
-    mg.add(71, this.attachmentPoint);
+    mg.add(71, this.attachment);
     mg.add(72, this.textLineSpacingStyle);
     mg.add(41, this.textLineSpacingFactor);
     mg.add(42, this.measurement);

@@ -33,10 +33,8 @@ export class AlignedDimension extends Dimension {
 
   private offset(v?: number) {
     if (v == null) return;
-    const middle = point(
-      (this.start.x + this.end.x) / 2,
-      (this.start.y + this.end.y) / 2
-    );
-    this.definitionPoint = polar(middle, angle(this.start, this.end) + 90, v);
+    const { start, end } = this;
+    const middle = point((start.x + end.x) / 2, (start.y + end.y) / 2);
+    this.definition = polar(middle, angle(this.start, this.end) - 90, v);
   }
 }

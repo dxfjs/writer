@@ -16,7 +16,7 @@ describe("XWriter class", () => {
       start: point(),
       end: point(100, 100),
     });
-    w.document.modelSpace.addAlignedDimension({
+    w.document.modelSpace.addAlignedDim({
       start: point(),
       end: point(100, 100),
       offset: 10,
@@ -48,7 +48,7 @@ describe("XWriter class", () => {
       vertices: [point(0, -20), point(20), point(0, 20), point(-20)],
       flags: LWPolylineFlags.Closed,
     });
-    tarik.addAlignedDimension({
+    tarik.addAlignedDim({
       start: point(-20),
       end: point(20),
       dimStyleName: w.document.tables.dimStyleStandard.options.name,

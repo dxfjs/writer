@@ -32,15 +32,15 @@ export interface EntityOptions {
 export abstract class Entity implements Taggable {
   readonly handle: Handle;
   readonly handleSeed: string;
-  readonly type: string;
+  protected _type: string;
 
   ownerBlockRecordObjectHandle: string;
   inPaperSpace: boolean;
   layoutTabName?: string;
   layerName: string;
-  lineTypeName: string;
-  materialObjectHandle: string;
-  colorNumber: number;
+  lineTypeName?: string;
+  materialObjectHandle?: string;
+  colorNumber?: number;
   lineWeight: number;
   lineTypeScale?: number;
   visible: boolean;
@@ -66,22 +66,22 @@ export abstract class Entity implements Taggable {
     return undefined;
   }
 
-  constructor(
-    type: string,
-    handle: Handle,
-    options?: EntityOptions
-  ) {
+  get type() {
+    return this._type;
+  }
+
+  constructor(type: string, handle: Handle, options?: EntityOptions) {
     this.handle = handle;
     this.handleSeed = handle.next();
-    this.type = type;
+    this._type = type;
 
     this.ownerBlockRecordObjectHandle = "0";
     this.inPaperSpace = options?.inPaperSpace || false;
     this.layoutTabName = options?.layoutTabName;
-    this.layerName = options?.layerName || "ByLayer";
-    this.lineTypeName = options?.lineTypeName || "ByLayer";
-    this.materialObjectHandle = options?.materialObjectHandle || "ByLayer";
-    this.colorNumber = options?.colorNumber ?? 256;
+    this.layerName = options?.layerName || "0";
+    this.lineTypeName = options?.lineTypeName;
+    this.materialObjectHandle = options?.materialObjectHandle;
+    this.colorNumber = options?.colorNumber;
     this.lineWeight = options?.lineWeight ?? -3;
     this.lineTypeScale = options?.lineTypeScale;
     this.visible = options?.visible || true;
@@ -125,7 +125,7 @@ export abstract class Entity implements Taggable {
   protected tagifyChild(_mg: TagsManager): void {}
 
   tagify(mg: TagsManager): void {
-    mg.add(0, this.type);
+    mg.add(0, this._type);
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));
     mg.add(330, this.ownerBlockRecordObjectHandle);
