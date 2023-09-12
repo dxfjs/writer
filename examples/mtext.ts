@@ -62,6 +62,4 @@ builder2.add(
   }
 );
 
-console.log(builder2.value);
-
 save(writer.stringify(), fileURLToPath(import.meta.url));

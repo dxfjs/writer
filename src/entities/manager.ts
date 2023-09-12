@@ -1,4 +1,17 @@
-import { AlignedDimension, AlignedDimensionOptions } from "./dimension";
+import {
+  AlignedDimension,
+  AlignedDimensionOptions,
+  AngularLineDimensionOptions,
+  AngularLinesDimension,
+  AngularPointsDimension,
+  AngularPointsDimensionOptions,
+  DiameterDimension,
+  DiameterDimensionOptions,
+  LinearDimension,
+  LinearDimensionOptions,
+  RadialDimension,
+  RadialDimensionOptions,
+} from "./dimension";
 import { Arc, ArcOptions } from "./arc";
 import { BBox, Handle, TagsManager } from "../utils";
 import { BlockRecordEntry, LayerEntry } from "../tables";
@@ -53,12 +66,24 @@ export class EntitiesManager implements Taggable {
     return this.add(new Arc(options, this.handle));
   }
 
-  addAlignedDimension(options: AlignedDimensionOptions) {
+  addAlignedDim(options: AlignedDimensionOptions) {
     return this.add(new AlignedDimension(options, this.handle));
+  }
+
+  addAngularLinesDim(options: AngularLineDimensionOptions) {
+    return this.add(new AngularLinesDimension(options, this.handle));
+  }
+
+  addAngularPointsDim(options: AngularPointsDimensionOptions) {
+    return this.add(new AngularPointsDimension(options, this.handle));
   }
 
   addCircle(options: CircleOptions) {
     return this.add(new Circle(options, this.handle));
+  }
+
+  addDiameterDim(options: DiameterDimensionOptions) {
+    return this.add(new DiameterDimension(options, this.handle));
   }
 
   addEllipse(options: EllipseOptions) {
@@ -85,6 +110,10 @@ export class EntitiesManager implements Taggable {
     return this.add(new Line(options, this.handle));
   }
 
+  addLinearDim(options: LinearDimensionOptions) {
+    return this.add(new LinearDimension(options, this.handle));
+  }
+
   addLWPolyline(options: LWPolylineOptions) {
     return this.add(new LWPolyline(options, this.handle));
   }
@@ -107,6 +136,10 @@ export class EntitiesManager implements Taggable {
 
   addPolyline(options: PolylineOptions) {
     return this.add(new Polyline(options, this.handle));
+  }
+
+  addRadialDim(options: RadialDimensionOptions) {
+    return this.add(new RadialDimension(options, this.handle));
   }
 
   addRay(options: RayOptions) {
