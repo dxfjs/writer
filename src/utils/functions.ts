@@ -1,18 +1,13 @@
 import { Point2D, Point3D, Tag } from "../types";
 
 export function point(x?: number, y?: number, z?: number): Point3D {
-  return {
-    x: x ?? 0,
-    y: y ?? 0,
-    z: z ?? 0,
-  };
+  (x ??= 0), (y ??= 0), (z ??= 0);
+  return { x, y, z };
 }
 
 export function point2d(x?: number, y?: number): Point2D {
-  return {
-    x: x ?? 0,
-    y: y ?? 0,
-  };
+  (x ??= 0), (y ??= 0);
+  return { x, y };
 }
 
 export function tag(code: number, value: string | number): Tag {
@@ -75,11 +70,10 @@ export function angle(start: Point2D, end: Point2D) {
   return deg(dir);
 }
 
-export function polar(origin: Point2D, angle: number, distance: number) {
-  return point(
-    origin.x + distance * Math.cos(rad(angle)),
-    origin.y + distance * Math.sin(rad(angle))
-  );
+export function polar({ x, y }: Point2D, angle: number, distance: number) {
+  angle = rad(angle);
+  const { cos, sin } = Math;
+  return point(x + distance * cos(angle), y + distance * sin(angle));
 }
 
 export function onezero(value?: boolean) {
