@@ -43,19 +43,19 @@ modelSpace.addAngularPointsDim({
   center: point(100),
   first: point(100, 100),
   second: point(200),
-  middle: point(134.9199, 93.7049)
+  middle: point(134.9199, 93.7049),
 });
 
 modelSpace.addRadialDim({
   first: point(170.7107, 70.7107),
   leaderLength: 10,
-  definition: point(100, 0)
+  definition: point(100, 0),
 });
 
 modelSpace.addDiameterDim({
   first: point(200, 0),
   leaderLength: 10,
-  definition: point()
+  definition: point(),
 });
 
 save(writer.stringify(), fileURLToPath(import.meta.url));
