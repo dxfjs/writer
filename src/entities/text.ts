@@ -1,7 +1,7 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager, extrusion } from "../utils";
-import { Point3D, Union } from "../types";
-import { TextGenerationFlags } from "../tables";
+import { Handle, TagsManager, extrusion } from "@/utils";
+import { Point3D, Union } from "@/types";
+import { TextGenerationFlags } from "@/tables";
 
 export const TextHorizontalJustification = {
   Left: 0,

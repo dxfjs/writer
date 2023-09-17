@@ -1,5 +1,5 @@
 import { Entry, EntryCommonFlags } from "./entry";
-import { Handle, TagsManager } from "../utils";
+import { Handle, TagsManager } from "@/utils";
 import { Table } from "./table";
 
 export interface LTypeOptions {

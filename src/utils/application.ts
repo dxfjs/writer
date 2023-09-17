@@ -1,4 +1,4 @@
-import { Tag, Taggable } from "../types";
+import { Tag, Taggable } from "@/types";
 import { TagsManager } from "./tags";
 
 export class AppDefined implements Taggable {

@@ -1,5 +1,5 @@
-import { Taggable } from "../types";
-import { TagsManager } from "../utils";
+import { Taggable } from "@/types";
+import { TagsManager } from "@/utils";
 
 export class Classes implements Taggable {
   tagify(mg: TagsManager): void {

@@ -1,6 +1,6 @@
-import { AppDefined, Handle, TagsManager } from "../utils";
+import { AppDefined, Handle, TagsManager } from "@/utils";
 import { Entry } from "./entry";
-import { Taggable } from "../types";
+import { Taggable } from "@/types";
 
 export class Table implements Taggable {
   readonly handle: Handle;

@@ -5,10 +5,10 @@ import {
   TagsManager,
   extrusion,
   point,
-} from "../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import {  Vertex, VertexOptions } from "./vertex";
-import { Point3D } from "../types";
+import { Point3D } from "@/types";
 import { SeqEnd } from "./seqend";
 
 export const PolylineFlags = {
@@ -56,7 +56,7 @@ export class Polyline extends Entity {
     super("POLYLINE", handle, options);
     this.elevation = options.elevation;
     this.thickness = options.thickness;
-    this.flags = options.flags || PolylineFlags.Polyline3D;
+    this.flags = options.flags || PolylineFlags.None;
     this.startWidth = options.startWidth;
     this.endWidth = options.endWidth;
     this.extrusion = options.extrusion || extrusion();

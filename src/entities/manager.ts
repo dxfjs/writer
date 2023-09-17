@@ -13,8 +13,8 @@ import {
   RadialDimensionOptions,
 } from "./dimension";
 import { Arc, ArcOptions } from "./arc";
-import { BBox, Handle, TagsManager } from "../utils";
-import { BlockRecordEntry, LayerEntry } from "../tables";
+import { BBox, Handle, TagsManager } from "@/utils";
+import { BlockRecordEntry, LayerEntry } from "@/tables";
 import { Circle, CircleOptions } from "./circle";
 import { Ellipse, EllipseOptions } from "./ellipse";
 import { Face, FaceOptions } from "./face";
@@ -32,7 +32,7 @@ import { Ray, RayOptions } from "./ray";
 import { Spline, SplineOptions } from "./spline";
 import { Text, TextOptions } from "./text";
 import { Entity } from "./entity";
-import { Taggable } from "../types";
+import { Taggable } from "@/types";
 
 export class EntitiesManager implements Taggable {
   readonly blockRecord: BlockRecordEntry;

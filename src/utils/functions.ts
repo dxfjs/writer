@@ -1,4 +1,4 @@
-import { Point2D, Point3D, Tag } from "../types";
+import { Point2D, Point3D, Tag } from "@/types";
 
 export function point(x?: number, y?: number, z?: number): Point3D {
   (x ??= 0), (y ??= 0), (z ??= 0);

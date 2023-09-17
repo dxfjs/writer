@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "../entity";
-import { Handle, TagsManager, extrusion } from "../../utils";
-import { Point3D, Union } from "../../types";
+import { Handle, TagsManager, extrusion } from "@/utils";
+import { Point3D, Union } from "@/types";
 
 export const DimensionType = {
   None: 0,

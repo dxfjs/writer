@@ -1,5 +1,5 @@
-import { Tag, Taggable } from "../types";
-import { TagsManager } from "../utils";
+import { Tag, Taggable } from "@/types";
+import { TagsManager } from "@/utils";
 
 export class Variable implements Taggable {
   readonly tags: Tag[];

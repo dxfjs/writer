@@ -6,6 +6,6 @@ import "./mleader";
 import "./mesh";
 import "./mtext";
 import "./paper-space";
-import "./polyface";
+import "./polyline";
 import "./quick-start";
 import "./text";

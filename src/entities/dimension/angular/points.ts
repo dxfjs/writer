@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "../dimension";
-import { Handle, TagsManager } from "../../../utils";
-import { Point3D } from "../../../types";
+import { Handle, TagsManager } from "@/utils";
+import { Point3D } from "@/types";
 
 export interface AngularPointsDimensionOptions extends DimensionOptions {
   center: Point3D;

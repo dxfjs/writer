@@ -1,5 +1,5 @@
-import { TagsManager, rad } from "../../utils";
-import { Taggable } from "../../types";
+import { TagsManager, rad } from "@/utils";
+import { Taggable } from "@/types";
 
 export const HatchGradientType = {
   Linear: "LINEAR",

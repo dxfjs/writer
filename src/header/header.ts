@@ -1,5 +1,5 @@
-import { Handle, TagsManager } from "../utils";
-import { Taggable } from "../types";
+import { Handle, TagsManager } from "@/utils";
+import { Taggable } from "@/types";
 import { Variable } from "./variable";
 
 export class Header implements Taggable {

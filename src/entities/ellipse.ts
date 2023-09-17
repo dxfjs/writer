@@ -1,6 +1,6 @@
-import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "../utils";
+import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D } from "../types";
+import { Point3D } from "@/types";
 
 export interface EllipseOptions extends EntityOptions {
   center: Point3D;

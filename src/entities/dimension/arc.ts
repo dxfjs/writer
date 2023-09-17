@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions } from "./dimension";
-import { Handle, TagsManager } from "../../utils";
-import { Point3D } from "../../types.ts";
+import { Handle, TagsManager } from "@/utils";
+import { Point3D } from "@/types.ts";
 
 export interface ArcDimensionOptions extends DimensionOptions {
   center: Point3D;

@@ -1,6 +1,6 @@
-import { BBox, BoundingBox, TagsManager, point } from "../../utils";
+import { BBox, BoundingBox, TagsManager, point } from "@/utils";
 import { HatchEdge, HatchEdgeType } from "./edges";
-import { Point2D } from "../../types";
+import { Point2D } from "@/types";
 
 export interface HatchLineOptions {
   start: Point2D;

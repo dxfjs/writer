@@ -4,9 +4,9 @@ import {
   Handle,
   TagsManager,
   extrusion,
-} from "../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D } from "../types";
+import { Point3D } from "@/types";
 
 export interface CircleOptions extends EntityOptions {
   thickness?: number;

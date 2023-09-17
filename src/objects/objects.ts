@@ -1,6 +1,6 @@
 import { Dictionary, DuplicateRecordFlags } from "./dictionary";
-import { Handle, TagsManager } from "../utils";
-import { Taggable } from "../types";
+import { Handle, TagsManager } from "@/utils";
+import { Taggable } from "@/types";
 import { XObject } from "./object";
 
 export class Objects implements Taggable {

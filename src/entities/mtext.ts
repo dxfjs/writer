@@ -1,6 +1,6 @@
-import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "../utils";
+import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D, Union } from "../types";
+import { Point3D, Union } from "@/types";
 
 export const AttachmentPoint = {
   TopLeft: 1,

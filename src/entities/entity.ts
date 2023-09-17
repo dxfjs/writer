@@ -8,8 +8,8 @@ import {
   point,
   stringByteSize,
   stringChunksSplit,
-} from "../utils";
-import { Taggable } from "../types";
+} from "@/utils";
+import { Taggable } from "@/types";
 
 export interface EntityOptions {
   inPaperSpace?: boolean;
@@ -125,7 +125,7 @@ export abstract class Entity implements Taggable {
   protected tagifyChild(_mg: TagsManager): void {}
 
   tagify(mg: TagsManager): void {
-    mg.add(0, this._type);
+    mg.add(0, this.type);
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));
     mg.add(330, this.ownerBlockRecordObjectHandle);

@@ -6,12 +6,12 @@ import {
   extrusion,
   onezero,
   point,
-} from "../../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "../entity";
 import { HatchPattern, SOLID } from "./pattern";
 import { HatchBoundaryPath } from "./boundary";
 import { HatchGradient } from "./gradient";
-import { Point3D } from "../../types";
+import { Point3D } from "@/types";
 
 export const AssociativityFlag = {
   NonAssociative: 0,

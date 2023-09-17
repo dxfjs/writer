@@ -1,6 +1,6 @@
-import { Blocks } from "../blocks";
-import { Taggable } from "../types";
-import { TagsManager } from "../utils";
+import { Blocks } from "@/blocks";
+import { Taggable } from "@/types";
+import { TagsManager } from "@/utils";
 
 export class Entities implements Taggable {
   readonly blocks: Blocks;

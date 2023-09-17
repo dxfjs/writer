@@ -1,4 +1,4 @@
-import { Colors, Handle, LineTypes, TagsManager } from "../utils";
+import { Colors, Handle, LineTypes, TagsManager } from "@/utils";
 import { Entry } from "./entry";
 import { Table } from "./table";
 
