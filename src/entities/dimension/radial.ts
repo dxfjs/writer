@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "./dimension";
-import { Handle, TagsManager } from "../../utils";
-import { Point3D } from "../../types.ts";
+import { Handle, TagsManager } from "@/utils";
+import { Point3D } from "@/types.ts";
 
 export interface RadialDimensionOptions extends DimensionOptions {
   first: Point3D;

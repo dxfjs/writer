@@ -1,10 +1,10 @@
-import { BBox, BoundingBox, TagsManager } from "../../utils";
+import { BBox, BoundingBox, TagsManager } from "@/utils";
 import { HatchArc, HatchArcOptions } from "./arc";
 import { HatchEllipse, HatchEllipseOptions } from "./ellipse";
 import { HatchLine, HatchLineOptions } from "./line";
 import { HatchEdges } from "./edges";
 import { HatchPolyline } from "./polyline";
-import { Taggable } from "../../types";
+import { Taggable } from "@/types";
 
 export const BoundaryPathFlag = {
   Default: 0,

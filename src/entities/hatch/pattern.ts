@@ -1,5 +1,5 @@
-import { Point2D, Taggable } from "../../types";
-import { TagsManager, onezero } from "../../utils";
+import { Point2D, Taggable } from "@/types";
+import { TagsManager, onezero } from "@/utils";
 
 export const SOLID = "SOLID";
 

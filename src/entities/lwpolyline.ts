@@ -5,9 +5,9 @@ import {
   TagsManager,
   extrusion,
   point,
-} from "../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point2D, Point3D } from "../types";
+import { Point2D, Point3D } from "@/types";
 
 export interface LWPolylineVertex extends Point2D {
   startingWidth?: number;

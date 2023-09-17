@@ -5,9 +5,9 @@ import {
   TagsManager,
   extrusion,
   point,
-} from "../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D } from "../types";
+import { Point3D } from "@/types";
 
 export interface PointOptions extends EntityOptions, Partial<Point3D> {
   thickness?: number;

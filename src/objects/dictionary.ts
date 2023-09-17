@@ -1,4 +1,4 @@
-import { Handle, TagsManager } from "../utils";
+import { Handle, TagsManager } from "@/utils";
 import { XObject } from "./object";
 
 export const DuplicateRecordFlags = {

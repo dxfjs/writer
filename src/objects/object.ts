@@ -1,5 +1,5 @@
-import { AppDefined, Handle, TagsManager } from "../utils";
-import { Taggable } from "../types";
+import { AppDefined, Handle, TagsManager } from "@/utils";
+import { Taggable } from "@/types";
 
 export abstract class XObject implements Taggable {
   readonly handleSeed: string;

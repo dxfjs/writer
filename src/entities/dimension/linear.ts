@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions } from "./dimension";
-import { Handle, TagsManager, polar } from "../../utils";
-import { Point3D } from "../../types";
+import { Handle, TagsManager, polar } from "@/utils";
+import { Point3D } from "@/types";
 
 export interface LinearDimensionOptions extends DimensionOptions {
   start: Point3D;

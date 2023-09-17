@@ -4,9 +4,9 @@ import {
   Handle,
   TagsManager,
   openUniformKnots,
-} from "../utils";
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D, Union } from "../types";
+import { Point3D, Union } from "@/types";
 
 export const SplineFlags = {
   None: 0,

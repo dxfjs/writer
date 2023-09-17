@@ -1,4 +1,4 @@
-import { Point3D, Tag, Taggable } from "../types";
+import { Point3D, Tag, Taggable } from "@/types";
 import { stringChunksSplit, tag } from "./functions";
 import { TagsManager } from "./tags";
 

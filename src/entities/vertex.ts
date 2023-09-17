@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager } from "../utils";
-import { Point3D } from "../types";
+import { Handle, TagsManager } from "@/utils";
+import { Point3D } from "@/types";
 
 export const VertexFlags = {
   None: 0,

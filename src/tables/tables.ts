@@ -1,12 +1,12 @@
 import { AppId, AppIdEntry, AppIdOptions } from "./appid";
 import { BlockRecord, BlockRecordEntry, BlockRecordOptions } from "./block";
 import { DimStyle, DimStyleEntry, DimStyleOptions } from "./dimstyle";
-import { Handle, TagsManager } from "../utils";
+import { Handle, TagsManager } from "@/utils";
 import { LType, LTypeEntry, LTypeOptions } from "./ltype";
 import { Layer, LayerEntry, LayerOptions } from "./layer";
 import { Style, StyleEntry, StyleOptions } from "./style";
 import { VPort, VPortEntry, VPortOptions } from "./vport";
-import { Taggable } from "../types";
+import { Taggable } from "@/types";
 import { Ucs } from "./ucs";
 import { View } from "./view";
 

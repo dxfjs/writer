@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager, onezero, point } from "../utils";
-import { Point3D } from "../types";
+import { Handle, TagsManager, onezero, point } from "@/utils";
+import { Point3D } from "@/types";
 
 export interface MLeaderOptions extends EntityOptions {
   contentScale?: number;

@@ -1,6 +1,6 @@
-import { BBox, BoundingBox, Handle, TagsManager } from "../utils";
+import { BBox, BoundingBox, Handle, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import { Point3D } from "../types";
+import { Point3D } from "@/types";
 
 export interface RayOptions extends EntityOptions {
   start: Point3D;

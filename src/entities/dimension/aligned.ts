@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "./dimension";
-import { Handle, TagsManager, angle, point, polar } from "../../utils";
-import { Point3D } from "../../types";
+import { Handle, TagsManager, angle, point, polar } from "@/utils";
+import { Point3D } from "@/types";
 
 export interface AlignedDimensionOptions extends DimensionOptions {
   insertion?: Point3D;

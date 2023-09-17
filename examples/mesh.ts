@@ -31,6 +31,9 @@ const faces = [
   [0, 3, 7, 4],
 ];
 
-modelSpace.addMesh({ vertices, faces, size: 4 });
+const mesh = modelSpace.addMesh({});
+mesh.vertices = vertices;
+mesh.faces = faces;
+mesh.size = 3;
 
 save(writer.stringify(), fileURLToPath(import.meta.url));
