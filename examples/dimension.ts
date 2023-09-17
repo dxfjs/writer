@@ -1,10 +1,6 @@
 import { Colors, Writer, dline, point } from "../src";
 import { fileURLToPath, save } from "./utils";
 
-import { angleBetween } from "../lib/helpers";
-
-angleBetween(10, 0, 90);
-
 const writer = new Writer();
 const modelSpace = writer.document.modelSpace;
 
