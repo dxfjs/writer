@@ -9,7 +9,7 @@ hero:
   text: A DXF writer written in TypeScript.
   image:
     src: /logo.svg
-    alt: "dxfjs"
+    alt: "@tarikjabiri/dxf"
   actions:
     - theme: brand
       text: Get Started

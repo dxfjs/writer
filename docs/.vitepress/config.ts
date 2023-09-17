@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 import { version } from "../../package.json";
 
 export default defineConfig({
-  title: "dxfjs",
+  title: "@tarikjabiri/dxf",
   description: "A JavaScript dxf generator written in TypeScript.",
   lastUpdated: true,
   head: [
@@ -75,7 +75,10 @@ function sidebar() {
     {
       text: "Guides",
       collapsed: false,
-      items: [{ text: "MText", link: "/guides/mtext" }],
+      items: [
+        { text: "Lineweights", link: "/guides/lineweights" },
+        { text: "MText", link: "/guides/mtext" },
+      ],
     },
   ];
 }
