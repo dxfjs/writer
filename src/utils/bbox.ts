@@ -11,13 +11,15 @@ export interface BoundingBox {
 }
 
 export function bbox(min?: Point3D, max?: Point3D): BoundingBox {
+  min ||= point();
+  max ||= point(100, 100, 100);
   return {
-    maxX: max?.x ?? -Infinity,
-    maxY: max?.y ?? -Infinity,
-    maxZ: max?.z ?? -Infinity,
-    minX: min?.x ?? Infinity,
-    minY: min?.y ?? Infinity,
-    minZ: min?.z ?? Infinity,
+    maxX: max.x,
+    maxY: max.y,
+    maxZ: max.z,
+    minX: min.x,
+    minY: min.y,
+    minZ: min.z,
   };
 }
 
