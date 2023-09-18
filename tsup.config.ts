@@ -2,7 +2,7 @@ import { Options, defineConfig } from "tsup";
 
 type CustomOptions = Pick<Options, "format" | "dts" | "globalName">;
 
-function defineOptions({ format, dts, globalName }: CustomOptions) {
+function defineOptions({ format, dts, globalName }: CustomOptions): Options {
   return {
     entry: ["./src/index.ts", "./src/helpers/index.ts"],
     outDir: "lib",
@@ -11,7 +11,7 @@ function defineOptions({ format, dts, globalName }: CustomOptions) {
     globalName,
     sourcemap: true,
     clean: true,
-    minify: true,
+    splitting: false,
   };
 }
 
