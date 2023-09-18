@@ -1,3 +1,4 @@
+import { Block, Point2D, deg, point } from "@/index";
 import {
   HALF_PI,
   LinePrimitive,
@@ -6,9 +7,6 @@ import {
   angleBetween,
   calculateAngle,
 } from "@/helpers";
-import { deg, point } from "@/utils";
-import { Block } from "@/blocks";
-import { Point2D } from "@/types";
 
 export interface ArcPrimitiveOptions {
   center: Point2D;
@@ -103,9 +101,7 @@ export class ArcPrimitive implements Writable {
 
   write<B extends Block>(block: B) {
     const center = point(this.center.x, this.center.y);
-    const startAngle = this.clockwise ? this.endAngle : this.startAngle;
-    const endAngle = this.clockwise ? this.startAngle : this.endAngle;
-    const radius = this.radius;
+    const { radius, startAngle, endAngle } = this.ccw;
     return block.addArc({ center, radius, startAngle, endAngle });
   }
 }
