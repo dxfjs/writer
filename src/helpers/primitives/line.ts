@@ -1,7 +1,5 @@
+import { Block, Point2D, point } from "@/index";
 import { Vector, Writable, rotate } from "@/helpers";
-import { Block } from "@/blocks";
-import { Point2D } from "@/types";
-import { point } from "@/utils";
 
 export class LinePrimitive implements Writable {
   start: Vector;

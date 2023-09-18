@@ -1,4 +1,4 @@
-import { Point2D } from "@/types";
+import { Point2D } from "@/index";
 
 export class Vector implements Point2D {
   x: number;
