@@ -37,7 +37,7 @@ export abstract class Entity implements Taggable {
   ownerBlockRecordObjectHandle: string;
   inPaperSpace: boolean;
   layoutTabName?: string;
-  layerName: string;
+  layerName?: string;
   lineTypeName?: string;
   materialObjectHandle?: string;
   colorNumber?: number;
@@ -78,7 +78,7 @@ export abstract class Entity implements Taggable {
     this.ownerBlockRecordObjectHandle = "0";
     this.inPaperSpace = options?.inPaperSpace || false;
     this.layoutTabName = options?.layoutTabName;
-    this.layerName = options?.layerName || "0";
+    this.layerName = options?.layerName;
     this.lineTypeName = options?.lineTypeName;
     this.materialObjectHandle = options?.materialObjectHandle;
     this.colorNumber = options?.colorNumber;
@@ -121,7 +121,8 @@ export abstract class Entity implements Taggable {
     return BBox.point(point());
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function , @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected tagifyChild(_mg: TagsManager): void {}
 
   tagify(mg: TagsManager): void {
@@ -132,7 +133,7 @@ export abstract class Entity implements Taggable {
     mg.add(100, "AcDbEntity");
     mg.add(67, Number(this.inPaperSpace));
     mg.add(410, this.layoutTabName);
-    mg.add(8, this.layerName);
+    mg.add(8, this.layerName || "0");
     mg.add(6, this.lineTypeName);
     mg.add(347, this.materialObjectHandle);
     mg.add(62, this.colorNumber);
