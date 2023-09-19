@@ -29,6 +29,7 @@ import { Mesh, MeshOptions } from "./mesh";
 import { Point, PointOptions } from "./point";
 import { Polyline, PolylineOptions } from "./polyline";
 import { Ray, RayOptions } from "./ray";
+import { Rectangle, RectangleOptions } from "@/shapes";
 import { Spline, SplineOptions } from "./spline";
 import { Text, TextOptions } from "./text";
 import { Entity } from "./entity";
@@ -140,6 +141,14 @@ export class EntitiesManager implements Taggable {
 
   addRadialDim(options: RadialDimensionOptions) {
     return this.add(new RadialDimension(options, this.handle));
+  }
+
+  addRectangle(options: RectangleOptions) {
+    const rectangle = new Rectangle(options);
+    return this.addLWPolyline({
+      vertices: rectangle.vertices(),
+      ...options,
+    });
   }
 
   addRay(options: RayOptions) {
