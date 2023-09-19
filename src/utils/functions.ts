@@ -79,3 +79,7 @@ export function polar({ x, y }: Point2D, angle: number, distance: number) {
 export function onezero(value?: boolean) {
   return value ? 1 : 0;
 }
+
+export function bulge(angle: number) {
+  return Math.tan(angle / 4);
+}
