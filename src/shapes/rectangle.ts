@@ -28,7 +28,7 @@ export class Rectangle {
     options.flags |= LWPolylineFlags.Closed;
   }
 
-  vertices(): LWPolylineVertex[] {
+  get vertices(): LWPolylineVertex[] {
     if (this.corner == null) return this._normal();
     else if (typeof this.corner === "number") {
       return this._rounded(this.corner);

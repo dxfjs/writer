@@ -33,6 +33,7 @@ modelSpace.addRectangle({
 modelSpace.addRectangle({
   origin: point(330),
   width: 100,
+  height: 200,
   corner: point(20, 10),
   colorNumber: Colors.Yellow,
 });

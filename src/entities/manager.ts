@@ -17,6 +17,7 @@ import { BBox, Handle, TagsManager } from "@/utils";
 import { BlockRecordEntry, LayerEntry } from "@/tables";
 import { Circle, CircleOptions } from "./circle";
 import { Ellipse, EllipseOptions } from "./ellipse";
+import { Entity, EntityOptions } from "./entity";
 import { Face, FaceOptions } from "./face";
 import { Hatch, HatchOptions } from "./hatch";
 import { Insert, InsertOptions } from "./insert";
@@ -32,7 +33,6 @@ import { Ray, RayOptions } from "./ray";
 import { Rectangle, RectangleOptions } from "@/shapes";
 import { Spline, SplineOptions } from "./spline";
 import { Text, TextOptions } from "./text";
-import { Entity } from "./entity";
 import { Taggable } from "@/types";
 
 export class EntitiesManager implements Taggable {
@@ -55,112 +55,113 @@ export class EntitiesManager implements Taggable {
     return BBox.boxes(this.entities.map((e) => e.bbox()));
   }
 
-  add<TEntity extends Entity>(entity: TEntity) {
-    entity.ownerBlockRecordObjectHandle = this.blockRecord.handleSeed;
-    if (entity.layerName == null) entity.layerName = this.currentLayerName;
-    if (this.blockRecord.isPaperSpace) entity.inPaperSpace = true;
-    this.entities.push(entity);
-    return entity;
+  add<TEntity extends Entity, TOptions extends EntityOptions>(
+    ctor: new (options: TOptions, handle: Handle) => TEntity,
+    options: TOptions
+  ) {
+    const instance = new ctor(options, this.handle);
+    instance.ownerBlockRecordObjectHandle = this.blockRecord.handleSeed;
+    if (instance.layerName == null) instance.layerName = this.currentLayerName;
+    if (this.blockRecord.isPaperSpace) instance.inPaperSpace = true;
+    this.entities.push(instance);
+    return instance;
   }
 
   addArc(options: ArcOptions) {
-    return this.add(new Arc(options, this.handle));
+    return this.add(Arc, options);
   }
 
   addAlignedDim(options: AlignedDimensionOptions) {
-    return this.add(new AlignedDimension(options, this.handle));
+    return this.add(AlignedDimension, options);
   }
 
   addAngularLinesDim(options: AngularLineDimensionOptions) {
-    return this.add(new AngularLinesDimension(options, this.handle));
+    return this.add(AngularLinesDimension, options);
   }
 
   addAngularPointsDim(options: AngularPointsDimensionOptions) {
-    return this.add(new AngularPointsDimension(options, this.handle));
+    return this.add(AngularPointsDimension, options);
   }
 
   addCircle(options: CircleOptions) {
-    return this.add(new Circle(options, this.handle));
+    return this.add(Circle, options);
   }
 
   addDiameterDim(options: DiameterDimensionOptions) {
-    return this.add(new DiameterDimension(options, this.handle));
+    return this.add(DiameterDimension, options);
   }
 
   addEllipse(options: EllipseOptions) {
-    return this.add(new Ellipse(options, this.handle));
+    return this.add(Ellipse, options);
   }
 
   addFace(options: FaceOptions) {
-    return this.add(new Face(options, this.handle));
+    return this.add(Face, options);
   }
 
   addHatch(options: HatchOptions) {
-    return this.add(new Hatch(options, this.handle));
+    return this.add(Hatch, options);
   }
 
   addInsert(options: InsertOptions) {
-    return this.add(new Insert(options, this.handle));
+    return this.add(Insert, options);
   }
 
   addLeader(options: LeaderOptions) {
-    return this.add(new Leader(options, this.handle));
+    return this.add(Leader, options);
   }
 
   addLine(options: LineOptions) {
-    return this.add(new Line(options, this.handle));
+    return this.add(Line, options);
   }
 
   addLinearDim(options: LinearDimensionOptions) {
-    return this.add(new LinearDimension(options, this.handle));
+    return this.add(LinearDimension, options);
   }
 
   addLWPolyline(options: LWPolylineOptions) {
-    return this.add(new LWPolyline(options, this.handle));
+    return this.add(LWPolyline, options);
   }
 
   addMesh(options: MeshOptions) {
-    return this.add(new Mesh(options, this.handle));
+    return this.add(Mesh, options);
   }
 
   addMLeader(options: MLeaderOptions) {
-    return this.add(new MLeader(options, this.handle));
+    return this.add(MLeader, options);
   }
 
   addMText(options: MTextOptions) {
-    return this.add(new MText(options, this.handle));
+    return this.add(MText, options);
   }
 
   addPoint(options: PointOptions) {
-    return this.add(new Point(options, this.handle));
+    return this.add(Point, options);
   }
 
   addPolyline(options: PolylineOptions) {
-    return this.add(new Polyline(options, this.handle));
+    return this.add(Polyline, options);
   }
 
   addRadialDim(options: RadialDimensionOptions) {
-    return this.add(new RadialDimension(options, this.handle));
+    return this.add(RadialDimension, options);
   }
 
   addRectangle(options: RectangleOptions) {
-    const rectangle = new Rectangle(options);
-    return this.addLWPolyline({
-      vertices: rectangle.vertices(),
-      ...options,
-    });
+    const { vertices } = new Rectangle(options);
+    return this.addLWPolyline({ vertices, ...options });
   }
 
   addRay(options: RayOptions) {
-    return this.add(new Ray(options, this.handle));
+    return this.add(Ray, options);
   }
 
   addSpline(options: SplineOptions) {
-    return this.add(new Spline(options, this.handle));
+    return this.add(Spline, options);
   }
 
   addText(options: TextOptions) {
-    return this.add(new Text(options, this.handle));
+    return this.add(Text, options);
   }
 
   tagify(mg: TagsManager): void {
