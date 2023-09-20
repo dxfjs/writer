@@ -1,4 +1,4 @@
-import { Handle, Objects, TagsManager } from "../../src";
+import { Handle, Objects, TagsManager } from "@/index";
 
 describe("Objects class", () => {
   it("should create an objects section", () => {

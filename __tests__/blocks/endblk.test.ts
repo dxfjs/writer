@@ -1,4 +1,4 @@
-import { EndBlk, Handle, TagsManager } from "../../src";
+import { EndBlk, Handle, TagsManager } from "@/index";
 
 describe("EndBlk class", () => {
   it("should create an endblk instance", () => {

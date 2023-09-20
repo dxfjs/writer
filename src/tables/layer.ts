@@ -1,6 +1,6 @@
 import { Colors, Handle, LineTypes, TagsManager } from "@/utils";
 import { Entry } from "./entry";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export const LayerFlags = {
   None: 0,
@@ -61,7 +61,7 @@ export class LayerEntry extends Entry {
   }
 }
 
-export class Layer extends Table<LayerEntry> {
+export class Layer extends XTable<LayerEntry> {
   constructor(handle: Handle) {
     super("LAYER", handle);
   }

@@ -1,6 +1,6 @@
 import { Handle, TagsManager, Units, XData } from "@/utils";
 import { Entry } from "./entry";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export interface BlockRecordOptions {
   name: string;
@@ -48,7 +48,7 @@ export class BlockRecordEntry extends Entry {
   }
 }
 
-export class BlockRecord extends Table {
+export class BlockRecord extends XTable {
   constructor(handle: Handle) {
     super("BLOCK_RECORD", handle);
   }

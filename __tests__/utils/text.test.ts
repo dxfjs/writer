@@ -1,4 +1,4 @@
-import { Colors, StyledText, TextBuilder } from "../../src";
+import { Colors, StyledText, TextBuilder } from "@/index";
 
 describe("XStyledText class", () => {
   it("should create a styled text", () => {

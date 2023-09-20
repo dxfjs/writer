@@ -1,6 +1,6 @@
 import { Handle, TagsManager, XData } from "@/utils";
 import { Entry } from "./entry";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export const TEXT_ITALIC = 16777250;
 export const TEXT_BOLD = 33554466;
@@ -94,7 +94,7 @@ export class StyleEntry extends Entry {
   }
 }
 
-export class Style extends Table<StyleEntry> {
+export class Style extends XTable<StyleEntry> {
   constructor(handle: Handle) {
     super("STYLE", handle);
   }

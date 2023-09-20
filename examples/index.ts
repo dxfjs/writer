@@ -10,4 +10,5 @@ import "./paper-space";
 import "./polyline";
 import "./quick-start";
 import "./rectangle";
+import "./table";
 import "./text";

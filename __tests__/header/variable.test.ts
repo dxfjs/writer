@@ -1,4 +1,4 @@
-import { TagsManager, Variable } from "../../src";
+import { TagsManager, Variable } from "@/index";
 
 describe("XVariable class", () => {
   it("should create an empty variable", () => {

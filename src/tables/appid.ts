@@ -1,6 +1,6 @@
 import { Handle, TagsManager } from "@/utils";
 import { Entry } from "./entry";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export const AppIdFlags = {
   None: 0,
@@ -32,7 +32,7 @@ export class AppIdEntry extends Entry {
   }
 }
 
-export class AppId extends Table<AppIdEntry> {
+export class AppId extends XTable<AppIdEntry> {
   constructor(handle: Handle) {
     super("APPID", handle);
   }

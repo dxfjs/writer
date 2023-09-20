@@ -1,4 +1,4 @@
-import { TagsManager, point, point2d } from "../../src";
+import { TagsManager, point, point2d } from "@/index";
 
 describe("TagsManager class", () => {
   it("should create an empty mg", () => {

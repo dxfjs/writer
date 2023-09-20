@@ -1,4 +1,4 @@
-import { Handle, Tables, TagsManager } from "../../src";
+import { Handle, Tables, TagsManager } from "@/index";
 
 describe("Tables class", () => {
   it("should create a tables section", () => {

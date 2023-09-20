@@ -1,6 +1,6 @@
 import { Entry, EntryCommonFlags } from "./entry";
 import { Handle, TagsManager } from "@/utils";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export interface LTypeOptions {
   name: string;
@@ -43,7 +43,7 @@ export class LTypeEntry extends Entry {
   }
 }
 
-export class LType extends Table<LTypeEntry> {
+export class LType extends XTable<LTypeEntry> {
   constructor(handle: Handle) {
     super("LTYPE", handle);
   }

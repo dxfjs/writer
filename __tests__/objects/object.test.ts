@@ -1,4 +1,4 @@
-import { Handle, XObject } from "../../src";
+import { Handle, XObject } from "@/index";
 
 class DummyObject extends XObject {}
 

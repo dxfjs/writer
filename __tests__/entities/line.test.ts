@@ -1,4 +1,4 @@
-import { Handle, Line, TagsManager, point } from "../../src";
+import { Handle, Line, TagsManager, point } from "@/index";
 
 describe("XLine class", () => {
   it("should create a line entity", () => {
