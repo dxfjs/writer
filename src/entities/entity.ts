@@ -22,7 +22,7 @@ export interface EntityOptions {
   lineTypeScale?: number;
   visible?: boolean;
   proxyEntityGraphics?: string;
-  trueColor?: string;
+  trueColor?: number;
   colorNumberClassLevel?: number;
   transparencyClassLevel?: number;
   plotStyleObjectHandle?: string;
@@ -45,7 +45,7 @@ export abstract class Entity implements Taggable {
   lineTypeScale?: number;
   visible: boolean;
   proxyEntityGraphics?: string;
-  trueColor?: string;
+  trueColor?: number;
   colorNumberClassLevel?: number;
   transparencyClassLevel?: number;
   plotStyleObjectHandle?: string;
