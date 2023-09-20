@@ -9,7 +9,7 @@ import {
   stringChunksSplit,
   tag,
   uniformKnots,
-} from "../../src";
+} from "@/index";
 
 describe("point function", () => {
   it("should create a 3d point object", () => {

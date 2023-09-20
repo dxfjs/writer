@@ -1,4 +1,4 @@
-import { Blocks, Entities, Handle, Tables, TagsManager } from "../../src";
+import { Blocks, Entities, Handle, Tables, TagsManager } from "@/index";
 
 describe("XEntities class", () => {
   const handle = new Handle();

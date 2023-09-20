@@ -7,7 +7,7 @@ import {
   Writer,
   point,
   point2d,
-} from "../src";
+} from "@/index";
 import { fileURLToPath, save } from "./utils";
 
 const writer = new Writer();

@@ -1,4 +1,4 @@
-import { AppDefined, TagsManager } from "../../src";
+import { AppDefined, TagsManager } from "@/index";
 
 describe("AppDefined class", () => {
   it("should create an empty application", () => {

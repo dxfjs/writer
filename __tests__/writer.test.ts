@@ -1,5 +1,5 @@
 import "../examples";
-import { Colors, InvisibleEdge, LWPolylineFlags, Writer, point } from "../src";
+import { Colors, InvisibleEdge, LWPolylineFlags, Writer, point } from "@/index";
 import { writeFileSync } from "fs";
 
 

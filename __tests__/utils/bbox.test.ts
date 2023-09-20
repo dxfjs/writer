@@ -1,4 +1,4 @@
-import { BBox, bbox, point } from "../../src";
+import { BBox, bbox, point } from "@/index";
 
 describe("BBox class", () => {
   it("should bbox of a line", () => {

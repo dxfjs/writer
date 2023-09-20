@@ -1,7 +1,7 @@
 import { Handle, TagsManager } from "@/utils";
 import { Entry } from "./entry";
 import { Point2D } from "@/types";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export interface VPortOptions {
   name: string;
@@ -48,7 +48,7 @@ export class VPortEntry extends Entry {
   }
 }
 
-export class VPort extends Table<VPortEntry> {
+export class VPort extends XTable<VPortEntry> {
   constructor(handle: Handle) {
     super("VPORT", handle);
   }

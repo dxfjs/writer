@@ -1,4 +1,4 @@
-import { Blocks, Handle, Tables, TagsManager } from "../../src";
+import { Blocks, Handle, Tables, TagsManager } from "@/index";
 
 describe("Blocks class", () => {
   const handle = new Handle();

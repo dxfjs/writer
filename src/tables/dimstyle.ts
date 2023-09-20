@@ -1,6 +1,6 @@
 import { Handle, TagsManager } from "@/utils";
 import { Entry } from "./entry";
-import { Table } from "./table";
+import { XTable } from "./table";
 
 export const DimStyleFlags = {
   None: 0,
@@ -162,7 +162,7 @@ export class DimStyleEntry extends Entry {
   }
 }
 
-export class DimStyle extends Table<DimStyleEntry> {
+export class DimStyle extends XTable<DimStyleEntry> {
   constructor(handle: Handle) {
     super("DIMSTYLE", handle);
   }

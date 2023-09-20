@@ -1,4 +1,4 @@
-import { Handle, Header, TagsManager } from "../../src";
+import { Handle, Header, TagsManager } from "@/index";
 
 describe("XHeader class", () => {
   it("should create a header section with defaults", () => {

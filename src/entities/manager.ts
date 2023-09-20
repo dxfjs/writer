@@ -32,6 +32,7 @@ import { Polyline, PolylineOptions } from "./polyline";
 import { Ray, RayOptions } from "./ray";
 import { Rectangle, RectangleOptions } from "@/shapes";
 import { Spline, SplineOptions } from "./spline";
+import { Table, TableOptions } from "./table";
 import { Text, TextOptions } from "./text";
 import { Taggable } from "@/types";
 
@@ -42,6 +43,8 @@ export class EntitiesManager implements Taggable {
   readonly entities: Entity[];
 
   currentLayerName: string;
+
+  private _tableSeed = 1;
 
   constructor(BlockRecordEntry: BlockRecordEntry, handle: Handle) {
     this.blockRecord = BlockRecordEntry;
@@ -158,6 +161,11 @@ export class EntitiesManager implements Taggable {
 
   addSpline(options: SplineOptions) {
     return this.add(Spline, options);
+  }
+
+  addTable(options: Omit<TableOptions, "blockName">) {
+    const blockName = `*T${this._tableSeed++}`;
+    return this.add(Table, { blockName, ...options });
   }
 
   addText(options: TextOptions) {

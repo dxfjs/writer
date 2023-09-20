@@ -1,4 +1,4 @@
-import { Colors, LWPolylineFlags, Writer, point } from "../src";
+import { Colors, LWPolylineFlags, Writer, point } from "@/index";
 import { fileURLToPath, save } from "./utils";
 
 const writer = new Writer();

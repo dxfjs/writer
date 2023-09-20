@@ -1,4 +1,4 @@
-import { Entry, Handle } from "../../src";
+import { Entry, Handle } from "@/index";
 
 class DummyEntry extends Entry {
   constructor() {

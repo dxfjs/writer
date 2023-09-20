@@ -1,4 +1,4 @@
-import { Colors, PolylineFlags, VertexFlags, Writer } from "../src";
+import { Colors, PolylineFlags, VertexFlags, Writer } from "@/index";
 import { fileURLToPath, save } from "./utils";
 
 const writer = new Writer();

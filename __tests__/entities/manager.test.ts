@@ -4,7 +4,7 @@ import {
   Handle,
   TagsManager,
   point,
-} from "../../src";
+} from "@/index";
 
 describe("EntitiesManager class", () => {
   const handle = new Handle();
