@@ -1,4 +1,4 @@
-import { Handle } from "../../src";
+import { Handle } from "@/utils";
 
 describe("Handle class", () => {
   const handle = new Handle();

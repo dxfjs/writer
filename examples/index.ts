@@ -1,3 +1,4 @@
+import "./color";
 import "./dimension";
 import "./hatch";
 import "./leader";

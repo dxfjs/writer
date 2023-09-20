@@ -17,6 +17,9 @@ export interface LayerOptions {
   flags?: number;
   colorNumber?: number;
   lineTypeName?: string;
+  lineWeight?: number;
+  materialObjectHandle?: string;
+  trueColor?: number;
 }
 
 export class LayerEntry extends Entry {
@@ -38,7 +41,10 @@ export class LayerEntry extends Entry {
     this.flags = options.flags ?? LayerFlags.None;
     this.colorNumber = options.colorNumber ?? Colors.White;
     this.lineTypeName = options.lineTypeName ?? LineTypes.Continuous;
+    this.lineWeight = options.lineWeight;
     this.plotStyleNameObjectHandle = "0";
+    this.materialObjectHandle = options.materialObjectHandle;
+    this.trueColor = options.trueColor;
   }
 
   override tagify(mg: TagsManager): void {
