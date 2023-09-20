@@ -1,6 +1,11 @@
-import { Entity, Handle, TagsManager } from "../../src";
+import { Entity, Handle, TagsManager } from "@/index";
 
-class DummyEntity extends Entity {}
+class DummyEntity extends Entity {
+  override get subClassMarker(): string | undefined {
+    return;
+  }
+  protected override tagifyChild(): void {}
+}
 
 describe("Entity class", () => {
   it("should have the default values", () => {

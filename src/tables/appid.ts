@@ -32,7 +32,7 @@ export class AppIdEntry extends Entry {
   }
 }
 
-export class AppId extends Table {
+export class AppId extends Table<AppIdEntry> {
   constructor(handle: Handle) {
     super("APPID", handle);
   }

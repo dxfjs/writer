@@ -61,9 +61,13 @@ export class LayerEntry extends Entry {
   }
 }
 
-export class Layer extends Table {
+export class Layer extends Table<LayerEntry> {
   constructor(handle: Handle) {
     super("LAYER", handle);
+  }
+
+  get(name: string) {
+    return this.find((layer) => layer.name === name);
   }
 
   add(options: LayerOptions) {

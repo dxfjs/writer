@@ -62,9 +62,7 @@ export abstract class Entity implements Taggable {
     return this.visible ? 0 : 1;
   }
 
-  get subClassMarker(): string | undefined {
-    return undefined;
-  }
+  abstract get subClassMarker(): string | undefined;
 
   get type() {
     return this._type;
@@ -121,9 +119,7 @@ export abstract class Entity implements Taggable {
     return BBox.point(point());
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected tagifyChild(_mg: TagsManager): void {}
+  protected abstract tagifyChild(mg: TagsManager): void;
 
   tagify(mg: TagsManager): void {
     mg.add(0, this.type);
