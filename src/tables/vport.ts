@@ -48,7 +48,7 @@ export class VPortEntry extends Entry {
   }
 }
 
-export class VPort extends Table {
+export class VPort extends Table<VPortEntry> {
   constructor(handle: Handle) {
     super("VPORT", handle);
   }

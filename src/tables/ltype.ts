@@ -43,7 +43,7 @@ export class LTypeEntry extends Entry {
   }
 }
 
-export class LType extends Table {
+export class LType extends Table<LTypeEntry> {
   constructor(handle: Handle) {
     super("LTYPE", handle);
   }

@@ -94,7 +94,7 @@ export class StyleEntry extends Entry {
   }
 }
 
-export class Style extends Table {
+export class Style extends Table<StyleEntry> {
   constructor(handle: Handle) {
     super("STYLE", handle);
   }

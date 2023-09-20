@@ -2,11 +2,11 @@ import { AppDefined, Handle, TagsManager } from "@/utils";
 import { Entry } from "./entry";
 import { Taggable } from "@/types";
 
-export class Table implements Taggable {
+export class Table<E extends Entry = Entry> implements Taggable {
   readonly handle: Handle;
   readonly handleSeed: string;
   ownerObjectHandle: string;
-  protected entries: Entry[];
+  protected entries: E[];
 
   readonly xdictionary: AppDefined;
 
@@ -18,10 +18,14 @@ export class Table implements Taggable {
     this.xdictionary = new AppDefined("ACAD_XDICTIONARY");
   }
 
-  addEntry<E extends Entry>(entry: E) {
+  addEntry(entry: E) {
     entry.ownerObjectHandle = this.handleSeed;
     this.entries.push(entry);
     return entry;
+  }
+
+  find(predicate: (value: E, index: number, obj: E[]) => unknown) {
+    return this.entries.find(predicate);
   }
 
   tagify(mg: TagsManager): void {

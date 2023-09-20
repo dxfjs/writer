@@ -162,7 +162,7 @@ export class DimStyleEntry extends Entry {
   }
 }
 
-export class DimStyle extends Table {
+export class DimStyle extends Table<DimStyleEntry> {
   constructor(handle: Handle) {
     super("DIMSTYLE", handle);
   }
