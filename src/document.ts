@@ -43,7 +43,6 @@ export class Document implements Stringifiable {
   }
 
   addBlock(options: BlockOptions) {
-    this.tables.addBlockRecord(options);
     return this.blocks.addBlock(options);
   }
 

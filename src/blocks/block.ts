@@ -65,7 +65,6 @@ export class Block extends EntitiesManager implements Taggable {
     this.description = options.description;
 
     this.endblk = new EndBlk(handle);
-    this.endblk.ownerObjectHandle = this.ownerObjectHandle;
   }
 
   addAppDefined(name: string) {

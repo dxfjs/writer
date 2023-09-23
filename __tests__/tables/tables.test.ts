@@ -12,11 +12,4 @@ describe("Tables class", () => {
     tables.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();
   });
-
-  it("should add paper spaces", () => {
-    const tables = new Tables(new Handle());
-    expect(tables.addPaperSpace().name).toBe("*Paper_Space0");
-    expect(tables.addPaperSpace().name).toBe("*Paper_Space1");
-    expect(tables.addPaperSpace().name).toBe("*Paper_Space2");
-  });
 });

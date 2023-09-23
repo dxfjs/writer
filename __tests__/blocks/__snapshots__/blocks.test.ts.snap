@@ -8,9 +8,9 @@ BLOCKS
 0
 BLOCK
 5
-15
+13
 330
-0
+12
 100
 AcDbEntity
 8
@@ -34,9 +34,9 @@ AcDbBlockBegin
 0
 ENDBLK
 5
-16
+14
 330
-0
+12
 100
 AcDbEntity
 8
@@ -46,9 +46,9 @@ AcDbBlockEnd
 0
 BLOCK
 5
-18
+16
 330
-0
+15
 100
 AcDbEntity
 8
@@ -72,9 +72,9 @@ AcDbBlockBegin
 0
 ENDBLK
 5
-19
+17
 330
-0
+15
 100
 AcDbEntity
 8

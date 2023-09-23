@@ -13,3 +13,4 @@ coverage
 **/*.bak
 **/*.dwl
 **/*.dwl2
+**/*.err

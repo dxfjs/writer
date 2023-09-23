@@ -1,3 +1,4 @@
+import "./blocks";
 import "./color";
 import "./dimension";
 import "./hatch";

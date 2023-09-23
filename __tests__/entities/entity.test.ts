@@ -22,9 +22,11 @@ describe("Entity class", () => {
 
   it("should return the visibility", () => {
     const dummy = new DummyEntity("LINE", new Handle());
-    expect(dummy.visibility).toBe(0);
+    expect(dummy.visibility).toBeUndefined();
     dummy.visible = false;
     expect(dummy.visibility).toBe(1);
+    dummy.visible = true;
+    expect(dummy.visibility).toBe(0);
   });
 
   it("should return existing defined application", () => {

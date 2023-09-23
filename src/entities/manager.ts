@@ -13,6 +13,8 @@ import {
   RadialDimensionOptions,
 } from "./dimension";
 import { Arc, ArcOptions } from "./arc";
+import { Attdef, AttdefOptions } from "./attdef";
+import { Attrib, AttribOptions } from "./attrib";
 import { BBox, Handle, TagsManager } from "@/utils";
 import { BlockRecordEntry, LayerEntry } from "@/tables";
 import { Circle, CircleOptions } from "./circle";
@@ -63,15 +65,29 @@ export class EntitiesManager implements Taggable {
     options: TOptions
   ) {
     const instance = new ctor(options, this.handle);
-    instance.ownerBlockRecordObjectHandle = this.blockRecord.handleSeed;
+    if (instance.changeOwner)
+      instance.ownerObjectHandle = this.blockRecord.handleSeed;
     if (instance.layerName == null) instance.layerName = this.currentLayerName;
     if (this.blockRecord.isPaperSpace) instance.inPaperSpace = true;
-    this.entities.push(instance);
+    this.push(instance);
     return instance;
+  }
+
+  push(entity?: Entity) {
+    if (entity == null) return;
+    this.entities.push(entity);
   }
 
   addArc(options: ArcOptions) {
     return this.add(Arc, options);
+  }
+
+  addAttdef(options: AttdefOptions) {
+    return this.add(Attdef, options);
+  }
+
+  addAttrib(options: AttribOptions) {
+    return this.add(Attrib, options);
   }
 
   addAlignedDim(options: AlignedDimensionOptions) {

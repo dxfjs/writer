@@ -79,9 +79,9 @@ describe("angle function", () => {
 
 describe("onezero function", () => {
   it("should return 1 or 0", () => {
-    expect(onezero()).toBe(0);
+    expect(onezero()).toBeUndefined();
     expect(onezero(false)).toBe(0);
-    expect(onezero(undefined)).toBe(0);
+    expect(onezero(undefined)).toBeUndefined();
     expect(onezero(true)).toBe(1);
   });
 });

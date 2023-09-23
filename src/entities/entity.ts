@@ -5,6 +5,7 @@ import {
   Handle,
   TagsManager,
   XData,
+  onezero,
   point,
   stringByteSize,
   stringChunksSplit,
@@ -34,16 +35,16 @@ export abstract class Entity implements Taggable {
   readonly handleSeed: string;
   protected _type: string;
 
-  ownerBlockRecordObjectHandle: string;
-  inPaperSpace: boolean;
+  ownerObjectHandle: string;
+  inPaperSpace?: boolean;
   layoutTabName?: string;
   layerName?: string;
   lineTypeName?: string;
   materialObjectHandle?: string;
   colorNumber?: number;
-  lineWeight: number;
+  lineWeight?: number;
   lineTypeScale?: number;
-  visible: boolean;
+  visible?: boolean;
   proxyEntityGraphics?: string;
   trueColor?: number;
   colorNumberClassLevel?: number;
@@ -59,6 +60,7 @@ export abstract class Entity implements Taggable {
   readonly xdatas: XData[];
 
   get visibility() {
+    if (this.visible == null) return;
     return this.visible ? 0 : 1;
   }
 
@@ -68,21 +70,25 @@ export abstract class Entity implements Taggable {
     return this._type;
   }
 
+  get changeOwner() {
+    return true;
+  }
+
   constructor(type: string, handle: Handle, options?: EntityOptions) {
     this.handle = handle;
     this.handleSeed = handle.next();
     this._type = type;
 
-    this.ownerBlockRecordObjectHandle = "0";
-    this.inPaperSpace = options?.inPaperSpace || false;
+    this.ownerObjectHandle = "0";
+    this.inPaperSpace = options?.inPaperSpace;
     this.layoutTabName = options?.layoutTabName;
     this.layerName = options?.layerName;
     this.lineTypeName = options?.lineTypeName;
     this.materialObjectHandle = options?.materialObjectHandle;
     this.colorNumber = options?.colorNumber;
-    this.lineWeight = options?.lineWeight ?? -3;
+    this.lineWeight = options?.lineWeight;
     this.lineTypeScale = options?.lineTypeScale;
-    this.visible = options?.visible || true;
+    this.visible = options?.visible;
     this.proxyEntityGraphics = options?.proxyEntityGraphics;
     this.trueColor = options?.trueColor;
     this.colorNumberClassLevel = options?.colorNumberClassLevel;
@@ -125,9 +131,9 @@ export abstract class Entity implements Taggable {
     mg.add(0, this.type);
     mg.add(5, this.handleSeed);
     this.applications.forEach((a) => a.tagify(mg));
-    mg.add(330, this.ownerBlockRecordObjectHandle);
+    mg.add(330, this.ownerObjectHandle);
     mg.add(100, "AcDbEntity");
-    mg.add(67, Number(this.inPaperSpace));
+    mg.add(67, onezero(this.inPaperSpace));
     mg.add(410, this.layoutTabName);
     mg.add(8, this.layerName || "0");
     mg.add(6, this.lineTypeName);

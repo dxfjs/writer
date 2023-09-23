@@ -13,13 +13,12 @@ export interface BlockRecordOptions {
 
 export class BlockRecordEntry extends Entry {
   name: string;
-  layoutObjectHandle: string;
+  layoutObjectHandle?: string;
   insertionUnits: number;
   explodability: number;
   scalability: number;
   bitmapPreview?: string;
   acadXData: XData;
-
 
   get isPaperSpace() {
     return this.name.startsWith("*Paper_Space");
@@ -28,7 +27,7 @@ export class BlockRecordEntry extends Entry {
   constructor(options: BlockRecordOptions, handle: Handle) {
     super("BLOCK_RECORD", handle);
     this.name = options.name;
-    this.layoutObjectHandle = options.layoutObjectHandle || "0";
+    this.layoutObjectHandle = options.layoutObjectHandle;
     this.insertionUnits = options.insertionUnits ?? Units.Unitless;
     this.explodability = options.explodability ?? 1;
     this.scalability = options.scalability ?? 0;
@@ -55,6 +54,7 @@ export class BlockRecord extends XTable {
 
   add(options: BlockRecordOptions) {
     const block = new BlockRecordEntry(options, this.handle);
+    block.ownerObjectHandle = this.handleSeed;
     this.entries.push(block);
     return block;
   }

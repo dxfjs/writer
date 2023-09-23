@@ -77,6 +77,7 @@ export function polar({ x, y }: Point2D, angle: number, distance: number) {
 }
 
 export function onezero(value?: boolean) {
+  if (value == null) return;
   return value ? 1 : 0;
 }
 
