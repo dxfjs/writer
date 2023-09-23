@@ -23,6 +23,8 @@ export class Blocks implements Taggable {
   addBlock(options: BlockOptions) {
     const br = this.tables.addBlockRecord({ name: options.name });
     const b = new Block(options, this.handle, br);
+    b.ownerObjectHandle = br.handleSeed;
+    b.endblk.ownerObjectHandle = br.handleSeed;
     this.blocks.push(b);
     return b;
   }

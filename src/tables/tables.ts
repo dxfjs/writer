@@ -1,5 +1,5 @@
 import { AppId, AppIdEntry, AppIdOptions } from "./appid";
-import { BlockRecord, BlockRecordEntry, BlockRecordOptions } from "./block";
+import { BlockRecord, BlockRecordOptions } from "./block";
 import { DimStyle, DimStyleEntry, DimStyleOptions } from "./dimstyle";
 import { Handle, TagsManager } from "@/utils";
 import { LType, LTypeEntry, LTypeOptions } from "./ltype";
@@ -23,15 +23,11 @@ export class Tables implements Taggable {
   readonly vport: VPort;
 
   readonly appIdAcad: AppIdEntry;
-  readonly blockRecordModelSpace: BlockRecordEntry;
-  readonly blockRecordPaperSpace: BlockRecordEntry;
   readonly dimStyleStandard: DimStyleEntry;
   readonly zeroLayer: LayerEntry;
   readonly ltypeContinous: LTypeEntry;
   readonly styleStandard: StyleEntry;
   readonly vportActive: VPortEntry;
-
-  private static paperSpaceSeed = 0;
 
   constructor(handle: Handle) {
     this.handle = handle;
@@ -46,8 +42,6 @@ export class Tables implements Taggable {
     this.vport = new VPort(handle);
 
     this.appIdAcad = this.addAppId({ name: "ACAD" });
-    this.blockRecordModelSpace = this.addBlockRecord({ name: "*Model_Space" });
-    this.blockRecordPaperSpace = this.addBlockRecord({ name: "*Paper_Space" });
     this.dimStyleStandard = this.addDimStyle({ name: "Standard" });
     this.zeroLayer = this.addLayer({ name: LayerEntry.layerZeroName });
     this.addLType({ name: "ByLayer" });
@@ -67,12 +61,6 @@ export class Tables implements Taggable {
 
   addBlockRecord(options: BlockRecordOptions) {
     return this.blockRecord.add(options);
-  }
-
-  addPaperSpace() {
-    return this.addBlockRecord({
-      name: `*Paper_Space${Tables.paperSpaceSeed++}`,
-    });
   }
 
   addDimStyle(options: DimStyleOptions) {

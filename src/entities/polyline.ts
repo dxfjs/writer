@@ -7,7 +7,7 @@ import {
   point,
 } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
-import {  Vertex, VertexOptions } from "./vertex";
+import { Vertex, VertexOptions } from "./vertex";
 import { Point3D } from "@/types";
 import { SeqEnd } from "./seqend";
 
@@ -64,11 +64,12 @@ export class Polyline extends Entity {
     this.faces = options.faces || [];
 
     this.seqend = new SeqEnd(handle);
+    this.seqend.ownerObjectHandle = this.handleSeed;
   }
 
   add(options: VertexOptions) {
     const v = new Vertex(options, this.handle);
-    v.ownerBlockRecordObjectHandle = this.ownerBlockRecordObjectHandle;
+    v.ownerObjectHandle = this.ownerObjectHandle;
     v.layerName = this.layerName;
     if (v.faceRecord) this.faces.push(v);
     else this.vertices.push(v);
