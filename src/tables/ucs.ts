@@ -1,8 +1,10 @@
-import { Handle } from "@/utils";
+import { WithSeeder } from "@/types";
 import { XTable } from "./table";
 
+export interface UcsTableOptions extends WithSeeder {}
+
 export class Ucs extends XTable {
-  constructor(handle: Handle) {
-    super("UCS", handle);
+  constructor(options: UcsTableOptions) {
+    super({ seeder: options.seeder, name: "UCS" });
   }
 }

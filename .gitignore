@@ -14,3 +14,4 @@ coverage
 **/*.dwl
 **/*.dwl2
 **/*.err
+**/*.py

@@ -1,6 +1,6 @@
 import { TagsManager, Variable } from "@/index";
 
-describe("XVariable class", () => {
+describe("Variable class", () => {
   it("should create an empty variable", () => {
     const version = new Variable("$ACADVER");
     const mg = new TagsManager();

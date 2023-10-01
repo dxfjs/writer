@@ -1,11 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  extrusion,
-  point,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion, point } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point2D, Point3D } from "@/types";
 
@@ -42,8 +35,9 @@ export class LWPolyline extends Entity {
     return "AcDbPolyline";
   }
 
-  constructor(options: LWPolylineOptions, handle: Handle) {
-    super("LWPOLYLINE", handle, options);
+  constructor(options: LWPolylineOptions) {
+    super(options);
+    this._type = "LWPOLYLINE";
     this.vertices = options.vertices || [];
     this.flags = options.flags ?? LWPolylineFlags.None;
     this.constantWidth = options.constantWidth ?? 0;

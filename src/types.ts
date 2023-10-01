@@ -1,3 +1,5 @@
+import { BlockRecordEntry, Seeder } from ".";
+
 export interface Tag {
   code: number;
   value: string | number;
@@ -21,3 +23,11 @@ export interface Taggable<IManager = unknown> {
 }
 
 export type Union<T> = T[keyof T];
+
+export type WithSeeder<T = object> = T & { seeder: Seeder };
+export type WithBlockRecord<T = object> = T & { blockRecord: BlockRecordEntry };
+
+export type OmitSeeder<T> = Omit<T, "seeder">;
+export type OmitType<T> = Omit<T, "type">;
+export type OmitBlockRecord<T> = Omit<T, "blockRecord">;
+export type OmitBlockName<T> = Omit<T, "blockName">;

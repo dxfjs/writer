@@ -1,10 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  extrusion,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -25,8 +19,9 @@ export class Circle extends Entity {
     return "AcDbCircle";
   }
 
-  constructor(options: CircleOptions, handle: Handle) {
-    super("CIRCLE", handle, options);
+  constructor(options: CircleOptions) {
+    super(options);
+    this._type = "CIRCLE";
     this.thickness = options.thickness;
     this.center = options.center;
     this.radius = options.radius;

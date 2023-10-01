@@ -1,11 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  extrusion,
-  point,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, point } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -31,14 +24,15 @@ export class Point extends Entity {
     return point(this.x, this.y, this.z);
   }
 
-  constructor(options: PointOptions, handle: Handle) {
-    super("POINT", handle, options);
+  constructor(options: PointOptions) {
+    super(options);
+    this._type = "POINT";
     this.x = options.x ?? 0;
     this.y = options.y ?? 0;
     this.z = options.z ?? 0;
     this.thickness = options.thickness;
-    this.extrusion = options.extrusion || extrusion();
-    this.angleXAxis = options.angleXAxis ?? 0;
+    this.extrusion = options.extrusion;
+    this.angleXAxis = options.angleXAxis;
   }
 
   override bbox(): BoundingBox {

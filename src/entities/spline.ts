@@ -1,10 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  openUniformKnots,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, openUniformKnots } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "@/types";
 
@@ -56,8 +50,9 @@ export class Spline extends Entity {
     return this.knots.length;
   }
 
-  constructor(options: SplineOptions, handle: Handle) {
-    super("SPLINE", handle, options);
+  constructor(options: SplineOptions) {
+    super(options);
+    this._type = "SPLINE";
     this.normal = options.normal;
     this.flags = options.flags ?? SplineFlags.None;
     this.degree = options.degree ?? 3;

@@ -1,5 +1,5 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager, onezero, point } from "@/utils";
+import { TagsManager, onezero, point } from "@/utils";
 import { Point3D } from "@/types";
 
 export interface MLeaderOptions extends EntityOptions {
@@ -43,8 +43,9 @@ export class MLeader extends Entity {
     return "AcDbMLeader";
   }
 
-  constructor(options: MLeaderOptions, handle: Handle) {
-    super("MULTILEADER", handle, options);
+  constructor(options: MLeaderOptions) {
+    super(options);
+    this._type = "MULTILEADER";
     this.contentScale = options.contentScale ?? 1;
     this.basePosition = options.basePosition;
     this.textHeight = options.textHeight ?? 0.18;

@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager } from "@/utils";
+import { BBox, BoundingBox, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -15,8 +15,9 @@ export class Ray extends Entity {
     return "AcDbRay";
   }
 
-  constructor(options: RayOptions, handle: Handle) {
-    super("RAY", handle, options);
+  constructor(options: RayOptions) {
+    super(options);
+    this._type = "RAY";
     this.start = options.start;
     this.unitDirectionVector = options.unitDirectionVector;
   }

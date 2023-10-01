@@ -1,5 +1,6 @@
-import { Handle, TagsManager } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
 import { Entry } from "./entry";
+import { TagsManager } from "@/utils";
 import { XTable } from "./table";
 
 export const AppIdFlags = {
@@ -9,7 +10,7 @@ export const AppIdFlags = {
   Referenced: 64,
 } as const;
 
-export interface AppIdOptions {
+export interface AppIdOptions extends WithSeeder {
   name: string;
   flags?: number;
 }
@@ -18,8 +19,8 @@ export class AppIdEntry extends Entry {
   readonly name: string;
   flags: number;
 
-  constructor(options: AppIdOptions, handle: Handle) {
-    super("APPID", handle);
+  constructor(options: AppIdOptions) {
+    super({ seeder: options.seeder, type: "APPID" });
     this.name = options.name;
     this.flags = options.flags ?? AppIdFlags.None;
   }
@@ -32,12 +33,14 @@ export class AppIdEntry extends Entry {
   }
 }
 
+export interface AppIdTableOptions extends WithSeeder {}
+
 export class AppId extends XTable<AppIdEntry> {
-  constructor(handle: Handle) {
-    super("APPID", handle);
+  constructor(options: AppIdTableOptions) {
+    super({ seeder: options.seeder, name: "APPID" });
   }
 
-  add(options: AppIdOptions) {
-    return this.addEntry(new AppIdEntry(options, this.handle));
+  add(options: OmitSeeder<AppIdOptions>) {
+    return this.addEntry(AppIdEntry, options);
   }
 }

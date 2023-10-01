@@ -1,6 +1,6 @@
 import { Colors, StyledText, TextBuilder } from "@/index";
 
-describe("XStyledText class", () => {
+describe("StyledText class", () => {
   it("should create a styled text", () => {
     const styledText = new StyledText();
     styledText.add({

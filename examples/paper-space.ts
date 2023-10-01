@@ -1,4 +1,4 @@
-import { Colors, TextOptions, Writer, point } from "@/index";
+import { Colors, OmitSeeder, TextOptions, Writer, point } from "@/index";
 import { fileURLToPath, save } from "./utils";
 
 const writer = new Writer();
@@ -19,7 +19,7 @@ const style = writer.document.tables.addStyle({
   bold: true,
 });
 
-const textOptions: TextOptions = {
+const textOptions: OmitSeeder<TextOptions> = {
   firstAlignmentPoint: point(),
   value: "Hello World!",
   height: 10,

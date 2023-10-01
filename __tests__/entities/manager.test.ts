@@ -1,23 +1,23 @@
 import {
   BlockRecordEntry,
   EntitiesManager,
-  Handle,
+  Seeder,
   TagsManager,
   point,
 } from "@/index";
 
 describe("EntitiesManager class", () => {
-  const handle = new Handle();
-  const br = new BlockRecordEntry({ name: "*Model_Space" }, handle);
+  const seeder = new Seeder();
+  const blockRecord = new BlockRecordEntry({ name: "*Model_Space", seeder });
   it("should create an empty varaible", () => {
-    const mg = new EntitiesManager(br, handle);
+    const mg = new EntitiesManager({ blockRecord, seeder });
     const m = new TagsManager();
     mg.tagify(m);
     expect(m.stringify()).toBe("");
   });
 
   it("should be able to add a line entity", () => {
-    const mg = new EntitiesManager(br, handle);
+    const mg = new EntitiesManager({ blockRecord, seeder });
     mg.addLine({
       start: point(),
       end: point(100, 100),

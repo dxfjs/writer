@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager } from "@/utils";
+import { BBox, BoundingBox, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -18,8 +18,9 @@ export class Mesh extends Entity {
     return "AcDbSubDMesh";
   }
 
-  constructor(options: MeshOptions, handle: Handle) {
-    super("MESH", handle, options);
+  constructor(options: MeshOptions) {
+    super(options);
+    this._type = "MESH";
     this.vertices = options.vertices || [];
     this.size = options.size ?? 3;
     this.faces = options.faces || [];

@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager } from "@/utils";
+import { BBox, BoundingBox, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "@/types";
 
@@ -29,8 +29,9 @@ export class Face extends Entity {
     return "AcDbFace";
   }
 
-  constructor(options: FaceOptions, handle: Handle) {
-    super("3DFACE", handle, options);
+  constructor(options: FaceOptions) {
+    super(options);
+    this._type = "3DFACE";
     this.first = options.first;
     this.second = options.second;
     this.third = options.third;

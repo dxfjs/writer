@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager, extrusion } from "@/utils";
 import { Point3D, Union } from "@/types";
+import { TagsManager, extrusion } from "@/utils";
 import { TextGenerationFlags } from "@/tables";
 
 export const TextHorizontalJustification = {
@@ -10,14 +10,14 @@ export const TextHorizontalJustification = {
   Aligned: 3,
   Middle: 4,
   Fit: 5,
-};
+} as const;
 
 export const TextVerticalJustification = {
   BaseLine: 0,
   Bottom: 1,
   Middle: 2,
   Top: 3,
-};
+} as const;
 
 export interface TextOptions extends EntityOptions {
   thickness?: number;
@@ -58,8 +58,9 @@ export class Text extends Entity {
     return this.subClassMarker;
   }
 
-  constructor(options: TextOptions, handle: Handle) {
-    super("TEXT", handle, options);
+  constructor(options: TextOptions) {
+    super(options);
+    this._type = "TEXT";
     this.thickness = options.thickness;
     this.firstAlignmentPoint = options.firstAlignmentPoint;
     this.height = options.height;

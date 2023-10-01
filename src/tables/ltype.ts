@@ -1,8 +1,9 @@
 import { Entry, EntryCommonFlags } from "./entry";
-import { Handle, TagsManager } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
+import { TagsManager } from "@/utils";
 import { XTable } from "./table";
 
-export interface LTypeOptions {
+export interface LTypeOptions extends WithSeeder {
   name: string;
   flags?: number;
   descriptive?: string;
@@ -15,8 +16,8 @@ export class LTypeEntry extends Entry {
   descriptive: string;
   readonly elements: number[];
 
-  constructor(options: LTypeOptions, handle: Handle) {
-    super("LTYPE", handle);
+  constructor(options: LTypeOptions) {
+    super({ seeder: options.seeder, type: "LTYPE" });
     this.name = options.name;
     this.flags = options.flags ?? EntryCommonFlags.None;
     this.descriptive = options.descriptive || "";
@@ -43,12 +44,14 @@ export class LTypeEntry extends Entry {
   }
 }
 
+export interface LTypeTableOptions extends WithSeeder {}
+
 export class LType extends XTable<LTypeEntry> {
-  constructor(handle: Handle) {
-    super("LTYPE", handle);
+  constructor(options: LTypeTableOptions) {
+    super({ seeder: options.seeder, name: "LTYPE" });
   }
 
-  add(options: LTypeOptions) {
-    return this.addEntry(new LTypeEntry(options, this.handle));
+  add(options: OmitSeeder<LTypeOptions>) {
+    return this.addEntry(LTypeEntry, options);
   }
 }

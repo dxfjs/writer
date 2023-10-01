@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XDocument class > should create dxf document 1`] = `
+exports[`Document class > should create dxf document 1`] = `
 "0
 SECTION
 2

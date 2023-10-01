@@ -37,7 +37,7 @@ const dim = modelSpace.addAngularLinesDim({
   dimStyleName: writer.document.tables.dimStyleStandard.options.name,
 });
 
-writer.document.tables.dimStyleStandard.reactors.add(330, dim.handleSeed);
+writer.document.tables.dimStyleStandard.reactors.add(330, dim.handle);
 
 modelSpace.addAngularPointsDim({
   center: point(100),

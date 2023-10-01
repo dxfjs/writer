@@ -1,6 +1,6 @@
 import { Document, Units } from "@/index";
 
-describe("XDocument class", () => {
+describe("Document class", () => {
   it("should create dxf document", () => {
     const document = new Document();
     expect(document.stringify()).toMatchSnapshot();

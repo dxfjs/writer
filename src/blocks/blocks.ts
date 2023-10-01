@@ -1,30 +1,35 @@
 import { Block, BlockOptions } from "./block";
-import { Handle, TagsManager } from "@/utils";
+import { OmitBlockRecord, OmitSeeder, Taggable, WithSeeder } from "@/types";
+import { Seeder, TagsManager } from "@/utils";
 import { Tables } from "@/tables";
-import { Taggable } from "@/types";
 
-export class Blocks implements Taggable {
+export interface BlocksOptions {
+  tables: Tables;
+  seeder: Seeder;
+}
+
+export class Blocks implements Taggable, WithSeeder {
   readonly tables: Tables;
-  readonly handle: Handle;
+  readonly seeder: Seeder;
   readonly blocks: Block[];
   readonly modelSpace: Block;
   readonly paperSpace: Block;
 
   private paperSpaceSeed = 0;
 
-  constructor(tables: Tables, handle: Handle) {
+  constructor({ tables, seeder }: BlocksOptions) {
     this.tables = tables;
-    this.handle = handle;
+    this.seeder = seeder;
     this.blocks = [];
     this.modelSpace = this.addBlock({ name: "*Model_Space" });
     this.paperSpace = this.addBlock({ name: "*Paper_Space" });
   }
 
-  addBlock(options: BlockOptions) {
-    const br = this.tables.addBlockRecord({ name: options.name });
-    const b = new Block(options, this.handle, br);
-    b.ownerObjectHandle = br.handleSeed;
-    b.endblk.ownerObjectHandle = br.handleSeed;
+  addBlock(options: OmitBlockRecord<OmitSeeder<BlockOptions>>) {
+    const blockRecord = this.tables.addBlockRecord(options);
+    const b = new Block({ ...options, ...this, blockRecord });
+    b.ownerObjectHandle = blockRecord.handle;
+    b.endblk.ownerObjectHandle = blockRecord.handle;
     this.blocks.push(b);
     return b;
   }

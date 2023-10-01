@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`XWriter class > should match snapshot 1`] = `
+exports[`Writer class > should match snapshot 1`] = `
 "0
 SECTION
 2

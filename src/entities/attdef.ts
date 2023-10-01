@@ -1,5 +1,5 @@
-import { Handle, TagsManager } from "@/utils";
 import { Text, TextOptions } from "./text";
+import { TagsManager } from "@/utils";
 
 export interface AttdefOptions extends TextOptions {
   prompt?: string;
@@ -16,8 +16,8 @@ export class Attdef extends Text {
     return "AcDbAttributeDefinition";
   }
 
-  constructor(options: AttdefOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: AttdefOptions) {
+    super(options);
     this._type = "ATTDEF";
     this.prompt = options.prompt || "";
     this.tag = options.tag;

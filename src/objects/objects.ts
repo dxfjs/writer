@@ -1,28 +1,30 @@
 import { Dictionary, DuplicateRecordFlags } from "./dictionary";
-import { Handle, TagsManager } from "@/utils";
-import { Taggable } from "@/types";
+import { Seeder, TagsManager } from "@/utils";
+import { Taggable, WithSeeder } from "@/types";
 import { XObject } from "./object";
 
-export class Objects implements Taggable {
-  readonly handle: Handle;
+export interface ObjectsOptions extends WithSeeder {}
+
+export class Objects implements Taggable,WithSeeder {
+  readonly seeder: Seeder;
   readonly objects: XObject[];
   readonly root: Dictionary;
 
-  constructor(handle: Handle) {
-    this.handle = handle;
+  constructor({ seeder }: ObjectsOptions) {
+    this.seeder = seeder;
     this.objects = [];
-    this.root = new Dictionary(handle);
+    this.root = new Dictionary(seeder);
     this.root.duplicateRecordFlag = DuplicateRecordFlags.KeepExisting;
     this.root.add("ACAD_GROUP", this.addDictionary().handleSeed);
   }
 
-  add<O extends XObject>(objekt: O) {
-    this.objects.push(objekt);
-    return objekt;
+  add<O extends XObject>(obj: O) {
+    this.objects.push(obj);
+    return obj;
   }
 
   addDictionary() {
-    const d = new Dictionary(this.handle);
+    const d = new Dictionary(this.seeder);
     d.ownerObjectHandle = this.root.handleSeed;
     return this.add(d);
   }

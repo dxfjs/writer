@@ -1,13 +1,15 @@
-import { Entity } from "./entity";
-import { Handle } from "@/utils";
+import { Entity, EntityOptions } from "./entity";
+
+export interface SeqEndOptions extends EntityOptions {}
 
 export class SeqEnd extends Entity {
   override get subClassMarker(): string | undefined {
     return;
   }
 
-  constructor(handle: Handle) {
-    super("SEQEND", handle);
+  constructor(options: SeqEndOptions) {
+    super(options);
+    this._type = "SEQEND";
   }
 
   protected tagifyChild(): void {}

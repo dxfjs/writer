@@ -1,5 +1,5 @@
 import { Dimension, DimensionOptions, DimensionType } from "./dimension";
-import { Handle, TagsManager, angle, point, polar } from "@/utils";
+import { TagsManager, angle, point, polar } from "@/utils";
 import { Point3D } from "@/types";
 
 export interface AlignedDimensionOptions extends DimensionOptions {
@@ -14,8 +14,8 @@ export class AlignedDimension extends Dimension {
   start: Point3D;
   end: Point3D;
 
-  constructor(options: AlignedDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: AlignedDimensionOptions) {
+    super(options);
     this.dimensionType = DimensionType.Aligned;
     this.insertion = options.insertion;
     this.start = options.start;

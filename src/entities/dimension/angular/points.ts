@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "../dimension";
-import { Handle, TagsManager } from "@/utils";
 import { Point3D } from "@/types";
+import { TagsManager } from "@/utils";
 
 export interface AngularPointsDimensionOptions extends DimensionOptions {
   center: Point3D;
@@ -13,8 +13,8 @@ export class AngularPointsDimension extends Dimension {
   first: Point3D;
   second: Point3D;
 
-  constructor(options: AngularPointsDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: AngularPointsDimensionOptions) {
+    super(options);
     this.dimensionType = DimensionType.Angular3Point;
     this.center = options.center;
     this.first = options.first;

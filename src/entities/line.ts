@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -19,8 +19,9 @@ export class Line extends Entity {
     return "AcDbLine";
   }
 
-  constructor(options: LineOptions, handle: Handle) {
-    super("LINE", handle, options);
+  constructor(options: LineOptions) {
+    super(options);
+    this._type = "LINE";
     this.thickness = options.thickness ?? 0;
     this.start = options.start;
     this.end = options.end;
