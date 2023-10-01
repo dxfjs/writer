@@ -1,11 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  onezero,
-  point,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, onezero, point } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Taggable, Union } from "@/types";
 
@@ -105,8 +98,9 @@ export class Table extends Entity {
     return "AcDbBlockReference";
   }
 
-  constructor(options: TableOptions, handle: Handle) {
-    super("ACAD_TABLE", handle, options);
+  constructor(options: TableOptions) {
+    super(options);
+    this._type = "ACAD_TABLE";
     this.blockName = options.blockName;
     this.insertionPoint = options.insertionPoint;
     this.rowsCount = options.rowsCount;

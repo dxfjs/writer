@@ -1,5 +1,6 @@
-import { Handle, TagsManager } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
 import { Entry } from "./entry";
+import { TagsManager } from "@/utils";
 import { XTable } from "./table";
 
 export const DimStyleFlags = {
@@ -9,7 +10,7 @@ export const DimStyleFlags = {
   Referenced: 64,
 } as const;
 
-export interface DimStyleOptions {
+export interface DimStyleOptions extends WithSeeder {
   name: string;
   flags?: number;
   DIMPOST?: string;
@@ -82,9 +83,9 @@ export interface DimStyleOptions {
 export class DimStyleEntry extends Entry {
   options: DimStyleOptions;
 
-  constructor(options: DimStyleOptions, handle: Handle) {
-    super("DIMSTYLE", handle);
-    this.handleCode = 105;
+  constructor(options: DimStyleOptions) {
+    super({ seeder: options.seeder, type: "DIMSTYLE" });
+    this.hcode = 105;
     options.flags ??= DimStyleFlags.None;
     this.options = options;
   }
@@ -162,19 +163,21 @@ export class DimStyleEntry extends Entry {
   }
 }
 
+export interface DimStyleTableOptions extends WithSeeder {}
+
 export class DimStyle extends XTable<DimStyleEntry> {
-  constructor(handle: Handle) {
-    super("DIMSTYLE", handle);
+  constructor(options: DimStyleTableOptions) {
+    super({ seeder: options.seeder, name: "DIMSTYLE" });
   }
 
-  add(options: DimStyleOptions) {
-    return this.addEntry(new DimStyleEntry(options, this.handle));
+  add(options: OmitSeeder<DimStyleOptions>) {
+    return this.addEntry(DimStyleEntry, options);
   }
 
   override tagify(mg: TagsManager): void {
     mg.add(0, "TABLE");
     mg.add(2, this.name);
-    mg.add(5, this.handleSeed);
+    mg.add(5, this.handle);
     this.xdictionary.tagify(mg);
     mg.add(330, this.ownerObjectHandle);
     mg.add(100, "AcDbSymbolTable");

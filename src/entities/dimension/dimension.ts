@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "../entity";
-import { Handle, TagsManager, extrusion } from "@/utils";
 import { Point3D, Union } from "@/types";
+import { TagsManager, extrusion } from "@/utils";
 
 export const DimensionType = {
   None: 0,
@@ -66,8 +66,9 @@ export class Dimension extends Entity {
     return "AcDbDimension";
   }
 
-  constructor(options: DimensionOptions, handle: Handle) {
-    super("DIMENSION", handle, options);
+  constructor(options: DimensionOptions) {
+    super(options);
+    this._type = "DIMENSION";
     this.blockName = options.blockName;
     this.definition = options.definition;
     this.middle = options.middle;

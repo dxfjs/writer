@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "../dimension";
-import { Handle, TagsManager } from "@/utils";
 import { Point3D } from "@/types";
+import { TagsManager } from "@/utils";
 
 export interface AngularLineDimension {
   start: Point3D;
@@ -22,8 +22,8 @@ export class AngularLinesDimension extends Dimension {
   secondLine: AngularLineDimension;
   positionArc: Point3D;
 
-  constructor(options: AngularLineDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: AngularLineDimensionOptions) {
+    super(options);
     this.dimensionType = DimensionType.Angular;
     this.firstLine = options.firstLine;
     this.secondLine = options.secondLine;

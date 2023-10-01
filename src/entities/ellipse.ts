@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -23,8 +23,9 @@ export class Ellipse extends Entity {
     return "AcDbEllipse";
   }
 
-  constructor(options: EllipseOptions, handle: Handle) {
-    super("ELLIPSE", handle, options);
+  constructor(options: EllipseOptions) {
+    super(options);
+    this._type = "ELLIPSE";
     this.center = options.center;
     this.endpoint = options.endpoint;
     this.extrusion = options.extrusion || extrusion();

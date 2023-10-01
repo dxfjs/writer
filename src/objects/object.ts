@@ -1,8 +1,13 @@
-import { AppDefined, Handle, TagsManager } from "@/utils";
-import { Taggable } from "@/types";
+import { AppDefined, TagsManager } from "@/utils";
+import { Taggable, WithSeeder } from "@/types";
+
+export interface ObjectOptions extends WithSeeder {
+  type: string;
+}
 
 export abstract class XObject implements Taggable {
   readonly handleSeed: string;
+  readonly type: string;
 
   readonly applications: AppDefined[];
   readonly reactors: AppDefined;
@@ -10,8 +15,9 @@ export abstract class XObject implements Taggable {
 
   ownerObjectHandle: string;
 
-  constructor(public readonly type: string, handle: Handle) {
-    this.handleSeed = handle.next();
+  constructor({ seeder, type }: ObjectOptions) {
+    this.handleSeed = seeder.next();
+    this.type = type;
     this.ownerObjectHandle = "0";
 
     this.applications = [];

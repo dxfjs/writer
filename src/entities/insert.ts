@@ -1,11 +1,4 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  onezero,
-  point,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, onezero, point } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 import { SeqEnd } from "./seqend";
@@ -41,8 +34,9 @@ export class Insert extends Entity {
     return "AcDbBlockReference";
   }
 
-  constructor(options: InsertOptions, handle: Handle) {
-    super("INSERT", handle, options);
+  constructor(options: InsertOptions) {
+    super(options);
+    this._type = "INSERT";
     this.followAttributes = options.followAttributes;
     this.blockName = options.blockName;
     this.insertionPoint = options.insertionPoint || point();
@@ -54,8 +48,8 @@ export class Insert extends Entity {
     this.rowSpacing = options.rowSpacing;
     this.extrusion = options.extrusion;
     if (this.followAttributes) {
-      this.seqend = new SeqEnd(handle);
-      this.seqend.ownerObjectHandle = this.handleSeed;
+      this.seqend = new SeqEnd(options);
+      this.seqend.ownerObjectHandle = this.handle;
     }
   }
 

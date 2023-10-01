@@ -1,4 +1,4 @@
-export class Handle {
+export class Seeder {
   private seed: number;
 
   constructor() {

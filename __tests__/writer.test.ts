@@ -3,7 +3,7 @@ import { Colors, InvisibleEdge, LWPolylineFlags, Writer, point } from "@/index";
 import { writeFileSync } from "fs";
 
 
-describe("XWriter class", () => {
+describe("Writer class", () => {
   const writer = new Writer();
   it("should match snapshot", () => {
     expect(writer.stringify()).toMatchSnapshot();

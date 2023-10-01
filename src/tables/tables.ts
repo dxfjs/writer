@@ -1,17 +1,19 @@
 import { AppId, AppIdEntry, AppIdOptions } from "./appid";
 import { BlockRecord, BlockRecordOptions } from "./block";
 import { DimStyle, DimStyleEntry, DimStyleOptions } from "./dimstyle";
-import { Handle, TagsManager } from "@/utils";
 import { LType, LTypeEntry, LTypeOptions } from "./ltype";
 import { Layer, LayerEntry, LayerOptions } from "./layer";
+import { OmitSeeder, Taggable, WithSeeder } from "@/types";
+import { Seeder, TagsManager } from "@/utils";
 import { Style, StyleEntry, StyleOptions } from "./style";
 import { VPort, VPortEntry, VPortOptions } from "./vport";
-import { Taggable } from "@/types";
 import { Ucs } from "./ucs";
 import { View } from "./view";
 
-export class Tables implements Taggable {
-  readonly handle: Handle;
+export interface TablesOptions extends WithSeeder {}
+
+export class Tables implements Taggable, WithSeeder {
+  readonly seeder: Seeder;
   readonly appId: AppId;
   readonly blockRecord: BlockRecord;
   readonly dimStyle: DimStyle;
@@ -29,17 +31,17 @@ export class Tables implements Taggable {
   readonly styleStandard: StyleEntry;
   readonly vportActive: VPortEntry;
 
-  constructor(handle: Handle) {
-    this.handle = handle;
-    this.appId = new AppId(handle);
-    this.blockRecord = new BlockRecord(handle);
-    this.dimStyle = new DimStyle(handle);
-    this.layer = new Layer(handle);
-    this.ltype = new LType(handle);
-    this.style = new Style(handle);
-    this.view = new View(handle);
-    this.ucs = new Ucs(handle);
-    this.vport = new VPort(handle);
+  constructor(options: TablesOptions) {
+    this.seeder = options.seeder;
+    this.appId = new AppId(this);
+    this.blockRecord = new BlockRecord(this);
+    this.dimStyle = new DimStyle(this);
+    this.layer = new Layer(this);
+    this.ltype = new LType(this);
+    this.style = new Style(this);
+    this.view = new View(this);
+    this.ucs = new Ucs(this);
+    this.vport = new VPort(this);
 
     this.appIdAcad = this.addAppId({ name: "ACAD" });
     this.dimStyleStandard = this.addDimStyle({ name: "Standard" });
@@ -51,35 +53,35 @@ export class Tables implements Taggable {
       descriptive: "Solid line",
     });
     this.styleStandard = this.addStyle({ name: "Standard" });
-    this.dimStyleStandard.options.DIMTXSTY = this.styleStandard.handleSeed;
+    this.dimStyleStandard.options.DIMTXSTY = this.styleStandard.handle;
     this.vportActive = this.addVPort({ name: "*Active" });
   }
 
-  addAppId(options: AppIdOptions) {
+  addAppId(options: OmitSeeder<AppIdOptions>) {
     return this.appId.add(options);
   }
 
-  addBlockRecord(options: BlockRecordOptions) {
+  addBlockRecord(options: OmitSeeder<BlockRecordOptions>) {
     return this.blockRecord.add(options);
   }
 
-  addDimStyle(options: DimStyleOptions) {
+  addDimStyle(options: OmitSeeder<DimStyleOptions>) {
     return this.dimStyle.add(options);
   }
 
-  addLayer(options: LayerOptions) {
+  addLayer(options: OmitSeeder<LayerOptions>) {
     return this.layer.add(options);
   }
 
-  addLType(options: LTypeOptions) {
+  addLType(options: OmitSeeder<LTypeOptions>) {
     return this.ltype.add(options);
   }
 
-  addStyle(options: StyleOptions) {
+  addStyle(options: OmitSeeder<StyleOptions>) {
     return this.style.add(options);
   }
 
-  addVPort(options: VPortOptions) {
+  addVPort(options: OmitSeeder<VPortOptions>) {
     return this.vport.add(options);
   }
 

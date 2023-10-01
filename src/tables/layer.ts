@@ -1,4 +1,5 @@
-import { Colors, Handle, LineTypes, TagsManager } from "@/utils";
+import { Colors, LineTypes, TagsManager } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
 import { Entry } from "./entry";
 import { XTable } from "./table";
 
@@ -12,7 +13,7 @@ export const LayerFlags = {
   Referenced: 64,
 } as const;
 
-export interface LayerOptions {
+export interface LayerOptions extends WithSeeder {
   name: string;
   flags?: number;
   colorNumber?: number;
@@ -35,8 +36,8 @@ export class LayerEntry extends Entry {
 
   static readonly layerZeroName = "0";
 
-  constructor(options: LayerOptions, handle: Handle) {
-    super("LAYER", handle);
+  constructor(options: LayerOptions) {
+    super({ seeder: options.seeder, type: "LAYER" });
     this.name = options.name;
     this.flags = options.flags ?? LayerFlags.None;
     this.colorNumber = options.colorNumber ?? Colors.White;
@@ -61,16 +62,18 @@ export class LayerEntry extends Entry {
   }
 }
 
+export interface LayerTableOptions extends WithSeeder {}
+
 export class Layer extends XTable<LayerEntry> {
-  constructor(handle: Handle) {
-    super("LAYER", handle);
+  constructor(options: LayerTableOptions) {
+    super({ seeder: options.seeder, name: "LAYER" });
   }
 
   get(name: string) {
     return this.find((layer) => layer.name === name);
   }
 
-  add(options: LayerOptions) {
-    return this.addEntry(new LayerEntry(options, this.handle));
+  add(options: OmitSeeder<LayerOptions>) {
+    return this.addEntry(LayerEntry, options);
   }
 }

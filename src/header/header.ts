@@ -1,13 +1,15 @@
-import { Handle, TagsManager } from "@/utils";
-import { Taggable } from "@/types";
+import { Seeder, TagsManager } from "@/utils";
+import { Taggable, WithSeeder } from "@/types";
 import { Variable } from "./variable";
 
-export class Header implements Taggable {
-  readonly handle: Handle;
+export interface HeaderOptions extends WithSeeder {}
+
+export class Header implements Taggable, WithSeeder {
+  readonly seeder: Seeder;
   readonly variables: Variable[];
 
-  constructor(handle: Handle) {
-    this.handle = handle;
+  constructor({ seeder }: HeaderOptions) {
+    this.seeder = seeder;
     this.variables = [];
     this.add("$ACADVER").add(1, "AC1021");
     this.handseed();
@@ -36,6 +38,6 @@ export class Header implements Taggable {
   private handseed() {
     const handseed = this.add("$HANDSEED");
     handseed.clear();
-    handseed.add(5, this.handle.peek());
+    handseed.add(5, this.seeder.peek());
   }
 }

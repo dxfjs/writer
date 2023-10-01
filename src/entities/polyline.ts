@@ -1,14 +1,7 @@
-import {
-  BBox,
-  BoundingBox,
-  Handle,
-  TagsManager,
-  extrusion,
-  point,
-} from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion, point } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
+import { OmitSeeder, Point3D } from "@/types";
 import { Vertex, VertexOptions } from "./vertex";
-import { Point3D } from "@/types";
 import { SeqEnd } from "./seqend";
 
 export const PolylineFlags = {
@@ -52,8 +45,9 @@ export class Polyline extends Entity {
     else return "AcDb2dPolyline";
   }
 
-  constructor(options: PolylineOptions, handle: Handle) {
-    super("POLYLINE", handle, options);
+  constructor(options: PolylineOptions) {
+    super(options);
+    this._type = "POLYLINE";
     this.elevation = options.elevation;
     this.thickness = options.thickness;
     this.flags = options.flags || PolylineFlags.None;
@@ -63,12 +57,12 @@ export class Polyline extends Entity {
     this.vertices = options.vertices || [];
     this.faces = options.faces || [];
 
-    this.seqend = new SeqEnd(handle);
-    this.seqend.ownerObjectHandle = this.handleSeed;
+    this.seqend = new SeqEnd(options);
+    this.seqend.ownerObjectHandle = this.handle;
   }
 
-  add(options: VertexOptions) {
-    const v = new Vertex(options, this.handle);
+  add(options: OmitSeeder<VertexOptions>) {
+    const v = new Vertex({ ...options, seeder: this.seeder });
     v.ownerObjectHandle = this.ownerObjectHandle;
     v.layerName = this.layerName;
     if (v.faceRecord) this.faces.push(v);

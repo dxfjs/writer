@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager, extrusion } from "@/utils";
 import { Point3D, Union } from "@/types";
+import { TagsManager, extrusion } from "@/utils";
 import { TextHorizontalJustification, TextVerticalJustification } from "./text";
 import { Insert } from "./insert";
 import { TextGenerationFlags } from "@/tables";
@@ -50,8 +50,9 @@ export class Attrib extends Entity {
     return false;
   }
 
-  constructor(options: AttribOptions, handle: Handle) {
-    super("ATTRIB", handle, options);
+  constructor(options: AttribOptions) {
+    super(options);
+    this._type = "ATTRIB";
     this.thickness = options.thickness;
     this.startPoint = options.startPoint;
     this.height = options.height;
@@ -68,7 +69,7 @@ export class Attrib extends Entity {
     this.alignmentPoint = options.alignmentPoint;
     this.extrusion = options.extrusion || extrusion();
     this.insert = options.insert;
-    this.ownerObjectHandle = options.insert.handleSeed;
+    this.ownerObjectHandle = options.insert.handle;
   }
 
   protected override tagifyChild(mg: TagsManager): void {

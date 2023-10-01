@@ -1,6 +1,6 @@
 import { Entity, EntityOptions } from "./entity";
-import { Handle, TagsManager } from "@/utils";
 import { Point3D } from "@/types";
+import { TagsManager } from "@/utils";
 
 export const VertexFlags = {
   None: 0,
@@ -43,8 +43,9 @@ export class Vertex extends Entity implements Point3D {
     return "AcDbVertex";
   }
 
-  constructor(options: VertexOptions, handle: Handle) {
-    super("VERTEX", handle, options);
+  constructor(options: VertexOptions) {
+    super(options);
+    this._type = "VERTEX";
     this.x = options.x ?? 0;
     this.y = options.y ?? 0;
     this.z = options.z ?? 0;

@@ -1,6 +1,6 @@
-import {Dimension, DimensionOptions, DimensionType} from "./dimension";
-import {Handle, TagsManager} from "@/utils";
-import {Point3D} from "@/types.ts";
+import { Dimension, DimensionOptions, DimensionType } from "./dimension";
+import { Point3D } from "@/types.ts";
+import { TagsManager } from "@/utils";
 
 export interface DiameterDimensionOptions extends DimensionOptions {
   first: Point3D;
@@ -10,8 +10,8 @@ export interface DiameterDimensionOptions extends DimensionOptions {
 export class DiameterDimension extends Dimension {
   first: Point3D;
   leaderLength: number;
-  constructor(options: DiameterDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: DiameterDimensionOptions) {
+    super(options);
     this.dimensionType = DimensionType.Diameter;
     this.first = options.first;
     this.leaderLength = options.leaderLength;

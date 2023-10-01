@@ -1,5 +1,5 @@
 import { Dimension, DimensionOptions } from "./dimension";
-import { Handle, TagsManager, polar } from "@/utils";
+import { TagsManager, polar } from "@/utils";
 import { Point3D } from "@/types";
 
 export interface LinearDimensionOptions extends DimensionOptions {
@@ -18,8 +18,8 @@ export class LinearDimension extends Dimension {
   angle: number;
   types?: number;
 
-  constructor(options: LinearDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: LinearDimensionOptions) {
+    super(options);
     this.insertion = options.insertion;
     this.start = options.start;
     this.end = options.end;

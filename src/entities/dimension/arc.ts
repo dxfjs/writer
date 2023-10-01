@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions } from "./dimension";
-import { Handle, TagsManager } from "@/utils";
 import { Point3D } from "@/types.ts";
+import { TagsManager } from "@/utils";
 
 export interface ArcDimensionOptions extends DimensionOptions {
   center: Point3D;
@@ -25,8 +25,8 @@ export class ArcDimension extends Dimension {
   firstLeaderPoint?: Point3D;
   secondLeaderPoint?: Point3D;
 
-  constructor(options: ArcDimensionOptions, handle: Handle) {
-    super(options, handle);
+  constructor(options: ArcDimensionOptions) {
+    super(options);
     this._type = "ARC_DIMENSION";
     this.center = options.center;
     this.startPoint = options.startPoint;

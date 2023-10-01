@@ -15,11 +15,10 @@ import {
 import { Arc, ArcOptions } from "./arc";
 import { Attdef, AttdefOptions } from "./attdef";
 import { Attrib, AttribOptions } from "./attrib";
-import { BBox, Handle, TagsManager } from "@/utils";
+import { BBox, Seeder, TagsManager } from "@/utils";
 import { BlockRecordEntry, LayerEntry } from "@/tables";
 import { Circle, CircleOptions } from "./circle";
 import { Ellipse, EllipseOptions } from "./ellipse";
-import { Entity, EntityOptions } from "./entity";
 import { Face, FaceOptions } from "./face";
 import { Hatch, HatchOptions } from "./hatch";
 import { Insert, InsertOptions } from "./insert";
@@ -29,6 +28,7 @@ import { Line, LineOptions } from "./line";
 import { MLeader, MLeaderOptions } from "./mleader";
 import { MText, MTextOptions } from "./mtext";
 import { Mesh, MeshOptions } from "./mesh";
+import { OmitBlockName, OmitSeeder, Taggable, WithSeeder } from "@/types";
 import { Point, PointOptions } from "./point";
 import { Polyline, PolylineOptions } from "./polyline";
 import { Ray, RayOptions } from "./ray";
@@ -36,22 +36,26 @@ import { Rectangle, RectangleOptions } from "@/shapes";
 import { Spline, SplineOptions } from "./spline";
 import { Table, TableOptions } from "./table";
 import { Text, TextOptions } from "./text";
-import { Taggable } from "@/types";
+import { Entity } from "./entity";
 
-export class EntitiesManager implements Taggable {
+export interface EntitiesManagerOptions extends WithSeeder {
+  blockRecord: BlockRecordEntry;
+}
+
+export class EntitiesManager implements Taggable, WithSeeder {
   readonly blockRecord: BlockRecordEntry;
-  readonly handle: Handle;
-  readonly handleSeed: string;
+  readonly seeder: Seeder;
+  readonly handle: string;
   readonly entities: Entity[];
 
   currentLayerName: string;
 
   private _tableSeed = 1;
 
-  constructor(BlockRecordEntry: BlockRecordEntry, handle: Handle) {
-    this.blockRecord = BlockRecordEntry;
-    this.handle = handle;
-    this.handleSeed = handle.next();
+  constructor({ blockRecord, seeder }: EntitiesManagerOptions) {
+    this.blockRecord = blockRecord;
+    this.seeder = seeder;
+    this.handle = seeder.next();
     this.entities = [];
     this.currentLayerName = LayerEntry.layerZeroName;
   }
@@ -60,13 +64,14 @@ export class EntitiesManager implements Taggable {
     return BBox.boxes(this.entities.map((e) => e.bbox()));
   }
 
-  add<TEntity extends Entity, TOptions extends EntityOptions>(
-    ctor: new (options: TOptions, handle: Handle) => TEntity,
-    options: TOptions
+  add<E extends Entity, O>(
+    ctor: new (options: WithSeeder<O>) => E,
+    options: O
   ) {
-    const instance = new ctor(options, this.handle);
+    const { seeder } = this;
+    const instance = new ctor({ ...options, seeder });
     if (instance.changeOwner)
-      instance.ownerObjectHandle = this.blockRecord.handleSeed;
+      instance.ownerObjectHandle = this.blockRecord.handle;
     if (instance.layerName == null) instance.layerName = this.currentLayerName;
     if (this.blockRecord.isPaperSpace) instance.inPaperSpace = true;
     this.push(instance);
@@ -78,113 +83,114 @@ export class EntitiesManager implements Taggable {
     this.entities.push(entity);
   }
 
-  addArc(options: ArcOptions) {
+  addArc(options: OmitSeeder<ArcOptions>) {
     return this.add(Arc, options);
   }
 
-  addAttdef(options: AttdefOptions) {
+  addAttdef(options: OmitSeeder<AttdefOptions>) {
     return this.add(Attdef, options);
   }
 
-  addAttrib(options: AttribOptions) {
+  addAttrib(options: OmitSeeder<AttribOptions>) {
     return this.add(Attrib, options);
   }
 
-  addAlignedDim(options: AlignedDimensionOptions) {
+  addAlignedDim(options: OmitSeeder<AlignedDimensionOptions>) {
     return this.add(AlignedDimension, options);
   }
 
-  addAngularLinesDim(options: AngularLineDimensionOptions) {
+  addAngularLinesDim(options: OmitSeeder<AngularLineDimensionOptions>) {
     return this.add(AngularLinesDimension, options);
   }
 
-  addAngularPointsDim(options: AngularPointsDimensionOptions) {
+  addAngularPointsDim(options: OmitSeeder<AngularPointsDimensionOptions>) {
     return this.add(AngularPointsDimension, options);
   }
 
-  addCircle(options: CircleOptions) {
+  addCircle(options: OmitSeeder<CircleOptions>) {
     return this.add(Circle, options);
   }
 
-  addDiameterDim(options: DiameterDimensionOptions) {
+  addDiameterDim(options: OmitSeeder<DiameterDimensionOptions>) {
     return this.add(DiameterDimension, options);
   }
 
-  addEllipse(options: EllipseOptions) {
+  addEllipse(options: OmitSeeder<EllipseOptions>) {
     return this.add(Ellipse, options);
   }
 
-  addFace(options: FaceOptions) {
+  addFace(options: OmitSeeder<FaceOptions>) {
     return this.add(Face, options);
   }
 
-  addHatch(options: HatchOptions) {
+  addHatch(options: OmitSeeder<HatchOptions>) {
     return this.add(Hatch, options);
   }
 
-  addInsert(options: InsertOptions) {
+  addInsert(options: OmitSeeder<InsertOptions>) {
     return this.add(Insert, options);
   }
 
-  addLeader(options: LeaderOptions) {
+  addLeader(options: OmitSeeder<LeaderOptions>) {
     return this.add(Leader, options);
   }
 
-  addLine(options: LineOptions) {
+  addLine(options: OmitSeeder<LineOptions>) {
     return this.add(Line, options);
   }
 
-  addLinearDim(options: LinearDimensionOptions) {
+  addLinearDim(options: OmitSeeder<LinearDimensionOptions>) {
     return this.add(LinearDimension, options);
   }
 
-  addLWPolyline(options: LWPolylineOptions) {
+  addLWPolyline(options: OmitSeeder<LWPolylineOptions>) {
     return this.add(LWPolyline, options);
   }
 
-  addMesh(options: MeshOptions) {
+  addMesh(options: OmitSeeder<MeshOptions>) {
     return this.add(Mesh, options);
   }
 
-  addMLeader(options: MLeaderOptions) {
+  addMLeader(options: OmitSeeder<MLeaderOptions>) {
     return this.add(MLeader, options);
   }
 
-  addMText(options: MTextOptions) {
+  addMText(options: OmitSeeder<MTextOptions>) {
     return this.add(MText, options);
   }
 
-  addPoint(options: PointOptions) {
+  addPoint(options: OmitSeeder<PointOptions>) {
     return this.add(Point, options);
   }
 
-  addPolyline(options: PolylineOptions) {
+  addPolyline(options: OmitSeeder<PolylineOptions>) {
     return this.add(Polyline, options);
   }
 
-  addRadialDim(options: RadialDimensionOptions) {
+  addRadialDim(options: OmitSeeder<RadialDimensionOptions>) {
     return this.add(RadialDimension, options);
   }
 
-  addRectangle(options: RectangleOptions) {
-    const { vertices } = new Rectangle(options);
+  addRectangle(options: OmitSeeder<RectangleOptions>) {
+    const { seeder } = this;
+    const { vertices } = new Rectangle({ ...options, seeder });
     return this.addLWPolyline({ vertices, ...options });
   }
 
-  addRay(options: RayOptions) {
+  addRay(options: OmitSeeder<RayOptions>) {
     return this.add(Ray, options);
   }
 
-  addSpline(options: SplineOptions) {
+  addSpline(options: OmitSeeder<SplineOptions>) {
     return this.add(Spline, options);
   }
 
-  addTable(options: Omit<TableOptions, "blockName">) {
+  addTable(options: OmitSeeder<OmitBlockName<TableOptions>>) {
     const blockName = `*T${this._tableSeed++}`;
     return this.add(Table, { blockName, ...options });
   }
 
-  addText(options: TextOptions) {
+  addText(options: OmitSeeder<TextOptions>) {
     return this.add(Text, options);
   }
 

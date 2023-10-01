@@ -1,4 +1,5 @@
-import { Handle, TagsManager, XData } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
+import { TagsManager, XData } from "@/utils";
 import { Entry } from "./entry";
 import { XTable } from "./table";
 
@@ -20,7 +21,7 @@ export const TextGenerationFlags = {
   UpsideDown: 4,
 } as const;
 
-export interface StyleOptions {
+export interface StyleOptions extends WithSeeder {
   name: string;
   flags?: number;
   fixedTextHeight?: number;
@@ -51,8 +52,8 @@ export class StyleEntry extends Entry {
 
   readonly xdata: XData;
 
-  constructor(options: StyleOptions, handle: Handle) {
-    super("STYLE", handle);
+  constructor(options: StyleOptions) {
+    super({ seeder: options.seeder, type: "STYLE" });
     this.name = options.name;
     this.flags = options.flags ?? StyleFlags.None;
     this.fixedTextHeight = options.fixedTextHeight ?? 0;
@@ -94,12 +95,14 @@ export class StyleEntry extends Entry {
   }
 }
 
+export interface StyleTableOptions extends WithSeeder {}
+
 export class Style extends XTable<StyleEntry> {
-  constructor(handle: Handle) {
-    super("STYLE", handle);
+  constructor(options: StyleTableOptions) {
+    super({ seeder: options.seeder, name: "STYLE" });
   }
 
-  add(options: StyleOptions) {
-    return this.addEntry(new StyleEntry(options, this.handle));
+  add(options: OmitSeeder<StyleOptions>) {
+    return this.addEntry(StyleEntry, options);
   }
 }

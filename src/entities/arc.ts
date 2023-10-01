@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager } from "@/utils";
+import { BBox, BoundingBox, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -21,8 +21,9 @@ export class Arc extends Entity {
     return "AcDbCircle";
   }
 
-  constructor(options: ArcOptions, handle: Handle) {
-    super("ARC", handle, options);
+  constructor(options: ArcOptions) {
+    super(options);
+    this._type = "ARC";
     this.thickness = options.thickness;
     this.center = options.center;
     this.radius = options.radius;

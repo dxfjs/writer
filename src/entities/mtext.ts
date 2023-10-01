@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager, extrusion } from "@/utils";
+import { BBox, BoundingBox, TagsManager, extrusion } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "@/types";
 
@@ -102,8 +102,9 @@ export class MText extends Entity {
     return "AcDbMText";
   }
 
-  constructor(options: MTextOptions, handle: Handle) {
-    super("MTEXT", handle, options);
+  constructor(options: MTextOptions) {
+    super(options);
+    this._type = "MTEXT";
     this.insertionPoint = options.insertionPoint;
     this.height = options.height;
     this.referenceRectangleWidth = options.referenceRectangleWidth;

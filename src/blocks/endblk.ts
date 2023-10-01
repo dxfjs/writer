@@ -1,16 +1,18 @@
-import { AppDefined, Handle, TagsManager } from "@/utils";
-import { Taggable } from "@/types";
+import { AppDefined, TagsManager } from "@/utils";
+import { Taggable, WithSeeder } from "@/types";
+
+export interface EndBlkOptions extends WithSeeder {}
 
 export class EndBlk implements Taggable {
-  readonly handleSeed: string;
+  readonly handle: string;
 
   readonly applications: AppDefined[];
 
   ownerObjectHandle: string;
   layerName: string;
 
-  constructor(handle: Handle) {
-    this.handleSeed = handle.next();
+  constructor({ seeder }: EndBlkOptions) {
+    this.handle = seeder.next();
 
     this.applications = [];
 
@@ -29,7 +31,7 @@ export class EndBlk implements Taggable {
 
   tagify(mg: TagsManager): void {
     mg.add(0, "ENDBLK");
-    mg.add(5, this.handleSeed);
+    mg.add(5, this.handle);
     this.applications.forEach((a) => a.tagify(mg));
     mg.add(330, this.ownerObjectHandle);
     mg.add(100, "AcDbEntity");

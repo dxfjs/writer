@@ -1,9 +1,9 @@
-import { Handle, TagsManager } from "@/utils";
+import { OmitSeeder, Point2D, WithSeeder } from "@/types";
 import { Entry } from "./entry";
-import { Point2D } from "@/types";
+import { TagsManager } from "@/utils";
 import { XTable } from "./table";
 
-export interface VPortOptions {
+export interface VPortOptions extends WithSeeder {
   name: string;
   lowerLeft?: Point2D;
   upperRight?: Point2D;
@@ -18,8 +18,8 @@ export class VPortEntry extends Entry {
   center?: Point2D;
   height?: number;
 
-  constructor(options: VPortOptions, handle: Handle) {
-    super("VPORT", handle);
+  constructor(options: VPortOptions) {
+    super({ seeder: options.seeder, type: "VPORT" });
     this.name = options.name;
     this.lowerLeft = options.lowerLeft;
     this.upperRight = options.upperRight;
@@ -48,12 +48,14 @@ export class VPortEntry extends Entry {
   }
 }
 
+export interface VPortTableOptions extends WithSeeder {}
+
 export class VPort extends XTable<VPortEntry> {
-  constructor(handle: Handle) {
-    super("VPORT", handle);
+  constructor(options: VPortTableOptions) {
+    super({ seeder: options.seeder, name: "VPORT" });
   }
 
-  add(options: VPortOptions) {
-    return this.addEntry(new VPortEntry(options, this.handle));
+  add(options: OmitSeeder<VPortOptions>) {
+    return this.addEntry(VPortEntry, options);
   }
 }

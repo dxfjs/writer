@@ -1,6 +1,5 @@
-import { AppDefined, Handle, TagsManager, point } from "@/utils";
-import { Point3D, Taggable } from "@/types";
-import { BlockRecordEntry } from "@/tables";
+import { AppDefined, TagsManager, point } from "@/utils";
+import { Point3D, Taggable, WithBlockRecord, WithSeeder } from "@/types";
 import { EndBlk } from "./endblk";
 import { EntitiesManager } from "@/entities";
 
@@ -15,7 +14,7 @@ export const BlockFlags = {
   ReferencedXRef: 64,
 } as const;
 
-export interface BlockOptions {
+export interface BlockOptions extends WithSeeder, WithBlockRecord {
   name: string;
   layerName?: string;
   flags?: number;
@@ -47,12 +46,8 @@ export class Block extends EntitiesManager implements Taggable {
     return this.name.startsWith("*Paper_Space");
   }
 
-  constructor(
-    options: BlockOptions,
-    handle: Handle,
-    blockRecord: BlockRecordEntry
-  ) {
-    super(blockRecord, handle);
+  constructor(options: BlockOptions) {
+    super(options);
     this.applications = [];
 
     this.ownerObjectHandle = "0";
@@ -64,7 +59,7 @@ export class Block extends EntitiesManager implements Taggable {
     this.xrefPathName = options.xrefPathName || "";
     this.description = options.description;
 
-    this.endblk = new EndBlk(handle);
+    this.endblk = new EndBlk(this);
   }
 
   addAppDefined(name: string) {
@@ -78,7 +73,7 @@ export class Block extends EntitiesManager implements Taggable {
 
   override tagify(mg: TagsManager): void {
     mg.add(0, "BLOCK");
-    mg.add(5, this.handleSeed);
+    mg.add(5, this.handle);
     this.applications.forEach((a) => a.tagify(mg));
     mg.add(330, this.ownerObjectHandle);
     mg.add(100, "AcDbEntity");

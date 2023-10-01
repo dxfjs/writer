@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, Handle, TagsManager, onezero } from "@/utils";
+import { BBox, BoundingBox, TagsManager, onezero } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "@/types";
 
@@ -58,8 +58,9 @@ export class Leader extends Entity {
     return "AcDbLeader";
   }
 
-  constructor(options: LeaderOptions, handle: Handle) {
-    super("LEADER", handle, options);
+  constructor(options: LeaderOptions) {
+    super(options);
+    this._type = "LEADER";
     this.dimStyleName = options.dimStyleName;
     this.arrowhead = options.arrowhead;
     this.pathType = options.pathType;

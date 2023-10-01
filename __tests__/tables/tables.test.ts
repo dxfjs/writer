@@ -1,8 +1,8 @@
-import { Handle, Tables, TagsManager } from "@/index";
+import { Seeder, Tables, TagsManager } from "@/index";
 
 describe("Tables class", () => {
   it("should create a tables section", () => {
-    const tables = new Tables(new Handle());
+    const tables = new Tables({ seeder: new Seeder() });
     tables.addLType({
       name: "DASHDOT",
       descriptive: "__ . ",

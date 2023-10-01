@@ -1,6 +1,6 @@
 import { Dimension, DimensionOptions, DimensionType } from "./dimension";
-import { Handle, TagsManager } from "@/utils";
 import { Point3D } from "@/types.ts";
+import { TagsManager } from "@/utils";
 
 export interface RadialDimensionOptions extends DimensionOptions {
   first: Point3D;
@@ -10,8 +10,9 @@ export interface RadialDimensionOptions extends DimensionOptions {
 export class RadialDimension extends Dimension {
   first: Point3D;
   leaderLength: number;
-  constructor(options: RadialDimensionOptions, handle: Handle) {
-    super(options, handle);
+
+  constructor(options: RadialDimensionOptions) {
+    super(options);
     this.dimensionType = DimensionType.Radius;
     this.first = options.first;
     this.leaderLength = options.leaderLength;

@@ -2,6 +2,10 @@ import { Blocks } from "@/blocks";
 import { Taggable } from "@/types";
 import { TagsManager } from "@/utils";
 
+export interface EntitiesOptions {
+  blocks: Blocks;
+}
+
 export class Entities implements Taggable {
   readonly blocks: Blocks;
 
@@ -13,8 +17,8 @@ export class Entities implements Taggable {
     return this.blocks.paperSpace;
   }
 
-  constructor(blocks: Blocks) {
-    this.blocks = blocks;
+  constructor(options: EntitiesOptions) {
+    this.blocks = options.blocks;
   }
 
   tagify(mg: TagsManager): void {

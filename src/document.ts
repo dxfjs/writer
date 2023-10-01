@@ -1,14 +1,14 @@
-import { BBox, Handle, TagsManager, Units, point2d } from "./utils";
+import { BBox, Seeder, TagsManager, Units, point2d } from "./utils";
 import { BlockOptions, Blocks } from "./blocks";
+import { OmitBlockRecord, OmitSeeder, Stringifiable, WithSeeder } from "./types";
 import { Classes } from "./classes";
 import { Entities } from "./entities";
 import { Header } from "./header";
 import { Objects } from "./objects";
-import { Stringifiable } from "./types";
 import { Tables } from "./tables";
 
-export class Document implements Stringifiable {
-  readonly handle: Handle;
+export class Document implements Stringifiable, WithSeeder {
+  readonly seeder: Seeder;
   readonly header: Header;
   readonly classes: Classes;
   readonly blocks: Blocks;
@@ -27,13 +27,13 @@ export class Document implements Stringifiable {
   }
 
   constructor() {
-    this.handle = new Handle();
-    this.header = new Header(this.handle);
+    this.seeder = new Seeder();
+    this.header = new Header(this);
     this.classes = new Classes();
-    this.tables = new Tables(this.handle);
-    this.blocks = new Blocks(this.tables, this.handle);
-    this.entities = new Entities(this.blocks);
-    this.objects = new Objects(this.handle);
+    this.tables = new Tables(this);
+    this.blocks = new Blocks(this);
+    this.entities = new Entities(this);
+    this.objects = new Objects(this);
 
     this.units = Units.Unitless;
   }
@@ -42,7 +42,11 @@ export class Document implements Stringifiable {
     this.units = units;
   }
 
-  addBlock(options: BlockOptions) {
+  setCurrentLayerName(name: string) {
+    this.modelSpace.currentLayerName = name;
+  }
+
+  addBlock(options: OmitBlockRecord<OmitSeeder<BlockOptions>>) {
     return this.blocks.addBlock(options);
   }
 

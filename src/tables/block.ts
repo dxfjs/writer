@@ -1,8 +1,9 @@
-import { Handle, TagsManager, Units, XData } from "@/utils";
+import { OmitSeeder, WithSeeder } from "@/types";
+import { TagsManager, Units, XData } from "@/utils";
 import { Entry } from "./entry";
 import { XTable } from "./table";
 
-export interface BlockRecordOptions {
+export interface BlockRecordOptions extends WithSeeder {
   name: string;
   layoutObjectHandle?: string;
   insertionUnits?: number;
@@ -24,8 +25,8 @@ export class BlockRecordEntry extends Entry {
     return this.name.startsWith("*Paper_Space");
   }
 
-  constructor(options: BlockRecordOptions, handle: Handle) {
-    super("BLOCK_RECORD", handle);
+  constructor(options: BlockRecordOptions) {
+    super({ seeder: options.seeder, type: "BLOCK_RECORD" });
     this.name = options.name;
     this.layoutObjectHandle = options.layoutObjectHandle;
     this.insertionUnits = options.insertionUnits ?? Units.Unitless;
@@ -47,15 +48,14 @@ export class BlockRecordEntry extends Entry {
   }
 }
 
-export class BlockRecord extends XTable {
-  constructor(handle: Handle) {
-    super("BLOCK_RECORD", handle);
+export interface BlockRecordTableOptions extends WithSeeder {}
+
+export class BlockRecord extends XTable<BlockRecordEntry> {
+  constructor(options: BlockRecordTableOptions) {
+    super({ seeder: options.seeder, name: "BLOCK_RECORD" });
   }
 
-  add(options: BlockRecordOptions) {
-    const block = new BlockRecordEntry(options, this.handle);
-    block.ownerObjectHandle = this.handleSeed;
-    this.entries.push(block);
-    return block;
+  add(options: OmitSeeder<BlockRecordOptions>) {
+    return this.addEntry(BlockRecordEntry, options);
   }
 }

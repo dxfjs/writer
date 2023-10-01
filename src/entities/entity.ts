@@ -2,7 +2,7 @@ import {
   AppDefined,
   BBox,
   BoundingBox,
-  Handle,
+  Seeder,
   TagsManager,
   XData,
   onezero,
@@ -10,9 +10,9 @@ import {
   stringByteSize,
   stringChunksSplit,
 } from "@/utils";
-import { Taggable } from "@/types";
+import { Taggable, WithSeeder } from "@/types";
 
-export interface EntityOptions {
+export interface EntityOptions extends WithSeeder {
   inPaperSpace?: boolean;
   layoutTabName?: string;
   layerName?: string;
@@ -30,9 +30,9 @@ export interface EntityOptions {
   shadowMode?: number;
 }
 
-export abstract class Entity implements Taggable {
-  readonly handle: Handle;
-  readonly handleSeed: string;
+export abstract class Entity implements Taggable, WithSeeder {
+  readonly seeder: Seeder;
+  readonly handle: string;
   protected _type: string;
 
   ownerObjectHandle: string;
@@ -74,10 +74,10 @@ export abstract class Entity implements Taggable {
     return true;
   }
 
-  constructor(type: string, handle: Handle, options?: EntityOptions) {
-    this.handle = handle;
-    this.handleSeed = handle.next();
-    this._type = type;
+  constructor(options: EntityOptions) {
+    this.seeder = options.seeder;
+    this._type = ""; // To be set by child class
+    this.handle = this.seeder.next();
 
     this.ownerObjectHandle = "0";
     this.inPaperSpace = options?.inPaperSpace;
@@ -129,7 +129,7 @@ export abstract class Entity implements Taggable {
 
   tagify(mg: TagsManager): void {
     mg.add(0, this.type);
-    mg.add(5, this.handleSeed);
+    mg.add(5, this.handle);
     this.applications.forEach((a) => a.tagify(mg));
     mg.add(330, this.ownerObjectHandle);
     mg.add(100, "AcDbEntity");

@@ -25,17 +25,15 @@ export class TagsManager implements Stringifiable {
   }
 
   point2d(point?: Point2D, digit = 0) {
-    if (point != null) {
-      this.add(10 + digit, point.x);
-      this.add(20 + digit, point.y);
-    }
+    if (point == null) return;
+    this.add(10 + digit, point.x);
+    this.add(20 + digit, point.y);
   }
 
   point(point?: Point3D, digit = 0) {
-    if (point != null) {
-      this.point2d(point, digit);
-      this.add(30 + digit, point.z);
-    }
+    if (point == null) return;
+    this.point2d(point, digit);
+    this.add(30 + digit, point.z);
   }
 
   stringify() {

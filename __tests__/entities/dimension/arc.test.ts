@@ -1,5 +1,5 @@
 import { ArcDimension, ArcDimensionOptions } from "@/entities";
-import { Handle, TagsManager, point } from "@/utils";
+import { Seeder, TagsManager, point } from "@/utils";
 
 describe("ArcDimension class", () => {
   it("should create a line entity", () => {
@@ -7,8 +7,9 @@ describe("ArcDimension class", () => {
       center: point(),
       startPoint: point(10),
       endPoint: point(0, 10),
+      seeder: new Seeder(),
     };
-    const arc = new ArcDimension(options, new Handle());
+    const arc = new ArcDimension(options);
     const mg = new TagsManager();
     arc.tagify(mg);
     expect(mg.stringify()).toMatchSnapshot();

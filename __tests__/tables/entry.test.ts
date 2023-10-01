@@ -1,8 +1,11 @@
-import { Entry, Handle } from "@/index";
+import { Entry, Seeder } from "@/index";
 
 class DummyEntry extends Entry {
   constructor() {
-    super("APPID", new Handle());
+    super({
+      seeder: new Seeder(),
+      type: "DUMMY",
+    });
   }
 }
 
