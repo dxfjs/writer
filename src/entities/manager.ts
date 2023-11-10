@@ -33,6 +33,7 @@ import { Point, PointOptions } from "./point";
 import { Polyline, PolylineOptions } from "./polyline";
 import { Ray, RayOptions } from "./ray";
 import { Rectangle, RectangleOptions } from "@/shapes";
+import { Solid, SolidOptions } from "./solid";
 import { Spline, SplineOptions } from "./spline";
 import { Table, TableOptions } from "./table";
 import { Text, TextOptions } from "./text";
@@ -179,6 +180,10 @@ export class EntitiesManager implements Taggable, WithSeeder {
 
   addRay(options: OmitSeeder<RayOptions>) {
     return this.add(Ray, options);
+  }
+
+  addSolid(options: OmitSeeder<OmitBlockName<SolidOptions>>) {
+    return this.add(Solid, options);
   }
 
   addSpline(options: OmitSeeder<SplineOptions>) {

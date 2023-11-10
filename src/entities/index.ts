@@ -18,6 +18,7 @@ export * from "./point";
 export * from "./polyline";
 export * from "./ray";
 export * from "./seqend";
+export * from "./solid";
 export * from "./spline";
 export * from "./table";
 export * from "./text";
