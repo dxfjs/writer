@@ -174,8 +174,8 @@ export class EntitiesManager implements Taggable, WithSeeder {
 
   addRectangle(options: OmitSeeder<RectangleOptions>) {
     const { seeder } = this;
-    const { vertices } = new Rectangle({ ...options, seeder });
-    return this.addLWPolyline({ vertices, ...options });
+    const rect = new Rectangle({ ...options, seeder });
+    return this.addLWPolyline(rect.lwpolylineOptions);
   }
 
   addRay(options: OmitSeeder<RayOptions>) {

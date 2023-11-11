@@ -14,29 +14,30 @@ export interface RectangleOptions extends Omit<LWPolylineOptions, "vertices"> {
 }
 
 export class Rectangle {
-  origin: Point2D;
-  width: number;
-  height: number;
-  corner?: number | Point2D;
+  options: RectangleOptions;
 
   constructor(options: RectangleOptions) {
-    this.origin = options.origin;
-    this.width = options.width;
-    this.height = options.height ?? options.width;
-    this.corner = options.corner;
-    options.flags ||= LWPolylineFlags.None;
-    options.flags |= LWPolylineFlags.Closed;
+    this.options = options;
+    this.options.flags ??= LWPolylineFlags.None;
+    this.options.flags |= LWPolylineFlags.Closed;
+  }
+
+  get lwpolylineOptions(): LWPolylineOptions {
+    const { options, vertices } = this;
+    return { ...options, vertices };
   }
 
   get vertices(): LWPolylineVertex[] {
-    if (this.corner == null) return this._normal();
-    else if (typeof this.corner === "number") {
-      return this._rounded(this.corner);
-    } else return this._chamfer(this.corner);
+    const { corner } = this.options;
+    if (corner == null) return this._normal();
+    else if (typeof corner === "number") {
+      return this._rounded(corner);
+    } else return this._chamfer(corner);
   }
 
   private _normal(): LWPolylineVertex[] {
-    const { origin, width: w, height: h } = this;
+    const { origin, width: w, height } = this.options;
+    const h = height ?? w;
     return [
       { x: origin.x, y: origin.y },
       { x: origin.x + w, y: origin.y },
@@ -46,7 +47,8 @@ export class Rectangle {
   }
 
   private _rounded(c: number): LWPolylineVertex[] {
-    const { origin, width: w, height: h } = this;
+    const { origin, width: w, height } = this.options;
+    const h = height ?? w;
     const b = bulge(Math.PI / 2);
     return [
       { x: origin.x + c, y: origin.y },
@@ -61,7 +63,8 @@ export class Rectangle {
   }
 
   private _chamfer(c: Point2D) {
-    const { origin, width: w, height: h } = this;
+    const { origin, width: w, height } = this.options;
+    const h = height ?? w;
     return [
       { x: origin.x + c.x, y: origin.y },
       { x: origin.x + w - c.x, y: origin.y },
