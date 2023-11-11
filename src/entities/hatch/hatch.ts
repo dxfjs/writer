@@ -1,4 +1,11 @@
-import { BBox, BoundingBox, TagsManager, onezero, point } from "@/utils";
+import {
+  BBox,
+  BoundingBox,
+  TagsManager,
+  extrusion,
+  onezero,
+  point,
+} from "@/utils";
 import { Entity, EntityOptions } from "../entity";
 import { HatchPattern, SOLID } from "./pattern";
 import { HatchBoundaryPath } from "./boundary";
@@ -30,7 +37,7 @@ export interface HatchOptions extends EntityOptions {
 
 export class Hatch extends Entity {
   elevation: number;
-  extrusion?: Point3D;
+  extrusion: Point3D;
   associativity: number;
   boundaries: HatchBoundaryPath[];
   style: number;
@@ -54,7 +61,7 @@ export class Hatch extends Entity {
     super(options);
     this._type = "HATCH";
     this.elevation = options.elevation ?? 0;
-    this.extrusion = options.extrusion;
+    this.extrusion = options.extrusion || extrusion();
     this.associativity = AssociativityFlag.NonAssociative;
     this.boundaries = [];
     this.style = HatchStyle.Outermost;
