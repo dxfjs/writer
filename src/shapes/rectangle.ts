@@ -18,8 +18,8 @@ export class Rectangle {
 
   constructor(options: RectangleOptions) {
     this.options = options;
-    options.flags ??= LWPolylineFlags.None;
-    options.flags |= LWPolylineFlags.Closed;
+    this.options.flags ??= LWPolylineFlags.None;
+    this.options.flags |= LWPolylineFlags.Closed;
   }
 
   get lwpolylineOptions(): LWPolylineOptions {
