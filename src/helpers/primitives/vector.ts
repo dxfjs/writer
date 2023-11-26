@@ -1,4 +1,4 @@
-import { Point2D } from "@/index";
+import { Point2D } from "@/types";
 
 export class Vector implements Point2D {
   x: number;
@@ -15,6 +15,15 @@ export class Vector implements Point2D {
 
   add(rhs: Vector) {
     return new Vector(this.x + rhs.x, this.y + rhs.y);
+  }
+
+  length() {
+    return Math.hypot(this.x, this.y);
+  }
+
+  normalize() {
+    const length = this.length();
+    return new Vector(this.x / length, this.y / length);
   }
 
   distance(rhs: Vector) {

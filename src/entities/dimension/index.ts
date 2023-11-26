@@ -5,3 +5,4 @@ export * from "./diameter";
 export * from "./dimension";
 export * from "./linear";
 export * from "./radial";
+export * from "./render";

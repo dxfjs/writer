@@ -1,6 +1,7 @@
 import { Dimension, DimensionOptions, DimensionType } from "./dimension";
 import { TagsManager, angle, point, polar } from "@/utils";
 import { Point3D } from "@/types";
+import { linep } from "@/helpers";
 
 export interface AlignedDimensionOptions extends DimensionOptions {
   insertion?: Point3D;
@@ -14,13 +15,16 @@ export class AlignedDimension extends Dimension {
   start: Point3D;
   end: Point3D;
 
+  readonly offset: number;
+
   constructor(options: AlignedDimensionOptions) {
     super(options);
     this.dimensionType = DimensionType.Aligned;
     this.insertion = options.insertion;
     this.start = options.start;
     this.end = options.end;
-    this.offset(options.offset);
+    this.offset = options.offset ?? 0;
+    this._offset();
   }
 
   protected override tagifyChild(mg: TagsManager): void {
@@ -31,10 +35,14 @@ export class AlignedDimension extends Dimension {
     mg.point(this.end, 4);
   }
 
-  private offset(v?: number) {
-    if (v == null) return;
-    const { start, end } = this;
-    const middle = point((start.x + end.x) / 2, (start.y + end.y) / 2);
-    this.definition = polar(middle, angle(this.start, this.end) - 90, v);
+  private _offset() {
+    const { offset } = this;
+    if (offset == null) return;
+    const sign = Math.sign(this.offset);
+    const a = angle(this.start, this.end) + 90 * sign;
+    const start = polar(this.start, a, this.offset);
+    this.definition = polar(this.end, a, this.offset);
+    const middle = linep(start, this.definition).middle;
+    this.middle = point(middle.x, middle.y);
   }
 }
