@@ -1,4 +1,5 @@
-import { Point2D } from "@/index";
+import { Point2D } from "@/types";
+import { point2d } from "@/utils";
 
 export interface RotateOptions {
   target: Point2D;
@@ -15,21 +16,19 @@ export type TransformOptions = TranslateOptions & RotateOptions;
 
 export function rotate(options: RotateOptions): Point2D {
   const { target, center, angle } = options;
-  const { cos, sin } = Math;
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
   const ox = target.x - center.x;
   const oy = target.y - center.y;
-  return {
-    x: center.x + (ox * cos(angle) - oy * sin(angle)),
-    y: center.y + (ox * sin(angle) + oy * cos(angle)),
-  };
+  return point2d(
+    center.x + (ox * cos - oy * sin),
+    center.y + (ox * sin + oy * cos)
+  );
 }
 
 export function translate(options: TranslateOptions) {
   const { target, translation } = options;
-  return {
-    x: target.x + translation.x,
-    y: target.y + translation.y,
-  };
+  return point2d(target.x + translation.x, target.y + translation.y);
 }
 
 export function transform(options: TransformOptions) {

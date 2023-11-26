@@ -1,5 +1,5 @@
 import { TOW_PI, periodic } from "@/helpers";
-import { Point2D } from "@/index";
+import { Point2D } from "@/types";
 
 export function pdeg(value: number) {
   return periodic(value, 0, 360);

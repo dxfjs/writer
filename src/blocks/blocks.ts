@@ -34,6 +34,11 @@ export class Blocks implements Taggable, WithSeeder {
     return b;
   }
 
+  get(name?: string) {
+    if (name == null) return;
+    return this.blocks.find(b => b.name === name);
+  }
+
   addPaperSpace() {
     const name = `*Paper_Space${this.paperSpaceSeed++}`;
     return this.addBlock({ name });

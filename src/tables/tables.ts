@@ -73,6 +73,12 @@ export class Tables implements Taggable, WithSeeder {
     return this.layer.add(options);
   }
 
+  addDefpointsLayer() {
+    const defpoints = this.layer.get("Defpoints");
+    if (defpoints != null) return defpoints.name;
+    return this.layer.add({ name: "Defpoints", plot: false }).name;
+  }
+
   addLType(options: OmitSeeder<LTypeOptions>) {
     return this.ltype.add(options);
   }

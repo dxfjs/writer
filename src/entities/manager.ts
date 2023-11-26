@@ -81,6 +81,7 @@ export class EntitiesManager implements Taggable, WithSeeder {
 
   push(entity?: Entity) {
     if (entity == null) return;
+    if (entity.layerName == null) entity.layerName = this.currentLayerName;
     this.entities.push(entity);
   }
 

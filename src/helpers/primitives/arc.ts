@@ -1,4 +1,3 @@
-import { Block, Point2D, deg, point } from "@/index";
 import {
   HALF_PI,
   LinePrimitive,
@@ -6,7 +5,11 @@ import {
   Writable,
   angleBetween,
   calculateAngle,
+  periodic,
 } from "@/helpers";
+import { deg, point, polar } from "@/utils";
+import { Block } from "@/blocks";
+import { Point2D } from "@/types";
 
 export interface ArcPrimitiveOptions {
   center: Point2D;
@@ -22,6 +25,17 @@ export class ArcPrimitive implements Writable {
   startAngle: number;
   endAngle: number;
   clockwise: boolean;
+
+  get angle() {
+    const { startAngle, endAngle } = this.ccw;
+    return periodic(endAngle - startAngle, 0, 360);
+  }
+
+  get middleAngle() {
+    const { startAngle, endAngle } = this.ccw;
+    if (this.clockwise) return endAngle + this.angle / 2;
+    return startAngle + this.angle / 2;
+  }
 
   get cw() {
     if (this.clockwise) return this.clone();
@@ -48,6 +62,18 @@ export class ArcPrimitive implements Writable {
         clockwise: false,
       });
     } else return this.clone();
+  }
+
+  get start() {
+    return polar(this.center, this.startAngle, this.radius);
+  }
+
+  get middle() {
+    return polar(this.center, this.middleAngle, this.radius);
+  }
+
+  get end() {
+    return polar(this.center, this.endAngle, this.radius);
   }
 
   static from3Points(start: Point2D, middle: Point2D, end: Point2D) {
@@ -86,6 +112,30 @@ export class ArcPrimitive implements Writable {
     this.startAngle = options.startAngle;
     this.endAngle = options.endAngle;
     this.clockwise = options.clockwise || false;
+  }
+
+  trimStart(length: number, isChord?: boolean) {
+    const a = isChord
+      ? 2 * Math.asin(length / (2 * this.radius))
+      : length / this.radius;
+
+    const clone = this.ccw;
+    clone.startAngle += deg(a);
+
+    if (this.clockwise) return clone.cw;
+    return clone;
+  }
+
+  trimEnd(length: number, isChord?: boolean) {
+    const a = isChord
+      ? 2 * Math.asin(length / (2 * this.radius))
+      : length / this.radius;
+
+    const clone = this.ccw;
+    clone.endAngle -= deg(a);
+
+    if (this.clockwise) return clone.cw;
+    return clone;
   }
 
   clone() {

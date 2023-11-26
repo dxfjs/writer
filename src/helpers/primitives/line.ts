@@ -1,9 +1,15 @@
-import { Block, Point2D, point } from "@/index";
 import { Vector, Writable, rotate } from "@/helpers";
+import { Block } from "@/blocks";
+import { Point2D } from "@/types";
+import { point } from "@/utils";
+
+export function linep(start: Point2D, end: Point2D) {
+  return new LinePrimitive(start, end);
+}
 
 export class LinePrimitive implements Writable {
-  start: Vector;
-  end: Vector;
+  readonly start: Vector;
+  readonly end: Vector;
 
   get vector(): Vector {
     return Vector.from(this.start, this.end);
@@ -11,6 +17,10 @@ export class LinePrimitive implements Writable {
 
   get middle(): Vector {
     return this.start.add(this.end).scale(0.5);
+  }
+
+  get length(): number {
+    return this.vector.length();
   }
 
   constructor(start: Point2D, end: Point2D) {
@@ -35,6 +45,26 @@ export class LinePrimitive implements Writable {
 
     const t = tv.cross(sv) / cross;
     return this.start.add(fv.scale(t));
+  }
+
+  trimStart(offset: number) {
+    const vector = this.vector.normalize().scale(offset);
+    return new LinePrimitive(this.start.add(vector), this.end);
+  }
+
+  trimEnd(offset: number) {
+    const vector = this.vector.normalize().scale(-offset);
+    return new LinePrimitive(this.start, this.end.add(vector));
+  }
+
+  expandStart(offset: number) {
+    const vector = this.vector.normalize().scale(-offset);
+    return new LinePrimitive(this.start.add(vector), this.end);
+  }
+
+  expandEnd(offset: number) {
+    const vector = this.vector.normalize().scale(offset);
+    return new LinePrimitive(this.start, this.end.add(vector));
   }
 
   write<B extends Block>(block: B) {

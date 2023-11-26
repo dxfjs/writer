@@ -4,7 +4,7 @@ type CustomOptions = Pick<Options, "format" | "dts" | "globalName">;
 
 function defineOptions({ format, dts, globalName }: CustomOptions): Options {
   return {
-    entry: ["./src/index.ts", "./src/helpers/index.ts"],
+    entry: ["./src/index.ts", "./src/helpers/index.ts", "./src/svg/index.ts"],
     outDir: "lib",
     format,
     dts,

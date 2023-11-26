@@ -1,7 +1,13 @@
 import { BBox, Seeder, TagsManager, Units, point2d } from "./utils";
 import { BlockOptions, Blocks } from "./blocks";
-import { OmitBlockRecord, OmitSeeder, Stringifiable, WithSeeder } from "./types";
+import {
+  OmitBlockRecord,
+  OmitSeeder,
+  Stringifiable,
+  WithSeeder,
+} from "./types";
 import { Classes } from "./classes";
+import { DimensionRenderer } from "./entities";
 import { Entities } from "./entities";
 import { Header } from "./header";
 import { Objects } from "./objects";
@@ -15,6 +21,7 @@ export class Document implements Stringifiable, WithSeeder {
   readonly entities: Entities;
   readonly tables: Tables;
   readonly objects: Objects;
+  readonly renderer: DimensionRenderer;
 
   units: number;
 
@@ -34,6 +41,7 @@ export class Document implements Stringifiable, WithSeeder {
     this.blocks = new Blocks(this);
     this.entities = new Entities(this);
     this.objects = new Objects(this);
+    this.renderer = new DimensionRenderer(this);
 
     this.units = Units.Unitless;
   }

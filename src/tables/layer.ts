@@ -1,4 +1,4 @@
-import { Colors, LineTypes, TagsManager } from "@/utils";
+import { Colors, LineTypes, TagsManager, onezero } from "@/utils";
 import { OmitSeeder, WithSeeder } from "@/types";
 import { Entry } from "./entry";
 import { XTable } from "./table";
@@ -21,6 +21,7 @@ export interface LayerOptions extends WithSeeder {
   lineWeight?: number;
   materialObjectHandle?: string;
   trueColor?: number;
+  plot?: boolean;
 }
 
 export class LayerEntry extends Entry {
@@ -28,11 +29,11 @@ export class LayerEntry extends Entry {
   flags: number;
   colorNumber: number;
   lineTypeName: string;
-  plottingFlag?: number;
   lineWeight?: number;
   plotStyleNameObjectHandle: string;
   materialObjectHandle?: string;
   trueColor?: number;
+  plot?: boolean;
 
   static readonly layerZeroName = "0";
 
@@ -46,6 +47,8 @@ export class LayerEntry extends Entry {
     this.plotStyleNameObjectHandle = "0";
     this.materialObjectHandle = options.materialObjectHandle;
     this.trueColor = options.trueColor;
+    this.plot = options.plot;
+    if (this.name.toLocaleLowerCase() === "defpoints") this.plot = false;
   }
 
   override tagify(mg: TagsManager): void {
@@ -56,6 +59,7 @@ export class LayerEntry extends Entry {
     mg.add(62, this.colorNumber);
     mg.add(420, this.trueColor);
     mg.add(6, this.lineTypeName);
+    mg.add(290, onezero(this.plot));
     mg.add(370, this.lineWeight);
     mg.add(390, this.plotStyleNameObjectHandle);
     mg.add(347, this.materialObjectHandle);
