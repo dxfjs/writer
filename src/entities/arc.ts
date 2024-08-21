@@ -42,9 +42,9 @@ export class Arc extends Entity {
     mg.add(39, this.thickness);
     mg.point(this.center);
     mg.add(40, this.radius);
+    mg.point(this.extrusion, 200);
     mg.add(100, "AcDbArc");
     mg.add(50, this.startAngle);
     mg.add(51, this.endAngle);
-    mg.point(this.extrusion, 200);
   }
 }

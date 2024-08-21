@@ -1,12 +1,15 @@
 {
   "name": "@tarikjabiri/dxf",
-  "version": "3.0.0-alpha.8",
+  "version": "3.0.0-alpha.13",
   "type": "module",
   "description": "A DXF writer written in TypeScript.",
   "main": "./lib/index.cjs",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "repository": "https://github.com/dxfjs/writer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dxfjs/writer.git"
+  },
   "author": "Tarik EL JABIRI",
   "license": "MIT",
   "homepage": "https://dxf.vercel.app",
