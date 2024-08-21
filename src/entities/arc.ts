@@ -1,4 +1,4 @@
-import { BBox, BoundingBox, TagsManager } from "@/utils";
+import { BBox, BoundingBox, extrusion, TagsManager } from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D } from "@/types";
 
@@ -8,6 +8,7 @@ export interface ArcOptions extends EntityOptions {
   radius: number;
   startAngle: number;
   endAngle: number;
+  extrusion?: Point3D;
 }
 
 export class Arc extends Entity {
@@ -16,6 +17,7 @@ export class Arc extends Entity {
   radius: number;
   startAngle: number;
   endAngle: number;
+  extrusion: Point3D;
 
   override get subClassMarker(): string {
     return "AcDbCircle";
@@ -29,6 +31,7 @@ export class Arc extends Entity {
     this.radius = options.radius;
     this.startAngle = options.startAngle;
     this.endAngle = options.endAngle;
+    this.extrusion = options.extrusion || extrusion();
   }
 
   override bbox(): BoundingBox {
@@ -42,5 +45,6 @@ export class Arc extends Entity {
     mg.add(100, "AcDbArc");
     mg.add(50, this.startAngle);
     mg.add(51, this.endAngle);
+    mg.point(this.extrusion, 200);
   }
 }
