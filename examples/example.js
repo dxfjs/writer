@@ -1,5 +1,5 @@
 const { DxfWriter, point3d, Colors, Cell, CellAlignment} = require('../dist');
-const { writeFileSync } = require('fs');
+const { writeFileSync } = require('node:fs');
 
 const dxf = new DxfWriter();
 const paperSpace = dxf.document.paperSpace

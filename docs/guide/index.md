@@ -6,16 +6,20 @@ layout: doc
 
 ## Installation
 
-:::code-group
+::: code-group
+
 ```sh [pnpm]
-pnpm add @tarikjabiri/dxf
+$ pnpm add @tarikjabiri/dxf
 ```
+
 ```sh [npm]
-npm i @tarikjabiri/dxf
+$ npm i @tarikjabiri/dxf
 ```
+
 ```sh [yarn]
-yarn add @tarikjabiri/dxf
+$ yarn add @tarikjabiri/dxf
 ```
+
 :::
 
 ## Quick start
