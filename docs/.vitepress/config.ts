@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { version } from '../../package.json';
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 
 export default defineConfig({
 	title: 'dxfjs',
@@ -8,10 +9,13 @@ export default defineConfig({
 	head: [
 		['meta', { name: 'theme-color', content: '#4caf50' }],
 		['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
-		['script', {defer: "", src: '/_vercel/insights/script.js'}],
+		['script', { defer: "", src: '/_vercel/insights/script.js' }],
 	],
 	markdown: {
 		toc: { level: [2] },
+		config(md) {
+			md.use(groupIconMdPlugin)
+		},
 	},
 	themeConfig: {
 		logo: '/logo.svg',
@@ -69,4 +73,9 @@ export default defineConfig({
 			text: 'Edit this page on GitHub',
 		},
 	},
+	vite: {
+		plugins: [
+			groupIconVitePlugin()
+		],
+	}
 });
