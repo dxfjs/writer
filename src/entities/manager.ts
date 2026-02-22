@@ -5,6 +5,8 @@ import {
   AngularLinesDimension,
   AngularPointsDimension,
   AngularPointsDimensionOptions,
+  ArcDimension,
+  ArcDimensionOptions,
   DiameterDimension,
   DiameterDimensionOptions,
   LinearDimension,
@@ -87,6 +89,9 @@ export class EntitiesManager implements Taggable, WithSeeder {
 
   addArc(options: OmitSeeder<ArcOptions>) {
     return this.add(Arc, options);
+  }
+  addArcDim(options: OmitSeeder<ArcDimensionOptions>) {
+    return this.add(ArcDimension, options);
   }
 
   addAttdef(options: OmitSeeder<AttdefOptions>) {
