@@ -44,7 +44,7 @@
     "tsx": "^3.12.7",
     "typescript": "5.1.*",
     "vitepress": "1.0.0-rc.4",
-    "vitest": "^0.34.2",
+    "vitest": "^4.1.0",
     "vue": "^3.3.4"
   },
   "funding": "https://github.com/sponsors/dxfjs",
