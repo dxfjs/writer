@@ -23,9 +23,11 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run test
       - run: bun run build
-      - name: Publish to npm
-        # bun publish has no OIDC support yet, so publish with npm.
-        # No token: auth comes from the trusted publisher configured on npm.
+      - name: Stage release to npm
+        # bun publish has no OIDC support, so use npm. The trusted publisher is
+        # stage-only: this submits a staged release that a maintainer must then
+        # approve with 2FA (npm stage approve <id>, or the Staged Packages tab
+        # on npmjs.com). No token: auth comes from OIDC.
         run: |
           npm install -g npm@latest
-          npm publish --provenance --access public
+          npm stage publish
