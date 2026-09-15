@@ -16,7 +16,7 @@ describe("EntitiesManager class", () => {
     expect(m.stringify()).toBe("");
   });
 
-  it("should be able to add a line entity", () => {
+  it("should be able to add a line entity", async () => {
     const mg = new EntitiesManager({ blockRecord, seeder });
     mg.addLine({
       start: point(),
@@ -24,6 +24,8 @@ describe("EntitiesManager class", () => {
     });
     const m = new TagsManager();
     mg.tagify(m);
-    expect(m.stringify()).toMatchFileSnapshot("__snapshots__line.test.ts.snap");
+    await expect(m.stringify()).toMatchFileSnapshot(
+      "__snapshots__/manager.line.snap",
+    );
   });
 });

@@ -1,0 +1,26 @@
+import { defineConfig } from "tsdown";
+
+export default defineConfig([
+  {
+    entry: ["./src/index.ts", "./src/helpers/index.ts", "./src/svg/index.ts"],
+    tsconfig: "./tsconfig.build.json",
+    outDir: "./lib",
+    format: ["esm", "cjs"],
+    dts: true,
+    sourcemap: true,
+    outExtensions: ({ format }) => ({
+      js: format === "cjs" ? ".cjs" : ".mjs",
+      dts: ".d.ts",
+    }),
+  },
+  {
+    entry: ["./src/index.ts"],
+    tsconfig: "./tsconfig.build.json",
+    outDir: "./lib",
+    format: ["iife"],
+    globalName: "DXFWriter",
+    sourcemap: true,
+    clean: false,
+    outExtensions: () => ({ js: ".global.js" }),
+  },
+]);

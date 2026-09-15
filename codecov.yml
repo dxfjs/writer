@@ -1,0 +1,20 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+    patch:
+      default:
+        informational: true
+
+ignore:
+  - "__tests__"
+  - "docs"
+  - "examples"
+  - "lib"
+  - "**/*.test.ts"
+
+comment:
+  layout: "reach, diff, files"
+  require_changes: false

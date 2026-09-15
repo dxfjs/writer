@@ -1,24 +1,20 @@
 name: CI
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   test-build:
     name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 18
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.2.0
-      - run: pnpm install
-      - run: pnpm test -- --coverage
-      - run: pnpm build
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run coverage
+      - run: bun run build
       - name: Upload coverage reports to Codecov
-        run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t ${CODECOV_TOKEN}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
