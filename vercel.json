@@ -2,7 +2,7 @@
   "github": {
     "silent": true
   },
-  "installCommand": "bun install --frozen-lockfile",
-  "buildCommand": "bun run docs:build",
+  "installCommand": "curl -fsSL https://bun.sh/install | bash && $HOME/.bun/bin/bun install --frozen-lockfile",
+  "buildCommand": "$HOME/.bun/bin/bun run docs:build",
   "outputDirectory": "docs/.vitepress/dist"
 }
