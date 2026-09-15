@@ -3,6 +3,7 @@ name: CD
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   CD:
@@ -20,7 +21,7 @@ jobs:
         with:
           node-version: 22
       - run: bun install --frozen-lockfile
-      - run: bun run coverage
+      - run: bun run test
       - run: bun run build
       - name: Publish to npm
         # bun publish has no OIDC support yet, so publish with npm.
