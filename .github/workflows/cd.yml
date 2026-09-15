@@ -8,17 +8,23 @@ jobs:
   CD:
     name: CD
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for npm OIDC trusted publishing
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - run: bun install --frozen-lockfile
       - run: bun run coverage
       - run: bun run build
       - name: Publish to npm
+        # bun publish has no OIDC support yet, so publish with npm.
+        # No token: auth comes from the trusted publisher configured on npm.
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          bun publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm install -g npm@latest
+          npm publish --provenance --access public
