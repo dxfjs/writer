@@ -1,4 +1,4 @@
-import { point3d, vec3_t } from './Helpers'
+import { point3d, vec3_t } from "./Helpers";
 
 export type boundingBox_t = {
   tl: vec3_t; // Top-left
@@ -6,22 +6,22 @@ export type boundingBox_t = {
 };
 
 export const createBoundingBox = (tl: vec3_t, br: vec3_t): boundingBox_t => {
-  return { tl, br }
-}
+  return { tl, br };
+};
 
 export class BoundingBox {
   static centerRadiusBBox(center: vec3_t, radius: number) {
     return createBoundingBox(
       point3d(center.x - radius, center.y + radius),
-      point3d(center.x + radius, center.y - radius)
-    )
+      point3d(center.x + radius, center.y - radius),
+    );
   }
 
   static pointBBox(point: vec3_t) {
     return createBoundingBox(
       point3d(point.x - 100, point.y + 100),
-      point3d(point.x + 100, point.y - 100)
-    )
+      point3d(point.x + 100, point.y - 100),
+    );
   }
 
   /**
@@ -30,54 +30,50 @@ export class BoundingBox {
    * @returns
    */
   static lineBBox(sp: vec3_t, ep: vec3_t) {
-    const maxX = sp.x > ep.x ? sp.x : ep.x
-    const minX = sp.x < ep.x ? sp.x : ep.x
-    const maxY = sp.y > ep.y ? sp.y : ep.y
-    const minY = sp.y < ep.y ? sp.y : ep.y
-    const maxZ = sp.z > ep.z ? sp.z : ep.z
-    const minZ = sp.z < ep.z ? sp.z : ep.z
+    const maxX = sp.x > ep.x ? sp.x : ep.x;
+    const minX = sp.x < ep.x ? sp.x : ep.x;
+    const maxY = sp.y > ep.y ? sp.y : ep.y;
+    const minY = sp.y < ep.y ? sp.y : ep.y;
+    const maxZ = sp.z > ep.z ? sp.z : ep.z;
+    const minZ = sp.z < ep.z ? sp.z : ep.z;
     return createBoundingBox(
       point3d(minX, maxY, minZ),
-      point3d(maxX, minY, maxZ)
-    )
+      point3d(maxX, minY, maxZ),
+    );
   }
 
   static verticesBBox(vertices: vec3_t[]) {
-    let _xMax = -Infinity
-    let _yMax = -Infinity
-    let _xMin = Infinity
-    let _yMin = Infinity
+    let _xMax = -Infinity;
+    let _yMax = -Infinity;
+    let _xMin = Infinity;
+    let _yMin = Infinity;
     for (let i = 0; i < vertices.length; i++) {
-      const { x, y } = vertices[i]
-      if (_xMax < x) _xMax = x
-      if (_yMax < y) _yMax = y
-      if (_xMin > x) _xMin = x
-      if (_yMin > y) _yMin = y
+      const { x, y } = vertices[i];
+      if (_xMax < x) _xMax = x;
+      if (_yMax < y) _yMax = y;
+      if (_xMin > x) _xMin = x;
+      if (_yMin > y) _yMin = y;
     }
-    return createBoundingBox(
-      point3d(_xMin, _yMax),
-      point3d(_xMax, _yMin)
-    )
+    return createBoundingBox(point3d(_xMin, _yMax), point3d(_xMax, _yMin));
   }
 
   static boundingBox(boundingBoxes: boundingBox_t[]): boundingBox_t {
-    if (boundingBoxes.length === 0)
-      return BoundingBox.pointBBox(point3d())
-    const _vertices = []
+    if (boundingBoxes.length === 0) return BoundingBox.pointBBox(point3d());
+    const _vertices = [];
     for (let i = 0; i < boundingBoxes.length; i++) {
-      const _bbox = boundingBoxes[i]
-      _vertices.push(_bbox.tl, _bbox.br)
+      const _bbox = boundingBoxes[i];
+      _vertices.push(_bbox.tl, _bbox.br);
     }
-    return BoundingBox.verticesBBox(_vertices)
+    return BoundingBox.verticesBBox(_vertices);
   }
 
   static boundingBoxCenter(boundingBox: boundingBox_t): vec3_t {
-    const x = boundingBox.tl.x + (boundingBox.br.x - boundingBox.tl.x) / 2
-    const y = boundingBox.br.y + (boundingBox.tl.y - boundingBox.br.y) / 2
-    return point3d(x, y, 0)
+    const x = boundingBox.tl.x + (boundingBox.br.x - boundingBox.tl.x) / 2;
+    const y = boundingBox.br.y + (boundingBox.tl.y - boundingBox.br.y) / 2;
+    return point3d(x, y, 0);
   }
 
   static boundingBoxHeight(boundingBox: boundingBox_t) {
-    return boundingBox.tl.y - boundingBox.br.y
+    return boundingBox.tl.y - boundingBox.br.y;
   }
 }

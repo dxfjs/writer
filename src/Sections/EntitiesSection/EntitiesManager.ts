@@ -1,48 +1,58 @@
-import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
-import Entity, { CommonEntityOptions } from './Entity'
-import { RectangleOptions, bulge, point2d, vec2_t, vec3_t } from 'Internals/Helpers'
-import { DxfBlockRecord } from 'TablesSection/Tables/Records/DxfBlockRecord'
-import { DxfInterface } from 'Internals/Interfaces'
-import { DxfObjectsSection } from 'ObjectsSection/DxfObjectsSection'
-import { Dxfier } from 'Internals/Dxfier'
-import Handle from 'Internals/Handle'
-import * as Entities from './Entities'
+import { BoundingBox, boundingBox_t } from "Internals/BoundingBox";
+import Entity, { CommonEntityOptions } from "./Entity";
+import {
+  RectangleOptions,
+  bulge,
+  point2d,
+  vec2_t,
+  vec3_t,
+} from "Internals/Helpers";
+import { DxfBlockRecord } from "TablesSection/Tables/Records/DxfBlockRecord";
+import { DxfInterface } from "Internals/Interfaces";
+import { DxfObjectsSection } from "ObjectsSection/DxfObjectsSection";
+import { Dxfier } from "Internals/Dxfier";
+import Handle from "Internals/Handle";
+import * as Entities from "./Entities";
 
 export abstract class EntitiesManager implements DxfInterface {
-  readonly blockRecord: DxfBlockRecord
-  readonly entities: Entity[] = []
-  readonly handle: string
-  private readonly objects: DxfObjectsSection
-  layerName: string
+  readonly blockRecord: DxfBlockRecord;
+  readonly entities: Entity[] = [];
+  readonly handle: string;
+  private readonly objects: DxfObjectsSection;
+  layerName: string;
 
-  constructor(objects: DxfObjectsSection, blockRecord: DxfBlockRecord, layerName: string) {
-    this.handle = Handle.next()
-    this.objects = objects
-    this.blockRecord = blockRecord
-    this.layerName = layerName
+  constructor(
+    objects: DxfObjectsSection,
+    blockRecord: DxfBlockRecord,
+    layerName: string,
+  ) {
+    this.handle = Handle.next();
+    this.objects = objects;
+    this.blockRecord = blockRecord;
+    this.layerName = layerName;
   }
 
   dxfy(dx: Dxfier): void {
     for (const entity of this.entities) {
-      entity.dxfy(dx)
+      entity.dxfy(dx);
     }
   }
 
   addHatch(
     boundaryPath: Entities.HatchBoundaryPaths,
     fill: Entities.HatchPatternOptions_t | Entities.HatchGradientOptions_t,
-    options?: Entities.HatchOptions_t
+    options?: Entities.HatchOptions_t,
   ) {
-    const hatch = new Entities.Hatch(boundaryPath, fill, options)
-    return this.addEntity(hatch)
+    const hatch = new Entities.Hatch(boundaryPath, fill, options);
+    return this.addEntity(hatch);
   }
 
   addEntity<T extends Entity>(entity: T): T {
-    entity.ownerBlockRecord = this.blockRecord.handle
-    if(this.blockRecord.isPaperSpace) entity.inPaperSpace = true
-    if (entity.layerName == null) entity.layerName = this.layerName
-    this.entities.push(entity)
-    return entity
+    entity.ownerBlockRecord = this.blockRecord.handle;
+    if (this.blockRecord.isPaperSpace) entity.inPaperSpace = true;
+    if (entity.layerName == null) entity.layerName = this.layerName;
+    this.entities.push(entity);
+    return entity;
   }
 
   addAttrib(
@@ -51,15 +61,15 @@ export abstract class EntitiesManager implements DxfInterface {
     tag: string,
     value: string,
     ownerInsert: Entities.Insert,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ) {
-    ownerInsert.attributesFollowFlag = 1
+    ownerInsert.attributesFollowFlag = 1;
     const attrib = this.addEntity(
-      new Entities.Attrib(firstAlignmentPoint, height, tag, value, options)
-    )
-    const seqEnd = this.addEntity(new Entities.SeqEnd())
-    seqEnd.ownerBlockRecord = ownerInsert.handle
-    return attrib
+      new Entities.Attrib(firstAlignmentPoint, height, tag, value, options),
+    );
+    const seqEnd = this.addEntity(new Entities.SeqEnd());
+    seqEnd.ownerBlockRecord = ownerInsert.handle;
+    return attrib;
   }
 
   addAttdef(
@@ -67,140 +77,140 @@ export abstract class EntitiesManager implements DxfInterface {
     height: number,
     tag: string,
     value: string,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ) {
     return this.addEntity(
-      new Entities.Attdef(firstAlignmentPoint, height, tag, value, options)
-    )
+      new Entities.Attdef(firstAlignmentPoint, height, tag, value, options),
+    );
   }
 
   addAlignedDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.AlignedDimOptions
+    options?: Entities.AlignedDimOptions,
   ) {
     return this.addEntity(
-      new Entities.AlignedDimension(first, second, options)
-    )
+      new Entities.AlignedDimension(first, second, options),
+    );
   }
 
   addDiameterDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.DiameterDimOptions
+    options?: Entities.DiameterDimOptions,
   ) {
     return this.addEntity(
-      new Entities.DiameterDimension(first, second, options)
-    )
+      new Entities.DiameterDimension(first, second, options),
+    );
   }
 
   addRadialDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.RadialDimOptions
+    options?: Entities.RadialDimOptions,
   ) {
-    return this.addEntity(new Entities.RadialDimension(first, second, options))
+    return this.addEntity(new Entities.RadialDimension(first, second, options));
   }
 
   addLinearDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.LinearDimOptions
+    options?: Entities.LinearDimOptions,
   ) {
-    return this.addEntity(new Entities.LinearDimension(first, second, options))
+    return this.addEntity(new Entities.LinearDimension(first, second, options));
   }
 
   addAngularLinesDim(
     first: Entities.DLine,
     second: Entities.DLine,
     location: vec3_t,
-    options?: Entities.DimensionOptions
+    options?: Entities.DimensionOptions,
   ): Entities.AngularDimLines {
     return this.addEntity(
-      new Entities.AngularDimLines(first, second, location, options)
-    )
+      new Entities.AngularDimLines(first, second, location, options),
+    );
   }
 
   addAngularPointsDim(
     center: vec3_t,
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.DimensionOptions
+    options?: Entities.DimensionOptions,
   ): Entities.AngularDimPoints {
     return this.addEntity(
-      new Entities.AngularDimPoints(center, first, second, options)
-    )
+      new Entities.AngularDimPoints(center, first, second, options),
+    );
   }
 
   addLine(
     startPoint: vec3_t,
     endPoint: vec3_t,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Line {
-    return this.addEntity(new Entities.Line(startPoint, endPoint, options))
+    return this.addEntity(new Entities.Line(startPoint, endPoint, options));
   }
 
   addLeader(
     points: vec3_t[],
-    options?: Entities.LeaderOptions
+    options?: Entities.LeaderOptions,
   ): Entities.Leader {
-    return this.addEntity(new Entities.Leader(points, options))
+    return this.addEntity(new Entities.Leader(points, options));
   }
 
   addLWPolyline(
     points: Entities.LWPolylineVertex[],
-    options?: Entities.LWPolylineOptions
+    options?: Entities.LWPolylineOptions,
   ): Entities.LWPolyline {
-    return this.addEntity(new Entities.LWPolyline(points, options))
+    return this.addEntity(new Entities.LWPolyline(points, options));
   }
 
   addRectangle(
     topLeft: vec2_t,
     bottomRight: vec2_t,
-    options?: RectangleOptions
+    options?: RectangleOptions,
   ): Entities.LWPolyline {
-    const vertices: Entities.LWPolylineVertex[] = []
-    const tX = topLeft.x
-    const tY = topLeft.y
-    const bX = bottomRight.x
-    const bY = bottomRight.y
+    const vertices: Entities.LWPolylineVertex[] = [];
+    const tX = topLeft.x;
+    const tY = topLeft.y;
+    const bX = bottomRight.x;
+    const bY = bottomRight.y;
 
     if (options?.fillet !== undefined && options?.chamfer !== undefined)
-      throw new Error('You cannot define both fillet and chamfer!')
+      throw new Error("You cannot define both fillet and chamfer!");
 
     if (options?.fillet !== undefined) {
-      const f = options?.fillet
-      const b = bulge(f)
-      vertices.push({ point: point2d(tX, tY - f), bulge: b })
-      vertices.push({ point: point2d(tX + f, tY) })
-      vertices.push({ point: point2d(bX - f, tY), bulge: b })
-      vertices.push({ point: point2d(bX, tY - f) })
-      vertices.push({ point: point2d(bX, bY + f), bulge: b })
-      vertices.push({ point: point2d(bX - f, bY) })
-      vertices.push({ point: point2d(tX + f, bY), bulge: b })
-      vertices.push({ point: point2d(tX, bY + f) })
+      const f = options?.fillet;
+      const b = bulge(f);
+      vertices.push({ point: point2d(tX, tY - f), bulge: b });
+      vertices.push({ point: point2d(tX + f, tY) });
+      vertices.push({ point: point2d(bX - f, tY), bulge: b });
+      vertices.push({ point: point2d(bX, tY - f) });
+      vertices.push({ point: point2d(bX, bY + f), bulge: b });
+      vertices.push({ point: point2d(bX - f, bY) });
+      vertices.push({ point: point2d(tX + f, bY), bulge: b });
+      vertices.push({ point: point2d(tX, bY + f) });
     } else if (options?.chamfer !== undefined) {
-      const f = options?.chamfer.first
-      const s: number = options?.chamfer.second || f
-      vertices.push({ point: point2d(tX, tY - f) })
-      vertices.push({ point: point2d(tX + s, tY) })
-      vertices.push({ point: point2d(bX - f, tY) })
-      vertices.push({ point: point2d(bX, tY - s) })
-      vertices.push({ point: point2d(bX, bY + f) })
-      vertices.push({ point: point2d(bX - s, bY) })
-      vertices.push({ point: point2d(tX + f, bY) })
-      vertices.push({ point: point2d(tX, bY + s) })
+      const f = options?.chamfer.first;
+      const s: number = options?.chamfer.second || f;
+      vertices.push({ point: point2d(tX, tY - f) });
+      vertices.push({ point: point2d(tX + s, tY) });
+      vertices.push({ point: point2d(bX - f, tY) });
+      vertices.push({ point: point2d(bX, tY - s) });
+      vertices.push({ point: point2d(bX, bY + f) });
+      vertices.push({ point: point2d(bX - s, bY) });
+      vertices.push({ point: point2d(tX + f, bY) });
+      vertices.push({ point: point2d(tX, bY + s) });
     } else {
-      vertices.push({ point: point2d(tX, tY) })
-      vertices.push({ point: point2d(bX, tY) })
-      vertices.push({ point: point2d(bX, bY) })
-      vertices.push({ point: point2d(tX, bY) })
+      vertices.push({ point: point2d(tX, tY) });
+      vertices.push({ point: point2d(bX, tY) });
+      vertices.push({ point: point2d(bX, bY) });
+      vertices.push({ point: point2d(tX, bY) });
     }
 
     return this.addLWPolyline(vertices, {
       ...options,
       flags: Entities.LWPolylineFlags.Closed,
-    })
+    });
   }
 
   addImage(
@@ -211,12 +221,12 @@ export abstract class EntitiesManager implements DxfInterface {
     height: number,
     scale: number,
     rotation: number,
-    options?: Entities.ImageOptions_t
+    options?: Entities.ImageOptions_t,
   ): Entities.Image {
     // TODO make sure there is no IMAGEDEF for this image!
-    const imageDef = this.objects.addImageDef(imagePath)
-    imageDef.width = width
-    imageDef.height = height
+    const imageDef = this.objects.addImageDef(imagePath);
+    imageDef.width = width;
+    imageDef.height = height;
     const image = new Entities.Image(
       {
         height,
@@ -226,43 +236,43 @@ export abstract class EntitiesManager implements DxfInterface {
         insertionPoint,
         imageDefHandle: imageDef.handle,
       },
-      options
-    )
-    const imageDefReactor = this.objects.addImageDefReactor(image.handle)
-    image.imageDefReactorHandle = imageDefReactor.handle
-    this.addEntity(image)
-    const dictionary = this.objects.addDictionary()
+      options,
+    );
+    const imageDefReactor = this.objects.addImageDefReactor(image.handle);
+    image.imageDefReactorHandle = imageDefReactor.handle;
+    this.addEntity(image);
+    const dictionary = this.objects.addDictionary();
 
-    dictionary.addEntryObject(name, imageDef.handle)
-    imageDef.ownerObjecthandle = dictionary.handle
-    this.objects.root.addEntryObject('ACAD_IMAGE_DICT', dictionary.handle)
-    imageDef.acadImageDictHandle = dictionary.handle
-    imageDef.addImageDefReactorHandle(imageDefReactor.handle)
-    return image
+    dictionary.addEntryObject(name, imageDef.handle);
+    imageDef.ownerObjecthandle = dictionary.handle;
+    this.objects.root.addEntryObject("ACAD_IMAGE_DICT", dictionary.handle);
+    imageDef.acadImageDictHandle = dictionary.handle;
+    imageDef.addImageDefReactorHandle(imageDefReactor.handle);
+    return image;
   }
 
   addPolyline3D(
     vertices: Entities.PolylineVertex[],
-    options?: Entities.PolylineOptions
+    options?: Entities.PolylineOptions,
   ): Entities.Polyline {
-    return this.addEntity(new Entities.Polyline(vertices, options))
+    return this.addEntity(new Entities.Polyline(vertices, options));
   }
 
   addPoint(
     x: number,
     y: number,
     z: number,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Point {
-    return this.addEntity(new Entities.Point(x, y, z, options))
+    return this.addEntity(new Entities.Point(x, y, z, options));
   }
 
   addCircle(
     center: vec3_t,
     radius: number,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Circle {
-    return this.addEntity(new Entities.Circle(center, radius, options))
+    return this.addEntity(new Entities.Circle(center, radius, options));
   }
 
   addArc(
@@ -270,18 +280,18 @@ export abstract class EntitiesManager implements DxfInterface {
     radius: number,
     startAngle: number,
     endAngle: number,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Arc {
     return this.addEntity(
-      new Entities.Arc(center, radius, startAngle, endAngle, options)
-    )
+      new Entities.Arc(center, radius, startAngle, endAngle, options),
+    );
   }
 
   addSpline(
     splineArgs: Entities.SplineArgs_t,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Spline {
-    return this.addEntity(new Entities.Spline(splineArgs, options))
+    return this.addEntity(new Entities.Spline(splineArgs, options));
   }
 
   addEllipse(
@@ -290,7 +300,7 @@ export abstract class EntitiesManager implements DxfInterface {
     ratioOfMinorAxisToMajorAxis: number,
     startParameter: number,
     endParameter: number,
-    options?: CommonEntityOptions
+    options?: CommonEntityOptions,
   ): Entities.Ellipse {
     const ellipse = new Entities.Ellipse(
       center,
@@ -298,10 +308,10 @@ export abstract class EntitiesManager implements DxfInterface {
       ratioOfMinorAxisToMajorAxis,
       startParameter,
       endParameter,
-      options
-    )
-    this.addEntity(ellipse)
-    return ellipse
+      options,
+    );
+    this.addEntity(ellipse);
+    return ellipse;
   }
 
   add3dFace(
@@ -309,7 +319,7 @@ export abstract class EntitiesManager implements DxfInterface {
     secondCorner: vec3_t,
     thirdCorner: vec3_t,
     fourthCorner: vec3_t,
-    options?: Entities.FaceOptions
+    options?: Entities.FaceOptions,
   ): Entities.Face {
     return this.addEntity(
       new Entities.Face(
@@ -317,41 +327,41 @@ export abstract class EntitiesManager implements DxfInterface {
         secondCorner,
         thirdCorner,
         fourthCorner,
-        options
-      )
-    )
+        options,
+      ),
+    );
   }
 
   addText(
     firstAlignementPoint: vec3_t,
     height: number,
     value: string,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ): Entities.Text {
     return this.addEntity(
-      new Entities.Text(firstAlignementPoint, height, value, options)
-    )
+      new Entities.Text(firstAlignementPoint, height, value, options),
+    );
   }
 
   addMText(
     firstAlignementPoint: vec3_t,
     height: number,
     value: string,
-    options?: Entities.MTextOptions
+    options?: Entities.MTextOptions,
   ): Entities.MText {
     return this.addEntity(
-      new Entities.MText(firstAlignementPoint, height, value, options)
-    )
+      new Entities.MText(firstAlignementPoint, height, value, options),
+    );
   }
 
   addInsert(
     blockName: string,
     insertionPoint: vec3_t,
-    options?: Entities.InsertOptions
+    options?: Entities.InsertOptions,
   ): Entities.Insert {
     return this.addEntity(
-      new Entities.Insert(blockName, insertionPoint, options || {})
-    )
+      new Entities.Insert(blockName, insertionPoint, options || {}),
+    );
   }
 
   addTable(
@@ -361,7 +371,7 @@ export abstract class EntitiesManager implements DxfInterface {
     noOfColumn: number,
     rowHeights: number[],
     columnHeights: number[],
-    tableOptions: Entities.TableOptions
+    tableOptions: Entities.TableOptions,
   ) {
     return this.addEntity(
       new Entities.Table(
@@ -371,23 +381,23 @@ export abstract class EntitiesManager implements DxfInterface {
         noOfColumn,
         rowHeights,
         columnHeights,
-        tableOptions
-      )
-    )
+        tableOptions,
+      ),
+    );
   }
 
   boundingBox(): boundingBox_t {
-    const _bboxes = []
+    const _bboxes = [];
     for (let i = 0; i < this.entities.length; i++)
-      _bboxes.push(this.entities[i].boundingBox())
-    return BoundingBox.boundingBox(_bboxes)
+      _bboxes.push(this.entities[i].boundingBox());
+    return BoundingBox.boundingBox(_bboxes);
   }
 
   centerView(): vec3_t {
-    return BoundingBox.boundingBoxCenter(this.boundingBox())
+    return BoundingBox.boundingBoxCenter(this.boundingBox());
   }
 
   viewHeight(): number {
-    return BoundingBox.boundingBoxHeight(this.boundingBox())
+    return BoundingBox.boundingBoxHeight(this.boundingBox());
   }
 }

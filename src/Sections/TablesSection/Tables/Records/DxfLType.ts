@@ -1,38 +1,43 @@
-import { DxfRecord } from './DxfRecord'
-import { Dxfier } from 'Internals/Dxfier'
+import { DxfRecord } from "./DxfRecord";
+import { Dxfier } from "Internals/Dxfier";
 
 export class DxfLType extends DxfRecord {
-  readonly name: string
-  readonly descriptive: string
-  readonly elements: number[]
-  flags: number
+  readonly name: string;
+  readonly descriptive: string;
+  readonly elements: number[];
+  flags: number;
 
-  constructor(name: string, descriptive: string, elements: number[], flags?: number) {
-    super('LTYPE')
-    this.name = name
-    this.descriptive = descriptive
-    this.elements = elements
-    this.flags = flags ?? 0
+  constructor(
+    name: string,
+    descriptive: string,
+    elements: number[],
+    flags?: number,
+  ) {
+    super("LTYPE");
+    this.name = name;
+    this.descriptive = descriptive;
+    this.elements = elements;
+    this.flags = flags ?? 0;
   }
 
   override dxfy(dx: Dxfier): void {
-    super.dxfy(dx)
-    dx.subclassMarker('AcDbLinetypeTableRecord')
-    dx.name(this.name)
-    dx.push(70, this.flags)
-    dx.push(3, this.descriptive)
-    dx.push(72, 65)
-    dx.push(73, this.elements.length)
+    super.dxfy(dx);
+    dx.subclassMarker("AcDbLinetypeTableRecord");
+    dx.name(this.name);
+    dx.push(70, this.flags);
+    dx.push(3, this.descriptive);
+    dx.push(72, 65);
+    dx.push(73, this.elements.length);
 
-    let sum = 0
+    let sum = 0;
     for (const element of this.elements) {
-      sum += Math.abs(element)
+      sum += Math.abs(element);
     }
-    dx.push(40, sum)
+    dx.push(40, sum);
 
     for (const element of this.elements) {
-      dx.push(49, element)
-      dx.push(74, 0)
+      dx.push(49, element);
+      dx.push(74, 0);
     }
   }
 }

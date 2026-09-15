@@ -9,14 +9,16 @@ jobs:
     name: CD
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 16
-          registry-url: "https://registry.npmjs.org"
-      - run: yarn install
-      - run: yarn test
-      - run: yarn build
-      - run: yarn publish
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run coverage
+      - run: bun run build
+      - name: Publish to npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          bun publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,8 +1,8 @@
-import { BoundingBox, boundingBox_t } from 'Internals/BoundingBox'
-import Entity, { CommonEntityOptions } from '../Entity'
+import { BoundingBox, boundingBox_t } from "Internals/BoundingBox";
+import Entity, { CommonEntityOptions } from "../Entity";
 
-import { Dxfier } from 'Internals/Dxfier'
-import { vec3_t } from 'Internals/Helpers'
+import { Dxfier } from "Internals/Dxfier";
+import { vec3_t } from "Internals/Helpers";
 
 // TODO: we need to add columns in mtext
 
@@ -38,44 +38,49 @@ export interface MTextOptions extends CommonEntityOptions {
 }
 
 export class MText extends Entity {
-  position: vec3_t
-  height: number
-  value: string
-  textStyle: string
+  position: vec3_t;
+  height: number;
+  value: string;
+  textStyle: string;
 
-  rotation?: number
-  attachmentPoint?: MTextAttachmentPoint
-  drawingDirection?: MTextDrawingDirection
-  lineSpacingStyle?: MTextLineSpacingStyle
-  width?: number
+  rotation?: number;
+  attachmentPoint?: MTextAttachmentPoint;
+  drawingDirection?: MTextDrawingDirection;
+  lineSpacingStyle?: MTextLineSpacingStyle;
+  width?: number;
 
-  constructor(firstAlignmentPoint: vec3_t, height: number, value: string, options?: MTextOptions) {
-    super('MTEXT', 'AcDbMText', options)
-    this.position = firstAlignmentPoint
-    this.height = height
-    this.value = value
-    this.textStyle = 'STANDARD'
-    this.rotation = options?.rotation
-    this.attachmentPoint = options?.attachmentPoint
-    this.drawingDirection = options?.drawingDirection
-    this.lineSpacingStyle = options?.lineSpacingStyle
-    this.width = options?.width
+  constructor(
+    firstAlignmentPoint: vec3_t,
+    height: number,
+    value: string,
+    options?: MTextOptions,
+  ) {
+    super("MTEXT", "AcDbMText", options);
+    this.position = firstAlignmentPoint;
+    this.height = height;
+    this.value = value;
+    this.textStyle = "STANDARD";
+    this.rotation = options?.rotation;
+    this.attachmentPoint = options?.attachmentPoint;
+    this.drawingDirection = options?.drawingDirection;
+    this.lineSpacingStyle = options?.lineSpacingStyle;
+    this.width = options?.width;
   }
 
   override boundingBox(): boundingBox_t {
     // I have no idea how to get boundingBox of TEXT :(
-    return BoundingBox.pointBBox(this.position)
+    return BoundingBox.pointBBox(this.position);
   }
 
   protected override dxfyChild(dx: Dxfier): void {
-    dx.point3d(this.position)
-    dx.push(40, this.height)
-    dx.push(41, this.width)
-    dx.push(71, this.attachmentPoint)
-    dx.push(72, this.drawingDirection)
-    dx.push(73, this.lineSpacingStyle)
-    dx.primaryText(this.value)
-    dx.push(50, this.rotation)
-    dx.textStyle(this.textStyle)
+    dx.point3d(this.position);
+    dx.push(40, this.height);
+    dx.push(41, this.width);
+    dx.push(71, this.attachmentPoint);
+    dx.push(72, this.drawingDirection);
+    dx.push(73, this.lineSpacingStyle);
+    dx.primaryText(this.value);
+    dx.push(50, this.rotation);
+    dx.textStyle(this.textStyle);
   }
 }
