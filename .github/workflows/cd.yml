@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write # required for npm OIDC trusted publishing
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -24,10 +24,6 @@ jobs:
       - run: bun run test
       - run: bun run build
       - name: Stage release to npm
-        # bun publish has no OIDC support, so use npm. The trusted publisher is
-        # stage-only: this submits a staged release that a maintainer must then
-        # approve with 2FA (npm stage approve <id>, or the Staged Packages tab
-        # on npmjs.com). No token: auth comes from OIDC.
         run: |
           npm install -g npm@latest
           npm stage publish
