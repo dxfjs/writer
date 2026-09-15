@@ -1,5 +1,8 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "installCommand": "bun install --frozen-lockfile",
+  "buildCommand": "bun run docs:build",
+  "outputDirectory": "docs/.vitepress/dist"
 }
