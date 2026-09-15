@@ -1,0 +1,20 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+    patch:
+      default:
+        informational: true
+
+ignore:
+  - "specs"
+  - "docs"
+  - "examples"
+  - "lib"
+  - "**/*.spec.ts"
+
+comment:
+  layout: "reach, diff, files"
+  require_changes: false

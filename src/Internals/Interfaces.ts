@@ -1,10 +1,10 @@
-import { Dxfier } from './Dxfier'
+import { Dxfier } from "./Dxfier";
 
 export interface DxfInterface {
-  dxfy(dx: Dxfier): void
+  dxfy(dx: Dxfier): void;
 }
 
 export interface DxfTag {
-	code: number
-	value: number | string
+  code: number;
+  value: number | string;
 }

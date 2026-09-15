@@ -1,31 +1,36 @@
-import { DxfLType } from './Records'
-import { DxfTable } from '../DxfTable'
+import { DxfLType } from "./Records";
+import { DxfTable } from "../DxfTable";
 
 export class DxfLTypeTable extends DxfTable<DxfLType> {
   constructor() {
-    super('LTYPE')
+    super("LTYPE");
   }
 
   exist(name: string): boolean {
     return (
       this.records.find((lineTypeRecord) => {
-        return lineTypeRecord.name === name
+        return lineTypeRecord.name === name;
       }) !== undefined
-    )
+    );
   }
 
   ltype(name: string) {
-    return this.records.find(r => r.name === name)
+    return this.records.find((r) => r.name === name);
   }
 
-  addLType(name: string, descriptive: string, elements: number[], flags?: number) {
-    const found = this.ltype(name)
+  addLType(
+    name: string,
+    descriptive: string,
+    elements: number[],
+    flags?: number,
+  ) {
+    const found = this.ltype(name);
     if (found) {
-      return found
+      return found;
     }
-    const r = new DxfLType(name, descriptive, elements, flags)
-    r.ownerObjectHandle = this.handle
-    this.records.push(r)
-    return r
+    const r = new DxfLType(name, descriptive, elements, flags);
+    r.ownerObjectHandle = this.handle;
+    this.records.push(r);
+    return r;
   }
 }

@@ -1,4 +1,4 @@
-# writer [![Verified on Openbase](https://badges.openbase.com/js/verified/@tarikjabiri/dxf.svg?style=openbase&token=C/1uHA0bNDQFUKrzrn23YQaNpCza+ZeDOe948Hvmi+s=)](https://openbase.com/js/@tarikjabiri/dxf?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge)
+# writer
 
 A Javascript dxf generator, written in Typescript.
 
@@ -37,17 +37,3 @@ const dxfString = dxf.stringify();
 
 - [Documentation](https://dxf.vercel.app/)
 
-## Sponsors
-
-<a href="https://www.archilogic.com/" style="display: inline-block">
-<img width="48" src="https://avatars.githubusercontent.com/u/6620048?s=200&v=4" style="width:48px" alt="Archilogic | Interior space for the digital world">
-</a>
-<a href="https://github.com/weareslate" style="display: inline-block; margin-left: 20px">
-<img width="48" src="https://github.com/weareslate.png" style="width:48px" alt="Slate">
-</a>
-<a href="https://github.com/Autodrop3d" style="display: inline-block; margin-left: 20px">
-<img width="48" src="https://github.com/Autodrop3d.png" style="width:48px" alt="Slate">
-</a>
-<a href="https://mikey.nz/" style="display: inline-block; margin-left: 20px">
-<img width="48" src="https://github.com/ahdinosaur.png" style="width:48px" alt="Mikey">
-</a>

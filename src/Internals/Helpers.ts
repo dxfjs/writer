@@ -1,38 +1,38 @@
-import { LWPolylineOptions } from '..'
+import { LWPolylineOptions } from "..";
 
 export function bulge(fillet: number): number {
-  const length = Math.sqrt(Math.pow(fillet, 2) + Math.pow(fillet, 2))
-  const b = length / 2
-  const d = Math.sqrt(Math.pow(fillet, 2) - Math.pow(b, 2))
-  const height = fillet - d
-  return -height / b
+  const length = Math.sqrt(Math.pow(fillet, 2) + Math.pow(fillet, 2));
+  const b = length / 2;
+  const d = Math.sqrt(Math.pow(fillet, 2) - Math.pow(b, 2));
+  const height = fillet - d;
+  return -height / b;
 }
 
 export type chamfer_t = {
-	first: number;
-	second?: number;
+  first: number;
+  second?: number;
 };
 
 export type RectangleOptions = LWPolylineOptions & {
-	chamfer?: chamfer_t;
-	fillet?: number;
+  chamfer?: chamfer_t;
+  fillet?: number;
 };
 
 export type rgb_t = {
-	r: number;
-	g: number;
-	b: number;
+  r: number;
+  g: number;
+  b: number;
 };
 
 export type vec3_t = {
-	x: number;
-	y: number;
-	z: number;
+  x: number;
+  y: number;
+  z: number;
 };
 
 export type vec2_t = {
-	x: number;
-	y: number;
+  x: number;
+  y: number;
 };
 
 /**
@@ -42,7 +42,7 @@ export type vec2_t = {
  * @returns The vec3_t point.
  */
 export function point3d(x?: number, y?: number, z?: number): vec3_t {
-  return { x: x ?? 0, y: y ?? 0, z: z ?? 0 }
+  return { x: x ?? 0, y: y ?? 0, z: z ?? 0 };
 }
 
 /**
@@ -51,13 +51,13 @@ export function point3d(x?: number, y?: number, z?: number): vec3_t {
  * @returns The vec2_t point.
  */
 export function point2d(x?: number, y?: number): vec2_t {
-  return { x: x ?? 0, y: y ?? 0 }
+  return { x: x ?? 0, y: y ?? 0 };
 }
 
 export function rad2deg(v: number) {
-  return (v * 180) / Math.PI
+  return (v * 180) / Math.PI;
 }
 
 export function deg2rad(v: number) {
-  return (v * Math.PI) / 180
+  return (v * Math.PI) / 180;
 }

@@ -3,52 +3,52 @@ import {
   DxfEntitiesSection,
   DxfHeaderSection,
   DxfTablesSection,
-} from 'Sections'
-import { LineTypes, Units } from 'Internals/Enums'
-import { RectangleOptions, vec2_t, vec3_t } from 'Internals/Helpers'
-import { DxfDocument } from 'DxfDocument'
-import { DxfLayer } from 'TablesSection/Tables/Records/DxfLayer'
-import { LayerFlags } from 'TablesSection/Tables/Records/DxfRecord'
-import { values_t } from 'HeaderSection/DxfVariable'
+} from "./Sections";
+import { LineTypes, Units } from "Internals/Enums";
+import { RectangleOptions, vec2_t, vec3_t } from "Internals/Helpers";
+import { DxfDocument } from "DxfDocument";
+import { DxfLayer } from "TablesSection/Tables/Records/DxfLayer";
+import { LayerFlags } from "TablesSection/Tables/Records/DxfRecord";
+import { values_t } from "HeaderSection/DxfVariable";
 
-import * as Entities from './Sections/EntitiesSection'
+import * as Entities from "./Sections/EntitiesSection";
 
 /**
  * The base class for creating the dxf content.
  */
 export class DxfWriter {
-  readonly document: DxfDocument
+  readonly document: DxfDocument;
 
   get header(): DxfHeaderSection {
-    return this.document.header
+    return this.document.header;
   }
 
   get tables(): DxfTablesSection {
-    return this.document.tables
+    return this.document.tables;
   }
 
   get blocks(): DxfBlocksSection {
-    return this.document.blocks
+    return this.document.blocks;
   }
 
   get entities(): DxfEntitiesSection {
-    return this.document.entities
+    return this.document.entities;
   }
 
   get currentLayer() {
-    return this.document.currentLayerName
+    return this.document.currentLayerName;
   }
 
   get units() {
-    return this.document.currentUnits
+    return this.document.currentUnits;
   }
 
   get modelSpace() {
-    return this.document.modelSpace
+    return this.document.modelSpace;
   }
 
   constructor() {
-    this.document = new DxfDocument()
+    this.document = new DxfDocument();
   }
 
   /**
@@ -57,14 +57,14 @@ export class DxfWriter {
    * @returns The layer object.
    */
   layer(name: string) {
-    return this.tables.layer(name)
+    return this.tables.layer(name);
   }
 
   /**
    * Sets the zero layer as current layer.
    */
   setZeroLayerAsCurrent() {
-    this.document.setZeroLayerAsCurrent()
+    this.document.setZeroLayerAsCurrent();
   }
 
   /**
@@ -73,7 +73,7 @@ export class DxfWriter {
    * @returns The added block.
    */
   public addBlock(name: string) {
-    return this.blocks.addBlock(name, this.document.objects)
+    return this.blocks.addBlock(name, this.document.objects);
   }
 
   /**
@@ -81,9 +81,8 @@ export class DxfWriter {
    * @returns The added block.
    */
   addPaperSpace() {
-    return this.blocks.addPaperSpace()
+    return this.blocks.addPaperSpace();
   }
-
 
   /**
    * Add a header variable to the dxf if not exist.
@@ -99,7 +98,7 @@ export class DxfWriter {
    * @param values - The values corresponding to the variable.
    */
   public setVariable(name: string, values: values_t) {
-    this.header.setVariable(name, values)
+    this.header.setVariable(name, values);
   }
 
   /**
@@ -110,7 +109,7 @@ export class DxfWriter {
    * @param elements - An array of elements of the pattern. 📝 Need more explications 😭!
    */
   public addLType(name: string, descriptive: string, elements: number[]) {
-    return this.tables.addLType(name, descriptive, elements)
+    return this.tables.addLType(name, descriptive, elements);
   }
 
   /**
@@ -120,7 +119,7 @@ export class DxfWriter {
    * @returns Dimension style object
    */
   public addDimStyle(name: string) {
-    return this.tables.addDimStyle(name)
+    return this.tables.addDimStyle(name);
   }
 
   /**
@@ -133,9 +132,9 @@ export class DxfWriter {
   public addAlignedDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.AlignedDimOptions
+    options?: Entities.AlignedDimOptions,
   ) {
-    return this.modelSpace.addAlignedDim(first, second, options)
+    return this.modelSpace.addAlignedDim(first, second, options);
   }
 
   /**
@@ -148,9 +147,9 @@ export class DxfWriter {
   public addDiameterDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.DiameterDimOptions
+    options?: Entities.DiameterDimOptions,
   ): Entities.DiameterDimension {
-    return this.modelSpace.addDiameterDim(first, second, options)
+    return this.modelSpace.addDiameterDim(first, second, options);
   }
 
   /**
@@ -163,9 +162,9 @@ export class DxfWriter {
   public addRadialDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.RadialDimOptions
+    options?: Entities.RadialDimOptions,
   ): Entities.RadialDimension {
-    return this.modelSpace.addRadialDim(first, second, options)
+    return this.modelSpace.addRadialDim(first, second, options);
   }
 
   /**
@@ -178,9 +177,9 @@ export class DxfWriter {
   public addLinearDim(
     first: vec3_t,
     second: vec3_t,
-    options?: Entities.LinearDimOptions
+    options?: Entities.LinearDimOptions,
   ): Entities.LinearDimension {
-    return this.modelSpace.addLinearDim(first, second, options)
+    return this.modelSpace.addLinearDim(first, second, options);
   }
 
   /**
@@ -195,9 +194,9 @@ export class DxfWriter {
     first: Entities.DLine,
     second: Entities.DLine,
     location: vec3_t,
-    options?: Entities.DimensionOptions
+    options?: Entities.DimensionOptions,
   ): Entities.AngularDimLines {
-    return this.modelSpace.addAngularLinesDim(first, second, location, options)
+    return this.modelSpace.addAngularLinesDim(first, second, location, options);
   }
 
   /**
@@ -222,9 +221,9 @@ export class DxfWriter {
   public addHatch(
     boundaryPath: Entities.HatchBoundaryPaths,
     fill: Entities.HatchPatternOptions_t | Entities.HatchGradientOptions_t,
-    options?: Entities.HatchOptions_t
+    options?: Entities.HatchOptions_t,
   ): Entities.Hatch {
-    return this.modelSpace.addHatch(boundaryPath, fill, options)
+    return this.modelSpace.addHatch(boundaryPath, fill, options);
   }
 
   /**
@@ -239,10 +238,10 @@ export class DxfWriter {
     name: string,
     color: number,
     lineType?: string,
-    flags = LayerFlags.None
+    flags = LayerFlags.None,
   ): DxfLayer {
-    if (!lineType) lineType = LineTypes.Continuous
-    return this.tables.addLayer(name, color, lineType, flags)
+    if (!lineType) lineType = LineTypes.Continuous;
+    return this.tables.addLayer(name, color, lineType, flags);
   }
 
   /**
@@ -250,7 +249,7 @@ export class DxfWriter {
    * @param name - The layer name.
    */
   public setCurrentLayerName(name: string) {
-    this.document.setCurrentLayerName(name)
+    this.document.setCurrentLayerName(name);
   }
 
   /**
@@ -259,7 +258,7 @@ export class DxfWriter {
    * @param units - The units for AutoCAD DesignCenter blocks.
    */
   public setUnits(units: Units) {
-    this.document.setUnits(units)
+    this.document.setUnits(units);
   }
 
   /**
@@ -273,9 +272,9 @@ export class DxfWriter {
   public addLine(
     startPoint: vec3_t,
     endPoint: vec3_t,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
-    return this.modelSpace.addLine(startPoint, endPoint, options)
+    return this.modelSpace.addLine(startPoint, endPoint, options);
   }
 
   /**
@@ -288,7 +287,7 @@ export class DxfWriter {
    * @returns Returns the added leader.
    */
   public addLeader(points: vec3_t[], options?: Entities.LeaderOptions) {
-    return this.modelSpace.addLeader(points, options)
+    return this.modelSpace.addLeader(points, options);
   }
 
   /**
@@ -306,9 +305,9 @@ export class DxfWriter {
    */
   public addLWPolyline(
     points: Entities.LWPolylineVertex[],
-    options?: Entities.LWPolylineOptions
+    options?: Entities.LWPolylineOptions,
   ) {
-    return this.modelSpace.addLWPolyline(points, options)
+    return this.modelSpace.addLWPolyline(points, options);
   }
 
   /**
@@ -324,9 +323,9 @@ export class DxfWriter {
   public addRectangle(
     topLeft: vec2_t,
     bottomRight: vec2_t,
-    options?: RectangleOptions
+    options?: RectangleOptions,
   ) {
-    return this.modelSpace.addRectangle(topLeft, bottomRight, options)
+    return this.modelSpace.addRectangle(topLeft, bottomRight, options);
   }
 
   /**
@@ -337,9 +336,9 @@ export class DxfWriter {
    */
   public addPolyline3D(
     vertices: Entities.PolylineVertex[],
-    options?: Entities.PolylineOptions
+    options?: Entities.PolylineOptions,
   ) {
-    return this.modelSpace.addPolyline3D(vertices, options)
+    return this.modelSpace.addPolyline3D(vertices, options);
   }
 
   /**
@@ -355,9 +354,9 @@ export class DxfWriter {
     x: number,
     y: number,
     z: number,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
-    return this.modelSpace.addPoint(x, y, z, options)
+    return this.modelSpace.addPoint(x, y, z, options);
   }
 
   /**
@@ -371,9 +370,9 @@ export class DxfWriter {
   public addCircle(
     center: vec3_t,
     radius: number,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
-    return this.modelSpace.addCircle(center, radius, options)
+    return this.modelSpace.addCircle(center, radius, options);
   }
 
   /**
@@ -392,15 +391,15 @@ export class DxfWriter {
     radius: number,
     startAngle: number,
     endAngle: number,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
     return this.modelSpace.addArc(
       center,
       radius,
       startAngle,
       endAngle,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -420,9 +419,9 @@ export class DxfWriter {
    */
   public addSpline(
     splineArgs: Entities.SplineArgs_t,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
-    return this.modelSpace.addSpline(splineArgs, options)
+    return this.modelSpace.addSpline(splineArgs, options);
   }
 
   /**
@@ -442,7 +441,7 @@ export class DxfWriter {
     ratioOfMinorAxisToMajorAxis: number,
     startParameter: number,
     endParameter: number,
-    options?: Entities.CommonEntityOptions
+    options?: Entities.CommonEntityOptions,
   ) {
     return this.modelSpace.addEllipse(
       center,
@@ -450,8 +449,8 @@ export class DxfWriter {
       ratioOfMinorAxisToMajorAxis,
       startParameter,
       endParameter,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -487,7 +486,7 @@ export class DxfWriter {
     height: number,
     scale: number,
     rotation: number,
-    options?: Entities.ImageOptions_t
+    options?: Entities.ImageOptions_t,
   ) {
     return this.modelSpace.addImage(
       imagePath,
@@ -497,8 +496,8 @@ export class DxfWriter {
       height,
       scale,
       rotation,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -517,15 +516,15 @@ export class DxfWriter {
     secondCorner: vec3_t,
     thirdCorner: vec3_t,
     fourthCorner: vec3_t,
-    options?: Entities.FaceOptions
+    options?: Entities.FaceOptions,
   ) {
     return this.modelSpace.add3dFace(
       firstCorner,
       secondCorner,
       thirdCorner,
       fourthCorner,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -540,9 +539,9 @@ export class DxfWriter {
     firstAlignmentPoint: vec3_t,
     height: number,
     value: string,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ) {
-    return this.modelSpace.addText(firstAlignmentPoint, height, value, options)
+    return this.modelSpace.addText(firstAlignmentPoint, height, value, options);
   }
 
   /**
@@ -559,15 +558,15 @@ export class DxfWriter {
     height: number,
     tag: string,
     value: string,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ) {
     return this.modelSpace.addAttdef(
       firstAlignmentPoint,
       height,
       tag,
       value,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -585,7 +584,7 @@ export class DxfWriter {
     tag: string,
     value: string,
     ownerInsert: Entities.Insert,
-    options?: Entities.TextOptions
+    options?: Entities.TextOptions,
   ) {
     return this.modelSpace.addAttrib(
       firstAlignmentPoint,
@@ -593,8 +592,8 @@ export class DxfWriter {
       tag,
       value,
       ownerInsert,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -609,14 +608,14 @@ export class DxfWriter {
     firstAlignementPoint: vec3_t,
     height: number,
     value: string,
-    options?: Entities.MTextOptions
+    options?: Entities.MTextOptions,
   ) {
     return this.modelSpace.addMText(
       firstAlignementPoint,
       height,
       value,
-      options
-    )
+      options,
+    );
   }
 
   /**
@@ -630,9 +629,9 @@ export class DxfWriter {
   public addInsert(
     blockName: string,
     insertionPoint: vec3_t,
-    options?: Entities.InsertOptions
+    options?: Entities.InsertOptions,
   ) {
-    return this.modelSpace.addInsert(blockName, insertionPoint, options)
+    return this.modelSpace.addInsert(blockName, insertionPoint, options);
   }
 
   /**
@@ -654,7 +653,7 @@ export class DxfWriter {
     noOfColumn: number,
     rowHeights: number[],
     columnHeights: number[],
-    tableOptions: Entities.TableOptions
+    tableOptions: Entities.TableOptions,
   ) {
     return this.modelSpace.addTable(
       blockName,
@@ -663,8 +662,8 @@ export class DxfWriter {
       noOfColumn,
       rowHeights,
       columnHeights,
-      tableOptions
-    )
+      tableOptions,
+    );
   }
 
   /**
@@ -673,6 +672,6 @@ export class DxfWriter {
    * @returns Return the dxf string.
    */
   public stringify(): string {
-    return this.document.stringify()
+    return this.document.stringify();
   }
 }

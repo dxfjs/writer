@@ -1,32 +1,32 @@
-import { Dimension, DimensionOptions, DimensionType } from './Dimension'
+import { Dimension, DimensionOptions, DimensionType } from "./Dimension";
 
-import { Dxfier } from 'Internals/Dxfier'
-import { vec3_t } from 'Internals/Helpers'
+import { Dxfier } from "Internals/Dxfier";
+import { vec3_t } from "Internals/Helpers";
 
 export interface DiameterDimOptions extends DimensionOptions {
-	leaderLength?: number;
+  leaderLength?: number;
 }
 
 export class DiameterDimension extends Dimension {
-  first: vec3_t
-  leaderLength?: number
+  first: vec3_t;
+  leaderLength?: number;
 
   constructor(first: vec3_t, second: vec3_t, options?: DiameterDimOptions) {
-    super(options)
-    this.dimensionType = DimensionType.Diameter
-    this.first = first
-    this.definitionPoint = second
-    this.leaderLength = options?.leaderLength
+    super(options);
+    this.dimensionType = DimensionType.Diameter;
+    this.first = first;
+    this.definitionPoint = second;
+    this.leaderLength = options?.leaderLength;
   }
 
   protected override rotate(): number {
-    return 0
+    return 0;
   }
 
   protected override dxfyChild(dx: Dxfier): void {
-    super.dxfyChild(dx)
-    dx.subclassMarker('AcDbDiametricDimension')
-    dx.point3d(this.first, 5)
-    dx.push(40, this.leaderLength)
+    super.dxfyChild(dx);
+    dx.subclassMarker("AcDbDiametricDimension");
+    dx.point3d(this.first, 5);
+    dx.push(40, this.leaderLength);
   }
 }
