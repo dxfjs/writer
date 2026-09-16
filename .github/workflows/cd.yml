@@ -3,20 +3,27 @@ name: CD
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   CD:
     name: CD
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 16
-          registry-url: "https://registry.npmjs.org"
-      - run: yarn install
-      - run: yarn test
-      - run: yarn build
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - run: bun run test
+      - run: bun run build
+      - name: Stage release to npm
+        run: |
+          npm install -g npm@latest
+          npm stage publish
