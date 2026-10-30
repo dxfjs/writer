@@ -1,6 +1,11 @@
 import { DxfWriter } from "DxfWriter";
 import { Dxfier, point3d } from "Internals";
-import { DxfImageDefReactor, DxfRasterVariables } from "Sections";
+import {
+  DxfImageDefReactor,
+  DxfRasterVariables,
+  ImageClipModeFlag,
+  ImageClippingStateFlag,
+} from "Sections";
 import { describe, expect, it } from "vitest";
 
 describe("Image", () => {
@@ -136,4 +141,17 @@ describe("Image", () => {
     );
   });
 
+  it("keeps the options given as zero", () => {
+    const dxf = new DxfWriter();
+    const image = dxf.addImage("a.png", "a", point3d(0, 0, 0), 64, 32, 64, 0, {
+      clippingStateFlag: ImageClippingStateFlag.Off,
+      clipModeFlag: ImageClipModeFlag.Outside,
+      brightness: 0,
+      contrast: 100,
+    });
+    expect(image.clippingStateFlag).toBe(ImageClippingStateFlag.Off);
+    expect(image.clipModeFlag).toBe(ImageClipModeFlag.Outside);
+    expect(image.brightness).toBe(0);
+    expect(image.contrast).toBe(100);
+  });
 });

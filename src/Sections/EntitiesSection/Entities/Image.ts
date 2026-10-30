@@ -75,18 +75,18 @@ export class Image extends Entity {
     this.ratio = this.scale / this.width;
     this.imageDefHandle = imageArgs.imageDefHandle;
     this.imageDisplayFlags =
-      options?.imageDisplayFlags ||
+      options?.imageDisplayFlags ??
       ImageDisplayFlags.ShowImage |
         ImageDisplayFlags.ShowImageWhenNotAlignedWithScreen;
     this.clippingStateFlag =
-      options?.clippingStateFlag || ImageClippingStateFlag.On;
-    this.clipModeFlag = options?.clipModeFlag || ImageClipModeFlag.Inside;
-    this.clippingType = options?.clippingType || ImageClippingType.Rectangular;
-    this.brightness = options?.brightness || 50;
-    this.contrast = options?.brightness || 50;
-    this.fade = options?.fade || 0;
+      options?.clippingStateFlag ?? ImageClippingStateFlag.On;
+    this.clipModeFlag = options?.clipModeFlag ?? ImageClipModeFlag.Inside;
+    this.clippingType = options?.clippingType ?? ImageClippingType.Rectangular;
+    this.brightness = options?.brightness ?? 50;
+    this.contrast = options?.contrast ?? 50;
+    this.fade = options?.fade ?? 0;
     this.#clipBoundaryVertices = [];
-    this.classVersion = options?.classVersion || 0;
+    this.classVersion = options?.classVersion ?? 0;
     this.resetClipping();
   }
 
