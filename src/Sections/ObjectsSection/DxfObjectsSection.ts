@@ -10,6 +10,8 @@ export class DxfObjectsSection implements DxfInterface {
 
   readonly objects: DxfObject[] = [];
 
+  #imageDictionary?: DxfDictionary;
+
   constructor() {
     this.root.duplicateRecordCloningFlag = 1;
     const d = this.addDictionary();
@@ -34,6 +36,15 @@ export class DxfObjectsSection implements DxfInterface {
     d.ownerObjecthandle = this.root.handle;
     this.addObject(d);
     return d;
+  }
+
+  /** The one ACAD_IMAGE_DICT every IMAGEDEF belongs to; created with the first image. */
+  imageDictionary(): DxfDictionary {
+    if (!this.#imageDictionary) {
+      this.#imageDictionary = this.addDictionary();
+      this.root.addEntryObject("ACAD_IMAGE_DICT", this.#imageDictionary.handle);
+    }
+    return this.#imageDictionary;
   }
 
   addEntryToRoot(name: string, softOwner: string): void {
