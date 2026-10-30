@@ -1,7 +1,7 @@
 {
   "name": "@tarikjabiri/dxf",
   "type": "module",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "A JavaScript interface to Dxf written in TypeScript.",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
