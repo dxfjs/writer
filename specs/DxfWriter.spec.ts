@@ -115,7 +115,7 @@ describe("DxfWriter", () => {
       360 - 359.74,
     );
 
-    const id = dxf.document.objects.addImageDef("jhdjshfsd");
+    const id = dxf.document.objects.addImageDef("jhdjshfsd", "jhdjshfsd", 1, 1);
     id.resolutionUnits = ImageDefResolutionUnits.Inch;
 
     dxf.document.objects.addEntryToRoot("test", "FF");
