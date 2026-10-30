@@ -1,5 +1,5 @@
+import type { Dxfier } from "Internals/Dxfier";
 import { DxfObject } from "../DxfObject";
-import { Dxfier } from "Internals/Dxfier";
 
 export class DxfImageDefReactor extends DxfObject {
   classVersion: number;
@@ -7,6 +7,7 @@ export class DxfImageDefReactor extends DxfObject {
 
   constructor(imageHandle: string) {
     super("IMAGEDEF_REACTOR");
+    this.ownerObjecthandle = imageHandle;
     this.imageHandle = imageHandle;
     this.classVersion = 2;
   }

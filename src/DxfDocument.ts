@@ -68,6 +68,7 @@ export class DxfDocument implements DxfInterface {
   }
 
   dxfy(dx: Dxfier): void {
+    this.classes.collect(this.types());
     this.header.dxfy(dx);
     this.classes.dxfy(dx);
     this.tables.dxfy(dx);
@@ -78,6 +79,16 @@ export class DxfDocument implements DxfInterface {
 
   addBlock(name: string) {
     return this.blocks.addBlock(name, this.objects);
+  }
+
+  /** The DXF type of every entity and object in the drawing, one per instance. */
+  private types(): string[] {
+    const types: string[] = [];
+    for (const block of this.blocks.blocks) {
+      for (const entity of block.entities) types.push(entity.type);
+    }
+    for (const object of this.objects.objects) types.push(object.type);
+    return types;
   }
 
   setZeroLayerAsCurrent() {

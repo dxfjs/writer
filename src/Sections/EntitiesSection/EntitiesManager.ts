@@ -223,10 +223,7 @@ export abstract class EntitiesManager implements DxfInterface {
     rotation: number,
     options?: Entities.ImageOptions_t,
   ): Entities.Image {
-    // TODO make sure there is no IMAGEDEF for this image!
-    const imageDef = this.objects.addImageDef(imagePath);
-    imageDef.width = width;
-    imageDef.height = height;
+    const imageDef = this.objects.addImageDef(imagePath, name, width, height);
     const image = new Entities.Image(
       {
         height,
@@ -238,17 +235,10 @@ export abstract class EntitiesManager implements DxfInterface {
       },
       options,
     );
-    const imageDefReactor = this.objects.addImageDefReactor(image.handle);
-    image.imageDefReactorHandle = imageDefReactor.handle;
-    this.addEntity(image);
-    const dictionary = this.objects.addDictionary();
-
-    dictionary.addEntryObject(name, imageDef.handle);
-    imageDef.ownerObjecthandle = dictionary.handle;
-    this.objects.root.addEntryObject("ACAD_IMAGE_DICT", dictionary.handle);
-    imageDef.acadImageDictHandle = dictionary.handle;
-    imageDef.addImageDefReactorHandle(imageDefReactor.handle);
-    return image;
+    const reactor = this.objects.addImageDefReactor(image.handle);
+    image.imageDefReactorHandle = reactor.handle;
+    imageDef.reactors.push(reactor.handle);
+    return this.addEntity(image);
   }
 
   addPolyline3D(
