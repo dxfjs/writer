@@ -14,6 +14,15 @@ export function tag(code: number, value: string | number): Tag {
   return { code, value };
 }
 
+/**
+ * The value with each of its line breaks replaced: a carriage return and a
+ * line feed taken as one, or either alone. DXF gives a value one line, so
+ * none may be written in one.
+ */
+export function replaceLineBreaks(value: string, replacement: string) {
+  return value.replace(/\r\n|\r|\n/g, () => replacement);
+}
+
 export function stringByteSize(value: string) {
   return new Blob([value]).size;
 }

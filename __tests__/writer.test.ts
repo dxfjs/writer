@@ -125,4 +125,35 @@ describe("Writer class", () => {
     expect(w.document.paperSpace.isPaperSpace).toBeTruthy();
     writeFileSync("examples/default.dxf", w.stringify());
   });
+
+  it("should keep the entities that follow a text whose value has a line break", () => {
+    const w = new Writer();
+    const modelSpace = w.document.modelSpace;
+    modelSpace.addMText({
+      insertionPoint: point(5, 5),
+      height: 1,
+      value: "line1\nline2",
+    });
+    modelSpace.addText({
+      firstAlignmentPoint: point(5, 8),
+      height: 1,
+      value: "line1\nline2",
+    });
+    modelSpace.addLine({ start: point(), end: point(1, 1) });
+
+    const lines = w.stringify().split("\n");
+    const codes = lines.filter((_, i) => i % 2 === 0);
+    const values = lines.filter((_, i) => i % 2 === 1);
+    const start = values.findIndex(
+      (value, i) => value === "ENTITIES" && codes[i] === "2",
+    );
+    const end = values.indexOf("ENDSEC", start);
+    const types = values
+      .slice(start + 1, end)
+      .filter((_, i) => codes[start + 1 + i] === "0");
+
+    expect(lines.length % 2).toBe(0);
+    expect(codes.filter((code) => !/^\d+$/.test(code))).toEqual([]);
+    expect(types).toEqual(["MTEXT", "TEXT", "LINE"]);
+  });
 });
