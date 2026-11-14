@@ -1,4 +1,10 @@
-import { BBox, BoundingBox, TagsManager, extrusion } from "@/utils";
+import {
+  BBox,
+  BoundingBox,
+  TagsManager,
+  extrusion,
+  replaceLineBreaks,
+} from "@/utils";
 import { Entity, EntityOptions } from "./entity";
 import { Point3D, Union } from "@/types";
 
@@ -157,7 +163,8 @@ export class MText extends Entity {
     mg.add(46, this.referenceRectangleHeight);
     mg.add(71, this.attachmentPoint);
     mg.add(72, this.drawingDirection);
-    mg.add(1, this.value);
+    // A line break starts a new paragraph, which MTEXT spells \P.
+    mg.add(1, replaceLineBreaks(this.value, "\\P"));
     mg.add(7, this.styleName);
     mg.point(this.extrusion, 200);
     mg.point(this.directionVector, 1);

@@ -21,6 +21,30 @@ describe("TagsManager class", () => {
     expect(mg.stringify()).toBe("0\nSECTION");
   });
 
+  it.each([
+    "\n",
+    "\r\n",
+    "\r",
+  ])("should write a string value holding %j on one line", (lineBreak) => {
+    const mg = new TagsManager();
+    mg.add(8, `walls${lineBreak}north`);
+    mg.add(62, 1);
+    expect(mg.stringify()).toBe("8\nwalls north\n62\n1");
+  });
+
+  it("should write each line break of a string value as one space", () => {
+    const mg = new TagsManager();
+    mg.add(8, "a\n\nb\r\nc");
+    expect(mg.stringify()).toBe("8\na  b c");
+  });
+
+  it("should leave a value with no line break as it is", () => {
+    const mg = new TagsManager();
+    mg.add(8, "walls north");
+    mg.add(40, 1.5);
+    expect(mg.lines).toEqual([8, "walls north", 40, 1.5]);
+  });
+
   it("should start a section", () => {
     const mg = new TagsManager();
     mg.sectionStart("HEADER");

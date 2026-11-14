@@ -5,6 +5,7 @@ import {
   openUniformKnots,
   point,
   point2d,
+  replaceLineBreaks,
   stringByteSize,
   stringChunksSplit,
   tag,
@@ -28,6 +29,20 @@ describe("point2d function", () => {
 describe("tag function", () => {
   it("should create tag object", () => {
     expect(tag(0, "SECTION")).toEqual({ code: 0, value: "SECTION" });
+  });
+});
+
+describe("replaceLineBreaks function", () => {
+  it("should replace each line break, a CR LF pair taken as one", () => {
+    expect(replaceLineBreaks("a\nb\r\nc\rd", "|")).toBe("a|b|c|d");
+  });
+
+  it("should write the replacement as it is given", () => {
+    expect(replaceLineBreaks("a\nb", "$&\\P")).toBe("a$&\\Pb");
+  });
+
+  it("should return a string with no line break as it is", () => {
+    expect(replaceLineBreaks("a b", "|")).toBe("a b");
   });
 });
 

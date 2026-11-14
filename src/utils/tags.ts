@@ -1,4 +1,5 @@
 import { Point2D, Point3D, Stringifiable } from "@/types";
+import { replaceLineBreaks } from "./functions";
 
 export class TagsManager implements Stringifiable {
   readonly lines: (string | number)[];
@@ -11,8 +12,16 @@ export class TagsManager implements Stringifiable {
     this.lines.length = 0;
   }
 
+  /**
+   * Adds a group: its code, then its value. A line break in a string value
+   * is written as a space, since a value that ran onto a second line would be
+   * read as the next group code.
+   */
   add(code: number, value?: string | number) {
-    if (value != null) this.lines.push(code, value);
+    if (value == null) return;
+    if (typeof value === "string") {
+      this.lines.push(code, replaceLineBreaks(value, " "));
+    } else this.lines.push(code, value);
   }
 
   sectionStart(name: string) {
