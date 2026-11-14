@@ -1,4 +1,5 @@
 import { vec2_t, vec3_t } from "./Helpers";
+import { lineBreaksRegex } from "./Utils";
 
 export type tag_t = {
   code: number;
@@ -11,8 +12,16 @@ export class Dxfier {
     this.lines = [];
   }
 
+  /**
+   * Adds a group: its code, then its value. A line break in a string value
+   * is written as a space, since a value that ran onto a second line would be
+   * read as the next group code.
+   */
   push(code: number, value?: string | number) {
-    if (value != null) this.lines.push(code, value);
+    if (value == null) return;
+    if (typeof value === "string") {
+      this.lines.push(code, value.replace(lineBreaksRegex, " "));
+    } else this.lines.push(code, value);
   }
 
   stringify() {

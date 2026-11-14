@@ -229,4 +229,26 @@ describe("DxfWriter", () => {
     expect(newTest).toBe(test);
     expect(dxf.stringify()).toMatchSnapshot();
   });
+
+  it("should keep the entities that follow a text whose value has a line break", () => {
+    const dxf = new DxfWriter();
+    dxf.addMText(point3d(5, 5, 0), 1, "line1\nline2");
+    dxf.addText(point3d(5, 8, 0), 1, "line1\nline2");
+    dxf.addLine(point3d(0, 0), point3d(1, 1), { layerName: "a\nb" });
+
+    const lines = dxf.stringify().split("\n");
+    const codes = lines.filter((_, i) => i % 2 === 0);
+    const values = lines.filter((_, i) => i % 2 === 1);
+    const start = values.findIndex(
+      (value, i) => value === "ENTITIES" && codes[i] === "2",
+    );
+    const end = values.indexOf("ENDSEC", start);
+    const types = values
+      .slice(start + 1, end)
+      .filter((_, i) => codes[start + 1 + i] === "0");
+
+    expect(lines.length % 2).toBe(0);
+    expect(codes.filter((code) => !/^\d+$/.test(code))).toEqual([]);
+    expect(types).toEqual(["MTEXT", "TEXT", "LINE"]);
+  });
 });

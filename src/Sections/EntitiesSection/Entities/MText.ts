@@ -3,6 +3,7 @@ import Entity, { CommonEntityOptions } from "../Entity";
 
 import { Dxfier } from "Internals/Dxfier";
 import { vec3_t } from "Internals/Helpers";
+import { lineBreaksRegex } from "Internals/Utils";
 
 // TODO: we need to add columns in mtext
 
@@ -79,7 +80,8 @@ export class MText extends Entity {
     dx.push(71, this.attachmentPoint);
     dx.push(72, this.drawingDirection);
     dx.push(73, this.lineSpacingStyle);
-    dx.primaryText(this.value);
+    // A line break starts a new paragraph, which MTEXT spells \P.
+    dx.primaryText(this.value.replace(lineBreaksRegex, "\\P"));
     dx.push(50, this.rotation);
     dx.textStyle(this.textStyle);
   }

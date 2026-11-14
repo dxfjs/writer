@@ -2,6 +2,12 @@ import { point3d, vec3_t } from "./Helpers";
 
 export const specialCharsRegex = /[<>/\\":;?*|=`]/g;
 
+/**
+ * Each line break of a string: a carriage return and a line feed taken as one,
+ * or either alone. DXF gives a value one line, so none may be written in one.
+ */
+export const lineBreaksRegex = /\r\n|\r|\n/g;
+
 export function d(f: vec3_t, s: vec3_t) {
   return Math.sqrt(Math.pow(f.x - s.x, 2) + Math.pow(f.y - s.y, 2));
 }
