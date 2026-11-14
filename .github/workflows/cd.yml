@@ -23,7 +23,17 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run test
       - run: bun run build
+      # A prerelease goes out under its own dist-tag, alpha for 3.0.0-alpha.14,
+      # so that latest stays on the stable line. npm refuses a prerelease
+      # given no tag, and the tag is passed as a flag because stage publish
+      # still staged under latest with publishConfig.tag set (npm 11.20).
       - name: Stage release to npm
         run: |
           npm install -g npm@latest
-          npm stage publish
+          VERSION=$(node -p "require('./package.json').version")
+          case "$VERSION" in
+            *-*) TAG=${VERSION#*-}; TAG=${TAG%%.*} ;;
+            *) TAG=latest ;;
+          esac
+          echo "Staging $VERSION under the $TAG dist-tag"
+          npm stage publish --tag "$TAG"
